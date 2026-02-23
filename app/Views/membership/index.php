@@ -21,7 +21,8 @@ $layout = 'main';
 
         <h2 class="title is-4">Membership Levels &amp; Dues</h2>
 
-        <div class="table-container">
+        <!-- desktop view: scrollable table -->
+        <div class="table-container is-hidden-mobile">
             <table class="table is-fullwidth is-striped is-hoverable">
                 <thead>
                     <tr>
@@ -73,6 +74,34 @@ $layout = 'main';
                     </tr>
                 </tbody>
             </table>
+        </div>
+
+        <!-- mobile view: stacked cards -->
+        <div class="columns is-multiline is-hidden-tablet">
+            <?php
+                // define an array to iterate for cards
+                $types = [
+                    ['label' => 'Single', 'dues' => '$698.88', 'tax' => '$750'],
+                    ['label' => 'Couple', 'dues' => '$1,107.01', 'tax' => '$1,200'],
+                    ['label' => 'Reduced Single *', 'dues' => '$369', 'tax' => '$400'],
+                    ['label' => 'Reduced Couple *', 'dues' => '$691.88', 'tax' => '$750'],
+                    ['label' => "Lifetime Single/Couple<br><small>(Only 9 remaining)</small>", 'dues' => '$6,688 / $10,609', 'tax' => '$7,250 / $11,500'],
+                    ['label' => 'Junior (Under 18 years old)', 'dues' => '$59.96', 'tax' => '$65'],
+                    ['label' => 'College (18 – 24 years old)<br><small>(Must be enrolled in college)</small>', 'dues' => '$110.70', 'tax' => '$120'],
+                    ['label' => 'Young Adult (19 – 30 years old)', 'dues' => '$369', 'tax' => '$400'],
+                ];
+                foreach ($types as $t):
+            ?>
+                <div class="column is-full">
+                    <div class="card">
+                        <div class="card-content">
+                            <p class="title is-5"><?= $t['label'] ?></p>
+                            <p class="subtitle is-6">Dues: <?= $t['dues'] ?></p>
+                            <p class="subtitle is-6">With tax: <?= $t['tax'] ?></p>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
         </div>
 
         <div class="content" style="max-width:820px;margin:2rem auto;text-align:left;">
