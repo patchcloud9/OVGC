@@ -2,17 +2,11 @@
 $layout = 'main';
 ?>
 
-<section class="hero is-dark subpage-hero">
-    <div class="hero-body">
-        <div class="container">
-            <h1 class="title">
-                <i class="fas fa-envelope"></i> <?= e($title ?? 'Contact') ?>
-            </h1>
-            <p class="subtitle">
-                Get in touch with us
-            </p>
-        </div>
-    </div>
+<!-- top map (replace coordinates with actual club location) -->
+<section class="map-container">
+    <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.019611501056!2d-120.34046858468103!3d48.469225679266834!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x540b2de9b5f3aef3%3A0x123456789abcdef!2sOkanogan%20Valley%20Golf%20Course!5e0!3m2!1sen!2sus!4v1698000000000"
+        width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
 </section>
 
 <section class="section">
