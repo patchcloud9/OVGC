@@ -314,10 +314,15 @@ p {
     font-size: 1.05rem;
 }
 
-/* increase vertical padding on brand items to compensate */
+/* increase vertical padding on brand items to compensate at top */
 .navbar.is-transparent-hero .navbar-brand .navbar-item {
     padding-top: 1.2rem;
     padding-bottom: 1.2rem;
+}
+/* shrink brand padding when scrolled */
+.navbar.is-scrolled .navbar-brand .navbar-item {
+    padding-top: 0.75rem !important;
+    padding-bottom: 0.75rem !important;
 }
 
 /* make hamburger a bit larger and ensure it stays centered within
