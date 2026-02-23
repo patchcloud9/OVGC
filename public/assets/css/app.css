@@ -260,8 +260,9 @@ p {
 }
 
 /* enlarge brand/logo */
-.navbar.is-transparent-hero .navbar-brand .navbar-item img {
-    max-height: 52px; /* make logo a bit bigger */
+.navbar.is-transparent-hero .navbar-brand .navbar-item img,
+.navbar-item.logo-text .site-logo {
+    max-height: 60px; /* even larger logo */
 }
 
 /* logo centering and scaling */
