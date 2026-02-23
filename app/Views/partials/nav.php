@@ -21,18 +21,15 @@ try {
             $logo = theme_setting('logo_path');
             $siteName = theme_setting('site_name');
             ?>
-            <a class="navbar-item has-text-weight-bold" href="/">
+            <a class="navbar-item has-text-weight-bold logo-text" href="/">
                 <?php if ($logo): ?>
                     <!-- logo slightly larger than before -->
-                    <img src="<?= e($logo) ?>" alt="<?= APP_NAME ?>" style="max-height: 44px; width: auto;">
+                    <img class="site-logo" src="<?= e($logo) ?>" alt="<?= APP_NAME ?>">
                 <?php else: ?>
                     <?= APP_NAME ?>
                 <?php endif; ?>
-                <!-- Hard‑coded site name displayed in two parts so we can tweak spacing -->
-                <span class="site-title ml-2" style="font-family: 'Playfair Display', serif; font-size: 1.1rem; line-height:1.1; letter-spacing: 0.02em; display:block;">
-                    <span class="line1" style="display:block; margin-left:-0.25rem;">kanogan Valley</span>
-                    <span class="line2" style="display:block; padding-left:0.6rem;">Golf Course</span>
-                </span>
+                <!-- single-line text; logo acts as the "O" -->
+                <span class="site-title ml-2">kanogan&nbsp;Valley&nbsp;Golf&nbsp;Course</span>
             </a>
             
             <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="mainNavbar">

@@ -263,6 +263,24 @@ p {
 .navbar.is-transparent-hero .navbar-brand .navbar-item img {
     max-height: 48px; /* slightly larger for transparency state */
 }
+
+/* new logo/text one-line layout */
+.navbar-item.logo-text {
+    display: flex;
+    align-items: flex-end; /* put text at bottom of logo */
+}
+.navbar-item.logo-text .site-logo {
+    max-height: 44px; /* consistent with earlier value */
+    width: auto;
+}
+.navbar-item.logo-text .site-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    display: inline-block;
+}
+
 .navbar.is-transparent-hero .navbar-brand .navbar-item span {
     font-size: 1.3rem; /* slightly larger site name */
 }
