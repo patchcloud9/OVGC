@@ -23,15 +23,15 @@ try {
             ?>
             <a class="navbar-item has-text-weight-bold" href="/">
                 <?php if ($logo): ?>
-                    <!-- logo downsized 25% (52px → 39px) -->
-                    <img src="<?= e($logo) ?>" alt="<?= APP_NAME ?>" style="max-height: 39px; width: auto;">
+                    <!-- logo slightly larger than before -->
+                    <img src="<?= e($logo) ?>" alt="<?= APP_NAME ?>" style="max-height: 44px; width: auto;">
                 <?php else: ?>
                     <?= APP_NAME ?>
                 <?php endif; ?>
                 <!-- Hard‑coded site name displayed in two parts so we can tweak spacing -->
                 <span class="site-title ml-2" style="font-family: 'Playfair Display', serif; font-size: 1.1rem; line-height:1.1; letter-spacing: 0.02em; display:block;">
                     <span class="line1" style="display:block; margin-left:-0.25rem;">kanogan Valley</span>
-                    <span class="line2" style="display:block; padding-left:0.45rem;">Golf Course</span>
+                    <span class="line2" style="display:block; padding-left:0.6rem;">Golf Course</span>
                 </span>
             </a>
             
