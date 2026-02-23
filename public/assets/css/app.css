@@ -280,6 +280,17 @@ p {
     padding-bottom: 1.2rem;
 }
 
+/* make hamburger a bit larger and keep it vertically centered */
+.navbar.is-transparent-hero .navbar-burger {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+.navbar.is-transparent-hero .navbar-burger span {
+    /* scale up the three lines for better tap targets */
+    transform: scale(1.25);
+    transform-origin: center;
+}
+
 /* Scrolled state — solid white */
 .navbar.is-transparent-hero.is-scrolled {
     background-color: #ffffff !important;
