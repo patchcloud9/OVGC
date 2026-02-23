@@ -254,3 +254,23 @@ window.addEventListener('pageshow', function(e) {
 
     });
 })();
+
+/* Transparent nav scroll effect — activates only on pages with a hero */
+document.addEventListener('DOMContentLoaded', function () {
+    const navbar = document.querySelector('.navbar');
+    const hero   = document.querySelector('.hero');
+    if (!navbar || !hero) return;
+
+    navbar.classList.add('is-transparent-hero');
+
+    function onScroll() {
+        if (window.scrollY > 50) {
+            navbar.classList.add('is-scrolled');
+        } else {
+            navbar.classList.remove('is-scrolled');
+        }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll(); // run once on load in case page is already scrolled
+});

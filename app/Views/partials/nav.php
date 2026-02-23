@@ -23,12 +23,12 @@ try {
             ?>
             <a class="navbar-item has-text-weight-bold" href="/">
                 <?php if ($logo): ?>
-                    <img src="<?= e($logo) ?>" alt="<?= APP_NAME ?>" style="max-height: 40px;">
+                    <img src="<?= e($logo) ?>" alt="<?= APP_NAME ?>" style="max-height: 52px; width: auto;">
                 <?php else: ?>
                     <?= APP_NAME ?>
                 <?php endif; ?>
                 <?php if ($siteName): ?>
-                    <span class="ml-2"><?= e($siteName) ?></span>
+                    <span class="ml-2" style="font-family: 'Playfair Display', serif; font-size: 1.1rem; letter-spacing: 0.02em;"><?= e($siteName) ?></span>
                 <?php endif; ?>
             </a>
             

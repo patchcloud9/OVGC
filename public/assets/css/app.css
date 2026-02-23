@@ -243,3 +243,35 @@ h1, h2, h3, h4, h5, h6,
 p {
     line-height: 1.85;
 }
+
+/* ============================================
+   Transparent nav scroll effect
+   ============================================ */
+
+/* Initial state — transparent over hero */
+.navbar.is-transparent-hero {
+    background-color: transparent !important;
+    background-image: none !important;
+    box-shadow: none;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Scrolled state — solid white */
+.navbar.is-transparent-hero.is-scrolled {
+    background-color: #ffffff !important;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Switch nav text to green when on white background */
+.navbar.is-transparent-hero.is-scrolled .navbar-item,
+.navbar.is-transparent-hero.is-scrolled .navbar-link {
+    color: #2E6B3E !important;
+}
+
+.navbar.is-transparent-hero.is-scrolled .navbar-burger span {
+    background-color: #2E6B3E !important;
+}
+
+.navbar.is-transparent-hero.is-scrolled .navbar-link::after {
+    border-color: #2E6B3E !important;
+}
