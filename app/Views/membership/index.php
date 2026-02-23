@@ -47,6 +47,7 @@ $layout = 'main';
                 <div class="column is-one-third">
                     <div class="box has-text-centered">
                         <h3 class="title is-4 mt-3"><?= e($title) ?></h3>
+                        <p class="subtitle is-6 has-text-grey">*rates + tax</p>
                         <table class="table is-fullwidth is-narrow is-striped">
                             <tbody>
                                 <?php foreach ($items as $row): ?>
