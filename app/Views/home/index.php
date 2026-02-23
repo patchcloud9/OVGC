@@ -58,7 +58,7 @@ if (!empty($settings['hero_background_image'])) {
                     </div>
                     <?php if (!empty($settings['card1_button_text'])): ?>
                     <div class="card-footer mt-4">
-                        <a href="<?= e($settings['card1_button_link'] ?? '/about') ?>" class="button is-primary is-small">
+                        <a href="<?= e($settings['card1_button_link'] ?? '/membership') ?>" class="button is-primary is-small">
                             <?= e($settings['card1_button_text']) ?>
                         </a>
                     </div>
@@ -85,7 +85,7 @@ if (!empty($settings['hero_background_image'])) {
                     </div>
                     <?php if (!empty($settings['card2_button_text'])): ?>
                     <div class="card-footer mt-4">
-                        <a href="<?= e($settings['card2_button_link'] ?? '/about') ?>" class="button is-primary is-small">
+                        <a href="<?= e($settings['card2_button_link'] ?? '/membership') ?>" class="button is-primary is-small">
                             <?= e($settings['card2_button_text']) ?>
                         </a>
                     </div>
@@ -112,7 +112,7 @@ if (!empty($settings['hero_background_image'])) {
                     </div>
                     <?php if (!empty($settings['card3_button_text'])): ?>
                     <div class="card-footer mt-4">
-                        <a href="<?= e($settings['card3_button_link'] ?? '/about') ?>" class="button is-primary is-small">
+                        <a href="<?= e($settings['card3_button_link'] ?? '/membership') ?>" class="button is-primary is-small">
                             <?= e($settings['card3_button_text']) ?>
                         </a>
                     </div>
