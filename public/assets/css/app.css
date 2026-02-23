@@ -262,16 +262,28 @@ p {
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
 }
 
-/* Switch nav text to green when on white background */
+/* Switch nav text to primary color when on white background */
 .navbar.is-transparent-hero.is-scrolled .navbar-item,
 .navbar.is-transparent-hero.is-scrolled .navbar-link {
-    color: #2E6B3E !important;
+    color: var(--primary-color) !important;
 }
 
 .navbar.is-transparent-hero.is-scrolled .navbar-burger span {
-    background-color: #2E6B3E !important;
+    background-color: var(--primary-color) !important;
 }
 
 .navbar.is-transparent-hero.is-scrolled .navbar-link::after {
-    border-color: #2E6B3E !important;
+    border-color: var(--primary-color) !important;
+}
+
+/* Hover state when scrolled — keep text visible on white nav */
+.navbar.is-transparent-hero.is-scrolled .navbar-item:hover,
+.navbar.is-transparent-hero.is-scrolled .navbar-link:hover {
+    color: var(--primary-color) !important;
+    background-color: rgba(0, 0, 0, 0.04) !important;
+}
+
+/* Hero bleeds up behind the fixed transparent nav */
+.content-wrapper > .hero {
+    margin-top: -52px;
 }
