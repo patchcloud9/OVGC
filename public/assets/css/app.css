@@ -397,7 +397,14 @@ p {
     background-color: rgba(0, 0, 0, 0.04) !important;
 }
 
-/* Hero bleeds up behind the fixed transparent nav */
-.content-wrapper > .hero {
+/* Hero bleeds up behind the fixed transparent nav; only apply when nav has transparency class */
+.navbar.is-transparent-hero + .content-wrapper > .hero,
+.navbar.is-transparent-hero ~ .content-wrapper > .hero {
     margin-top: -52px;
+}
+
+/* ensure normal flow on pages without transparent nav */
+.navbar:not(.is-transparent-hero) + .content-wrapper > .hero,
+.navbar:not(.is-transparent-hero) ~ .content-wrapper > .hero {
+    margin-top: 0;
 }
