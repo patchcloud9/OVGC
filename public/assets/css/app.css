@@ -403,8 +403,10 @@ p {
     margin-top: -52px;
 }
 
-/* ensure normal flow on pages without transparent nav */
+/* ensure hero sits below the fixed navbar when it's opaque
+   (use same offset as the body padding, which is 52px when headerStyle=fixed) */
 .navbar:not(.is-transparent-hero) + .content-wrapper > .hero,
 .navbar:not(.is-transparent-hero) ~ .content-wrapper > .hero {
-    margin-top: 0;
+    margin-top: 52px;
 }
+
