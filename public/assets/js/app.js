@@ -255,22 +255,36 @@ window.addEventListener('pageshow', function(e) {
     });
 })();
 
-/* Transparent nav scroll effect — activates only on pages with a hero */
+/* Transparent nav scroll effect — activates only on pages with a hero.
+   If the hero is plain white (or has no background at all) we skip it so the
+   menu remains visible at the top of the page.  The presence of a
+   background-image or a non‑white color will still trigger transparency. */
 document.addEventListener('DOMContentLoaded', function () {
     const navbar = document.querySelector('.navbar');
     const hero   = document.querySelector('.hero');
     if (!navbar || !hero) return;
 
-    navbar.classList.add('is-transparent-hero');
+    // determine whether the hero background is meaningful
+    const computed = window.getComputedStyle(hero);
+    const bgColor  = computed.backgroundColor || '';
+    const bgImage  = computed.backgroundImage || '';
 
-    function onScroll() {
-        if (window.scrollY > 50) {
-            navbar.classList.add('is-scrolled');
-        } else {
-            navbar.classList.remove('is-scrolled');
+    const isWhite = bgColor === 'rgb(255, 255, 255)' || bgColor === 'rgba(255, 255, 255, 1)' || bgColor === 'transparent';
+    const hasImage = bgImage && bgImage !== 'none';
+
+    if (hasImage || !isWhite) {
+        // only add the class if the hero isn’t just a white/transparent block
+        navbar.classList.add('is-transparent-hero');
+
+        function onScroll() {
+            if (window.scrollY > 50) {
+                navbar.classList.add('is-scrolled');
+            } else {
+                navbar.classList.remove('is-scrolled');
+            }
         }
-    }
 
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll(); // run once on load in case page is already scrolled
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll(); // run once on load in case page is already scrolled
+    }
 });
