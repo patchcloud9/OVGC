@@ -5,7 +5,7 @@ $layout = 'main';
 <!-- top map (replace coordinates with actual club location) -->
 <section class="map-container">
     <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.019611501056!2d-120.34046858468103!3d48.469225679266834!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x540b2de9b5f3aef3%3A0x123456789abcdef!2sOkanogan%20Valley%20Golf%20Course!5e0!3m2!1sen!2sus!4v1698000000000"
+        src="https://www.google.com/maps/place/Okanogan+Valley+Golf+Club/@48.3685257,-119.5831589,13z/data=!4m6!3m5!1s0x549cea2b0d7cf30f:0x3a7f09b5cf8f42c4!8m2!3d48.3952102!4d-119.5804748!16s%2Fg%2F1tzlypct?entry=ttu&g_ep=EgoyMDI2MDIxOC4wIKXMDSoASAFQAw%3D%3D"
         width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
 </section>
 
