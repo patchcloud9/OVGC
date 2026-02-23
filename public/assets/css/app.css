@@ -404,9 +404,14 @@ p {
 }
 
 /* ensure hero sits below the fixed navbar when it's opaque
-   (offset reduced to 30px for a smaller bar) */
+   (offset reduced to 25px for a smaller bar) */
 .navbar:not(.is-transparent-hero) + .content-wrapper > .hero,
 .navbar:not(.is-transparent-hero) ~ .content-wrapper > .hero {
-    margin-top: 30px;
+    margin-top: 25px;
+}
+
+/* non-home nav should be solid rather than alpha */
+.navbar:not(.is-transparent-hero) {
+    background-color: var(--navbar-color) !important;
 }
 
