@@ -404,9 +404,9 @@ p {
 }
 
 /* ensure hero sits below the fixed navbar when it's opaque
-   (use same offset as the body padding, which is 52px when headerStyle=fixed) */
+   (offset reduced to 30px for a smaller bar) */
 .navbar:not(.is-transparent-hero) + .content-wrapper > .hero,
 .navbar:not(.is-transparent-hero) ~ .content-wrapper > .hero {
-    margin-top: 52px;
+    margin-top: 30px;
 }
 
