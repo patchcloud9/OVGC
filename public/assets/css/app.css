@@ -245,6 +245,16 @@ h1, h2, h3, h4, h5, h6,
     border-radius: 6px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
+/* subtle colored headers for membership group cards */
+.box.has-text-centered h3.title {
+    display: block;           /* ensure header row spans entire box */
+    width: 100%;
+    background-color: #f0f0f0; /* slightly more visible than plain white */
+    padding: 0.75rem 0;
+    margin: -1rem -1rem 1rem;   /* stretch to edges and add bottom spacing */
+    border-top-left-radius: 6px; /* match box rounding */
+    border-top-right-radius: 6px;
+}
 @media (max-width: 768px) {
     .membership-card .card-content {
         padding: 1.5rem;
