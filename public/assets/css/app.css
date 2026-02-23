@@ -210,3 +210,36 @@
 @media (hover: none) and (pointer: coarse) {
     .navbar-item.has-dropdown.is-hoverable:hover:not(.is-active) > .navbar-dropdown { display: none; }
 }
+
+/* ============================================
+   OVGC Base Styles
+   ============================================ */
+
+/* Font stack */
+body {
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    color: #2c2c2c;
+}
+
+h1, h2, h3, h4, h5, h6,
+.title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+}
+
+.subtitle {
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.03em;
+}
+
+/* Slightly more generous section breathing room */
+.section {
+    padding: 4rem 1.5rem;
+}
+
+/* Airy paragraph text */
+p {
+    line-height: 1.85;
+}

@@ -25,5 +25,7 @@ composer.lock
 
 # Local environment and uploads
 .env.local
-.env
 /public/uploads/**
+
+# Config Files
+/config/config.php
