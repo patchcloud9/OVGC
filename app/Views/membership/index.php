@@ -118,6 +118,17 @@ $layout = 'main';
 
         <div class="content" style="max-width:820px;margin:2rem auto;text-align:left;">
             <h2 class="title is-4">Why Join?</h2>
+
+            <h3 class="subtitle is-5">All members enjoy:</h3>
+            <ul>
+                <li>10% off Clubhouse purchases (excluding alcohol)</li>
+                <li>(3)&nbsp;Free 18‑Hole Rounds for a guest of a full Single or Couples member ($105 value)</li>
+                <li>(1)&nbsp;Free 18‑Hole Round for a guest of all other members</li>
+                <li>Juniors golf free when accompanied by a Single, Couples, or Young Adult member</li>
+                <li>Free 18‑Hole Round at Bear Creek Golf Course in Winthrop, WA</li>
+                <li>MEMBERSHIP PROMOTION: For every new member you recruit in 2025 you receive a $50 reduction on your 2026 dues; all other memberships receive $25 reduction (excluding Junior and College)</li>
+            </ul>
+
             <p>
                 As a member of OVGC you'll be part of a vibrant community of gardeners,
                 learners, and advocates for sustainable growing. Membership helps support
