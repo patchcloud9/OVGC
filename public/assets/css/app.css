@@ -403,12 +403,23 @@ p {
     margin-top: -52px;
 }
 
-/* membership page hero reduced bottom padding and tighter next-section */
-.membership-hero .hero-body {
-    padding-bottom: 1.5rem; /* default 3rem, cut in half */
+/* subpage hero tweaks (applies to any non-homepage hero) */
+.subpage-hero .hero-body {
+    padding-bottom: 1.5rem; /* reduce space under hero */
 }
-.membership-hero + .section {
-    padding-top: 2rem; /* default 4rem */
+.subpage-hero + .section {
+    padding-top: 2rem;
+}
+
+/* nav items should be bold once the bar is compact (i.e. on subpages or scrolled) */
+.navbar.is-scrolled .navbar-item,
+.navbar.is-scrolled .navbar-link {
+    font-weight: 600;
+}
+
+/* make logo slightly larger when scrolled/compact to mirror homepage fixed state */
+.navbar.is-scrolled .navbar-item.logo-text .site-logo {
+    max-height: 50px; /* a tad bigger than default small size */
 }
 
 /* ensure hero sits below the fixed navbar when it's opaque
