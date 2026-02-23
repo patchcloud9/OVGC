@@ -75,9 +75,6 @@ try {
                     <?php endif; ?>
                 <?php endforeach; ?>
 
-                <!-- Static Membership Link -->
-                <a class="navbar-item" href="/membership">Membership</a>
-
                 <!-- User Menu (Always System-Managed) -->
                 <?php if (is_authenticated()): ?>
                     <?php $user = auth_user(); ?>
