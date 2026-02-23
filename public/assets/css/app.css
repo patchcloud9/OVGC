@@ -264,38 +264,29 @@ p {
     max-height: 48px; /* slightly larger for transparency state */
 }
 
-/* new logo/text one-line layout */
+/* logo centering and scaling */
 .navbar-item.logo-text {
     display: flex;
-    align-items: flex-end; /* put text at bottom of logo */
+    align-items: center;
+    justify-content: center;
     transition: transform 0.3s ease;
 }
 .navbar-item.logo-text .site-logo {
-    max-height: 44px; /* consistent with earlier value */
+    max-height: 44px;
     width: auto;
 }
-.navbar-item.logo-text .site-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.1rem;
-    line-height: 1;
-    letter-spacing: 0.02em;
-    display: inline-block;
-    margin-left: -0.15rem; /* pull K closer to logo */
-    margin-top: -0.1rem; /* lift text slightly */
-}
 
-/* enlarge wrapper (logo+text) when nav is transparent and page is at top */
+/* scale only the logo/text wrapper when transparent
+   (menu items unaffected) */
 .navbar.is-transparent-hero .navbar-item.logo-text {
     transform: scale(2);
-    transform-origin: left bottom;
+    transform-origin: center center;
 }
-
-/* when scrolled, return to normal size */
 .navbar.is-transparent-hero.is-scrolled .navbar-item.logo-text {
     transform: scale(1);
 }
 
-/* make navbar taller when at top so the white menu background is double size */
+/* double navbar padding when at top */
 .navbar.is-transparent-hero {
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
@@ -303,6 +294,20 @@ p {
 .navbar.is-transparent-hero.is-scrolled {
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
+}
+
+/* ensure navbar-brand is centered and burger stays left */
+.navbar-brand {
+    position: absolute;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.navbar-brand .navbar-burger {
+    position: absolute;
+    left: 1rem;
 }
 .navbar.is-transparent-hero .navbar-brand .navbar-item span {
     font-size: 1.3rem; /* slightly larger site name */

@@ -28,8 +28,10 @@ try {
                 <?php else: ?>
                     <?= APP_NAME ?>
                 <?php endif; ?>
-                <!-- single-line text; logo acts as the "O" -->
+                <!-- site-title removed for now; text not needed -->
+                <!--
                 <span class="site-title ml-2">kanogan&nbsp;Valley&nbsp;Golf&nbsp;Course</span>
+                -->
             </a>
             
             <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="mainNavbar">
