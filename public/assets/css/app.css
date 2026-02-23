@@ -297,11 +297,6 @@ p {
     padding-bottom: 0.25rem !important;
 }
 
-/* keep the earlier rule for transparent-hero if needed */
-.navbar.is-transparent-hero {
-    /* same as above, but general rule handles it too */
-}
-
 
 .navbar.is-transparent-hero .navbar-brand .navbar-item span {
     font-size: 1.3rem; /* slightly larger site name */
