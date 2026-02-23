@@ -261,7 +261,7 @@ p {
 
 /* enlarge brand/logo */
 .navbar.is-transparent-hero .navbar-brand .navbar-item img {
-    max-height: 48px; /* slightly larger for transparency state */
+    max-height: 52px; /* make logo a bit bigger */
 }
 
 /* logo centering and scaling */
@@ -286,14 +286,14 @@ p {
     transform: scale(1);
 }
 
-/* navbar 25% taller when at top */
+/* navbar height: keep full size when at top (no extra padding), shrink on scroll */
 .navbar.is-transparent-hero {
-    padding-top: 1.25rem;
-    padding-bottom: 1.25rem;
-}
-.navbar.is-transparent-hero.is-scrolled {
     padding-top: 1rem;
     padding-bottom: 1rem;
+}
+.navbar.is-transparent-hero.is-scrolled {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
 }
 
 
