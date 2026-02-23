@@ -289,6 +289,8 @@ p {
     padding: 1rem; /* bump hit area */
     height: auto;
     align-self: center;
+    /* nudge upward to align with the site-name baseline */
+    margin-top: -0.25rem;
 }
 .navbar.is-transparent-hero .navbar-burger span {
     display: block;
