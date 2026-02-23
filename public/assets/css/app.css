@@ -293,8 +293,8 @@ p {
     padding-bottom: 1rem;
 }
 .navbar.is-scrolled {
-    padding-top: 0.75rem !important;
-    padding-bottom: 0.75rem !important;
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
 }
 
 /* keep the earlier rule for transparent-hero if needed */
@@ -321,8 +321,8 @@ p {
 }
 /* shrink brand padding when scrolled */
 .navbar.is-scrolled .navbar-brand .navbar-item {
-    padding-top: 0.75rem !important;
-    padding-bottom: 0.75rem !important;
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
 }
 
 /* make hamburger a bit larger and ensure it stays centered within
