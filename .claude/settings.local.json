@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nFix\\(nav\\): resolve dropdown bugs on desktop and mobile\n\n- Fix caret hidden by display:none !important conflict \\(add display:block !important override\\)\n- Remove duplicate conflicting caret definitions \\(CSS border-triangle vs Unicode glyph\\)\n- Remove conflicting dropdown animation \\(max-height:0 overriding opacity/transform\\)\n- Move desktop hover styles out of mobile-only media query \\(nested min-width:1024 inside max-width:1023 never matched\\)\n- Add is-hoverable to Test Menu dropdown for desktop hover-to-open\n- Remove debug outlines\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git push:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nFix\\(nav\\): mobile drawer expansion, invisible text, and desktop green flash\n\n- Mobile drawer: pointer-events:none when closed, auto when open \\(prevents\n  off-screen drawer from intercepting taps near the burger button\\)\n- Mobile dropdown: max-height:0 + overflow:hidden by default to prevent\n  Bulma''s is-hoverable from expanding dropdowns on page load\n- Dropdown text: add !important to dark color \\(#222/#4a4a4a\\) so main.php''s\n  blanket white navbar-item color doesn''t make text invisible on white bg\n- Desktop: override Bulma''s :focus/:active green \\(#00b89c\\) on navbar-link\n  buttons, not just :hover and .is-active\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git commit:*)",
+      "Bash(where:*)"
+    ]
+  }
+}

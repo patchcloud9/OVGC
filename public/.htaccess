@@ -1,0 +1,16 @@
+# Enable URL rewriting
+RewriteEngine On
+
+# Handle Authorization Header (useful for API tokens)
+RewriteCond %{HTTP:Authorization} .
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+# If the requested file exists, serve it directly (CSS, JS, images, etc.)
+RewriteCond %{REQUEST_FILENAME} !-f
+# If the requested directory exists, serve it directly
+RewriteCond %{REQUEST_FILENAME} !-d
+# Otherwise, redirect everything to index.php
+RewriteRule ^(.*)$ index.php [QSA,L]
+
+# QSA = Query String Append (keeps ?foo=bar in the URL)
+# L   = Last rule (stop processing rules after this)

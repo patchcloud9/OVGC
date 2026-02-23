@@ -1,0 +1,212 @@
+/**
+ * Custom Application Styles
+ * 
+ * Add your custom CSS here.
+ * Bulma is loaded via CDN, so you can use all Bulma classes.
+ */
+
+/* Utility: screen-reader only helper */
+.sr-only { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+/* Example: Custom styles */
+.content-wrapper {
+    min-height: calc(100vh - 200px);
+}
+
+/* Add your styles below */
+
+/* Homepage equal-height cards 🔧 */
+.home-cards .columns { align-items: stretch; }
+.home-cards .column { display: flex; }
+.home-cards .column .box { flex: 1 1 auto; display: flex; flex-direction: column; min-height: 0; }
+/* Ensure card body can hold ~3 lines of text; adjust as needed */
+.home-cards .column .box .card-body { flex: 1 1 auto; min-height: 7.5rem; display:flex; flex-direction:column; justify-content:flex-start; align-items: center; text-align: center; }
+.home-cards .column .box .card-footer { margin-top: auto; display:flex; justify-content:center; padding-top: 0.75rem; border-top: 1px solid #eee; }
+/* Small spacing tweak so footer does not stick to box edge */
+.home-cards .column .box .card-footer > a { margin-bottom: 0.25rem; border-radius: 6px; padding: .35rem .9rem; }
+
+/* Subtle hover lift for affordance */
+.home-cards .column .box { transition: transform .15s ease, box-shadow .15s ease; }
+.home-cards .column .box:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.05); }
+
+/* Mobile: allow content to flow naturally */
+@media (max-width: 768px) {
+    .home-cards .column { display:block; }
+    .home-cards .column .box { min-height: auto; }
+    .home-cards .column .box .card-body { min-height: auto; }
+}
+
+/* Button reset for dropdown headers (applies at all breakpoints) */
+.navbar-item.has-dropdown > button.navbar-link {
+    background: transparent;
+    border: none;
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    cursor: pointer;
+}
+
+/* Match Bulma's desktop dropdown caret color to navbar text */
+.navbar.is-primary .navbar-link::after {
+    border-color: var(--navbar-text-color) !important;
+}
+
+/* Remove any default active/highlighted state from navbar items */
+.navbar-menu a.navbar-item:not(.is-active),
+.navbar-menu .navbar-item:not(.is-active) {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+/* Remove Bulma's default first-child highlighting */
+.navbar-menu .navbar-end > a.navbar-item:first-child {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+/* Mobile slide-out navbar drawer 🔧 */
+@media (max-width: 1023px) {
+    .navbar-menu {
+        /* Bulma hides .navbar-menu by default on mobile; ensure it is visible for the drawer */
+        display: block;
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100vh;
+        width: 280px;
+        max-width: 85%;
+        background: var(--navbar-color);
+        color: var(--navbar-text-color);
+        transform: translateX(100%);
+        transition: transform .28s cubic-bezier(.22,.9,.33,1);
+        z-index: 100; /* must be above overlay */
+        padding-top: 4rem; /* leave room for navbar */
+        overflow-y: auto;
+        box-shadow: -8px 0 24px rgba(10,10,10,0.2);
+        will-change: transform;
+        pointer-events: none;
+    }
+    .navbar-menu.is-open {
+        transform: translateX(0);
+        pointer-events: auto;
+    }
+    .navbar-menu .navbar-end { display: block; padding: 1rem; }
+    /* Make items full-width blocks and avoid double-padding between .navbar-item and .navbar-link */
+    .navbar-menu .navbar-item {
+        display: block;
+        color: var(--navbar-text-color);
+        padding: 0;
+        border: none !important;
+        outline: none !important;
+    }
+    /* Direct anchor menu items (e.g., Home) */
+    .navbar-menu a.navbar-item {
+        display:block;
+        padding: .65rem 1rem;
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+    }
+    /* Dropdown header link */
+    .navbar-menu .navbar-item > .navbar-link { display: block; width: 100%; padding: .65rem 1rem; cursor:pointer; color: var(--navbar-text-color); position: relative; padding-right: 2.25rem; }
+    /* Mobile-specific: left-align text for button headers */
+    .navbar-menu .navbar-item.has-dropdown > .navbar-link { text-align: left; }
+    /* Remove any Bulma-provided pseudo caret so we control the caret rendering (avoids duplicates) */
+    .navbar .navbar-link::after { display: none !important; }
+    .navbar-item.has-dropdown > .navbar-link::before { display: none !important; }
+
+    /* Dropdown caret indicator (Unicode glyph — border:none overrides the global border-color rule) */
+    .navbar-item.has-dropdown > .navbar-link::after {
+        display: block !important;
+        content: '\25BC';
+        position: absolute;
+        right: .8rem;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: .65em;
+        opacity: .9;
+        transition: transform .15s ease;
+        color: var(--navbar-text-color);
+        border: none;
+        width: auto;
+        height: auto;
+    }
+    .navbar-item.has-dropdown.is-active > .navbar-link::after { transform: translateY(-50%) rotate(180deg); }
+
+    /* Dropdown is full-width and aligned with header. Use transform+opacity for animation to avoid clipping. */
+    /* max-height:0 + overflow:hidden prevents Bulma's is-hoverable from expanding dropdown by default on mobile */
+    .navbar-menu .navbar-dropdown {
+        position: relative;
+        background: #ffffff;
+        color: #222;
+        box-shadow: 0 6px 20px rgba(10,10,10,0.06);
+        border-radius: 6px;
+        padding: 0; /* inner items handle padding */
+        display: block;
+        opacity: 0;
+        max-height: 0;
+        overflow: hidden;
+        transform: translateY(-6px);
+        transition: opacity .18s ease, transform .18s ease, max-height .18s ease;
+        z-index: 105;
+        pointer-events: none;
+        margin-top: 0.25rem;
+        width: calc(100% - 2rem); /* account for 1rem horizontal padding of the menu */
+        margin-left: 1rem;
+    }
+    .navbar-item.has-dropdown.is-active > .navbar-dropdown {
+        display: block !important; /* override Bulma's mobile display:none AND the hover:none touch rule */
+        opacity: 1; transform: translateY(0); pointer-events: auto;
+        max-height: 500px; overflow: visible;
+    }
+
+    /* Dropdown items: full width and consistent padding */
+    /* color uses !important to override main.php's .navbar.is-primary .navbar-item color rule */
+    .navbar-dropdown a.navbar-item, .navbar-dropdown button.navbar-item {
+        color: #222 !important;
+        padding: .65rem 1rem;
+        display: block;
+        background: transparent;
+        border: none;
+        width: 100%;
+        text-align: left;
+    }
+
+    /* Ensure small footer spacing inside dropdown */
+    .navbar-dropdown .navbar-divider { display: block !important; margin: .5rem 0; border-color: rgba(0,0,0,0.15); }
+
+    /* Remove admin tag everywhere (defensive) */
+    .navbar-item .tag { display: none !important; }
+
+    /* Overlay */
+    .nav-overlay { display: none; position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.45); z-index:70; pointer-events: none; transition: opacity .2s ease, right .28s cubic-bezier(.22,.9,.33,1); opacity: 0; }
+    .nav-overlay.is-active { display:block; opacity: 1; pointer-events: auto; }
+
+    /* Prevent background scrolling when drawer is open */
+    body.nav-open { overflow: hidden; touch-action: none; }
+
+    /* spacing when username has a tag */
+    .navbar-item.has-dropdown .tag { margin-right: .5rem; }
+}
+
+/* Desktop: show dropdowns on hover and hide overlay */
+@media (min-width: 1024px) {
+    .navbar-item.has-dropdown:hover > .navbar-dropdown {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+        display: block;
+    }
+    .nav-overlay { display: none !important; }
+}
+
+/* Prevent hover from opening dropdowns on touch-only devices (but not when JS has toggled is-active) */
+@media (hover: none) and (pointer: coarse) {
+    .navbar-item.has-dropdown.is-hoverable:hover:not(.is-active) > .navbar-dropdown { display: none; }
+}
