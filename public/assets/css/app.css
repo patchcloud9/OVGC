@@ -283,10 +283,10 @@ p {
     transform: scale(1.5);
     transform-origin: left center;
 }
-.navbar.is-transparent-hero.is-scrolled .navbar-item.logo-text {
-    transform: scale(1);
+/* shrink even more when the bar gets scrolled */
+.navbar.is-scrolled .navbar-item.logo-text {
+    transform: scale(0.75) !important;
 }
-
 /* navbar height: full size at top (1rem padding); shrink on scroll even if transparent class is missing */
 .navbar {
     padding-top: 1rem;
