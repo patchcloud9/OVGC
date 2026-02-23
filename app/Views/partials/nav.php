@@ -28,14 +28,10 @@ try {
                 <?php else: ?>
                     <?= APP_NAME ?>
                 <?php endif; ?>
-                <!-- Hard-coded site name for now; dynamic setting commented out -->
-                <!--
-                <?php if ($siteName): ?>
-                    <span class="ml-2" style="font-family: 'Playfair Display', serif; font-size: 1.1rem; letter-spacing: 0.02em;"><?= e($siteName) ?></span>
-                <?php endif; ?>
-                -->
-                <span class="ml-2" style="font-family: 'Playfair Display', serif; font-size: 1.1rem; line-height:1.1; letter-spacing: 0.02em; display:block;">
-                    Kanogan Valley<br>Golf Course
+                <!-- Hard‑coded site name displayed in two parts so we can tweak spacing -->
+                <span class="site-title ml-2" style="font-family: 'Playfair Display', serif; font-size: 1.1rem; line-height:1.1; letter-spacing: 0.02em; display:block;">
+                    <span class="line1" style="display:block; margin-left:-0.25rem;">kanogan Valley</span>
+                    <span class="line2" style="display:block; padding-left:0.45rem;">Golf Course</span>
                 </span>
             </a>
             
