@@ -48,6 +48,13 @@ console.info('equalizeHomeCards() ready — call window.equalizeHomeCards() (ali
 document.addEventListener('DOMContentLoaded', function() {
     // console.log removed for production - enable only during development
     try { window.equalizeHomeCards(); } catch (e) { console.warn('equalizeHomeCards failed on DOMContentLoaded', e); }
+
+    // automatically shrink navbar on every page except the homepage
+    var path = window.location.pathname.replace(/\/+$/, ''); // remove trailing slash
+    if (path !== '' && path !== '/') {
+        var nav = document.querySelector('.navbar');
+        if (nav) nav.classList.add('is-scrolled');
+    }
 });
 
 window.addEventListener('load', function() {
