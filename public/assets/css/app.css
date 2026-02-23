@@ -290,7 +290,7 @@ p {
     height: auto;
     align-self: center;
     /* nudge upward to align with the site-name baseline */
-    margin-top: -0.35rem;
+    margin-top: -0.4rem;
 }
 .navbar.is-transparent-hero .navbar-burger span {
     display: block;
