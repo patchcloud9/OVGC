@@ -248,9 +248,10 @@ p {
    Transparent nav scroll effect
    ============================================ */
 
-/* Initial state — transparent over hero */
+/* Initial state — slightly translucent over hero; use the theme’s
+   navbar-color-alpha variable (75% opacity) instead of full transparency. */
 .navbar.is-transparent-hero {
-    background-color: transparent !important;
+    background-color: var(--navbar-color-alpha) !important;
     background-image: none !important;
     box-shadow: none;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
