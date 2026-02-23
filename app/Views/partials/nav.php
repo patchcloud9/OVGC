@@ -23,7 +23,8 @@ try {
             ?>
             <a class="navbar-item has-text-weight-bold" href="/">
                 <?php if ($logo): ?>
-                    <img src="<?= e($logo) ?>" alt="<?= APP_NAME ?>" style="max-height: 52px; width: auto;">
+                    <!-- logo downsized 25% (52px → 39px) -->
+                    <img src="<?= e($logo) ?>" alt="<?= APP_NAME ?>" style="max-height: 39px; width: auto;">
                 <?php else: ?>
                     <?= APP_NAME ?>
                 <?php endif; ?>

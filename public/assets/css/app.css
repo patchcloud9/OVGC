@@ -261,7 +261,7 @@ p {
 
 /* enlarge brand/logo */
 .navbar.is-transparent-hero .navbar-brand .navbar-item img {
-    max-height: 60px; /* up from 52px */
+    max-height: 45px; /* reduced 25% from previous 60px */
 }
 .navbar.is-transparent-hero .navbar-brand .navbar-item span {
     font-size: 1.3rem; /* slightly larger site name */
