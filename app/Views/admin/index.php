@@ -15,10 +15,6 @@
                     <span class="icon"><i class="fas fa-home"></i></span>
                     <span>Homepage</span>
                 </a>
-                <a href="/admin/about" class="button is-primary">
-                    <span class="icon"><i class="fas fa-user-circle"></i></span>
-                    <span>About</span>
-                </a>
                 <a href="/admin/gallery" class="button is-primary">
                     <span class="icon"><i class="fas fa-images"></i></span>
                     <span>Gallery</span>
