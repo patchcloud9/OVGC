@@ -301,13 +301,7 @@ function rgba_from_hex(string $hex, float $alpha = 1.0): string
                         }
                         ?>
 
-                        <?php if (is_authenticated()): ?>
-                            <?php if (is_admin()): ?>
-                                <li class="mt-2"><a href="/admin" class="has-text-light">Admin Panel</a></li>
-                            <?php endif; ?>
-                        <?php else: ?>
-                            <li class="mt-2"><a href="/login" class="has-text-light">Login</a></li>
-                        <?php endif; ?>
+
                     </ul>
                 </div>
                 

@@ -75,32 +75,7 @@ try {
                     <?php endif; ?>
                 <?php endforeach; ?>
 
-                <!-- User Menu (Always System-Managed) -->
-                <?php if (is_authenticated()): ?>
-                    <?php $user = auth_user(); ?>
-                    
-                    <div class="navbar-item has-dropdown is-hoverable">
-                        <button class="navbar-link"><?= e($user['name']) ?></button>
-                        <div class="navbar-dropdown is-right">
-                            <?php if (is_admin()): ?>
-                                <a class="navbar-item" href="/admin">
-                                    <span class="icon"><i class="fas fa-cog"></i></span>
-                                    <span>Admin Panel</span>
-                                </a>
-                            <?php endif; ?>
-                            <hr class="navbar-divider">
-                            <form method="POST" action="/logout">
-                                <?= csrf_field() ?>
-                                <button type="submit" class="navbar-item" style="width: 100%; border: none; background: none; cursor: pointer; justify-content: flex-start; display: flex; align-items: center; font-family: inherit; font-size: inherit; padding: 0.5rem 0.75rem;">
-                                    <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
-                                    <span>Logout</span>
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                <?php else: ?>
-                    <a class="navbar-item" href="/login">Log in</a>
-                <?php endif; ?>
+
             </div>
         </div>
     </div>
