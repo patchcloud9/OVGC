@@ -6,6 +6,21 @@ $secondaryColor = $theme['secondary_color'] ?? '#764ba2';
 $accentColor = $theme['accent_color'] ?? '#48c78e';
 $headerStyle = $theme['header_style'] ?? 'static';
 $cardStyle = $theme['card_style'] ?? 'default';
+
+// helper to convert a hex color to rgba string with given alpha
+function rgba_from_hex(string $hex, float $alpha = 1.0): string
+{
+    $hex = ltrim($hex, '#');
+    if (strlen($hex) === 3) {
+        $hex = $hex[0] . $hex[0]
+             . $hex[1] . $hex[1]
+             . $hex[2] . $hex[2];
+    }
+    $r = hexdec(substr($hex, 0, 2));
+    $g = hexdec(substr($hex, 2, 2));
+    $b = hexdec(substr($hex, 4, 2));
+    return "rgba($r,$g,$b,$alpha)";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,6 +60,8 @@ $cardStyle = $theme['card_style'] ?? 'default';
             --navbar-color: <?= e($theme['navbar_color'] ?? '#667eea') ?>;
             --navbar-hover-color: <?= e($theme['navbar_hover_color'] ?? '#ffffff') ?>;
             --navbar-text-color: <?= e($theme['navbar_text_color'] ?? '#ffffff') ?>;
+            /* semi‑transparent version for a 75%‑opaque background */
+            --navbar-color-alpha: <?= rgba_from_hex($theme['navbar_color'] ?? '#667eea', 0.75) ?>;
         }
         
         /* Hero gradient with primary color */
@@ -61,9 +78,11 @@ $cardStyle = $theme['card_style'] ?? 'default';
             <?php endif; ?>
         }
         
-        /* Navbar with custom background color */
+        /* Navbar with custom background color; use the alpha variant here so
+           the nav is slightly translucent by default.  The solid opaque value
+           is still available (e.g. .navbar.is-scrolled overrides it to white). */
         .navbar.is-primary {
-            background-color: var(--navbar-color);
+            background-color: var(--navbar-color-alpha);
             background-image: none;
         }
         
