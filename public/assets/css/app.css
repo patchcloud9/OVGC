@@ -268,7 +268,7 @@ p {
 .navbar-item.logo-text {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start; /* keep logo on left */
     transition: transform 0.3s ease;
 }
 .navbar-item.logo-text .site-logo {
@@ -279,36 +279,24 @@ p {
 /* scale only the logo/text wrapper when transparent
    (menu items unaffected) */
 .navbar.is-transparent-hero .navbar-item.logo-text {
-    transform: scale(2);
-    transform-origin: center center;
+    transform: scale(1.5);
+    transform-origin: left center;
 }
 .navbar.is-transparent-hero.is-scrolled .navbar-item.logo-text {
     transform: scale(1);
 }
 
-/* double navbar padding when at top */
+/* navbar 25% taller when at top */
 .navbar.is-transparent-hero {
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
 }
 .navbar.is-transparent-hero.is-scrolled {
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 }
 
-/* ensure navbar-brand is centered and burger stays left */
-.navbar-brand {
-    position: absolute;
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.navbar-brand .navbar-burger {
-    position: absolute;
-    left: 1rem;
-}
+
 .navbar.is-transparent-hero .navbar-brand .navbar-item span {
     font-size: 1.3rem; /* slightly larger site name */
 }
