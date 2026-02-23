@@ -33,7 +33,7 @@ return [
         // Home routes
         '/'                     => ['HomeController', 'index'],
         '/about'                => ['AboutController', 'index'],
-        '/contact'              => ['HomeController', 'contact'],
+        '/contact'              => ['ContactController', 'index'],
         '/purchase'             => ['PurchaseController', 'index'],
         '/membership'           => ['MembershipController', 'index'],
         
