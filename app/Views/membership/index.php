@@ -2,7 +2,7 @@
 $layout = 'main';
 ?>
 
-<section class="hero is-dark">
+<section class="hero is-dark membership-hero">
     <div class="hero-body">
         <div class="container">
             <h1 class="title">
