@@ -272,6 +272,7 @@ p {
 .navbar-item.logo-text .site-logo {
     max-height: 44px; /* consistent with earlier value */
     width: auto;
+    transition: transform 0.3s ease;
 }
 .navbar-item.logo-text .site-title {
     font-family: 'Playfair Display', serif;
@@ -279,8 +280,23 @@ p {
     line-height: 1;
     letter-spacing: 0.02em;
     display: inline-block;
+    margin-left: -0.15rem; /* pull K closer to logo */
+    margin-top: -0.1rem; /* lift text slightly */
+    transition: transform 0.3s ease;
 }
 
+/* enlarge logo and title when nav is transparent and page is at top */
+.navbar.is-transparent-hero .navbar-item.logo-text .site-logo,
+.navbar.is-transparent-hero .navbar-item.logo-text .site-title {
+    transform: scale(2);
+    transform-origin: left bottom;
+}
+
+/* when scrolled, return to normal size */
+.navbar.is-transparent-hero.is-scrolled .navbar-item.logo-text .site-logo,
+.navbar.is-transparent-hero.is-scrolled .navbar-item.logo-text .site-title {
+    transform: scale(1);
+}
 .navbar.is-transparent-hero .navbar-brand .navbar-item span {
     font-size: 1.3rem; /* slightly larger site name */
 }
