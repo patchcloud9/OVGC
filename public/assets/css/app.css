@@ -287,14 +287,19 @@ p {
     transform: scale(1);
 }
 
-/* navbar height: keep full size when at top (no extra padding), shrink on scroll */
-.navbar.is-transparent-hero {
+/* navbar height: full size at top (1rem padding); shrink on scroll even if transparent class is missing */
+.navbar {
     padding-top: 1rem;
     padding-bottom: 1rem;
 }
-.navbar.is-transparent-hero.is-scrolled {
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
+.navbar.is-scrolled {
+    padding-top: 0.75rem !important;
+    padding-bottom: 0.75rem !important;
+}
+
+/* keep the earlier rule for transparent-hero if needed */
+.navbar.is-transparent-hero {
+    /* same as above, but general rule handles it too */
 }
 
 
