@@ -280,16 +280,26 @@ p {
     padding-bottom: 1.2rem;
 }
 
-/* make hamburger a bit larger and keep it vertically centered */
+/* make hamburger a bit larger and ensure it stays centered within
+   the taller brand area */
+.navbar.is-transparent-hero .navbar-brand {
+    align-items: center;
+}
 .navbar.is-transparent-hero .navbar-burger {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    padding: 1rem; /* bump hit area */
+    height: auto;
+    align-self: center;
 }
 .navbar.is-transparent-hero .navbar-burger span {
-    /* scale up the three lines for better tap targets */
-    transform: scale(1.25);
-    transform-origin: center;
+    display: block;
+    background-color: currentColor;
+    width: 1.5rem;
+    height: 0.2rem;
+    margin: 0.3rem 0;
+    /* add !important to override Bulma defaults */
+    transform: none !important;
 }
+
 
 /* Scrolled state — solid white */
 .navbar.is-transparent-hero.is-scrolled {
