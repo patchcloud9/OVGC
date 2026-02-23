@@ -33,7 +33,6 @@ return [
         // Home routes
         '/'                     => ['HomeController', 'index'],
         '/contact'              => ['ContactController', 'index'],
-        '/purchase'             => ['PurchaseController', 'index'],
         '/membership'           => ['MembershipController', 'index'],
         
         // Authentication routes
@@ -51,7 +50,6 @@ return [
 
 
         // Purchase Page Settings (Admin Only)
-        '/admin/purchase'       => ['PurchaseController', 'edit', ['auth', 'role:admin']],
 
         // User Management (Admin Only)
         '/admin/users'          => ['UserController', 'index', ['auth', 'role:admin']],
@@ -101,7 +99,6 @@ return [
         '/admin/homepage/clear-bottom-image' => ['HomepageController', 'clearBottomImage', ['auth', 'role:admin', 'csrf']],
 
         // About Page Settings (Admin Only)
-        '/admin/purchase'       => ['PurchaseController', 'update', ['auth', 'role:admin', 'csrf']],
 
         // User Management (Admin Only)
         '/admin/users'          => ['UserController', 'store', ['auth', 'role:admin', 'csrf', 'rate-limit:user-creation,3,300']],

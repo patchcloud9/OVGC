@@ -23,10 +23,6 @@
                     <span class="icon"><i class="fas fa-images"></i></span>
                     <span>Gallery</span>
                 </a>
-                <a href="/admin/purchase" class="button is-primary">
-                    <span class="icon"><i class="fas fa-shopping-cart"></i></span>
-                    <span>Purchase</span>
-                </a>
             </div>
         </div>
 
