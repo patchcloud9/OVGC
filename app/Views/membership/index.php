@@ -39,27 +39,28 @@ $layout = 'main';
         </div>
 
         <?php
-            // grouped membership data for card layout
+            // grouped membership data for card layout (tax only)
             $groups = [
                 'Standard' => [
-                    ['Single', '$698.88', '$750'],
-                    ['Couple', '$1,107.01', '$1,200'],
-                    ['Reduced Single *', '$369', '$400'],
-                    ['Reduced Couple *', '$691.88', '$750'],
+                    ['Single', '$750'],
+                    ['Couple', '$1,200'],
+                    ['Reduced Single *', '$400'],
+                    ['Reduced Couple *', '$750'],
                 ],
                 'Lifetime' => [
-                    ['Lifetime Single', '$6,688', '$7,250'],
-                    ['Lifetime Couple', '$10,609', '$11,500'],
+                    ['Lifetime Single', '$7,250'],
+                    ['Lifetime Couple', '$11,500'],
                 ],
                 'Under 30' => [
-                    ['Junior (Under 18)', '$59.96', '$65'],
-                    ['College (18–24)', '$110.70', '$120'],
-                    ['Young Adult (19–30)', '$369', '$400'],
+                    ['Junior (Under 18)', '$65'],
+                    ['College (18–24)', '$120'],
+                    ['Young Adult (19–30)', '$400'],
                 ],
             ];
         ?>
 
-        <div class="columns is-multiline">
+        <div class="content" style="max-width:1000px;margin:2rem auto;text-align:left;">
+            <div class="columns is-multiline">
             <?php foreach ($groups as $title => $items): ?>
                 <div class="column is-one-third">
                     <div class="box has-text-centered">
@@ -71,7 +72,6 @@ $layout = 'main';
                                     <tr>
                                         <td><?= e($row[0]) ?></td>
                                         <td><?= e($row[1]) ?></td>
-                                        <td><?= e($row[2]) ?></td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
@@ -79,7 +79,7 @@ $layout = 'main';
                     </div>
                 </div>
             <?php endforeach; ?>
-        </div>
+        </div> <!-- close card container -->
 
         <div class="content" style="max-width:1000px;margin:2rem auto;text-align:left;">
             <p class="has-text-weight-semibold">
