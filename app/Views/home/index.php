@@ -9,7 +9,7 @@ if (!empty($settings['hero_background_image'])) {
 ?>
 
 <!-- Hero Section -->
-<section class="hero is-medium" style="<?= $heroStyle ?>; position: relative; min-height: 320px; background-attachment: scroll; overflow: hidden;">
+<section class="hero is-medium" style="<?= $heroStyle ?>; position: relative; min-height: 480px; background-attachment: scroll; overflow: hidden;">
     <!-- Flash Messages positioned at top of hero -->
     <div style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 800px; z-index: 10;">
         <?php require BASE_PATH . '/app/Views/partials/messages.php'; ?>
