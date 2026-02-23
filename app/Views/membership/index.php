@@ -93,11 +93,23 @@ $layout = 'main';
                 foreach ($types as $t):
             ?>
                 <div class="column is-full">
-                    <div class="card">
+                    <div class="card membership-card mb-4">
+                        <header class="card-header has-background-link">
+                            <p class="card-header-title has-text-white">
+                                <?= $t['label'] ?>
+                            </p>
+                        </header>
                         <div class="card-content">
-                            <p class="title is-5"><?= $t['label'] ?></p>
-                            <p class="subtitle is-6">Dues: <?= $t['dues'] ?></p>
-                            <p class="subtitle is-6">With tax: <?= $t['tax'] ?></p>
+                            <div class="content">
+                                <div class="columns is-mobile">
+                                    <div class="column has-text-weight-semibold">
+                                        Dues<br><?= $t['dues'] ?>
+                                    </div>
+                                    <div class="column has-text-weight-semibold">
+                                        With tax<br><?= $t['tax'] ?>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

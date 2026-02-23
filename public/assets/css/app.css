@@ -239,6 +239,21 @@ h1, h2, h3, h4, h5, h6,
     padding: 4rem 1.5rem;
 }
 
+/* membership card enhancements */
+.membership-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+@media (max-width: 768px) {
+    .membership-card .card-content {
+        padding: 1.5rem;
+    }
+    .membership-card .card-header {
+        border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+}
+
 /* Airy paragraph text */
 p {
     line-height: 1.85;
