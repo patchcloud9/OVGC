@@ -21,49 +21,58 @@ $layout = 'main';
 
         <h2 class="title is-4">Membership Levels &amp; Dues</h2>
 
-        <div class="columns is-multiline">
-            <div class="column is-one-third">
-                <div class="card">
-                    <div class="card-content">
-                        <p class="title is-5">Individual</p>
-                        <p class="subtitle is-6">$50 &ndash; per year</p>
-                        <ul>
-                            <li>Access to all club events</li>
-                            <li>Monthly newsletter</li>
-                            <li>10% discount on supplies</li>
-                            <li>Voting rights</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="column is-one-third">
-                <div class="card">
-                    <div class="card-content">
-                        <p class="title is-5">Family</p>
-                        <p class="subtitle is-6">$120 &ndash; per year</p>
-                        <ul>
-                            <li>All Individual benefits for two adults</li>
-                            <li>Children under 18 free</li>
-                            <li>Priority registration for workshops</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="column is-one-third">
-                <div class="card">
-                    <div class="card-content">
-                        <p class="title is-5">Corporate</p>
-                        <p class="subtitle is-6">$300 &ndash; per year</p>
-                        <ul>
-                            <li>All Family benefits</li>
-                            <li>Company listing on website</li>
-                            <li>Complimentary event space</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+        <div class="table-container">
+            <table class="table is-fullwidth is-striped is-hoverable">
+                <thead>
+                    <tr>
+                        <th>Membership Type</th>
+                        <th>Dues</th>
+                        <th>Dues with Tax</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Single</td>
+                        <td>$698.88</td>
+                        <td>$750</td>
+                    </tr>
+                    <tr>
+                        <td>Couple</td>
+                        <td>$1,107.01</td>
+                        <td>$1,200</td>
+                    </tr>
+                    <tr>
+                        <td>Reduced Single *</td>
+                        <td>$369</td>
+                        <td>$400</td>
+                    </tr>
+                    <tr>
+                        <td>Reduced Couple *</td>
+                        <td>$691.88</td>
+                        <td>$750</td>
+                    </tr>
+                    <tr>
+                        <td>Lifetime Single/Couple<br><small>(Only 9 remaining)</small></td>
+                        <td>$6,688 / $10,609</td>
+                        <td>$7,250 / $11,500</td>
+                    </tr>
+                    <tr>
+                        <td>Junior (Under 18 years old)</td>
+                        <td>$59.96</td>
+                        <td>$65</td>
+                    </tr>
+                    <tr>
+                        <td>College (18 – 24 years old)<br><small>(Must be enrolled in college)</small></td>
+                        <td>$110.70</td>
+                        <td>$120</td>
+                    </tr>
+                    <tr>
+                        <td>Young Adult (19 – 30 years old)</td>
+                        <td>$369</td>
+                        <td>$400</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
         <div class="content" style="max-width:820px;margin:2rem auto;text-align:left;">
