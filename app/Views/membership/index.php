@@ -130,9 +130,10 @@ $layout = 'main';
             </ul>
 
             <p>
-                As a member of OVGC you'll be part of a vibrant community of gardeners,
-                learners, and advocates for sustainable growing. Membership helps support
-                our programs, gardens, and educational outreach.
+                As a member of OVGC you'll join a welcoming community of golfers who share
+                a passion for the game and the beautiful course we call home. Your
+                membership supports course maintenance, club events, and junior programs,
+                keeping the greens in great shape for everyone.
             </p>
             <p>
                 Ready to become a member? <a href="/contact">Contact us</a> or visit our
