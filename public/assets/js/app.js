@@ -267,6 +267,10 @@ window.addEventListener('pageshow', function(e) {
    menu remains visible at the top of the page.  The presence of a
    background-image or a non‑white color will still trigger transparency. */
 document.addEventListener('DOMContentLoaded', function () {
+    // skip transparent‑hero behaviour on any page except the root
+    var path = window.location.pathname.replace(/\/+$/, '');
+    if (path !== '' && path !== '/') return;
+
     const navbar = document.querySelector('.navbar');
     const hero   = document.querySelector('.hero');
     if (!navbar || !hero) return;
