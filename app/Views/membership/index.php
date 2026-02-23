@@ -2,11 +2,11 @@
 $layout = 'main';
 ?>
 
-<section class="hero is-link">
+<section class="hero is-dark">
     <div class="hero-body">
         <div class="container">
             <h1 class="title">
-                <i class="fas fa-users"></i> <?= e($title ?? 'Membership') ?>
+                <i class="fas fa-users"></i> <?= e($title ?? 'Membership & Dues') ?>
             </h1>
             <p class="subtitle">
                 Join the OVGC community and enjoy exclusive benefits!
@@ -20,7 +20,6 @@ $layout = 'main';
         <?php require BASE_PATH . '/app/Views/partials/messages.php'; ?>
 
         <!-- benefits text above cards; heading moved above everything -->
-        <h2 class="title is-4">Membership Levels &amp; Dues</h2>
 
         <div class="content" style="max-width:1000px;margin:2rem auto;text-align:left;">
             <p>
