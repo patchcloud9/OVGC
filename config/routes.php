@@ -78,6 +78,14 @@ return [
         '/admin/gallery'        => ['GalleryController', 'adminIndex', ['auth', 'role:admin']],
         '/admin/gallery/(\d+)/edit' => ['GalleryController', 'edit', ['auth', 'role:admin']],
 
+        // Rate Groups (Admin Only)
+        '/admin/rates'                  => ['RateGroupController', 'index', ['auth', 'role:admin']],
+        '/admin/rates/create'           => ['RateGroupController', 'create', ['auth', 'role:admin']],
+        '/admin/rates/(\d+)/edit'      => ['RateGroupController', 'edit', ['auth', 'role:admin']],
+        '/admin/rates/(\d+)/rates'     => ['RateController', 'index', ['auth', 'role:admin']],
+        '/admin/rates/(\d+)/rates/create' => ['RateController', 'create', ['auth', 'role:admin']],
+        '/admin/rates/(\d+)/rates/(\d+)/edit' => ['RateController', 'edit', ['auth', 'role:admin']],
+
         // Menu Management (Admin Only)
         '/admin/menu'           => ['MenuController', 'index', ['auth', 'role:admin']],
         '/admin/menu/create'    => ['MenuController', 'create', ['auth', 'role:admin']],
@@ -112,6 +120,10 @@ return [
         '/admin/gallery'        => ['GalleryController', 'store', ['auth', 'role:admin', 'csrf']],
         '/admin/gallery/reorder' => ['GalleryController', 'reorder', ['auth', 'role:admin', 'csrf']],
 
+        // Rate groups & rates (Admin Only)
+        '/admin/rates'            => ['RateGroupController', 'store', ['auth', 'role:admin', 'csrf']],
+        '/admin/rates/(\d+)/rates' => ['RateController', 'store', ['auth', 'role:admin', 'csrf']],
+
         // Menu Management (Admin Only)
         '/admin/menu'           => ['MenuController', 'store', ['auth', 'role:admin', 'csrf']],
         '/admin/menu/reorder'   => ['MenuController', 'reorder', ['auth', 'role:admin', 'csrf']],
@@ -124,6 +136,10 @@ return [
         // Gallery Management (Admin Only)
         '/admin/gallery/(\d+)' => ['GalleryController', 'update', ['auth', 'role:admin', 'csrf']],
 
+        // Rate groups & rates (Admin Only)
+        '/admin/rates/(\d+)' => ['RateGroupController', 'update', ['auth', 'role:admin', 'csrf']],
+        '/admin/rates/(\d+)/rates/(\d+)' => ['RateController', 'update', ['auth', 'role:admin', 'csrf']],
+
         // Menu Management (Admin Only)
         '/admin/menu/(\d+)'    => ['MenuController', 'update', ['auth', 'role:admin', 'csrf']],
     ],
@@ -131,6 +147,8 @@ return [
     'DELETE' => [
         '/admin/users/(\d+)'    => ['UserController', 'destroy', ['auth', 'role:admin', 'csrf']],
         '/admin/gallery/(\d+)'  => ['GalleryController', 'destroy', ['auth', 'role:admin', 'csrf']],
+        '/admin/rates/(\d+)'    => ['RateGroupController', 'destroy', ['auth', 'role:admin', 'csrf']],
+        '/admin/rates/(\d+)/rates/(\d+)' => ['RateController', 'destroy', ['auth', 'role:admin', 'csrf']],
         '/admin/menu/(\d+)'     => ['MenuController', 'destroy', ['auth', 'role:admin', 'csrf']],
     ],
 ];

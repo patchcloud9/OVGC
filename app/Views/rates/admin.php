@@ -1,0 +1,85 @@
+<?php
+/**
+ * Rate Group Management View
+ */
+$layout = 'main';
+?>
+
+<section class="section">
+    <div class="container">
+        <!-- Breadcrumb -->
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+            <ul>
+                <li><a href="/admin">Admin</a></li>
+                <li class="is-active"><a href="#" aria-current="page">Rates</a></li>
+            </ul>
+        </nav>
+
+        <h1 class="title">
+            <span class="icon-text">
+                <span class="icon has-text-primary"><i class="fas fa-dollar-sign"></i></span>
+                <span>Manage Rate Groups</span>
+            </span>
+        </h1>
+        <p class="subtitle">Define cards used on the public rates page</p>
+
+        <?php require BASE_PATH . '/app/Views/partials/messages.php'; ?>
+
+        <div class="mb-4">
+            <a href="/admin/rates/create" class="button is-primary">
+                <span class="icon"><i class="fas fa-plus"></i></span>
+                <span>Create Group</span>
+            </a>
+        </div>
+
+        <?php if (empty($groups)): ?>
+            <div class="notification is-info">
+                No rate groups defined yet.
+            </div>
+        <?php else: ?>
+            <div class="table-container">
+                <table class="table is-fullwidth is-striped is-hoverable">
+                    <thead>
+                        <tr>
+                            <th>Order</th>
+                            <th>Slug</th>
+                            <th>Title</th>
+                            <th>Active</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($groups as $group): ?>
+                        <tr>
+                            <td><?= e($group['sort_order']) ?></td>
+                            <td><code><?= e($group['slug']) ?></code></td>
+                            <td><?= e($group['title']) ?></td>
+                            <td><?= $group['active'] ? '<span class="tag is-success">Yes</span>' : '<span class="tag is-light">No</span>' ?></td>
+                            <td>
+                                <div class="buttons are-small">
+                                    <a href="/admin/rates/<?= e($group['id']) ?>/edit" class="button is-small is-info">
+                                        <span class="icon is-small"><i class="fas fa-edit"></i></span>
+                                        <span>Edit</span>
+                                    </a>
+                                    <a href="/admin/rates/<?= e($group['id']) ?>/rates" class="button is-small is-primary">
+                                        <span class="icon is-small"><i class="fas fa-list"></i></span>
+                                        <span>Rates</span>
+                                    </a>
+                                    <a href="#" class="button is-small is-danger" onclick="if(confirm('Delete this group and all its rates?')){document.getElementById('delete-form-<?= e($group['id']) ?>').submit();}return false;">
+                                        <span class="icon is-small"><i class="fas fa-trash"></i></span>
+                                        <span>Delete</span>
+                                    </a>
+                                    <form id="delete-form-<?= e($group['id']) ?>" method="POST" action="/admin/rates/<?= e($group['id']) ?>" style="display:none;">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        <?php endif; ?>
+    </div>
+</section>

@@ -19,6 +19,10 @@
                     <span class="icon"><i class="fas fa-images"></i></span>
                     <span>Gallery</span>
                 </a>
+                <a href="/admin/rates" class="button is-primary">
+                    <span class="icon"><i class="fas fa-dollar-sign"></i></span>
+                    <span>Rates</span>
+                </a>
             </div>
         </div>
 
