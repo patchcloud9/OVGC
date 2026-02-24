@@ -94,7 +94,12 @@ $layout = 'main';
                     <tbody>
                         <?php foreach ($carts['items'] as $item): ?>
                             <tr>
-                                <td><?= e($item['name']) ?></td>
+                                <td>
+                                    <?= e($item['name']) ?>
+                                    <?php if (!empty($item['notes'])): ?>
+                                        <span class="is-size-7">(<?= e($item['notes']) ?>)</span>
+                                    <?php endif; ?>
+                                </td>
                                 <td>$<?= number_format($item['price'],2) ?></td>
                             </tr>
                         <?php endforeach; ?>
