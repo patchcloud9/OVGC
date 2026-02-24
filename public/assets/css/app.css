@@ -11,6 +11,7 @@
 /* Example: Custom styles */
 .content-wrapper {
     min-height: calc(100vh - 200px);
+    padding-top: 2rem; /* move page content up a bit */
 }
 
 /* Add your styles below */
@@ -27,6 +28,12 @@
     /* ensure banners sit above other content but below nav if fixed */
     /* no negative margin to avoid overlapping content */
     margin-bottom: 0;
+}
+@media (max-width: 768px) {
+    .banner {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
 }
 .content-wrapper > .banner-container:first-of-type {
     margin-top: 1rem; /* a bit of space above first/top banner */
