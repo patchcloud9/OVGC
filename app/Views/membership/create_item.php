@@ -1,0 +1,60 @@
+<?php
+$layout = 'main';
+?>
+
+<section class="section">
+    <div class="container">
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+            <ul>
+                <li><a href="/admin">Admin</a></li>
+                <li><a href="/admin/membership">Membership</a></li>
+                <li><a href="/admin/membership/<?= e($group['id']) ?>/items"><?= e($group['title']) ?></a></li>
+                <li class="is-active"><a href="#" aria-current="page">Create Item</a></li>
+            </ul>
+        </nav>
+
+        <h1 class="title">Create Item for <?= e($group['title']) ?></h1>
+
+        <?php require BASE_PATH . '/app/Views/partials/messages.php'; ?>
+
+        <form method="POST" action="/admin/membership/<?= e($group['id']) ?>/items" style="max-width:600px;">
+            <?= csrf_field() ?>
+            <div class="field">
+                <label class="label">Name</label>
+                <div class="control">
+                    <input class="input" type="text" name="name" value="<?= e(old('name')) ?>" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Price</label>
+                <div class="control">
+                    <input class="input" type="text" name="price" value="<?= e(old('price')) ?>" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Sort Order</label>
+                <div class="control">
+                    <input class="input" type="number" name="sort_order" value="<?= e(old('sort_order',0)) ?>">
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Notes</label>
+                <div class="control">
+                    <input class="input" type="text" name="notes" value="<?= e(old('notes')) ?>">
+                </div>
+            </div>
+
+            <div class="field is-grouped">
+                <div class="control">
+                    <button type="submit" class="button is-primary">Save Item</button>
+                </div>
+                <div class="control">
+                    <a href="/admin/membership/<?= e($group['id']) ?>/items" class="button is-light">Cancel</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>

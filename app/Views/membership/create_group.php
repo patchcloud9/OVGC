@@ -1,0 +1,75 @@
+<?php
+$layout = 'main';
+?>
+
+<section class="section">
+    <div class="container">
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+            <ul>
+                <li><a href="/admin">Admin</a></li>
+                <li><a href="/admin/membership">Membership</a></li>
+                <li class="is-active"><a href="#" aria-current="page">Create Group</a></li>
+            </ul>
+        </nav>
+
+        <h1 class="title">Create Membership Group</h1>
+
+        <?php require BASE_PATH . '/app/Views/partials/messages.php'; ?>
+
+        <form method="POST" action="/admin/membership" style="max-width:600px;">
+            <?= csrf_field() ?>
+            <div class="field">
+                <label class="label">Slug</label>
+                <div class="control">
+                    <input class="input" type="text" name="slug" value="<?= e(old('slug')) ?>" required>
+                </div>
+                <p class="help">URL-friendly identifier (alpha, numbers, dashes).</p>
+            </div>
+
+            <div class="field">
+                <label class="label">Title</label>
+                <div class="control">
+                    <input class="input" type="text" name="title" value="<?= e(old('title')) ?>" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Subtitle</label>
+                <div class="control">
+                    <input class="input" type="text" name="subtitle" value="<?= e(old('subtitle')) ?>">
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Note</label>
+                <div class="control">
+                    <textarea class="textarea" name="note"><?= e(old('note')) ?></textarea>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Sort Order</label>
+                <div class="control">
+                    <input class="input" type="number" name="sort_order" value="<?= e(old('sort_order',0)) ?>">
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <label class="checkbox">
+                        <input type="checkbox" name="active" value="1" <?= old('active') ? 'checked' : '' ?>> Active
+                    </label>
+                </div>
+            </div>
+
+            <div class="field is-grouped">
+                <div class="control">
+                    <button type="submit" class="button is-primary">Save Group</button>
+                </div>
+                <div class="control">
+                    <a href="/admin/membership" class="button is-light">Cancel</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>

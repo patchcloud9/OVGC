@@ -23,6 +23,10 @@
                     <span class="icon"><i class="fas fa-dollar-sign"></i></span>
                     <span>Rates</span>
                 </a>
+                <a href="/admin/membership" class="button is-primary">
+                    <span class="icon"><i class="fas fa-users"></i></span>
+                    <span>Membership</span>
+                </a>
             </div>
         </div>
 
