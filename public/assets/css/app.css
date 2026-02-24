@@ -40,9 +40,11 @@ to the sides; the base rule below still defines vertical spacing. */
     margin-top: 1rem;
 }
 
-/* if that very first banner follows a hero, undo the gap and pull it up */
+/* if that very first banner follows a hero, undo the gap and pull it up
+   (hero elements have their own bottom margin which collapses with the
+   container; -1rem wasn’t enough, so use -2rem here to cancel the extra space) */
 .hero + .banner-container {
-    margin-top: -1rem;
+    margin-top: -2rem;
 }
 .banner-container + .section {
     padding-top: 1rem; /* small gap to next section */
