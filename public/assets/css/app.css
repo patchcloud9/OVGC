@@ -40,19 +40,7 @@
     right: 0.5rem;
     transform: translateY(-50%);
     margin: 0;
-    background: transparent;
-    border: none;
-    width: 1.2rem;
-    height: 1.2rem;
-    font-size: 1.2rem;
-    line-height: 1.2rem;
-    color: inherit;
-    padding: 0;
-}
-.banner .delete::before {
-    content: "\00d7"; /* ensure a proper multiplication sign */
-    display: block;
-    text-align: center;
+    /* allow Bulma to handle appearance */
 }
 
 

@@ -270,6 +270,11 @@ function rgba_from_hex(string $hex, float $alpha = 1.0): string
             // look for closing </section> of first hero block
             if (preg_match('/<\/section\s*>/i', $body, $match, PREG_OFFSET_CAPTURE)) {
                 $pos = $match[0][1] + strlen($match[0][0]);
+                // if the very next thing is a new <section>, insert inside it
+                $after = substr($body, $pos);
+                if (preg_match('/^\s*(<section\b[^>]*>)/i', $after, $openMatch)) {
+                    $pos += strlen($openMatch[1]);
+                }
                 $body = substr_replace($body, $topHtml, $pos, 0);
             } else {
                 // no hero, prepend as before
