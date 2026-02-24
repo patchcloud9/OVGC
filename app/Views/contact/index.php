@@ -13,9 +13,53 @@ $layout = 'main';
     <div class="container">
         <?php require BASE_PATH . '/app/Views/partials/messages.php'; ?>
 
-        <div class="content" style="max-width:1000px;margin:2rem auto;text-align:left;">
-            <!-- replace with contact-specific content later -->
-            <p>Use this page to display contact information or a form.</p>
+        <div class="columns is-variable is-8">
+            <div class="column is-half">
+                <h2 class="title is-4 has-text-centered">CONTACT INFO</h2>
+                <div class="content has-text-centered">
+                    <p><strong>Bear Creek Golf Course</strong></p>
+                    <p>19 Bear Creek Golf Course Road<br>Winthrop, WA 98862</p>
+                </div>
+                <div class="notification is-light has-text-centered">
+                    <span class="icon"><i class="fas fa-phone"></i></span>
+                    <a href="mailto:info@example.com">Email us</a> or call <a href="tel:5099962284">(509) 996-2284</a>
+                </div>
+            </div>
+
+            <div class="column is-half">
+                <h2 class="title is-4 has-text-centered">Send a Message</h2>
+                <form method="POST" action="/contact" style="max-width:600px;margin:0 auto;">
+                    <div class="field">
+                        <label class="label">Name</label>
+                        <div class="control">
+                            <input class="input" type="text" name="name" required>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Phone Number</label>
+                        <div class="control">
+                            <input class="input" type="tel" name="phone">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Email</label>
+                        <div class="control">
+                            <input class="input" type="email" name="email" required>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Comment</label>
+                        <div class="control">
+                            <textarea class="textarea" name="comment" rows="4"></textarea>
+                        </div>
+                    </div>
+                    <div class="field is-grouped is-grouped-centered">
+                        <div class="control">
+                            <button type="submit" class="button is-primary">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </section>
