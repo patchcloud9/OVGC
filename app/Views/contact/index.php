@@ -22,7 +22,7 @@ $layout = 'main';
                 </div>
                 <div class="notification is-light has-text-centered">
                     <span class="icon"><i class="fas fa-phone"></i></span>
-                    <a href="mailto:info@example.com">Email us</a> or call <a href="tel:50998266937">(509) 826-6937/a>
+                    <a href="mailto:info@example.com">Email us</a> or call <a href="tel:50998266937">(509) 826-6937</a>
                 </div>
             </div>
 
