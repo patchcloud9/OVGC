@@ -21,18 +21,20 @@
     position: relative;
     z-index: 25;
     display: flex;
-    justify-content: center; /* center inner banner block */
+    justify-content: center; /* center banner itself */
     /* ensure banners sit above other content but below nav if fixed */
-    margin-bottom: -1.5rem; /* smaller overlap, avoids covering text */
+    /* no negative margin to avoid overlapping content */
+    margin-bottom: 0;
 }
 .banner-container + .section {
-    padding-top: 1rem; /* allow a little breathing room but much less than default */
+    padding-top: 1rem; /* small gap to next section */
 }
 .banner {
     border-radius: 12px;
     margin: 2px 0 -8px; /* overlap more to eliminate gap */
     width: 100%;
-    max-width: 1000px; /* match content max-width used elsewhere */
+    /* match content max-width used elsewhere; remove container influence */
+    max-width: 1000px;
     padding: 8px 1rem; /* taller color area */
     text-align: center;
     display: block; /* full-width up to max-width */
