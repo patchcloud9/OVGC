@@ -31,6 +31,10 @@
 .banner-container + .section {
     padding-top: 1rem; /* small gap to next section */
 }
+/* when banner container is immediately before footer give extra space */
+.banner-container + footer {
+    margin-top: 3rem;
+}
 .banner {
     border-radius: 12px;
     margin: 2px 0 -8px; /* overlap more to eliminate gap */
