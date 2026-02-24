@@ -38,43 +38,31 @@ $layout = 'main';
         </div>
 
         <?php
-            // grouped membership data for card layout (tax only)
-            $groups = [
-                'Standard' => [
-                    ['Single', '$750'],
-                    ['Couple', '$1,200'],
-                    ['Reduced Single *', '$400'],
-                    ['Reduced Couple *', '$750'],
-                ],
-                'Lifetime' => [
-                    ['Lifetime Single', '$7,250'],
-                    ['Lifetime Couple', '$11,500'],
-                ],
-                'Under 30' => [
-                    ['Junior (Under 18)', '$65'],
-                    ['College (18–24)', '$120'],
-                    ['Young Adult (19–30)', '$400'],
-                ],
-            ];
+            $groups = $groups ?? [];
         ?>
 
         <div class="content" style="max-width:1000px;margin:2rem auto;text-align:left;">
             <div class="columns is-multiline">
-            <?php foreach ($groups as $title => $items): ?>
+            <?php foreach ($groups as $group): ?>
                 <div class="column is-one-third">
                     <div class="box has-text-centered">
-                        <h3 class="title is-4 mt-3"><?= e($title) ?></h3>
-                        <p class="subtitle is-6 has-text-grey">*rates + tax</p>
+                        <h3 class="title is-4 mt-3"><?= e($group['title']) ?></h3>
+                        <?php if (!empty($group['subtitle'])): ?>
+                            <p class="subtitle is-6 has-text-grey"><?= e($group['subtitle']) ?></p>
+                        <?php endif; ?>
                         <table class="table is-fullwidth is-narrow is-striped">
                             <tbody>
-                                <?php foreach ($items as $row): ?>
+                                <?php foreach ($group['items'] as $item): ?>
                                     <tr>
-                                        <td><?= e($row[0]) ?></td>
-                                        <td><?= e($row[1]) ?></td>
+                                        <td><?= e($item['name']) ?></td>
+                                        <td>$<?= number_format($item['price'],2) ?></td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
+                        <?php if (!empty($group['note'])): ?>
+                            <p class="subtitle is-6 has-text-grey"><?= e($group['note']) ?></p>
+                        <?php endif; ?>
                     </div>
                 </div>
             <?php endforeach; ?>
