@@ -39,10 +39,10 @@ $layout = 'main';
 
         <?php
             $groups = $groups ?? [];
-            $other = null;
+            $carts = null;
             foreach ($groups as $i => $g) {
-                if ($g['slug'] === 'other-prices') {
-                    $other = $g;
+                if ($g['slug'] === 'carts') {
+                    $carts = $g;
                     unset($groups[$i]);
                     break;
                 }
@@ -76,12 +76,12 @@ $layout = 'main';
             <?php endforeach; ?>
         </div> <!-- close card container -->
 
-        <?php if ($other): ?>
+        <?php if ($carts): ?>
             <div class="content" style="max-width:1000px;margin:2rem auto;text-align:left;">
-                <h2 class="title is-4"><?= e($other['title']) ?></h2>
+                <h2 class="title is-4"><?= e($carts['title']) ?></h2>
                 <table class="table is-fullwidth is-narrow is-striped">
                     <tbody>
-                        <?php foreach ($other['items'] as $item): ?>
+                        <?php foreach ($carts['items'] as $item): ?>
                             <tr>
                                 <td><?= e($item['name']) ?></td>
                                 <td>$<?= number_format($item['price'],2) ?></td>
@@ -89,8 +89,8 @@ $layout = 'main';
                         <?php endforeach; ?>
                     </tbody>
                 </table>
-                <?php if (!empty($other['note'])): ?>
-                    <p class="subtitle is-6 has-text-grey"><?= e($other['note']) ?></p>
+                <?php if (!empty($carts['note'])): ?>
+                    <p class="subtitle is-6 has-text-grey"><?= e($carts['note']) ?></p>
                 <?php endif; ?>
             </div>
         <?php endif; ?>
