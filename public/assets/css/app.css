@@ -41,7 +41,14 @@
     position: relative; /* for absolute close button */
 }
 .banner .delete {
-    position: absolute;
+    position: absolute;   
+}
+
+.banner.notification.is-info {
+    color: #000 !important;
+}
+
+.banner .delete {
     top: 50%;
     right: 0.5rem;
     transform: translateY(-50%);
