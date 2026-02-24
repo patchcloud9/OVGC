@@ -232,6 +232,11 @@ function rgba_from_hex(string $hex, float $alpha = 1.0): string
     <?php
     // Determine current page path (exclude query string)
     $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+    // normalize: remove trailing slash except root
+    $currentPath = rtrim($currentPath, '/');
+    if ($currentPath === '') {
+        $currentPath = '/';
+    }
     $dismissedCookie = $_COOKIE['dismissed_banners'] ?? '';
     $dismissedIds = $dismissedCookie !== '' ? explode(',', $dismissedCookie) : [];
 
