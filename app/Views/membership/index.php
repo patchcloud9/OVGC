@@ -78,7 +78,12 @@ $layout = 'main';
 
         <?php if ($carts): ?>
             <div class="content" style="max-width:1000px;margin:2rem auto;text-align:left;">
-                <h2 class="title is-4"><?= e($carts['title']) ?></h2>
+                <h2 class="title is-4">
+                    <?= e($carts['title']) ?>
+                    <?php if (!empty($carts['subtitle'])): ?>
+                        (<?= e($carts['subtitle']) ?>)
+                    <?php endif; ?>
+                </h2>
                 <table class="table is-fullwidth is-narrow is-striped">
                     <tbody>
                         <?php foreach ($carts['items'] as $item): ?>
