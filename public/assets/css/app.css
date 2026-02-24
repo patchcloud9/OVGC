@@ -26,18 +26,21 @@
 }
 .banner {
     border-radius: 12px;
-    margin: 2px 0; /* smaller vertical gap to reduce whitespace */
+    margin: 2px 0  -4px; /* shrink gap below banner by overlapping section padding */
     width: 100%;
     max-width: 960px; /* match typical container width */
     padding: 8px 1rem; /* taller color area */
     text-align: center;
     display: block; /* full-width up to max-width */
-    position: relative; /* for floated delete button */
+    position: relative; /* for absolute close button */
 }
 .banner .delete {
-    float: right;
-    margin-top: -4px; /* nudge into vertical center of padded bar */
-    margin-right: 0.5rem;
+    position: absolute;
+    top: 50%;
+    right: 0.5rem;
+    transform: translateY(-50%);
+    /* remove default margin adjustments */
+    margin: 0;
 }
 
 
