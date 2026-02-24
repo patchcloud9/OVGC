@@ -25,13 +25,19 @@
     /* ensure banners sit above other content but below nav if fixed */
 }
 .banner {
-    border-radius: 6px;
-    margin: 4px 0; /* only vertical spacing; horizontal centering handled by container */
+    border-radius: 12px;
+    margin: 2px 0; /* smaller vertical gap to reduce whitespace */
     width: 100%;
     max-width: 960px; /* match typical container width */
-    padding: 4px 1rem; /* small top/bottom padding, some horizontal breathing room */
+    padding: 8px 1rem; /* taller color area */
     text-align: center;
     display: block; /* full-width up to max-width */
+    position: relative; /* for floated delete button */
+}
+.banner .delete {
+    float: right;
+    margin-top: -4px; /* nudge into vertical center of padded bar */
+    margin-right: 0.5rem;
 }
 
 
