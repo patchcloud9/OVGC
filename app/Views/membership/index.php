@@ -80,6 +80,31 @@ $layout = 'main';
             <?php endforeach; ?>
         </div> <!-- close card container -->
 
+        <!-- additional pricing table inserted below cards -->
+        <div class="content" style="max-width:1000px;margin:2rem auto;text-align:left;">
+            <h2 class="title is-4">Other Prices (including tax)</h2>
+            <table class="table is-fullwidth is-narrow is-striped">
+                <tbody>
+                    <tr>
+                        <td>Yearly Cart Storage – Electric</td>
+                        <td>$300</td>
+                    </tr>
+                    <tr>
+                        <td>Yearly Cart Storage – Gas</td>
+                        <td>$250</td>
+                    </tr>
+                    <tr>
+                        <td>Yearly Trail Fee (Carts from home)</td>
+                        <td>$60</td>
+                    </tr>
+                    <tr>
+                        <td>Daily Trail Fee (Carts from home)</td>
+                        <td>$12</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
         <div class="content" style="max-width:1000px;margin:2rem auto;text-align:left;">
             <p class="has-text-weight-semibold">
                 MEMBERSHIP PROMOTION: For every new member you recruit in 2025 you receive a $50 reduction on your 2026 dues; all other memberships receive $25 reduction (excluding Junior and College).
