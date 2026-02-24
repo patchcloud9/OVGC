@@ -93,7 +93,10 @@ return [
         '/admin/membership/(\d+)/items'    => ['MembershipItemController', 'index', ['auth', 'role:admin']],
         '/admin/membership/(\d+)/items/create' => ['MembershipItemController', 'create', ['auth', 'role:admin']],
         '/admin/membership/(\d+)/items/(\d+)/edit' => ['MembershipItemController', 'edit', ['auth', 'role:admin']],
-
+        // Banners (Admin Only)
+        '/admin/banners'         => ['PageBannerController', 'index', ['auth', 'role:admin']],
+        '/admin/banners/create'  => ['PageBannerController', 'create', ['auth', 'role:admin']],
+        '/admin/banners/(\d+)/edit' => ['PageBannerController', 'edit', ['auth', 'role:admin']],
         // Menu Management (Admin Only)
         '/admin/menu'           => ['MenuController', 'index', ['auth', 'role:admin']],
         '/admin/menu/create'    => ['MenuController', 'create', ['auth', 'role:admin']],
@@ -136,6 +139,9 @@ return [
         '/admin/membership'       => ['MembershipGroupController', 'store', ['auth', 'role:admin', 'csrf']],
         '/admin/membership/(\d+)/items' => ['MembershipItemController', 'store', ['auth', 'role:admin', 'csrf']],
 
+        // Banners (Admin Only)
+        '/admin/banners'          => ['PageBannerController', 'store', ['auth', 'role:admin', 'csrf']],
+
         // Menu Management (Admin Only)
         '/admin/menu'           => ['MenuController', 'store', ['auth', 'role:admin', 'csrf']],
         '/admin/menu/reorder'   => ['MenuController', 'reorder', ['auth', 'role:admin', 'csrf']],
@@ -156,6 +162,9 @@ return [
         '/admin/membership/(\d+)' => ['MembershipGroupController', 'update', ['auth', 'role:admin', 'csrf']],
         '/admin/membership/(\d+)/items/(\d+)' => ['MembershipItemController', 'update', ['auth', 'role:admin', 'csrf']],
 
+        // Banners (Admin Only)
+        '/admin/banners/(\d+)'    => ['PageBannerController', 'update', ['auth', 'role:admin', 'csrf']],
+
         // Menu Management (Admin Only)
         '/admin/menu/(\d+)'    => ['MenuController', 'update', ['auth', 'role:admin', 'csrf']],
     ],
@@ -167,6 +176,7 @@ return [
         '/admin/rates/(\d+)/rates/(\d+)' => ['RateController', 'destroy', ['auth', 'role:admin', 'csrf']],
         '/admin/membership/(\d+)' => ['MembershipGroupController', 'destroy', ['auth', 'role:admin', 'csrf']],
         '/admin/membership/(\d+)/items/(\d+)' => ['MembershipItemController', 'destroy', ['auth', 'role:admin', 'csrf']],
+        '/admin/banners/(\d+)'   => ['PageBannerController', 'destroy', ['auth', 'role:admin', 'csrf']],
         '/admin/menu/(\d+)'     => ['MenuController', 'destroy', ['auth', 'role:admin', 'csrf']],
     ],
 ];
