@@ -26,7 +26,7 @@
 }
 .banner {
     border-radius: 12px;
-    margin: 2px 0  -4px; /* shrink gap below banner by overlapping section padding */
+    margin: 2px 0 -8px; /* overlap more to eliminate gap */
     width: 100%;
     max-width: 960px; /* match typical container width */
     padding: 8px 1rem; /* taller color area */
@@ -39,8 +39,20 @@
     top: 50%;
     right: 0.5rem;
     transform: translateY(-50%);
-    /* remove default margin adjustments */
     margin: 0;
+    background: transparent;
+    border: none;
+    width: 1.2rem;
+    height: 1.2rem;
+    font-size: 1.2rem;
+    line-height: 1.2rem;
+    color: inherit;
+    padding: 0;
+}
+.banner .delete::before {
+    content: "\00d7"; /* ensure a proper multiplication sign */
+    display: block;
+    text-align: center;
 }
 
 
