@@ -63,7 +63,12 @@ $layout = 'main';
                             <tbody>
                                 <?php foreach ($group['items'] as $item): ?>
                                     <tr>
-                                        <td><?= e($item['name']) ?></td>
+                                        <td>
+                                        <?= e($item['name']) ?>
+                                        <?php if (!empty($item['notes'])): ?>
+                                            <span class="is-size-7">(<?= e($item['notes']) ?>)</span>
+                                        <?php endif; ?>
+                                    </td>
                                         <td>$<?= number_format($item['price'],2) ?></td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -82,7 +87,7 @@ $layout = 'main';
                 <h2 class="title is-4">
                     <?= e($carts['title']) ?>
                     <?php if (!empty($carts['subtitle'])): ?>
-                        (<?= e($carts['subtitle']) ?>)
+                        <span class="is-size-7 has-text-weight-normal">(<?= e($carts['subtitle']) ?>)</span>
                     <?php endif; ?>
                 </h2>
                 <table class="table is-fullwidth is-narrow is-striped">
