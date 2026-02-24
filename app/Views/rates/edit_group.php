@@ -36,7 +36,7 @@ $layout = 'main';
             <div class="field">
                 <label class="label">Subtitle</label>
                 <div class="control">
-                    <input class="input" type="text" name="subtitle" value="<?= e(old('subtitle', $group['subtitle'])) ?>">
+                    <input class="input" type="text" name="subtitle" value="<?= e(old('subtitle', $group['subtitle'] ?? '')) ?>">
                 </div>
             </div>
 

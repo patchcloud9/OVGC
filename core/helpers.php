@@ -13,9 +13,10 @@
  * @param string $value The string to escape
  * @return string Escaped string safe for HTML output
  */
-function e(string $value): string
+function e(?string $value): string
 {
-    return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+    // Accept null and cast to empty string to avoid errors in views
+    return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
 }
 
 /**
