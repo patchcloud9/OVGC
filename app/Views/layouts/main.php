@@ -254,6 +254,8 @@ function rgba_from_hex(string $hex, float $alpha = 1.0): string
             $topHtml .= "<div class=\"banner notification is-$colour\" data-id=\"" . e($b['id']) . "\">$dismissHtml" . e($b['text']) . "</div>";
         }
         $topHtml .= "</div>";
+        // log generated HTML for debugging
+        error_log('BANNER HTML: ' . $topHtml);
     }
     ?>
 
