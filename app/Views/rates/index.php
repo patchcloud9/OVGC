@@ -20,46 +20,30 @@ $layout = 'main';
         <?php require BASE_PATH . '/app/Views/partials/messages.php'; ?>
 
         <?php
-            // card data for rates layout (three columns)
-            $cards = [
-                'Green Fees' => [
-                    ['Membership', '$25.00'],
-                    ['18 Holes', '$40.00'],
-                    ['All Day', '$50.00'],
-                    ['Juniors (Under 18 Years Old)', '$5/9 holes — $10/18 holes'],
-                ],
-                'Reduced Membership' => [
-                    ['Membership', '$12.00'],
-                    ['18 Holes', '$20.00'],
-                    ['All Day', '$25.00'],
-                ],
-                'Cart Rentals' => [
-                    ['9 Holes', '$10.00'],
-                    ['18 Holes', '$18.00'],
-                    ['All Day', '$30.00'],
-                ],
-            ];
+            // use data loaded from controller
+            $groups = $groups ?? [];
         ?>
 
         <div class="columns is-multiline" style="max-width:1000px;margin:2rem auto;text-align:left;">
-            <?php foreach ($cards as $cardTitle => $rows): ?>
+            <?php foreach ($groups as $group): ?>
                 <div class="column is-one-third">
                     <div class="box has-text-centered">
-                        <h3 class="title is-4 mt-3"><?= e($cardTitle) ?></h3>
+                        <h3 class="title is-4 mt-3"><?= e($group['title']) ?></h3>
+                        <?php if (!empty($group['subtitle'])): ?>
+                            <p class="subtitle is-6 has-text-grey"><?= e($group['subtitle']) ?></p>
+                        <?php endif; ?>
                         <table class="table is-fullwidth is-narrow is-striped">
                             <tbody>
-                                <?php foreach ($rows as $row): ?>
+                                <?php foreach ($group['rates'] as $rate): ?>
                                     <tr>
-                                        <td><?= e($row[0]) ?></td>
-                                        <td><?= e($row[1]) ?></td>
+                                        <td><?= e($rate['description']) ?></td>
+                                        <td>$<?= number_format($rate['price'],2) ?></td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
-                        <?php if ($cardTitle === 'Reduced Membership'): ?>
-                            <p class="subtitle is-6 has-text-grey">
-                                *Requires a valid reduced‑rate membership card.
-                            </p>
+                        <?php if (!empty($group['note'])): ?>
+                            <p class="subtitle is-6 has-text-grey"><?= e($group['note']) ?></p>
                         <?php endif; ?>
                     </div>
                 </div>
