@@ -41,7 +41,8 @@ $layout = 'main';
             $groups = $groups ?? [];
             $carts = null;
             foreach ($groups as $i => $g) {
-                if ($g['slug'] === 'carts') {
+                // match 'cart' or 'carts' case‑insensitive
+                if (preg_match('/^carts?$/i', $g['slug'])) {
                     $carts = $g;
                     unset($groups[$i]);
                     break;
