@@ -23,10 +23,10 @@
     display: flex;
     justify-content: center; /* center inner banner block */
     /* ensure banners sit above other content but below nav if fixed */
-    margin-bottom: -3rem; /* pull up following section which has 3rem top padding */
+    margin-bottom: -1.5rem; /* smaller overlap, avoids covering text */
 }
 .banner-container + .section {
-    padding-top: 0; /* additional safety in case margin-bottom alone isn’t enough */
+    padding-top: 1rem; /* allow a little breathing room but much less than default */
 }
 .banner {
     border-radius: 12px;
