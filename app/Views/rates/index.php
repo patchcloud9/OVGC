@@ -19,65 +19,51 @@ $layout = 'main';
     <div class="container">
         <?php require BASE_PATH . '/app/Views/partials/messages.php'; ?>
 
-        <div class="content" style="max-width:1000px;margin:2rem auto;text-align:left;">
-            <h2 class="title is-4">Green Fees</h2>
-            <table class="table is-fullwidth is-narrow is-striped">
-                <thead>
-                    <tr>
-                        <th>Type</th>
-                        <th>Price</th>
-                        <th>*Price w/ Reduced Membership</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Membership</td>
-                        <td>$25.00</td>
-                        <td>$12.00</td>
-                    </tr>
-                    <tr>
-                        <td>18 Holes</td>
-                        <td>$40.00</td>
-                        <td>$20.00</td>
-                    </tr>
-                    <tr>
-                        <td>All Day</td>
-                        <td>$50.00</td>
-                        <td>$25.00</td>
-                    </tr>
-                    <tr>
-                        <td>Juniors (Under 18 Years Old)</td>
-                        <td colspan="2">$5/9 holes &mdash; $10/18 holes</td>
-                    </tr>
-                </tbody>
-            </table>
-            <p class="subtitle is-6 has-text-grey">*Reduced membership pricing requires a valid reduced‐rate membership card.</p>
-        </div>
+        <?php
+            // card data for rates layout (three columns)
+            $cards = [
+                'Green Fees' => [
+                    ['Membership', '$25.00'],
+                    ['18 Holes', '$40.00'],
+                    ['All Day', '$50.00'],
+                    ['Juniors (Under 18 Years Old)', '$5/9 holes — $10/18 holes'],
+                ],
+                'Reduced Membership' => [
+                    ['Membership', '$12.00'],
+                    ['18 Holes', '$20.00'],
+                    ['All Day', '$25.00'],
+                ],
+                'Cart Rentals' => [
+                    ['9 Holes', '$10.00'],
+                    ['18 Holes', '$18.00'],
+                    ['All Day', '$30.00'],
+                ],
+            ];
+        ?>
 
-        <div class="content" style="max-width:1000px;margin:2rem auto;text-align:left;">
-            <h2 class="title is-4">Cart Rentals</h2>
-            <table class="table is-fullwidth is-narrow is-striped">
-                <thead>
-                    <tr>
-                        <th>Type</th>
-                        <th>Price‑Per‑Person</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>9 Holes</td>
-                        <td>$10.00</td>
-                    </tr>
-                    <tr>
-                        <td>18 Holes</td>
-                        <td>$18.00</td>
-                    </tr>
-                    <tr>
-                        <td>All Day</td>
-                        <td>$30.00</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="columns is-multiline" style="max-width:1000px;margin:2rem auto;text-align:left;">
+            <?php foreach ($cards as $cardTitle => $rows): ?>
+                <div class="column is-one-third">
+                    <div class="box has-text-centered">
+                        <h3 class="title is-4 mt-3"><?= e($cardTitle) ?></h3>
+                        <table class="table is-fullwidth is-narrow is-striped">
+                            <tbody>
+                                <?php foreach ($rows as $row): ?>
+                                    <tr>
+                                        <td><?= e($row[0]) ?></td>
+                                        <td><?= e($row[1]) ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                        <?php if ($cardTitle === 'Reduced Membership'): ?>
+                            <p class="subtitle is-6 has-text-grey">
+                                *Requires a valid reduced‑rate membership card.
+                            </p>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            <?php endforeach; ?>
         </div>
     </div>
 </section>
