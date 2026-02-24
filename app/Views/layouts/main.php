@@ -240,25 +240,44 @@ function rgba_from_hex(string $hex, float $alpha = 1.0): string
     $dismissedCookie = $_COOKIE['dismissed_banners'] ?? '';
     $dismissedIds = $dismissedCookie !== '' ? explode(',', $dismissedCookie) : [];
 
-    // Top banners for this page
+    // prepare top banner HTML (will be injected after hero if present)
+    $topHtml = '';
     $topBanners = \App\Models\PageBanner::forPage($currentPath, 'top');
     if (!empty($topBanners)) {
-        echo "<div class=\"banner-container\">";
+        $topHtml = "<div class=\"banner-container\">";
         foreach ($topBanners as $b) {
             if (in_array($b['id'], $dismissedIds, true)) {
                 continue;
             }
             $colour = $b['colour'] ?: 'info';
-            $dismissHtml = $b['dismissable'] ? '<button class="delete"></button>' : '';
-            echo "<div class=\"banner notification is-$colour\" data-id=\"" . e($b['id']) . "\">$dismissHtml" . e($b['text']) . "</div>";
+            $dismissHtml = $b['dismissable'] ? '<button class=\"delete\"></button>' : '';
+            $topHtml .= "<div class=\"banner notification is-$colour\" data-id=\"" . e($b['id']) . "\">$dismissHtml" . e($b['text']) . "</div>";
         }
-        echo "</div>";
+        $topHtml .= "</div>";
     }
     ?>
     
     <!-- Main Content -->
     <main class="content-wrapper">
+        <?php
+        // buffer the view so we can inject banners just after the hero section
+        ob_start();
+        ?>
         <?= $content ?>
+        <?php
+        $body = ob_get_clean();
+        if ($topHtml !== '') {
+            // look for closing </section> of first hero block
+            if (preg_match('/<\/section\s*>/i', $body, $match, PREG_OFFSET_CAPTURE)) {
+                $pos = $match[0][1] + strlen($match[0][0]);
+                $body = substr_replace($body, $topHtml, $pos, 0);
+            } else {
+                // no hero, prepend as before
+                $body = $topHtml . $body;
+            }
+        }
+        echo $body;
+        ?>
     </main>
     
     <!-- Bottom Banners -->
