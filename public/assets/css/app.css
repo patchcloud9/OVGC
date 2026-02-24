@@ -29,12 +29,11 @@
     /* no negative margin to avoid overlapping content */
     margin-bottom: 0;
 }
-@media (max-width: 1023px) {
-    .banner {
-        padding-left: 1rem;
-        padding-right: 1rem;
-    }
-}
+/* on narrow viewports give banners a little breathing room from the viewport edge */
+/* note: we set margins rather than padding so the coloured background doesn't run
+to the sides; the base rule below still defines vertical spacing. */
+
+
 
 /* pull banner up slightly when it immediately follows the hero */
 .hero + .banner-container {
@@ -52,14 +51,23 @@
 }
 .banner {
     border-radius: 12px;
-    margin: 2px 0 -8px; /* overlap more to eliminate gap */
+    margin: 2px 0 -8px; /* top/right/bottom/left – horiz set to 0 so we can override below */
     width: 100%;
     /* match content max-width used elsewhere; remove container influence */
     max-width: 1000px;
-    padding: 8px 1rem; /* taller color area */
+    padding: 8px 1rem; /* taller colour area, keeps internal spacing */
     text-align: center;
     display: block; /* full-width up to max-width */
     position: relative; /* for absolute close button */
+}
+
+/* move the responsive adjustments after the base rule so they aren't
+   clobbered by the margin shorthand above */
+@media (max-width: 1023px) {
+    .banner {
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
 }
 .banner + .banner {
     margin-top: 0; /* remove extra top margin between stacked banners */
