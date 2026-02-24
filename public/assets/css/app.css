@@ -40,12 +40,12 @@ to the sides; the base rule below still defines vertical spacing. */
     margin-top: 1rem;
 }
 
-/* if that very first banner follows a hero, undo the gap and pull it up
-   (hero elements have their own bottom margin which collapses with the
-   container; -1rem wasn’t enough, so use -2rem here to cancel the extra space) */
-.hero + .banner-container {
-    margin-top: -2rem;
-}
+/* we deliberately do **not** pull banners up under the hero; spacing is
+   handled by the first-of-type rule above and changing it caused confusion
+   for the layout.  The hero margin will collapse naturally with the
+   container, leaving the default 1rem gap. */
+/* .hero + .banner-container { margin-top: -2rem; } */
+
 .banner-container + .section {
     padding-top: 1rem; /* small gap to next section */
 }
@@ -55,8 +55,11 @@ to the sides; the base rule below still defines vertical spacing. */
 }
 .banner {
     border-radius: 12px;
-    margin: 2px 0 -8px; /* top/right/bottom/left – horiz set to 0 so we can override below */
-    width: 100%;
+    /* horizontal margins give breathing room on every screen; removing the
+       hard 100% width lets the max-width work correctly.  Center with auto
+       margins so the banner never hits the viewport edge. */
+    margin: 2px 1rem -8px;
+    width: auto;
     /* match content max-width used elsewhere; remove container influence */
     max-width: 1000px;
     padding: 8px 1rem; /* taller colour area, keeps internal spacing */
@@ -65,14 +68,8 @@ to the sides; the base rule below still defines vertical spacing. */
     position: relative; /* for absolute close button */
 }
 
-/* move the responsive adjustments after the base rule so they aren't
-   clobbered by the margin shorthand above */
-@media (max-width: 1023px) {
-    .banner {
-        margin-left: 1rem;
-        margin-right: 1rem;
-    }
-}
+/* no media query needed; horizontal margins apply at all breakpoints */
+
 .banner + .banner {
     margin-top: 0; /* remove extra top margin between stacked banners */
 }
