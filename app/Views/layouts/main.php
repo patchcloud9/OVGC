@@ -240,22 +240,23 @@ function rgba_from_hex(string $hex, float $alpha = 1.0): string
     $dismissedCookie = $_COOKIE['dismissed_banners'] ?? '';
     $dismissedIds = $dismissedCookie !== '' ? explode(',', $dismissedCookie) : [];
 
-    // prepare top banner HTML (will be injected after hero if present)
+    // build banner markup inside a container to align with page content
     $topHtml = '';
     $topBanners = \App\Models\PageBanner::forPage($currentPath, 'top');
     if (!empty($topBanners)) {
-        $topHtml = "<div class=\"banner-container\">";
+        $topHtml .= "<div class=\"banner-container\"><div class=\"container\">";
         foreach ($topBanners as $b) {
             if (in_array($b['id'], $dismissedIds, true)) {
                 continue;
             }
             $colour = $b['colour'] ?: 'info';
-            $dismissHtml = $b['dismissable'] ? '<button class=\"delete\"></button>' : '';
+            $dismissHtml = $b['dismissable'] ? '<button class="delete"></button>' : '';
             $topHtml .= "<div class=\"banner notification is-$colour\" data-id=\"" . e($b['id']) . "\">$dismissHtml" . e($b['text']) . "</div>";
         }
-        $topHtml .= "</div>";
+        $topHtml .= "</div></div>";
     }
     ?>
+
     
     <!-- Main Content -->
     <main class="content-wrapper">
@@ -267,17 +268,12 @@ function rgba_from_hex(string $hex, float $alpha = 1.0): string
         <?php
         $body = ob_get_clean();
         if ($topHtml !== '') {
-            // look for closing </section> of first hero block
-            if (preg_match('/<\/section\s*>/i', $body, $match, PREG_OFFSET_CAPTURE)) {
-                $pos = $match[0][1] + strlen($match[0][0]);
-                // if the very next thing is a new <section>, insert inside it
-                $after = substr($body, $pos);
-                if (preg_match('/^\s*(<section\b[^>]*>)/i', $after, $openMatch)) {
-                    $pos += strlen($openMatch[1]);
-                }
+            // find first hero section (opening through its closing tag)
+            if (preg_match('/(<section\b[^>]*\bhero\b[^>]*>.*?<\/section>)/is', $body, $m, PREG_OFFSET_CAPTURE)) {
+                $pos = $m[0][1] + strlen($m[0][0]);
                 $body = substr_replace($body, $topHtml, $pos, 0);
             } else {
-                // no hero, prepend as before
+                // no identifiable hero, just prepend inside container
                 $body = $topHtml . $body;
             }
         }
