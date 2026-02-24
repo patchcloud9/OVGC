@@ -27,6 +27,10 @@
                     <span class="icon"><i class="fas fa-users"></i></span>
                     <span>Membership</span>
                 </a>
+                <a href="/admin/banners" class="button is-primary">
+                    <span class="icon"><i class="fas fa-exclamation-circle"></i></span>
+                    <span>Banners</span>
+                </a>
             </div>
         </div>
 

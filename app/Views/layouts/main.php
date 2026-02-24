@@ -228,12 +228,52 @@ function rgba_from_hex(string $hex, float $alpha = 1.0): string
 <body>
     <!-- Navigation -->
     <?php require BASE_PATH . '/app/Views/partials/nav.php'; ?>
+
+    <?php
+    // Determine current page path (exclude query string)
+    $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+    $dismissedCookie = $_COOKIE['dismissed_banners'] ?? '';
+    $dismissedIds = $dismissedCookie !== '' ? explode(',', $dismissedCookie) : [];
+
+    // Top banners for this page
+    $topBanners = \App\Models\PageBanner::forPage($currentPath, 'top');
+    if (!empty($topBanners)) {
+        echo "<div class=\"banner-container\">";
+        foreach ($topBanners as $b) {
+            if (in_array($b['id'], $dismissedIds, true)) {
+                continue;
+            }
+            $colour = $b['colour'] ?: 'info';
+            $dismissHtml = $b['dismissable'] ? '<button class="delete"></button>' : '';
+            echo "<div class=\"banner notification is-$colour\" data-id=\"" . e($b['id']) . "\">$dismissHtml" . e($b['text']) . "</div>";
+        }
+        echo "</div>";
+    }
+    ?>
     
     <!-- Main Content -->
     <main class="content-wrapper">
         <?= $content ?>
     </main>
     
+    <!-- Bottom Banners -->
+    <?php
+    // bottom-position banners
+    $bottomBanners = \App\Models\PageBanner::forPage($currentPath, 'bottom');
+    if (!empty($bottomBanners)) {
+        echo "<div class=\"banner-container\">";
+        foreach ($bottomBanners as $b) {
+            if (in_array($b['id'], $dismissedIds, true)) {
+                continue;
+            }
+            $colour = $b['colour'] ?: 'info';
+            $dismissHtml = $b['dismissable'] ? '<button class="delete"></button>' : '';
+            echo "<div class=\"banner notification is-$colour\" data-id=\"" . e($b['id']) . "\">$dismissHtml" . e($b['text']) . "</div>";
+        }
+        echo "</div>";
+    }
+    ?>
+
     <!-- Footer -->
     <?php
     $siteName = theme_setting('site_name') ?: APP_NAME;
@@ -330,5 +370,27 @@ function rgba_from_hex(string $hex, float $alpha = 1.0): string
     
     <!-- Custom JavaScript (cache-busted using file modification time) -->
     <script src="/assets/js/app.js?v=<?= @filemtime(BASE_PATH . '/public/assets/js/app.js') ?>"></script>
+    <script>
+        // banner dismiss logic: store in cookie so closed banners remain hidden
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.banner .delete').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var banner = this.closest('.banner');
+                    if (!banner) return;
+                    var id = banner.dataset.id;
+                    if (id) {
+                        // read existing cookie
+                        var existing = document.cookie.replace(/(?:(?:^|.*;\s*)dismissed_banners\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+                        var arr = existing ? existing.split(',') : [];
+                        if (arr.indexOf(id) === -1) {
+                            arr.push(id);
+                            document.cookie = 'dismissed_banners=' + arr.join(',') + '; path=/; max-age=' + (30*24*60*60);
+                        }
+                    }
+                    banner.remove();
+                });
+            });
+        });
+    </script>
 </body>
 </html>

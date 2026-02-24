@@ -1,0 +1,2 @@
+INSERT INTO page_banners (page, position, colour, text, start_at, end_at, sort_order, dismissable, active, created_at, updated_at) VALUES
+('/', 'top', 'info', 'Welcome to our site! Check our latest updates.', NULL, NULL, 0, 1, 1, NOW(), NOW());

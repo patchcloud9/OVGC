@@ -15,6 +15,19 @@
 
 /* Add your styles below */
 
+/* Page banners (top/bottom of layout) */
+.banner-container {
+    width: 100%;
+    position: relative;
+    z-index: 25;
+}
+.banner {
+    border-radius: 0;
+    margin: 0;
+    text-align: center;
+}
+
+
 /* Homepage equal-height cards 🔧 */
 .home-cards .columns { align-items: stretch; }
 .home-cards .column { display: flex; }
