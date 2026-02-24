@@ -20,15 +20,18 @@
     width: 100%;
     position: relative;
     z-index: 25;
+    display: flex;
+    justify-content: center; /* center inner banner block */
     /* ensure banners sit above other content but below nav if fixed */
 }
 .banner {
     border-radius: 6px;
-    margin: 4px auto; /* vertical spacing plus center horizontal */
+    margin: 4px 0; /* only vertical spacing; horizontal centering handled by container */
+    width: 100%;
     max-width: 960px; /* match typical container width */
     padding: 4px 1rem; /* small top/bottom padding, some horizontal breathing room */
     text-align: center;
-    display: inline-block; /* shrink to content width with margin auto centering */
+    display: block; /* full-width up to max-width */
 }
 
 
