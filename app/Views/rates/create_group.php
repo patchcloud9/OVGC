@@ -17,6 +17,7 @@ $layout = 'main';
         <?php require BASE_PATH . '/app/Views/partials/messages.php'; ?>
 
         <form method="POST" action="/admin/rates" style="max-width:600px;">
+            <?= csrf_field() ?>
             <div class="field">
                 <label class="label">Slug</label>
                 <div class="control">

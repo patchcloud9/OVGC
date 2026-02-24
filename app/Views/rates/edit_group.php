@@ -17,6 +17,7 @@ $layout = 'main';
         <?php require BASE_PATH . '/app/Views/partials/messages.php'; ?>
 
         <form method="POST" action="/admin/rates/<?= e($group['id']) ?>" style="max-width:600px;">
+            <?= csrf_field() ?>
             <input type="hidden" name="_method" value="PUT">
             <div class="field">
                 <label class="label">Slug</label>
