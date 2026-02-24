@@ -34,6 +34,7 @@ return [
         '/'                     => ['HomeController', 'index'],
         '/contact'              => ['ContactController', 'index'],
         '/membership'           => ['MembershipController', 'index'],
+        '/rates'                => ['RatesController', 'index'],
         
         // Authentication routes
         '/login'                => ['AuthController', 'showLogin', ['guest']],
