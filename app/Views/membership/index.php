@@ -39,6 +39,14 @@ $layout = 'main';
 
         <?php
             $groups = $groups ?? [];
+            $other = null;
+            foreach ($groups as $i => $g) {
+                if ($g['slug'] === 'other-prices') {
+                    $other = $g;
+                    unset($groups[$i]);
+                    break;
+                }
+            }
         ?>
 
         <div class="content" style="max-width:1000px;margin:2rem auto;text-align:left;">
@@ -68,30 +76,24 @@ $layout = 'main';
             <?php endforeach; ?>
         </div> <!-- close card container -->
 
-        <!-- additional pricing table inserted below cards -->
-        <div class="content" style="max-width:1000px;margin:2rem auto;text-align:left;">
-            <h2 class="title is-4">Other Prices (including tax)</h2>
-            <table class="table is-fullwidth is-narrow is-striped">
-                <tbody>
-                    <tr>
-                        <td>Yearly Cart Storage – Electric</td>
-                        <td>$300</td>
-                    </tr>
-                    <tr>
-                        <td>Yearly Cart Storage – Gas</td>
-                        <td>$250</td>
-                    </tr>
-                    <tr>
-                        <td>Yearly Trail Fee (Carts from home)</td>
-                        <td>$60</td>
-                    </tr>
-                    <tr>
-                        <td>Daily Trail Fee (Carts from home)</td>
-                        <td>$12</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <?php if ($other): ?>
+            <div class="content" style="max-width:1000px;margin:2rem auto;text-align:left;">
+                <h2 class="title is-4"><?= e($other['title']) ?></h2>
+                <table class="table is-fullwidth is-narrow is-striped">
+                    <tbody>
+                        <?php foreach ($other['items'] as $item): ?>
+                            <tr>
+                                <td><?= e($item['name']) ?></td>
+                                <td>$<?= number_format($item['price'],2) ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+                <?php if (!empty($other['note'])): ?>
+                    <p class="subtitle is-6 has-text-grey"><?= e($other['note']) ?></p>
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
 
         <div class="content" style="max-width:1000px;margin:2rem auto;text-align:left;">
             <p class="has-text-weight-semibold">
