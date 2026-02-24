@@ -19,7 +19,7 @@ $layout = 'main';
                     <h2 class="title is-4 has-text-centered">CONTACT INFO</h2>
                     <div class="content has-text-centered">
                         <p><strong>Okanogan Valley Golf Club</strong></p>
-                        <p>115A Dankar Cutoff Road Omak<br>Omak, WA 9441</p>
+                        <p>115A Dankar Cutoff Road Omak<br>P.O. Box 1896<br>Omak, WA 9441</p>
                     </div>
                     <div class="notification is-light has-text-centered">
                         <span class="icon"><i class="fas fa-phone"></i></span>
