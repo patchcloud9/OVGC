@@ -257,7 +257,6 @@ function rgba_from_hex(string $hex, float $alpha = 1.0): string
     }
     ?>
 
-    
     <!-- Main Content -->
     <main class="content-wrapper">
         <?php
