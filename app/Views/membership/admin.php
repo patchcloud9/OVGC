@@ -18,7 +18,7 @@ $layout = 'main';
         <h1 class="title">
             <span class="icon-text">
                 <span class="icon has-text-primary"><i class="fas fa-users"></i></span>
-                <span>Manage Membership Groups</span>
+                <span>Membership</span>
             </span>
         </h1>
         <p class="subtitle">Define cards used on the public membership page</p>
