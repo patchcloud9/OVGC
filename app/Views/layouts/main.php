@@ -240,20 +240,20 @@ function rgba_from_hex(string $hex, float $alpha = 1.0): string
     $dismissedCookie = $_COOKIE['dismissed_banners'] ?? '';
     $dismissedIds = $dismissedCookie !== '' ? explode(',', $dismissedCookie) : [];
 
-    // build top banner markup wrapped inside a container (matching page content width)
+    // build top banner markup wrapped inside a banner-container (no inner container)
     $topHtml = '';
     $topBanners = \App\Models\PageBanner::forPage($currentPath, 'top');
     if (!empty($topBanners)) {
-        $topHtml .= "<div class=\"banner-container\"><div class=\"container\">";
+        $topHtml .= "<div class=\"banner-container\">";
         foreach ($topBanners as $b) {
             if (in_array($b['id'], $dismissedIds, true)) {
                 continue;
             }
             $colour = $b['colour'] ?: 'info';
-            $dismissHtml = $b['dismissable'] ? '<button class=\"delete\"></button>' : '';
+            $dismissHtml = $b['dismissable'] ? '<button class="delete"></button>' : '';
             $topHtml .= "<div class=\"banner notification is-$colour\" data-id=\"" . e($b['id']) . "\">$dismissHtml" . e($b['text']) . "</div>";
         }
-        $topHtml .= "</div></div>";
+        $topHtml .= "</div>";
     }
     ?>
 
