@@ -1,3 +1,15 @@
+<!-- Hero for Admin Panel -->
+<section class="hero is-dark subpage-hero">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title is-3">
+                <i class="fas fa-crown"></i> Admin Panel
+            </h1>
+            <p class="subtitle is-6 has-text-white">Welcome, <?= e(auth_user()['name']) ?>!</p>
+        </div>
+    </div>
+</section>
+
 <section class="section" style="padding-top: 1.5rem;">
     <div class="container">
         <?php require BASE_PATH . '/app/Views/partials/messages.php'; ?>

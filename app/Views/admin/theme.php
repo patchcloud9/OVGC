@@ -10,6 +10,21 @@
  */
 ?>
 
+<!-- Hero for Theme Settings -->
+<section class="hero is-dark subpage-hero">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title is-3">
+                <span class="icon-text">
+                    <span class="icon"><i class="fas fa-palette"></i></span>
+                    <span>Theme Settings</span>
+                </span>
+            </h1>
+            <p class="subtitle is-6 has-text-white">Customize the appearance of your site</p>
+        </div>
+    </div>
+</section>
+
 <section class="section">
     <div class="container">
         <div class="columns is-centered">

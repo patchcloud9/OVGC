@@ -6,7 +6,8 @@
  */
 ?>
 
-<section class="hero is-primary">
+<!-- hero updated to dark subpage style and removed container wrapper -->
+<section class="hero is-dark subpage-hero">
     <div class="hero-body">
         <div class="container">
             <h1 class="title">

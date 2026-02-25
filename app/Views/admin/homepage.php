@@ -2,8 +2,23 @@
 $layout = 'main';
 ?>
 
+<!-- Hero for Homepage Settings -->
+<section class="hero is-dark subpage-hero">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title is-3">
+                <span class="icon-text">
+                    <span class="icon has-text-info"><i class="fas fa-home"></i></span>
+                    <span>Homepage Settings</span>
+                </span>
+            </h1>
+            <p class="subtitle is-6 has-text-white">Configure the homepage content and appearance</p>
+        </div>
+    </div>
+</section>
+
 <div class="section">
-    <div class="container">
+    <!-- Breadcrumb moved below hero -->
         <!-- Breadcrumb -->
         <nav class="breadcrumb" aria-label="breadcrumbs">
             <ul>

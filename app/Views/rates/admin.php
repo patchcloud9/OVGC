@@ -5,6 +5,21 @@
 $layout = 'main';
 ?>
 
+<!-- hero for Rates admin -->
+<section class="hero is-dark subpage-hero">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">
+                <span class="icon-text">
+                    <span class="icon has-text-white"><i class="fas fa-dollar-sign"></i></span>
+                    <span>Manage Rate Groups</span>
+                </span>
+            </h1>
+            <p class="subtitle has-text-white">Define cards used on the public rates page</p>
+        </div>
+    </div>
+</section>
+
 <section class="section">
     <div class="container">
         <!-- Breadcrumb -->
@@ -14,14 +29,6 @@ $layout = 'main';
                 <li class="is-active"><a href="#" aria-current="page">Rates</a></li>
             </ul>
         </nav>
-
-        <h1 class="title">
-            <span class="icon-text">
-                <span class="icon has-text-primary"><i class="fas fa-dollar-sign"></i></span>
-                <span>Manage Rate Groups</span>
-            </span>
-        </h1>
-        <p class="subtitle">Define cards used on the public rates page</p>
 
         <?php require BASE_PATH . '/app/Views/partials/messages.php'; ?>
 
