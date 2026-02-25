@@ -38,8 +38,20 @@ class PageBannerController extends Controller
 
     public function store(): void
     {
+        // normalize page value: collapse extra slashes, strip hashes, ensure leading slash
+        $pageInput = $this->input('page');
+        $pageInput = preg_replace('#/+#', '/', $pageInput);
+        $pageInput = str_replace('#', '', $pageInput);
+        if ($pageInput === '' || $pageInput[0] !== '/') {
+            $pageInput = '/' . ltrim($pageInput, '/');
+        }
+        if (strlen($pageInput) > 1 && str_ends_with($pageInput, '/')) {
+            $pageInput = rtrim($pageInput, '/');
+        }
+        $_POST['page'] = $pageInput;
+
         $validator = new Validator([
-            'page' => $this->input('page'),
+            'page' => $pageInput,
             'position' => $this->input('position'),
             'text' => $this->input('text'),
             'colour' => $this->input('colour'),
@@ -116,8 +128,20 @@ class PageBannerController extends Controller
             $this->redirect('/admin/banners');
             return;
         }
+        // normalize page value before validation
+        $pageInput = $this->input('page');
+        $pageInput = preg_replace('#/+#', '/', $pageInput);
+        $pageInput = str_replace('#', '', $pageInput);
+        if ($pageInput === '' || $pageInput[0] !== '/') {
+            $pageInput = '/' . ltrim($pageInput, '/');
+        }
+        if (strlen($pageInput) > 1 && str_ends_with($pageInput, '/')) {
+            $pageInput = rtrim($pageInput, '/');
+        }
+        $_POST['page'] = $pageInput;
+
         $validator = new Validator([
-            'page' => $this->input('page'),
+            'page' => $pageInput,
             'position' => $this->input('position'),
             'text' => $this->input('text'),
             'colour' => $this->input('colour'),

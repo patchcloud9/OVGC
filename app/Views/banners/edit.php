@@ -32,8 +32,11 @@ $layout = 'main';
 
             <div class="field">
                 <label class="label">Page</label>
-                <div class="control">
-                    <input class="input" type="text" name="page" list="page-list" value="<?= e(old('page', $banner['page'])) ?>" required autocomplete="off">
+                <div class="control has-icons-right">
+                    <input class="input" type="text" name="page" list="page-list" value="<?= e(old('page', $banner['page'])) ?>" required autocomplete="off" id="banner-page-input">
+                    <span class="icon is-small is-right" id="clear-page" style="cursor:pointer; display:none;">
+                        <i class="fas fa-times-circle"></i>
+                    </span>
                     <datalist id="page-list">
                         <?php foreach (($pages ?? []) as $p): ?>
                         <option value="<?= e($p) ?>"></option>
@@ -124,3 +127,32 @@ $layout = 'main';
         </form>
     </div>
 </section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var pageInput = document.getElementById('banner-page-input');
+    var clearBtn = document.getElementById('clear-page');
+    function toggleClear() {
+        if (pageInput.value.length) {
+            clearBtn.style.display = 'block';
+        } else {
+            clearBtn.style.display = 'none';
+        }
+    }
+    function normalize() {
+        var v = pageInput.value;
+        v = v.replace(/\/+/g, '/').replace(/#/g, '');
+        if (!v.startsWith('/')) v = '/' + v;
+        if (v.length > 1 && v.endsWith('/')) v = v.slice(0, -1);
+        pageInput.value = v;
+    }
+    pageInput.addEventListener('input', toggleClear);
+    pageInput.addEventListener('blur', normalize);
+    clearBtn.addEventListener('click', function() {
+        pageInput.value = '';
+        toggleClear();
+        pageInput.focus();
+    });
+    toggleClear();
+});
+</script>
