@@ -554,6 +554,11 @@ p {
     margin-top: 25px;
 }
 
+/* if the hero is a subpage hero, pull it up even when the navbar is opaque */
+.navbar:not(.is-transparent-hero) ~ .content-wrapper > .hero.subpage-hero {
+    margin-top: -2rem; /* override the 25px above */
+}
+
 /* non-home nav should be solid rather than alpha */
 .navbar:not(.is-transparent-hero) {
     background-color: var(--navbar-color) !important;
