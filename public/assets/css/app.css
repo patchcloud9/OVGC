@@ -560,6 +560,11 @@ p {
     margin-top: -2rem; /* override the 25px above */
 }
 
+/* homepage-specific override: cancel gap regardless of navbar transparency */
+.content-wrapper > .hero.homepage-hero {
+    margin-top: -2rem !important;
+}
+
 /* non-home nav should be solid rather than alpha */
 .navbar:not(.is-transparent-hero) {
     background-color: var(--navbar-color) !important;
