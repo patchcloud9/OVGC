@@ -18,23 +18,35 @@ try {
     <div class="container">
         <div class="navbar-brand">
             <?php
-            // primary branding image used on homepage and nav
-            $logo = theme_setting('homepage_logo_path');
-            // secondary_logo_path is stored for later use if needed
-            $secondaryLogo = theme_setting('secondary_logo_path');
+            // determine whether we’re on the homepage (path = "/")
+            $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+            $currentPath = rtrim($currentPath, '/');
+            if ($currentPath === '') {
+                $currentPath = '/';
+            }
+            $isHome = $currentPath === '/';
+
+            // choose logo based on context
+            if ($isHome) {
+                // homepage uses the primary/homepage logo
+                $logo = theme_setting('homepage_logo_path');
+            } else {
+                // other pages default to secondary logo, falling back to homepage logo
+                $logo = theme_setting('secondary_logo_path') ?: theme_setting('homepage_logo_path');
+            }
+
             $siteName = theme_setting('site_name');
             ?>
             <a class="navbar-item has-text-weight-bold logo-text" href="/">
                 <?php if ($logo): ?>
-                    <!-- logo slightly larger than before -->
                     <img class="site-logo" src="<?= e($logo) ?>" alt="<?= APP_NAME ?>">
                 <?php else: ?>
                     <?= APP_NAME ?>
                 <?php endif; ?>
-                <!-- site-title removed for now; text not needed -->
-                <!--
-                <span class="site-title ml-2">kanogan&nbsp;Valley&nbsp;Golf&nbsp;Course</span>
-                -->
+
+                <?php if (!$isHome && !empty($siteName)): ?>
+                    <span class="site-title ml-2"><?= e($siteName) ?></span>
+                <?php endif; ?>
             </a>
             
             <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="mainNavbar">

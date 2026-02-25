@@ -419,11 +419,10 @@ p {
     padding-bottom: 0.25rem !important;
 }
 
-/* keep navbar height constant even when transparent over hero; only
-   the brand items receive extra padding if desired. */
+/* transparent-hero navbar (homepage) is taller until scrolled */
 .navbar.is-transparent-hero {
-    padding-top: 0.25rem;
-    padding-bottom: 0.25rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
 }
 
 
@@ -436,6 +435,13 @@ p {
 .navbar.is-transparent-hero .navbar-link {
     font-weight: 600;
     font-size: 1.05rem;
+}
+
+/* site title spacing (appears on non-home pages) */
+.navbar-item .site-title {
+    font-size: 1rem;
+    margin-left: 0.5rem;
+    white-space: nowrap;
 }
 
 /* increase vertical padding on brand items to compensate at top */
