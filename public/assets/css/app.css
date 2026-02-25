@@ -44,7 +44,7 @@ to the sides; the base rule below still defines vertical spacing. */
    Bulma’s default 3rem padding is too generous for this design, so override
    it when it’s the very first section inside the wrapper. */
 .content-wrapper > .section:first-of-type {
-    padding-top: 0.5rem; /* very small gap for testing */
+    padding-top: 0.25rem; /* almost flush */
 }
 
 /* we deliberately do **not** pull banners up under the hero; spacing is
@@ -54,7 +54,7 @@ to the sides; the base rule below still defines vertical spacing. */
 /* .hero + .banner-container { margin-top: -2rem; } */
 
 .banner-container + .section {
-    padding-top: 0.5rem; /* very small gap when banner present (testing) */
+    padding-top: 0.25rem; /* almost flush under banner */
 }
 /* when banner container is immediately before footer give extra space */
 .banner-container + footer {
