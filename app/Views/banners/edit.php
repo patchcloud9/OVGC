@@ -37,7 +37,9 @@ $layout = 'main';
                         <input class="input" type="text" name="page" list="page-list" value="<?= e(old('page', $banner['page'])) ?>" required autocomplete="off" id="banner-page-input">
                     </div>
                     <div class="control">
-                        <button class="button is-small" type="button" id="clear-page">Clear</button>
+                        <button class="button is-small is-light" type="button" id="clear-page" style="padding:0 0.75rem;">
+                            <span class="icon is-small"><i class="fas fa-times"></i></span>
+                        </button>
                     </div>
                 </div>
                 <datalist id="page-list">
