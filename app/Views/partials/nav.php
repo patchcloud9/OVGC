@@ -14,17 +14,21 @@ try {
 }
 ?>
 
-<nav class="navbar is-primary<?php if (isset($isHome) && $isHome) echo ' homepage'; ?>" role="navigation" aria-label="main navigation">
+<?php
+// compute current path and whether we’re on the homepage before rendering nav
+$currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$currentPath = rtrim($currentPath, '/');
+if ($currentPath === '') {
+    $currentPath = '/';
+}
+$isHome = $currentPath === '/';
+?>
+
+<nav class="navbar is-primary<?php if ($isHome) echo ' homepage'; ?>" role="navigation" aria-label="main navigation">
     <div class="container">
         <div class="navbar-brand">
             <?php
-            // determine whether we’re on the homepage (path = "/")
-            $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-            $currentPath = rtrim($currentPath, '/');
-            if ($currentPath === '') {
-                $currentPath = '/';
-            }
-            $isHome = $currentPath === '/';
+            // (already computed above)
 
             // gather both logo settings
             $homepageLogo   = theme_setting('homepage_logo_path');
