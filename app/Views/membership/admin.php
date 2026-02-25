@@ -120,9 +120,10 @@ $layout = 'main';
                 <div class="is-hidden-tablet">
                     <?php foreach ($groups as $group): ?>
                         <div class="box">
-                            <h3 class="title is-5"><?= e($group['title']) ?></h3>
-                            <p><code><?= e($group['slug']) ?></code></p>
-                            <p class="is-size-7">Order: <?= e($group['sort_order']) ?> &bull; Active: <?= $group['active'] ? '<span class="tag is-success">Yes</span>' : '<span class="tag is-light">No</span>' ?></p>
+                            <h3 class="title is-5">
+                                <?= e($group['title']) ?> - <code><?= e($group['slug']) ?></code>
+                                <span class="is-size-7 has-text-grey">#<?= e($group['sort_order']) ?> &bull; <?= $group['active'] ? '<span class="tag is-success">Active</span>' : '<span class="tag is-light">Inactive</span>' ?></span>
+                            </h3>
                             <div class="buttons is-small">
                                 <a href="/admin/membership/<?= e($group['id']) ?>/edit" class="button is-info" title="Edit">
                                     <span class="icon is-small"><i class="fas fa-edit"></i></span>
