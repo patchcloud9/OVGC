@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\MembershipGroup;
+use App\Models\MembershipPageContent;
 use App\Services\LogService;
 use Core\Validator;
 
@@ -18,9 +19,11 @@ class MembershipGroupController extends Controller
     public function index(): void
     {
         $groups = MembershipGroup::allGroups();
+        $content = MembershipPageContent::getContent();
         $this->view('membership/admin', [
             'title' => 'Manage Membership Groups',
             'groups' => $groups,
+            'pageContent' => $content,
         ]);
     }
 
@@ -152,6 +155,39 @@ class MembershipGroupController extends Controller
         MembershipGroup::delete($groupId);
         $this->logService->add('info', 'Membership group deleted', ['group_id' => $groupId]);
         $this->flash('success', 'Membership group deleted');
+        $this->redirect('/admin/membership');
+    }
+
+    /**
+     * Handle POST for updating the membership page content (top/bullets/bottom).
+     */
+    public function updateContent(): void
+    {
+        $validator = new Validator($_POST, [
+            'top_text' => 'max:2000',
+            'bullets' => 'max:2000',
+            'bottom_text' => 'max:2000',
+        ]);
+
+        if ($validator->fails()) {
+            $errors = [];
+            foreach ($validator->errors() as $fieldErrors) {
+                $errors = array_merge($errors, $fieldErrors);
+            }
+            $this->flash('danger', 'Validation failed: ' . implode(', ', $errors));
+            flash_old_input($_POST);
+            $this->redirect('/admin/membership');
+            return;
+        }
+
+        $data = [
+            'top_text' => $this->input('top_text'),
+            'bullets' => $this->input('bullets'),
+            'bottom_text' => $this->input('bottom_text'),
+        ];
+
+        MembershipPageContent::updateContent($data);
+        $this->flash('success', 'Membership page content updated successfully!');
         $this->redirect('/admin/membership');
     }
 }

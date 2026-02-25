@@ -25,6 +25,37 @@ $layout = 'main';
 
         <?php require BASE_PATH . '/app/Views/partials/messages.php'; ?>
 
+        <!-- Page content editor -->
+        <div class="box mb-5">
+            <h2 class="title is-4">Page Content</h2>
+            <form method="POST" action="/admin/membership/content">
+                <div class="field">
+                    <label class="label" for="top_text">Top paragraph</label>
+                    <div class="control">
+                        <textarea class="textarea" name="top_text" id="top_text" rows="4"><?= e(old('top_text', $pageContent['top_text'] ?? '')) ?></textarea>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="bullets">Bullet points <span class="is-size-7">(one per line)</span></label>
+                    <div class="control">
+                        <textarea class="textarea" name="bullets" id="bullets" rows="5"><?= e(old('bullets', $pageContent['bullets'] ?? '')) ?></textarea>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="bottom_text">Bottom paragraph</label>
+                    <div class="control">
+                        <textarea class="textarea" name="bottom_text" id="bottom_text" rows="3"><?= e(old('bottom_text', $pageContent['bottom_text'] ?? '')) ?></textarea>
+                    </div>
+                </div>
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button type="submit" class="button is-link">Save Content</button>
+                    </div>
+                </div>
+                <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
+            </form>
+        </div>
+
         <div class="mb-4">
             <a href="/admin/membership/create" class="button is-primary">
                 <span class="icon"><i class="fas fa-plus"></i></span>

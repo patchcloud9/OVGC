@@ -137,6 +137,7 @@ return [
 
         // Membership groups & items (Admin Only)
         '/admin/membership'       => ['MembershipGroupController', 'store', ['auth', 'role:admin', 'csrf']],
+        '/admin/membership/content' => ['MembershipGroupController', 'updateContent', ['auth', 'role:admin', 'csrf']],
         '/admin/membership/(\d+)/items' => ['MembershipItemController', 'store', ['auth', 'role:admin', 'csrf']],
 
         // Banners (Admin Only)

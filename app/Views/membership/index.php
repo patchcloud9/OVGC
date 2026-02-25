@@ -19,23 +19,23 @@ $layout = 'main';
     <div class="container">
         <?php require BASE_PATH . '/app/Views/partials/messages.php'; ?>
 
-        <!-- benefits text above cards; heading moved above everything -->
+        <!-- dynamic page content provided via admin settings -->
+        <?php if (!empty($pageContent['top_text'])): ?>
+            <div class="content" style="max-width:1000px;margin:2rem auto;text-align:left;">
+                <?= nl2br(e($pageContent['top_text'])) ?>
+            </div>
+        <?php endif; ?>
 
-        <div class="content" style="max-width:1000px;margin:2rem auto;text-align:left;">
-            <p>
-                As a member of OVGC you'll join a welcoming community of golfers who share
-                a passion for the game and the beautiful course we call home. Your
-                membership supports course maintenance, club events, and junior programs,
-                keeping the greens in great shape for everyone.
-            </p>
-            <ul>
-                <li>10% off Clubhouse purchases (excluding alcohol)</li>
-                <li>(3)&nbsp;Free 18‑Hole Rounds for a guest of a full Single or Couples member ($105 value)</li>
-                <li>(1)&nbsp;Free 18‑Hole Round for a guest of all other members</li>
-                <li>Juniors golf free when accompanied by a Single, Couples, or Young Adult member</li>
-                <li>Free 18‑Hole Round at Bear Creek Golf Course in Winthrop, WA</li>
-            </ul>
-        </div>
+        <?php if (!empty($bulletList)): ?>
+            <div class="content" style="max-width:1000px;margin:2rem auto;text-align:left;">
+                <ul>
+                    <?php foreach ($bulletList as $bullet): ?>
+                        <li><?= e($bullet) ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        <?php endif; ?>
+
 
         <?php
             $groups = $groups ?? [];
@@ -111,10 +111,10 @@ $layout = 'main';
             </div>
         <?php endif; ?>
 
-        <div class="content" style="max-width:1000px;margin:2rem auto;text-align:left;">
-            <p class="has-text-weight-semibold">
-                MEMBERSHIP PROMOTION: For every new member you recruit in 2025 you receive a $50 reduction on your 2026 dues; all other memberships receive $25 reduction (excluding Junior and College).
-            </p>
-        </div>
+        <?php if (!empty($pageContent['bottom_text'])): ?>
+            <div class="content" style="max-width:1000px;margin:2rem auto;text-align:left;">
+                <?= nl2br(e($pageContent['bottom_text'])) ?>
+            </div>
+        <?php endif; ?>
     </div>
 </section>
