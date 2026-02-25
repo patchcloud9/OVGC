@@ -56,13 +56,6 @@ $layout = 'main';
             </form>
         </div>
 
-        <div class="mb-4">
-            <a href="/admin/membership/create" class="button is-primary">
-                <span class="icon"><i class="fas fa-plus"></i></span>
-                <span>Create Group</span>
-            </a>
-        </div>
-
         <!-- Groups section wrapped in box for consistency -->
         <div class="box">
             <h2 class="title is-4">Groups</h2>
@@ -122,7 +115,7 @@ $layout = 'main';
                         <div class="box">
                             <h3 class="title is-5">
                                 <?= e($group['title']) ?> - <code><?= e($group['slug']) ?></code>
-                                <span class="is-size-7 has-text-grey">#<?= e($group['sort_order']) ?> &bull; <?= $group['active'] ? '<span class="tag is-success">Active</span>' : '<span class="tag is-light">Inactive</span>' ?></span>
+                                <span class="is-size-5 has-text-grey">#<?= e($group['sort_order']) ?> &bull; <?= $group['active'] ? '<span class="tag is-success">Active</span>' : '<span class="tag is-light">Inactive</span>' ?></span>
                             </h3>
                             <div class="buttons is-small">
                                 <a href="/admin/membership/<?= e($group['id']) ?>/edit" class="button is-info" title="Edit">
@@ -143,6 +136,12 @@ $layout = 'main';
                     <?php endforeach; ?>
                 </div>
             <?php endif; ?>
+            <div class="mt-4">
+                <a href="/admin/membership/create" class="button is-primary">
+                    <span class="icon"><i class="fas fa-plus"></i></span>
+                    <span>Create Group</span>
+                </a>
+            </div>
         </div>
     </div>
 </section>
