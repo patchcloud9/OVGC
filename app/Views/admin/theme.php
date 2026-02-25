@@ -262,26 +262,26 @@
                             </span>
                         </h2>
                         
-                        <!-- Logo Upload -->
+                        <!-- Homepage Logo Upload -->
                         <div class="field">
-                            <label class="label">Site Logo</label>
+                            <label class="label">Homepage Logo</label>
                             <div class="file has-name is-fullwidth">
                                 <label class="file-label">
                                     <input 
                                         class="file-input" 
                                         type="file" 
-                                        name="logo" 
+                                        name="homepage_logo" 
                                         accept="image/png,image/jpeg,image/svg+xml"
-                                        onchange="updateFileName(this, 'logo-name')">
+                                        onchange="updateFileName(this, 'homepage-logo-name')">
                                     <span class="file-cta">
                                         <span class="file-icon">
                                             <i class="fas fa-upload"></i>
                                         </span>
                                         <span class="file-label">Choose logo…</span>
                                     </span>
-                                    <span class="file-name" id="logo-name">
-                                        <?php if (!empty($theme['logo_path'])): ?>
-                                            <?= e(basename($theme['logo_path'])) ?>
+                                    <span class="file-name" id="homepage-logo-name">
+                                        <?php if (!empty($theme['homepage_logo_path'])): ?>
+                                            <?= e(basename($theme['homepage_logo_path'])) ?>
                                         <?php else: ?>
                                             No file selected
                                         <?php endif; ?>
@@ -290,10 +290,45 @@
                             </div>
                             <p class="help">PNG, JPG, or SVG. Max 2MB. Recommended: 200x50px</p>
                             
-                            <?php if (!empty($theme['logo_path'])): ?>
+                            <?php if (!empty($theme['homepage_logo_path'])): ?>
                                 <div class="mt-3">
                                     <p class="has-text-weight-semibold mb-2">Current Logo:</p>
-                                    <img src="<?= e($theme['logo_path']) ?>" alt="Current Logo" style="max-height: 60px;">
+                                    <img src="<?= e($theme['homepage_logo_path']) ?>" alt="Current Logo" style="max-height: 60px;">
+                                </div>
+                            <?php endif; ?>
+                        </div>
+
+                        <!-- Secondary Logo (future use) -->
+                        <div class="field">
+                            <label class="label">Secondary Logo (Optional)</label>
+                            <div class="file has-name is-fullwidth">
+                                <label class="file-label">
+                                    <input 
+                                        class="file-input" 
+                                        type="file" 
+                                        name="secondary_logo" 
+                                        accept="image/png,image/jpeg,image/svg+xml"
+                                        onchange="updateFileName(this, 'secondary-logo-name')">
+                                    <span class="file-cta">
+                                        <span class="file-icon">
+                                            <i class="fas fa-upload"></i>
+                                        </span>
+                                        <span class="file-label">Choose logo…</span>
+                                    </span>
+                                    <span class="file-name" id="secondary-logo-name">
+                                        <?php if (!empty($theme['secondary_logo_path'])): ?>
+                                            <?= e(basename($theme['secondary_logo_path'])) ?>
+                                        <?php else: ?>
+                                            No file selected
+                                        <?php endif; ?>
+                                    </span>
+                                </label>
+                            </div>
+                            <p class="help">PNG, JPG, or SVG. Max 2MB. This file is stored for later use.</p>
+                            <?php if (!empty($theme['secondary_logo_path'])): ?>
+                                <div class="mt-3">
+                                    <p class="has-text-weight-semibold mb-2">Current Secondary Logo:</p>
+                                    <img src="<?= e($theme['secondary_logo_path']) ?>" alt="Secondary Logo" style="max-height: 60px;">
                                 </div>
                             <?php endif; ?>
                         </div>
@@ -385,41 +420,6 @@
                             <?php endif; ?>
                         </div>
                         
-                        <!-- Hero Background Image Upload -->
-                        <div class="field">
-                            <label class="label">Hero Background Image (Optional)</label>
-                            <div class="file has-name is-fullwidth">
-                                <label class="file-label">
-                                    <input 
-                                        class="file-input" 
-                                        type="file" 
-                                        name="hero_background" 
-                                        accept="image/png,image/jpeg,image/jpg"
-                                        onchange="updateFileName(this, 'hero-name')">
-                                    <span class="file-cta">
-                                        <span class="file-icon">
-                                            <i class="fas fa-upload"></i>
-                                        </span>
-                                        <span class="file-label">Choose hero image…</span>
-                                    </span>
-                                    <span class="file-name" id="hero-name">
-                                        <?php if (!empty($theme['hero_background_image'])): ?>
-                                            <?= e(basename($theme['hero_background_image'])) ?>
-                                        <?php else: ?>
-                                            No file selected
-                                        <?php endif; ?>
-                                    </span>
-                                </label>
-                            </div>
-                            <p class="help">PNG or JPG. Max 2MB. Recommended: 1920x400px. Overrides background color/gradient.</p>
-                            
-                            <?php if (!empty($theme['hero_background_image'])): ?>
-                                <div class="mt-3">
-                                    <p class="has-text-weight-semibold mb-2">Current Hero Image:</p>
-                                    <img src="<?= e($theme['hero_background_image']) ?>" alt="Current Hero Image" style="max-height: 100px;">
-                                </div>
-                            <?php endif; ?>
-                        </div>
                     </div>
                     
                     <div class="box">

@@ -9,7 +9,8 @@ INSERT INTO theme_settings (
     navbar_color,
     navbar_hover_color,
     navbar_text_color,
-    logo_path,
+    homepage_logo_path,
+    secondary_logo_path,
     favicon_path,
     site_name,
     gallery_contact_email,
@@ -24,7 +25,8 @@ INSERT INTO theme_settings (
     '#667eea',  -- Navbar: Background color for navigation bar
     '#ffffff',  -- Navbar Hover: Text color when hovering over nav items
     '#ffffff',  -- Navbar Text: Default text color for navbar links
-    NULL,       -- Logo: No custom logo yet (uses APP_NAME text)
+    NULL,       -- Homepage logo: no custom image yet
+    NULL,       -- Secondary logo: reserved for future use
     NULL,       -- Favicon: No custom favicon yet (uses browser default)
     'Base Framework', -- Site name
     'gallery@example.com', -- Gallery contact email

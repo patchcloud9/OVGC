@@ -18,7 +18,10 @@ try {
     <div class="container">
         <div class="navbar-brand">
             <?php
-            $logo = theme_setting('logo_path');
+            // primary branding image used on homepage and nav
+            $logo = theme_setting('homepage_logo_path');
+            // secondary_logo_path is stored for later use if needed
+            $secondaryLogo = theme_setting('secondary_logo_path');
             $siteName = theme_setting('site_name');
             ?>
             <a class="navbar-item has-text-weight-bold logo-text" href="/">

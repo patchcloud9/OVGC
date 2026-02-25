@@ -17,7 +17,8 @@ CREATE TABLE IF NOT EXISTS theme_settings (
     navbar_text_color VARCHAR(7) DEFAULT '#ffffff' COMMENT 'Navbar text color (hex)',
 
     -- Brand Assets & Site Info
-    logo_path VARCHAR(255) DEFAULT NULL COMMENT 'Path to uploaded logo file',
+    homepage_logo_path VARCHAR(255) DEFAULT NULL COMMENT 'Path to uploaded homepage/logo file',
+    secondary_logo_path VARCHAR(255) DEFAULT NULL COMMENT 'Secondary logo',
     favicon_path VARCHAR(255) DEFAULT NULL COMMENT 'Path to uploaded favicon file',
     site_name VARCHAR(100) DEFAULT NULL COMMENT 'Site name displayed in navigation',
     gallery_contact_email VARCHAR(255) DEFAULT NULL COMMENT 'Contact email shown on gallery/footer',
@@ -25,7 +26,7 @@ CREATE TABLE IF NOT EXISTS theme_settings (
 
     -- Hero / Header Customization
     hero_background_color VARCHAR(7) DEFAULT NULL COMMENT 'Hero background color (hex)',
-    hero_background_image VARCHAR(255) DEFAULT NULL COMMENT 'Hero background image path',
+    -- hero_background_image removed; handled elsewhere or not used
 
     -- Layout Options
     header_style ENUM('fixed', 'static') NOT NULL DEFAULT 'static' COMMENT 'Header positioning',

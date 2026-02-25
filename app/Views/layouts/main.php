@@ -66,12 +66,7 @@ function rgba_from_hex(string $hex, float $alpha = 1.0): string
         
         /* Hero gradient with primary color */
         .hero.is-primary {
-            <?php if (!empty($theme['hero_background_image'])): ?>
-            background-image: url('<?= e($theme['hero_background_image']) ?>');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            <?php elseif (!empty($theme['hero_background_color'])): ?>
+            <?php if (!empty($theme['hero_background_color'])): ?>
             background-color: <?= e($theme['hero_background_color']) ?>;
             <?php else: ?>
             background: var(--primary-color);

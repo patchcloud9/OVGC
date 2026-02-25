@@ -70,11 +70,18 @@ class ThemeController extends Controller
             'card_style' => $this->input('card_style'),
         ];
         
-        // Handle logo upload
-        if (isset($_FILES['logo']) && $_FILES['logo']['error'] === UPLOAD_ERR_OK) {
-            $logoPath = $this->handleFileUpload($_FILES['logo'], 'logo');
+        // Handle homepage logo upload
+        if (isset($_FILES['homepage_logo']) && $_FILES['homepage_logo']['error'] === UPLOAD_ERR_OK) {
+            $logoPath = $this->handleFileUpload($_FILES['homepage_logo'], 'homepage_logo');
             if ($logoPath) {
-                $updateData['logo_path'] = $logoPath;
+                $updateData['homepage_logo_path'] = $logoPath;
+            }
+        }
+        // Handle secondary logo upload (currently unused)
+        if (isset($_FILES['secondary_logo']) && $_FILES['secondary_logo']['error'] === UPLOAD_ERR_OK) {
+            $secPath = $this->handleFileUpload($_FILES['secondary_logo'], 'secondary_logo');
+            if ($secPath) {
+                $updateData['secondary_logo_path'] = $secPath;
             }
         }
         
@@ -86,13 +93,6 @@ class ThemeController extends Controller
             }
         }
         
-        // Handle hero background image upload
-        if (isset($_FILES['hero_background']) && $_FILES['hero_background']['error'] === UPLOAD_ERR_OK) {
-            $heroPath = $this->handleFileUpload($_FILES['hero_background'], 'hero_background');
-            if ($heroPath) {
-                $updateData['hero_background_image'] = $heroPath;
-            }
-        }
         
         // Update theme
         if (ThemeSetting::updateTheme($updateData)) {
@@ -207,7 +207,7 @@ class ThemeController extends Controller
             'navbar_text_color' => '#ffffff',
             'hero_background_color' => null,
             'hero_background_image' => null,
-            'logo_path' => null,
+            'homepage_logo_path' => null,
             'favicon_path' => null,
             'header_style' => 'static',
             'card_style' => 'default',
