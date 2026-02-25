@@ -419,10 +419,11 @@ p {
     padding-bottom: 0.25rem !important;
 }
 
-/* larger padding when navbar is transparent over a hero (homepage only) */
+/* keep navbar height constant even when transparent over hero; only
+   the brand items receive extra padding if desired. */
 .navbar.is-transparent-hero {
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
 }
 
 
