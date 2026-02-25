@@ -41,6 +41,10 @@ $layout = 'main';
             <div class="column is-one-third">
                 <h2 class="title is-4">Scorecard</h2>
                 <?php if (!empty($pageContent['scorecard_path'])): ?>
+                    <!-- small preview image/iframe -->
+                    <div class="mb-3" style="max-height:200px;overflow:hidden;">
+                        <iframe src="<?= e($pageContent['scorecard_path']) ?>" style="width:100%;height:200px;border:1px solid #ccc;"></iframe>
+                    </div>
                     <p>
                         <a href="#" id="view-scorecard" class="button is-link">
                             <i class="fas fa-file-alt"></i> View Scorecard
