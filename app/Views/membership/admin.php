@@ -5,23 +5,24 @@
 $layout = 'main';
 ?>
 
-<section class="section">
-    <div class="container">
-        <!-- Page Hero styled like public membership page -->
-        <section class="hero is-dark subpage-hero">
-            <div class="hero-body">
-                <div class="container">
-                    <h1 class="title is-3">
-                        <span class="icon-text">
-                            <span class="icon has-text-white"><i class="fas fa-users"></i></span>
-                            <span>Membership</span>
-                        </span>
-                    </h1>
-                    <p class="subtitle is-6 has-text-white">Define cards used on the public membership page</p>
-                </div>
-            </div>
-        </section>
+<!-- Page Hero styled like public membership page -->
+<section class="hero is-dark subpage-hero">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title is-3">
+                <span class="icon-text">
+                    <span class="icon has-text-white"><i class="fas fa-users"></i></span>
+                    <span>Membership</span>
+                </span>
+            </h1>
+            <p class="subtitle is-6 has-text-white">Define cards used on the public membership page</p>
+        </div>
+    </div>
+</section>
 
+<section class="section"
+>
+    <div class="container">
         <!-- Breadcrumb -->
         <nav class="breadcrumb" aria-label="breadcrumbs" style="margin-top:1rem;">
             <ul>
