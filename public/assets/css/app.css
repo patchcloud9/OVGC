@@ -47,6 +47,13 @@ to the sides; the base rule below still defines vertical spacing. */
     padding-top: 0.25rem; /* almost flush */
 }
 
+/* avoid double spacing caused by default margins on the first element
+   within each section (typically a <p>).  this keeps the gap between the
+   hero/banner and the text minimal. */
+.content-wrapper > .section > .container > *:first-child {
+    margin-top: 0 !important;
+}
+
 /* we deliberately do **not** pull banners up under the hero; spacing is
    handled by the first-of-type rule above and changing it caused confusion
    for the layout.  The hero margin will collapse naturally with the
