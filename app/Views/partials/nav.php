@@ -14,7 +14,7 @@ try {
 }
 ?>
 
-<nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+<nav class="navbar is-primary<?php if (isset($isHome) && $isHome) echo ' homepage'; ?>" role="navigation" aria-label="main navigation">
     <div class="container">
         <div class="navbar-brand">
             <?php
@@ -26,20 +26,33 @@ try {
             }
             $isHome = $currentPath === '/';
 
-            // choose logo based on context
+            // gather both logo settings
+            $homepageLogo   = theme_setting('homepage_logo_path');
+            $secondaryLogo  = theme_setting('secondary_logo_path');
+
+            // choose which image to show initially
             if ($isHome) {
-                // homepage uses the primary/homepage logo
-                $logo = theme_setting('homepage_logo_path');
+                $logo = $homepageLogo;
             } else {
-                // other pages default to secondary logo, falling back to homepage logo
-                $logo = theme_setting('secondary_logo_path') ?: theme_setting('homepage_logo_path');
+                // other pages default to secondary logo, falling back to homepage
+                $logo = $secondaryLogo ?: $homepageLogo;
             }
 
             $siteName = theme_setting('site_name');
             ?>
             <a class="navbar-item has-text-weight-bold logo-text" href="/">
                 <?php if ($logo): ?>
-                    <img class="site-logo" src="<?= e($logo) ?>" alt="<?= APP_NAME ?>">
+                    <?php if ($isHome): ?>
+                        <!-- primary logo shown on homepage initially -->
+                        <img class="site-logo primary-logo" src="<?= e($homepageLogo) ?>" alt="<?= APP_NAME ?>">
+                        <?php if ($secondaryLogo): ?>
+                            <!-- secondary logo hidden until scroll -->
+                            <img class="site-logo secondary-logo" src="<?= e($secondaryLogo) ?>" alt="<?= APP_NAME ?>">
+                        <?php endif; ?>
+                    <?php else: ?>
+                        <!-- non-home pages just render the chosen logo -->
+                        <img class="site-logo primary-logo" src="<?= e($logo) ?>" alt="<?= APP_NAME ?>">
+                    <?php endif; ?>
                 <?php else: ?>
                     <?= APP_NAME ?>
                 <?php endif; ?>
