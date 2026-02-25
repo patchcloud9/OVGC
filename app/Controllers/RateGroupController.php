@@ -212,13 +212,14 @@ class RateGroupController extends Controller
         if (isset($_FILES['scorecard_file']) && $_FILES['scorecard_file']['error'] === UPLOAD_ERR_OK) {
             $tmp = $_FILES['scorecard_file']['tmp_name'];
             $mime = mime_content_type($tmp);
-            if ($mime !== 'application/pdf') {
-                $this->flash('danger', 'Scorecard must be a PDF file');
+            if (!in_array($mime, ['image/jpeg', 'image/png'])) {
+                $this->flash('danger', 'Scorecard must be a JPG or PNG image');
                 $this->redirect('/admin/rates');
                 return;
             }
+            $ext = $mime === 'image/png' ? 'png' : 'jpg';
             // move to public assets (overwrite existing)
-            $destRel = 'assets/scorecard.pdf';
+            $destRel = "assets/scorecard.{$ext}";
             $dest = BASE_PATH . '/public/' . $destRel;
             if (!move_uploaded_file($tmp, $dest)) {
                 $this->flash('danger', 'Failed to save scorecard file');

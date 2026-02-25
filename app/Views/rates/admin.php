@@ -43,13 +43,14 @@ $layout = 'main';
                     </div>
                 </div>
                 <div class="field">
-                    <label class="label" for="scorecard_file">Scorecard PDF</label>
+                    <label class="label" for="scorecard_file">Scorecard Image (jpg/png)</label>
                     <div class="control">
-                        <input type="file" name="scorecard_file" id="scorecard_file" accept="application/pdf">
+                        <input type="file" name="scorecard_file" id="scorecard_file" accept="image/jpeg,image/png">
                     </div>
                     <?php if (!empty($pageContent['scorecard_path'])): ?>
                         <p class="mt-2">
-                            Current file:
+                            Current image:
+                            <img src="<?= e($pageContent['scorecard_path']) ?>" alt="Scorecard" style="max-height:100px;display:block;">
                             <a href="<?= e($pageContent['scorecard_path']) ?>" target="_blank">view/download</a>
                         </p>
                     <?php endif; ?>
