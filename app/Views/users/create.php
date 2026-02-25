@@ -1,3 +1,13 @@
+<!-- hero for Create User -->
+<section class="hero is-dark subpage-hero is-small">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title is-3"><i class="fas fa-user-plus"></i> <?= e($title) ?></h1>
+            <p class="subtitle is-6 has-text-white">Add a new user to the system</p>
+        </div>
+    </div>
+</section>
+
 <section class="section">
     <div class="container">
         <?php require BASE_PATH . '/app/Views/partials/messages.php'; ?>
@@ -13,11 +23,6 @@
         <div class="columns is-centered">
             <div class="column is-8-tablet is-6-desktop">
                 <div class="box">
-                    <h1 class="title is-4">
-                        <i class="fas fa-user-plus"></i> <?= e($title) ?>
-                    </h1>
-                    <p class="subtitle is-6">Add a new user to the system</p>
-                    
                     <form method="POST" action="/admin/users">
                         <?= csrf_field() ?>
                         

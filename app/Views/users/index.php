@@ -1,3 +1,13 @@
+<!-- hero for Users List -->
+<section class="hero is-dark subpage-hero">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title is-3"><i class="fas fa-users"></i> <?= e($title) ?></h1>
+            <p class="subtitle is-6 has-text-white">Manage your users</p>
+        </div>
+    </div>
+</section>
+
 <section class="section" style="padding-top: 1.5rem;">
     <div class="container">
         <?php require BASE_PATH . '/app/Views/partials/messages.php'; ?>
@@ -10,14 +20,6 @@
         </nav>
         
         <div class="level is-mobile" style="margin-top: 0.5rem;">
-            <div class="level-left">
-                <div class="level-item">
-                    <div>
-                        <h1 class="title is-4"><i class="fas fa-users"></i> <?= e($title) ?></h1>
-                        <p class="subtitle is-6 mt-1">Manage your users</p>
-                    </div>
-                </div>
-            </div>
             <div class="level-right">
                 <div class="level-item">
                     <a href="/admin/users/create" class="button is-primary">

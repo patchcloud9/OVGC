@@ -1,3 +1,13 @@
+<!-- hero for editing user -->
+<section class="hero is-dark subpage-hero is-small">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title is-3"><i class="fas fa-user-edit"></i> <?= e($title) ?></h1>
+            <p class="subtitle is-6 has-text-white">Modify existing user details</p>
+        </div>
+    </div>
+</section>
+
 <section class="section" style="padding-top: 1.5rem;">
     <div class="container">
         <?php require BASE_PATH . '/app/Views/partials/messages.php'; ?>
@@ -13,24 +23,6 @@
         <div class="columns is-centered">
             <div class="column is-8-tablet is-6-desktop">
                 <div class="box">
-                    <div class="level is-mobile">
-                        <div class="level-left">
-                            <div class="level-item">
-                                <h1 class="title is-4">
-                                    <i class="fas fa-user-edit"></i> Edit User
-                                </h1>
-                            </div>
-                        </div>
-                        <div class="level-right">
-                            <div class="level-item">
-                                <span class="tag is-light">
-                                    <i class="fas fa-id-badge"></i>
-                                    <span class="ml-1">ID: <?= $user['id'] ?></span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    
                     <form method="POST" action="/admin/users/<?= $user['id'] ?>">
                         <?= csrf_field() ?>
                         <input type="hidden" name="_method" value="PUT">
