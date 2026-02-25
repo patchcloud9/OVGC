@@ -519,6 +519,11 @@ p {
     padding-top: 2rem;
 }
 
+/* pull subpage hero up to the navbar by cancelling the wrapper's top padding */
+.content-wrapper > .hero.subpage-hero {
+    margin-top: -2rem;
+}
+
 /* map container at top of contact page */
 .map-container {
     width: 100%;
