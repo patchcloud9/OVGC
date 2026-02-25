@@ -519,8 +519,9 @@ p {
     padding-top: 2rem;
 }
 
-/* pull any hero up to the navbar by cancelling the wrapper's top padding */
-.content-wrapper > .hero {
+/* pull any hero up to the navbar by cancelling the wrapper's top padding,
+   but only when the navbar is opaque (i.e. not the transparent homepage bar). */
+.navbar:not(.is-transparent-hero) ~ .content-wrapper > .hero {
     margin-top: -2rem;
 }
 
