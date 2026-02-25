@@ -63,18 +63,20 @@ $layout = 'main';
             </form>
         </div>
 
-        <div class="mb-4">
-            <a href="/admin/rates/create" class="button is-primary">
-                <span class="icon"><i class="fas fa-plus"></i></span>
-                <span>Create Group</span>
-            </a>
-        </div>
-
         <?php if (empty($groups)): ?>
-            <div class="notification is-info">
-                No rate groups defined yet.
+            <div class="box">
+                <div class="notification is-info">
+                    No rate groups defined yet.
+                </div>
+                <div class="mt-4">
+                    <a href="/admin/rates/create" class="button is-primary">
+                        <span class="icon"><i class="fas fa-plus"></i></span>
+                        <span>Create Group</span>
+                    </a>
+                </div>
             </div>
         <?php else: ?>
+            <div class="box">
             <!-- desktop/tablet: table layout -->
             <div class="table-container is-hidden-mobile">
                 <table class="table is-fullwidth is-striped is-hoverable">
@@ -147,6 +149,14 @@ $layout = 'main';
                     </div>
                 <?php endforeach; ?>
             </div>
+            <!-- add create button at bottom and close box -->
+            <div class="mt-4">
+                <a href="/admin/rates/create" class="button is-primary">
+                    <span class="icon"><i class="fas fa-plus"></i></span>
+                    <span>Create Group</span>
+                </a>
+            </div>
+        </div> <!-- end groups box -->
         <?php endif; ?>
     </div>
 </section>
