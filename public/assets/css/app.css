@@ -519,8 +519,8 @@ p {
     padding-top: 2rem;
 }
 
-/* pull subpage hero up to the navbar by cancelling the wrapper's top padding */
-.content-wrapper > .hero.subpage-hero {
+/* pull any hero up to the navbar by cancelling the wrapper's top padding */
+.content-wrapper > .hero {
     margin-top: -2rem;
 }
 
