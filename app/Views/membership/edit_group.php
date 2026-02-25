@@ -2,8 +2,18 @@
 $layout = 'main';
 ?>
 
+<!-- hero for editing membership group -->
+<section class="hero is-dark subpage-hero is-small">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title is-3"><i class="fas fa-users"></i> Edit Membership Group</h1>
+            <p class="subtitle is-6 has-text-white">Modify group settings</p>
+        </div>
+    </div>
+</section>
+
 <section class="section">
-    <div class="container">
+    <div class="container" style="max-width:1000px;">
         <nav class="breadcrumb" aria-label="breadcrumbs">
             <ul>
                 <li><a href="/admin">Admin</a></li>
@@ -12,7 +22,6 @@ $layout = 'main';
             </ul>
         </nav>
 
-        <h1 class="title">Edit Membership Group</h1>
 
         <?php require BASE_PATH . '/app/Views/partials/messages.php'; ?>
 
