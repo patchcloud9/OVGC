@@ -140,6 +140,27 @@ class MenuItem extends Model
     }
 
     /**
+     * Retrieve a list of URLs for non-admin pages (active, not admin visibility)
+     *
+     * Used when building dropdowns or suggestions for page-related features
+     * such as banner targeting.
+     *
+     * @return string[]
+     */
+    public static function getNonAdminUrls(): array
+    {
+        $instance = new static();
+        $sql = "SELECT DISTINCT url FROM {$instance->table} 
+                WHERE is_active = 1 
+                  AND visibility != 'admin' 
+                  AND url NOT LIKE '/admin%' 
+                ORDER BY display_order ASC, url ASC";
+
+        $rows = $instance->getDatabase()->fetchAll($sql);
+        return array_map(fn($r) => $r['url'], $rows);
+    }
+
+    /**
      * Get children of a specific menu item
      */
     public static function getChildren(int $parentId): array

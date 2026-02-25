@@ -27,8 +27,12 @@ class PageBannerController extends Controller
 
     public function create(): void
     {
+        // include list of non-admin pages for dropdown suggestions
+        $pages = \App\Models\MenuItem::getNonAdminUrls();
+
         $this->view('banners/create', [
             'title' => 'Create Banner',
+            'pages' => $pages,
         ]);
     }
 
@@ -93,9 +97,13 @@ class PageBannerController extends Controller
             $this->redirect('/admin/banners');
             return;
         }
+
+        $pages = \App\Models\MenuItem::getNonAdminUrls();
+
         $this->view('banners/edit', [
             'title'=>'Edit Banner',
             'banner'=>$banner,
+            'pages' => $pages,
         ]);
     }
 

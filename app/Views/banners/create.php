@@ -30,8 +30,14 @@ $layout = 'main';
             <div class="field">
                 <label class="label">Page</label>
                 <div class="control">
-                    <input class="input" type="text" name="page" value="<?= e(old('page')) ?>" required>
+                    <input class="input" type="text" name="page" list="page-list" value="<?= e(old('page')) ?>" required autocomplete="off">
+                    <datalist id="page-list">
+                        <?php foreach (($pages ?? []) as $p): ?>
+                        <option value="<?= e($p) ?>"></option>
+                        <?php endforeach; ?>
+                    </datalist>
                 </div>
+                <p class="help">Select a non‑admin page or type a custom path.</p>
             </div>
 
             <div class="field">
