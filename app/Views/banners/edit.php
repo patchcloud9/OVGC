@@ -32,17 +32,19 @@ $layout = 'main';
 
             <div class="field">
                 <label class="label">Page</label>
-                <div class="control has-icons-right" style="position:relative;">
-                    <input class="input" type="text" name="page" list="page-list" value="<?= e(old('page', $banner['page'])) ?>" required autocomplete="off" id="banner-page-input" style="padding-right:2.5rem;">
-                    <span class="icon is-small is-right" id="clear-page" style="cursor:pointer; display:none; position:absolute; right:1.5rem; top:50%; transform:translateY(-50%); pointer-events:auto;">
-                        <i class="fas fa-times-circle"></i>
-                    </span>
-                    <datalist id="page-list">
-                        <?php foreach (($pages ?? []) as $p): ?>
-                        <option value="<?= e($p) ?>"></option>
-                        <?php endforeach; ?>
-                    </datalist>
+                <div class="field has-addons">
+                    <div class="control is-expanded">
+                        <input class="input" type="text" name="page" list="page-list" value="<?= e(old('page', $banner['page'])) ?>" required autocomplete="off" id="banner-page-input">
+                    </div>
+                    <div class="control">
+                        <button class="button is-small" type="button" id="clear-page">Clear</button>
+                    </div>
                 </div>
+                <datalist id="page-list">
+                    <?php foreach (($pages ?? []) as $p): ?>
+                    <option value="<?= e($p) ?>"></option>
+                    <?php endforeach; ?>
+                </datalist>
                 <p class="help">Select a non‑admin page or type a custom path.</p>
             </div>
 
