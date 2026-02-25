@@ -5,6 +5,20 @@
 $layout = 'main';
 ?>
 
+<!-- hero for banners -->
+<section class="hero is-dark subpage-hero">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title is-3">
+                <span class="icon-text">
+                    <span class="icon has-text-white"><i class="fas fa-bullhorn"></i></span>
+                    <span>Manage Banners</span>
+                </span>
+            </h1>
+        </div>
+    </div>
+</section>
+
 <section class="section">
     <div class="container">
         <nav class="breadcrumb" aria-label="breadcrumbs">
@@ -14,14 +28,8 @@ $layout = 'main';
             </ul>
         </nav>
 
-        <h1 class="title">
-            <span class="icon-text">
-                <span class="icon has-text-primary"><i class="fas fa-bullhorn"></i></span>
-                <span>Manage Banners</span>
-            </span>
-        </h1>
-
         <?php require BASE_PATH . '/app/Views/partials/messages.php'; ?>
+        <!-- header shown in hero -->
 
         <div class="mb-4">
             <a href="/admin/banners/create" class="button is-primary">

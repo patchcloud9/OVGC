@@ -1,3 +1,13 @@
+<!-- hero for Logs -->
+<section class="hero is-dark subpage-hero">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title is-3"><i class="fas fa-clipboard-list"></i> <?= e($title) ?></h1>
+            <p class="subtitle is-6 has-text-white">Application log entries</p>
+        </div>
+    </div>
+</section>
+
 <section class="section" style="padding-top: 1.5rem;">
     <div class="container">
         <?php require BASE_PATH . '/app/Views/partials/messages.php'; ?>
@@ -9,65 +19,7 @@
             </ul>
         </nav>
         
-        <div class="is-hidden-mobile">
-            <div class="level" style="margin-top: 0.5rem;">
-                <div class="level-left">
-                    <div class="level-item">
-                        <div>
-                            <h1 class="title is-4"><i class="fas fa-clipboard-list"></i> <?= e($title) ?></h1>
-                            <p class="subtitle is-6 mt-1">Application log entries</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="level-right">
-                    <div class="level-item">
-                        <div class="buttons">
-                            <?php if ($needsSync ?? false): ?>
-                                <form method="POST" action="/logs/sync" style="display: inline;">
-                                    <?= csrf_field() ?>
-                                    <button type="submit" class="button is-success is-small">
-                                        <span class="icon"><i class="fas fa-sync"></i></span>
-                                        <span>Sync (<?= $fileLogCount ?>)</span>
-                                    </button>
-                                </form>
-                            <?php endif; ?>
-                            <form method="POST" action="/logs/clear" style="display: inline;">
-                                <?= csrf_field() ?>
-                                <button type="submit" class="button is-danger is-small" 
-                                        onclick="return confirm('Clear all logs?')">
-                                    <span class="icon"><i class="fas fa-trash"></i></span>
-                                    <span>Clear Logs</span>
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         
-        <!-- Mobile Layout: Stack buttons below title -->
-        <div class="is-hidden-tablet" style="margin-top: 0.5rem;">
-            <h1 class="title is-5"><i class="fas fa-clipboard-list"></i> <?= e($title) ?></h1>
-            <div class="buttons">
-                <?php if ($needsSync ?? false): ?>
-                    <form method="POST" action="/logs/sync" style="display: inline;">
-                        <?= csrf_field() ?>
-                        <button type="submit" class="button is-success is-small">
-                            <span class="icon"><i class="fas fa-sync"></i></span>
-                            <span>Sync (<?= $fileLogCount ?>)</span>
-                        </button>
-                    </form>
-                <?php endif; ?>
-                <form method="POST" action="/logs/clear" style="display: inline;">
-                    <?= csrf_field() ?>
-                    <button type="submit" class="button is-danger is-small" 
-                            onclick="return confirm('Clear all logs?')">
-                        <span class="icon"><i class="fas fa-trash"></i></span>
-                        <span>Clear Logs</span>
-                    </button>
-                </form>
-            </div>
-        </div>
         
         <!-- Search and Filter Bar -->
         <div class="box">

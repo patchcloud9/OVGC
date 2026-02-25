@@ -7,6 +7,23 @@
 $layout = 'main';
 ?>
 
+<!-- hero for Menu Management -->
+<section class="hero is-dark subpage-hero">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title is-3">
+                <span class="icon-text">
+                    <span class="icon has-text-white">
+                        <i class="fas fa-bars"></i>
+                    </span>
+                    <span>Manage Menu</span>
+                </span>
+            </h1>
+            <p class="subtitle is-6 has-text-white">Create and organize navigation menu items</p>
+        </div>
+    </div>
+</section>
+
 <section class="section">
     <div class="container">
 
@@ -17,16 +34,6 @@ $layout = 'main';
                 <li class="is-active"><a href="#" aria-current="page">Menu</a></li>
             </ul>
         </nav>
-
-        <h1 class="title">
-            <span class="icon-text">
-                <span class="icon has-text-primary">
-                    <i class="fas fa-bars"></i>
-                </span>
-                <span>Manage Menu</span>
-            </span>
-        </h1>
-        <p class="subtitle">Create and organize navigation menu items</p>
 
         <!-- Flash Messages -->
         <?php require BASE_PATH . '/app/Views/partials/messages.php'; ?>

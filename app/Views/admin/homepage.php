@@ -27,16 +27,7 @@ $layout = 'main';
             </ul>
         </nav>
         
-        <!-- Page Header -->
-        <h1 class="title is-3">
-            <span class="icon-text">
-                <span class="icon has-text-info">
-                    <i class="fas fa-home"></i>
-                </span>
-                <span>Customize Homepage</span>
-            </span>
-        </h1>
-        <p class="subtitle is-6 mb-5">Configure the homepage content and appearance</p>
+
         
         <!-- Flash Messages -->
         <?php require BASE_PATH . '/app/Views/partials/messages.php'; ?>

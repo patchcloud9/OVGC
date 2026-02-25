@@ -1,3 +1,13 @@
+<!-- hero for log entry -->
+<section class="hero is-dark subpage-hero">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title is-3"><i class="fas fa-file-alt"></i> Log #<?= $log['id'] ?></h1>
+            <p class="subtitle is-6 has-text-white">Detailed log entry</p>
+        </div>
+    </div>
+</section>
+
 <section class="section" style="padding-top: 1.5rem;">
     <div class="container">
         <?php require BASE_PATH . '/app/Views/partials/messages.php'; ?>
@@ -10,31 +20,12 @@
             </ul>
         </nav>
         
-        <!-- Desktop Layout: Title and button side-by-side -->
-        <div class="is-hidden-mobile">
-            <div class="level" style="margin-top: 0.5rem;">
-                <div class="level-left">
-                    <div class="level-item">
-                        <div>
-                            <h1 class="title is-4"><i class="fas fa-file-alt"></i> Log #<?= $log['id'] ?></h1>
-                            <p class="subtitle is-6 mt-1 mb-5">Detailed log entry</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="level-right">
-                    <div class="level-item">
-                        <a href="/logs" class="button is-light is-small">
-                            <span class="icon"><i class="fas fa-arrow-left"></i></span>
-                            <span>Back to Logs</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Mobile Layout: Stack button below title -->
-        <div class="is-hidden-tablet" style="margin-top: 0.5rem; margin-bottom: 1.5rem;">
-            <h1 class="title is-5"><i class="fas fa-file-alt"></i> Log #<?= $log['id'] ?></h1>
+        <!-- back button -->
+        <div class="buttons" style="margin-top:0.5rem; margin-bottom:1.5rem;">
+            <a href="/logs" class="button is-light is-small">
+                <span class="icon"><i class="fas fa-arrow-left"></i></span>
+                <span>Back to Logs</span>
+            </a>
         </div>
         
         <!-- Log Level Badge -->

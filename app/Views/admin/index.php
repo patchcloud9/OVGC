@@ -13,11 +13,6 @@
 <section class="section" style="padding-top: 1.5rem;">
     <div class="container">
         <?php require BASE_PATH . '/app/Views/partials/messages.php'; ?>
-        
-        <h1 class="title is-3">
-            <i class="fas fa-crown"></i> Admin Panel
-        </h1>
-        <p class="subtitle">Welcome, <?= e(auth_user()['name']) ?>!</p>
 
         <!-- Pages -->
         <div class="box mt-5">

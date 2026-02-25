@@ -5,6 +5,23 @@
 $layout = 'main';
 ?>
 
+<!-- hero for Purchase Page -->
+<section class="hero is-dark subpage-hero">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title is-3">
+                <span class="icon-text">
+                    <span class="icon has-text-white">
+                        <i class="fas fa-shopping-cart"></i>
+                    </span>
+                    <span>Edit Purchase Page</span>
+                </span>
+            </h1>
+            <p class="subtitle is-6 has-text-white">Customize the Purchase page content</p>
+        </div>
+    </div>
+</section>
+
 <section class="section">
     <div class="container">
 
@@ -16,15 +33,6 @@ $layout = 'main';
             </ul>
         </nav>
 
-        <h1 class="title">
-            <span class="icon-text">
-                <span class="icon has-text-primary">
-                    <i class="fas fa-shopping-cart"></i>
-                </span>
-                <span>Edit Purchase Page</span>
-            </span>
-        </h1>
-        <p class="subtitle">Customize the Purchase page content</p>
 
         <!-- Flash Messages -->
         <?php require BASE_PATH . '/app/Views/partials/messages.php'; ?>

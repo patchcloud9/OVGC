@@ -28,7 +28,7 @@ $layout = 'main';
                 <li><a href="/admin">Admin</a></li>
                 <li class="is-active"><a href="#" aria-current="page">Rates</a></li>
             </ul>
-        </nav>
+        </nav> <!-- header shown in hero -->
 
         <?php require BASE_PATH . '/app/Views/partials/messages.php'; ?>
 

@@ -38,16 +38,7 @@
                     </ul>
                 </nav>
                 
-                <h1 class="title is-2">
-                    <span class="icon-text">
-                        <span class="icon">
-                            <i class="fas fa-palette"></i>
-                        </span>
-                        <span>Theme Settings</span>
-                    </span>
-                </h1>
-                
-                <p class="subtitle">Customize the appearance of your site</p>
+
                 
                 <!-- Flash Messages -->
                 <?php require BASE_PATH . '/app/Views/partials/messages.php'; ?>
