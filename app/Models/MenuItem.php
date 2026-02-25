@@ -151,14 +151,28 @@ class MenuItem extends Model
     {
         $instance = new static();
         // include display_order so ORDER BY works with DISTINCT; we'll discard it afterwards
+        // also filter out any URL containing a '#' character and ignore pure "/" duplicates
         $sql = "SELECT DISTINCT url, display_order FROM {$instance->table} 
                 WHERE is_active = 1 
                   AND visibility != 'admin' 
                   AND url NOT LIKE '/admin%' 
+                  AND url NOT LIKE '%#%' 
                 ORDER BY display_order ASC, url ASC";
 
         $rows = $instance->getDatabase()->fetchAll($sql);
-        return array_map(fn($r) => $r['url'], $rows);
+        $urls = array_map(fn($r) => $r['url'], $rows);
+        // normalize duplicates and strip trailing slashes on urls for consistency
+        $clean = [];
+        foreach ($urls as $u) {
+            $norm = rtrim($u, '/');
+            if ($norm === '') {
+                $norm = '/';
+            }
+            if (!in_array($norm, $clean, true)) {
+                $clean[] = $norm;
+            }
+        }
+        return $clean;
     }
 
     /**
