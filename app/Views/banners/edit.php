@@ -34,7 +34,7 @@ $layout = 'main';
                 <label class="label">Page</label>
                 <div class="control has-icons-right">
                     <input class="input" type="text" name="page" list="page-list" value="<?= e(old('page', $banner['page'])) ?>" required autocomplete="off" id="banner-page-input">
-                    <span class="icon is-small is-right" id="clear-page" style="cursor:pointer; display:none;">
+                    <span class="icon is-small is-right" id="clear-page" style="cursor:pointer; display:none; position:absolute; right:0.75rem; top:50%; transform:translateY(-50%); pointer-events:auto;">
                         <i class="fas fa-times-circle"></i>
                     </span>
                     <datalist id="page-list">
@@ -146,8 +146,12 @@ document.addEventListener('DOMContentLoaded', function() {
         if (v.length > 1 && v.endsWith('/')) v = v.slice(0, -1);
         pageInput.value = v;
     }
-    pageInput.addEventListener('input', toggleClear);
+    pageInput.addEventListener('input', function() {
+        normalize();
+        toggleClear();
+    });
     pageInput.addEventListener('blur', normalize);
+    pageInput.closest('form').addEventListener('submit', normalize);
     clearBtn.addEventListener('click', function() {
         pageInput.value = '';
         toggleClear();
