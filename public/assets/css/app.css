@@ -306,6 +306,11 @@ to the sides; the base rule below still defines vertical spacing. */
    ============================================ */
 
 /* Font stack */
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
 body {
     font-family: 'Lato', sans-serif;
     font-weight: 300;
@@ -561,8 +566,10 @@ p {
 }
 
 /* homepage-specific override: cancel gap regardless of navbar transparency */
+/* nav height is ~3.25rem on desktop; use safe negative margin to pull hero fully up
+   (previous -2rem only covered about half). */
 .content-wrapper > .hero.homepage-hero {
-    margin-top: -2rem !important;
+    margin-top: -4rem !important;
 }
 
 /* eliminate the default top padding of the wrapper on the homepage so the
