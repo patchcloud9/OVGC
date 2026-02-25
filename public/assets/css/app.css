@@ -404,14 +404,25 @@ p {
 .navbar.is-scrolled .navbar-item.logo-text {
     transform: scale(0.75) !important;
 }
-/* navbar height: full size at top (½rem padding); shrink on scroll even if transparent class is missing */
+/* navbar height: small by default (matches scrolled state). The only
+   time we give extra vertical padding is when the nav sits over a hero
+   background (homepage) via the .is-transparent-hero class. */
 .navbar {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+}
+
+/* when scrolled we ensure it stays small (important in case other classes
+   try to enlarge it) */
+.navbar.is-scrolled {
+    padding-top: 0.25rem !important;
+    padding-bottom: 0.25rem !important;
+}
+
+/* larger padding when navbar is transparent over a hero (homepage only) */
+.navbar.is-transparent-hero {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
-}
-.navbar.is-scrolled {
-    padding-top: 0.25rem !important; /* shrink only slightly */
-    padding-bottom: 0.25rem !important;
 }
 
 
