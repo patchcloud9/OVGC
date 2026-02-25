@@ -72,7 +72,8 @@ $layout = 'main';
                     No membership groups defined yet.
                 </div>
             <?php else: ?>
-                <div class="table-container">
+                <!-- desktop/tablet: table layout -->
+                <div class="table-container is-hidden-mobile">
                     <table class="table is-fullwidth is-striped is-hoverable">
                         <thead>
                             <tr>
@@ -113,6 +114,32 @@ $layout = 'main';
                             <?php endforeach; ?>
                         </tbody>
                     </table>
+                </div>
+
+                <!-- mobile: compact card list -->
+                <div class="is-hidden-tablet">
+                    <?php foreach ($groups as $group): ?>
+                        <div class="box">
+                            <h3 class="title is-5"><?= e($group['title']) ?></h3>
+                            <p><code><?= e($group['slug']) ?></code></p>
+                            <p class="is-size-7">Order: <?= e($group['sort_order']) ?> &bull; Active: <?= $group['active'] ? '<span class="tag is-success">Yes</span>' : '<span class="tag is-light">No</span>' ?></p>
+                            <div class="buttons is-small">
+                                <a href="/admin/membership/<?= e($group['id']) ?>/edit" class="button is-info" title="Edit">
+                                    <span class="icon is-small"><i class="fas fa-edit"></i></span>
+                                </a>
+                                <a href="/admin/membership/<?= e($group['id']) ?>/items" class="button is-primary" title="Items">
+                                    <span class="icon is-small"><i class="fas fa-list"></i></span>
+                                </a>
+                                <a href="#" class="button is-danger" title="Delete" onclick="if(confirm('Delete this group and all its items?')){document.getElementById('delete-form-<?= e($group['id']) ?>').submit();}return false;">
+                                    <span class="icon is-small"><i class="fas fa-trash"></i></span>
+                                </a>
+                                <form id="delete-form-<?= e($group['id']) ?>" method="POST" action="/admin/membership/<?= e($group['id']) ?>" style="display:none;">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
+                                </form>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
             <?php endif; ?>
         </div>
