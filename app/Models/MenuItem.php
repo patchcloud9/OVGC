@@ -150,7 +150,8 @@ class MenuItem extends Model
     public static function getNonAdminUrls(): array
     {
         $instance = new static();
-        $sql = "SELECT DISTINCT url FROM {$instance->table} 
+        // include display_order so ORDER BY works with DISTINCT; we'll discard it afterwards
+        $sql = "SELECT DISTINCT url, display_order FROM {$instance->table} 
                 WHERE is_active = 1 
                   AND visibility != 'admin' 
                   AND url NOT LIKE '/admin%' 
