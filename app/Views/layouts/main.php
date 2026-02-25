@@ -232,6 +232,9 @@ function rgba_from_hex(string $hex, float $alpha = 1.0): string
     if ($currentPath === '') {
         $currentPath = '/';
     }
+    // flag for homepage so we can adjust wrapper padding
+    $isHomePage = $currentPath === '/';
+
     $dismissedCookie = $_COOKIE['dismissed_banners'] ?? '';
     $dismissedIds = $dismissedCookie !== '' ? explode(',', $dismissedCookie) : [];
 
@@ -253,7 +256,7 @@ function rgba_from_hex(string $hex, float $alpha = 1.0): string
     ?>
 
     <!-- Main Content -->
-    <main class="content-wrapper">
+    <main class="content-wrapper<?= $isHomePage ? ' homepage' : '' ?>">
         <?php
         // buffer the view so we can inject banners just after the hero section
         ob_start();

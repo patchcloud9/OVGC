@@ -565,6 +565,12 @@ p {
     margin-top: -2rem !important;
 }
 
+/* eliminate the default top padding of the wrapper on the homepage so the
+   hero can sit flush at the top edge */
+.content-wrapper.homepage {
+    padding-top: 0 !important;
+}
+
 /* non-home nav should be solid rather than alpha */
 .navbar:not(.is-transparent-hero) {
     background-color: var(--navbar-color) !important;
