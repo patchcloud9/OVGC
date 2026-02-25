@@ -61,7 +61,9 @@ $isHome = $currentPath === '/';
                     <?= APP_NAME ?>
                 <?php endif; ?>
 
-                <?php if (!$isHome && !empty($siteName)): ?>
+                <?php if (!empty($siteName)): ?>
+                    <!-- show site name for non-home pages normally; on homepage it will
+                         be toggled via CSS when the navbar becomes scrolled -->
                     <span class="site-title ml-2"><?= e($siteName) ?></span>
                 <?php endif; ?>
             </a>
