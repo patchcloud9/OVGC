@@ -21,9 +21,12 @@ class RateGroupController extends Controller
     public function index(): void
     {
         $groups = RateGroup::allGroups();
+        // load the singleton content for rules/scorecard
+        $content = \App\Models\RatePageContent::getContent();
         $this->view('rates/admin', [
             'title' => 'Manage Rate Groups',
             'groups' => $groups,
+            'pageContent' => $content,
         ]);
     }
 
@@ -178,6 +181,55 @@ class RateGroupController extends Controller
         RateGroup::delete($groupId);
         $this->logService->add('info', 'Rate group deleted', ['group_id' => $groupId]);
         $this->flash('success', 'Rate group deleted');
+        $this->redirect('/admin/rates');
+    }
+
+    /**
+     * Handle POST for updating the rates page content (rules text and optional scorecard upload).
+     */
+    public function updateContent(): void
+    {
+        $validator = new Validator($_POST, [
+            'rules_text' => 'max:2000',
+        ]);
+
+        if ($validator->fails()) {
+            $errors = [];
+            foreach ($validator->errors() as $fieldErrors) {
+                $errors = array_merge($errors, $fieldErrors);
+            }
+            $this->flash('danger', 'Validation failed: ' . implode(', ', $errors));
+            flash_old_input($_POST);
+            $this->redirect('/admin/rates');
+            return;
+        }
+
+        $data = [
+            'rules_text' => $this->input('rules_text'),
+        ];
+
+        // process file upload if provided
+        if (isset($_FILES['scorecard_file']) && $_FILES['scorecard_file']['error'] === UPLOAD_ERR_OK) {
+            $tmp = $_FILES['scorecard_file']['tmp_name'];
+            $mime = mime_content_type($tmp);
+            if ($mime !== 'application/pdf') {
+                $this->flash('danger', 'Scorecard must be a PDF file');
+                $this->redirect('/admin/rates');
+                return;
+            }
+            // move to public assets (overwrite existing)
+            $destRel = 'assets/scorecard.pdf';
+            $dest = BASE_PATH . '/public/' . $destRel;
+            if (!move_uploaded_file($tmp, $dest)) {
+                $this->flash('danger', 'Failed to save scorecard file');
+                $this->redirect('/admin/rates');
+                return;
+            }
+            $data['scorecard_path'] = '/' . $destRel;
+        }
+
+        \App\Models\RatePageContent::updateContent($data);
+        $this->flash('success', 'Rates page content updated successfully!');
         $this->redirect('/admin/rates');
     }
 }

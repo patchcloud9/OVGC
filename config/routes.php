@@ -80,6 +80,7 @@ return [
 
         // Rate Groups (Admin Only)
         '/admin/rates'                  => ['RateGroupController', 'index', ['auth', 'role:admin']],
+        '/admin/rates/content'          => ['RateGroupController', 'updateContent', ['auth', 'role:admin', 'csrf']],
         '/admin/rates/create'           => ['RateGroupController', 'create', ['auth', 'role:admin']],
         '/admin/rates/(\d+)/edit'      => ['RateGroupController', 'edit', ['auth', 'role:admin']],
         '/admin/rates/(\d+)/rates'     => ['RateController', 'index', ['auth', 'role:admin']],

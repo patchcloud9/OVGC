@@ -24,31 +24,67 @@ $layout = 'main';
             $groups = $groups ?? [];
         ?>
 
-        <!-- split 60/40: rules on left, scorecard on right -->
+        <!-- split 60/40: rules on left, scorecard on right (content managed via admin) -->
         <div class="columns" style="max-width:1000px;margin:2rem auto;text-align:left;">
             <div class="column is-two-thirds">
                 <h2 class="title is-4">Golf Course Rules</h2>
-                <ul>
-                    <li>Dress Code: Golf attire.</li>
-                    <li>Soft Spikes ONLY.</li>
-                    <li>All alcoholic beverages must be purchased from Bear Creek Golf Course. Washington State Law prohibits people from bringing their own alcoholic beverages onto the golf course!</li>
-                    <li>Our pace of play is 4.5 hours for 18 holes.</li>
-                    <li>Each player must have a set of clubs in their own bag.</li>
-                    <li>No more than 4 players per group without starter approval.</li>
-                    <li>Groups not able to keep pace with the group ahead shall allow faster groups to play through.</li>
-                    <li>BCGC reserves the right to rescind Daily Passes and Carts from anyone who does not adhere to standard golf and common courtesy to others.</li>
-                </ul>
+                <?php if (!empty($bulletList)): ?>
+                    <ul>
+                        <?php foreach ($bulletList as $line): ?>
+                            <li><?= e($line) ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php else: ?>
+                    <p><?= nl2br(e($pageContent['rules_text'] ?? '')) ?></p>
+                <?php endif; ?>
             </div>
             <div class="column is-one-third">
                 <h2 class="title is-4">Scorecard</h2>
-                <p>
-                    <a href="/assets/scorecard.pdf" download class="button is-primary">
-                        <i class="fas fa-file-download"></i> Download Scorecard
-                    </a>
-                </p>
-                <p class="is-size-7 has-text-grey">(Place your scorecard PDF at <code>public/assets/scorecard.pdf</code> or update the link above.)</p>
+                <?php if (!empty($pageContent['scorecard_path'])): ?>
+                    <p>
+                        <a href="#" id="view-scorecard" class="button is-link">
+                            <i class="fas fa-file-alt"></i> View Scorecard
+                        </a>
+                    </p>
+                    <p class="mt-1">
+                        <a href="<?= e($pageContent['scorecard_path']) ?>" download class="button is-primary">
+                            <i class="fas fa-file-download"></i> Download Scorecard
+                        </a>
+                    </p>
+                <?php else: ?>
+                    <p class="is-size-7 has-text-grey">Scorecard not available.</p>
+                <?php endif; ?>
             </div>
         </div>
+
+        <!-- modal for scorecard preview -->
+        <?php if (!empty($pageContent['scorecard_path'])): ?>
+            <div id="scorecard-modal" class="modal">
+                <div class="modal-background"></div>
+                <div class="modal-content" style="width:90%;height:90%;">
+                    <iframe src="<?= e($pageContent['scorecard_path']) ?>" style="width:100%;height:100%;border:0;"></iframe>
+                </div>
+                <button class="modal-close is-large" aria-label="close"></button>
+            </div>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    var open = document.getElementById('view-scorecard');
+                    var modal = document.getElementById('scorecard-modal');
+                    var closeEls = modal.querySelectorAll('.modal-close, .modal-background');
+                    if (open) {
+                        open.addEventListener('click', function(e){
+                            e.preventDefault();
+                            modal.classList.add('is-active');
+                        });
+                    }
+                    closeEls.forEach(function(el){
+                        el.addEventListener('click', function(){
+                            modal.classList.remove('is-active');
+                        });
+                    });
+                });
+            </script>
+        <?php endif; ?>
 
         <div class="columns is-multiline" style="max-width:1000px;margin:2rem auto;text-align:left;">
             <?php foreach ($groups as $group): ?>

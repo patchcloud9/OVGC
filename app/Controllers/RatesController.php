@@ -18,9 +18,23 @@ class RatesController extends Controller
             usort($g['rates'], fn($a, $b) => $a['sort_order'] <=> $b['sort_order']);
         }
 
+        // load editable content
+        $pageContent = \App\Models\RatePageContent::getContent();
+        $bulletList = [];
+        if (!empty($pageContent['rules_text'])) {
+            $lines = preg_split('/\r?\n/', trim($pageContent['rules_text']));
+            foreach ($lines as $l) {
+                if (trim($l) !== '') {
+                    $bulletList[] = $l;
+                }
+            }
+        }
+
         $this->view('rates/index', [
             'title' => 'Rates',
             'groups' => $groups,
+            'pageContent' => $pageContent,
+            'bulletList' => $bulletList,
         ]);
     }
 }

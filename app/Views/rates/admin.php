@@ -32,6 +32,37 @@ $layout = 'main';
 
         <?php require BASE_PATH . '/app/Views/partials/messages.php'; ?>
 
+        <!-- page content editor (rules and optional scorecard) -->
+        <div class="box mb-5">
+            <h2 class="title is-4">Page Content</h2>
+            <form method="POST" action="/admin/rates/content" enctype="multipart/form-data">
+                <div class="field">
+                    <label class="label" for="rules_text">Rules (one per line)</label>
+                    <div class="control">
+                        <textarea class="textarea" name="rules_text" id="rules_text" rows="6"><?= e(old('rules_text', $pageContent['rules_text'] ?? '')) ?></textarea>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="scorecard_file">Scorecard PDF</label>
+                    <div class="control">
+                        <input type="file" name="scorecard_file" id="scorecard_file" accept="application/pdf">
+                    </div>
+                    <?php if (!empty($pageContent['scorecard_path'])): ?>
+                        <p class="mt-2">
+                            Current file:
+                            <a href="<?= e($pageContent['scorecard_path']) ?>" target="_blank">view/download</a>
+                        </p>
+                    <?php endif; ?>
+                </div>
+                <div class="field is-grouped">
+                    <div class="control">
+                        <button type="submit" class="button is-link">Save Content</button>
+                    </div>
+                </div>
+                <input type="hidden" name="csrf_token" value="<?= e(csrf_token()) ?>">
+            </form>
+        </div>
+
         <div class="mb-4">
             <a href="/admin/rates/create" class="button is-primary">
                 <span class="icon"><i class="fas fa-plus"></i></span>
