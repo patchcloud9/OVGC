@@ -2,8 +2,8 @@
 $layout = 'main';
 ?>
 
-<!-- Hero for Homepage Settings (small) -->
-<section class="hero is-dark subpage-hero is-small">
+<!-- Hero for Homepage Settings (compact) -->
+<section class="hero is-dark subpage-hero is-small" style="padding-top:1rem;padding-bottom:1rem;">
     <div class="hero-body">
         <div class="container">
             <h1 class="title is-3">
