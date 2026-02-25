@@ -3,8 +3,8 @@ $layout = 'main';
 ?>
 
 <!-- Hero for Homepage Settings (compact) -->
-<section class="hero is-dark subpage-hero is-small" style="padding-top:1rem;padding-bottom:1rem;">
-    <div class="hero-body" style="padding-top:0.75rem;padding-bottom:0.75rem;">
+<section class="hero is-dark subpage-hero is-small">
+    <div class="hero-body">
         <div class="container">
             <h1 class="title is-3">
                 <span class="icon-text">
@@ -18,6 +18,7 @@ $layout = 'main';
 </section>
 
 <div class="section">
+    <div class="container" style="max-width:1000px;">
     <!-- Breadcrumb moved below hero -->
         <!-- Breadcrumb -->
         <nav class="breadcrumb" aria-label="breadcrumbs">
@@ -351,8 +352,7 @@ $layout = 'main';
                 </div>
             </div>
         </form>
-    </div>
-</div>
+    </div> <!-- /.container -->
 
 <!-- Hidden forms for clearing images -->
 <form id="clearHeroImageForm" method="POST" action="/admin/homepage/clear-hero-image" style="display: none;">
