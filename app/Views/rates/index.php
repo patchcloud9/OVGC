@@ -35,21 +35,17 @@ $layout = 'main';
                         <?php endforeach; ?>
                     </ul>
                 <?php else: ?>
-                    <p><?= nl2br(e($pageContent['rules_text'] ?? '')) ?></p>
+                    <!-- no rules entered -->
+                    <p class="is-size-7 has-text-grey">No rules configured yet.</p>
                 <?php endif; ?>
             </div>
             <div class="column is-one-third">
                 <h2 class="title is-4">Scorecard</h2>
                 <?php if (!empty($pageContent['scorecard_path'])): ?>
-                    <!-- small preview image/iframe -->
-                    <div class="mb-3" style="max-height:200px;overflow:hidden;">
-                        <iframe src="<?= e($pageContent['scorecard_path']) ?>" style="width:100%;height:200px;border:1px solid #ccc;"></iframe>
+                    <!-- thumbnail, click opens modal -->
+                    <div class="mb-3" style="max-width:100%;overflow:hidden;">
+                        <img id="scorecard-thumb" src="<?= e($pageContent['scorecard_path']) ?>" alt="Scorecard" style="max-height:200px;max-width:100%;cursor:pointer;border:1px solid #ccc;" />
                     </div>
-                    <p>
-                        <a href="#" id="view-scorecard" class="button is-link">
-                            <i class="fas fa-file-alt"></i> View Scorecard
-                        </a>
-                    </p>
                     <p class="mt-1">
                         <a href="<?= e($pageContent['scorecard_path']) ?>" download class="button is-primary">
                             <i class="fas fa-file-download"></i> Download Scorecard
@@ -66,17 +62,17 @@ $layout = 'main';
             <div id="scorecard-modal" class="modal">
                 <div class="modal-background"></div>
                 <div class="modal-content" style="width:90%;height:90%;">
-                    <iframe src="<?= e($pageContent['scorecard_path']) ?>" style="width:100%;height:100%;border:0;"></iframe>
+                    <img src="<?= e($pageContent['scorecard_path']) ?>" style="width:100%;height:100%;object-fit:contain;border:0;" />
                 </div>
                 <button class="modal-close is-large" aria-label="close"></button>
             </div>
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
-                    var open = document.getElementById('view-scorecard');
+                    var thumb = document.getElementById('scorecard-thumb');
                     var modal = document.getElementById('scorecard-modal');
                     var closeEls = modal.querySelectorAll('.modal-close, .modal-background');
-                    if (open) {
-                        open.addEventListener('click', function(e){
+                    if (thumb) {
+                        thumb.addEventListener('click', function(e){
                             e.preventDefault();
                             modal.classList.add('is-active');
                         });
