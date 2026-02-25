@@ -7,8 +7,8 @@ $layout = 'main';
 
 <section class="section">
     <div class="container">
-        <!-- Page Hero -->
-        <section class="hero is-primary is-small">
+        <!-- Page Hero styled like public membership page -->
+        <section class="hero is-dark subpage-hero">
             <div class="hero-body">
                 <div class="container">
                     <h1 class="title is-3">
