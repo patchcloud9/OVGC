@@ -18,12 +18,34 @@ $layout = 'main';
                 <div class="box has-background-light">
                     <h2 class="title is-4 has-text-centered">CONTACT INFO</h2>
                     <div class="content has-text-centered">
-                        <p><strong>Okanogan Valley Golf Club</strong></p>
-                        <p>115A Dankar Cutoff Road Omak<br>P.O. Box 1896<br>Omak, WA 9441</p>
+                        <?php $name = theme_setting('site_name'); ?>
+                        <?php $addr1 = theme_setting('address1'); ?>
+                        <?php $addr2 = theme_setting('address2'); ?>
+                        <?php $cityzip = theme_setting('city_state_zip'); ?>
+                        <?php $email = theme_setting('contact_email'); ?>
+                        <?php $phone = theme_setting('phone_number'); ?>
+
+                        <?php if (!empty($name)): ?>
+                            <p><strong><?= e($name) ?></strong></p>
+                        <?php endif; ?>
+                        <?php if (!empty($addr1)): ?>
+                            <p><?= nl2br(e($addr1)) ?></p>
+                        <?php endif; ?>
+                        <?php if (!empty($addr2)): ?>
+                            <p><?= nl2br(e($addr2)) ?></p>
+                        <?php endif; ?>
+                        <?php if (!empty($cityzip)): ?>
+                            <p><?= nl2br(e($cityzip)) ?></p>
+                        <?php endif; ?>
                     </div>
                     <div class="notification is-light has-text-centered">
-                        <span class="icon"><i class="fas fa-phone"></i></span>
-                        <a href="mailto:info@example.com">Email us</a> or call <a href="tel:50998266937">(509) 826-6937</a>
+                        <?php if (!empty($email)): ?>
+                            <a href="mailto:<?= e($email) ?>"><?= e($email) ?></a>
+                        <?php endif; ?>
+                        <?php if (!empty($phone)): ?>
+                            <br>
+                            <span class="icon"><i class="fas fa-phone"></i></span> <a href="tel:<?= e($phone) ?>"><?= e($phone) ?></a>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
