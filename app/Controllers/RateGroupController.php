@@ -191,6 +191,8 @@ class RateGroupController extends Controller
     {
         $validator = new Validator($_POST, [
             'rules_text' => 'max:2000',
+            'above_rates' => 'max:2000',
+            'below_rates' => 'max:2000',
         ]);
 
         if ($validator->fails()) {
@@ -206,7 +208,26 @@ class RateGroupController extends Controller
 
         $data = [
             'rules_text' => $this->input('rules_text'),
+            'above_rates' => $this->input('above_rates'),
+            'below_rates' => $this->input('below_rates'),
         ];
+        // gather formatting options
+        $aboveFmt = $this->input('above_format');
+        if (is_array($aboveFmt)) {
+            $data['above_format'] = implode(',', $aboveFmt);
+        } else {
+            $data['above_format'] = '';
+        }
+        $belowFmt = $this->input('below_format');
+        if (is_array($belowFmt)) {
+            $data['below_format'] = implode(',', $belowFmt);
+        } else {
+            $data['below_format'] = '';
+        }
+        // debug log the incoming data
+        if (APP_DEBUG) {
+            error_log('Rates updateContent data: ' . json_encode($data));
+        }
 
         // process file upload if provided
         if (isset($_FILES['scorecard_file']) && $_FILES['scorecard_file']['error'] === UPLOAD_ERR_OK) {
