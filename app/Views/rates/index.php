@@ -31,7 +31,7 @@ $layout = 'main';
                 <?php if (!empty($bulletList)): ?>
                     <ul style="list-style: disc inside; padding-left:1rem;">
                         <?php foreach ($bulletList as $line): ?>
-                            <li style="text-indent:-0.8rem;">
+                            <li style="text-indent:-1.2rem;">
                                 <?= e($line) ?>
                             </li>
                         <?php endforeach; ?>
