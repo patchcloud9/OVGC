@@ -12,6 +12,10 @@ class RatePageContent extends Model
     protected array $fillable = [
         'rules_text',
         'scorecard_path',
+        'above_rates',
+        'above_format',
+        'below_rates',
+        'below_format',
     ];
 
     protected bool $timestamps = true;

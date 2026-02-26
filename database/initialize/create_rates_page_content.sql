@@ -6,6 +6,10 @@ CREATE TABLE IF NOT EXISTS rates_page_content (
 
     rules_text TEXT NULL COMMENT 'Line separated list of golf course rules',
     scorecard_path VARCHAR(255) NULL COMMENT 'Public-facing path to the scorecard file (relative to project root)',
+    above_rates TEXT NULL COMMENT 'Optional paragraph displayed above the rate cards',
+    above_format VARCHAR(50) NULL COMMENT 'Formatting flags for above text: bold,italic',
+    below_rates TEXT NULL COMMENT 'Optional paragraph displayed below the rate cards',
+    below_format VARCHAR(50) NULL COMMENT 'Formatting flags for below text: bold,italic',
 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
