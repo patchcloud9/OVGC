@@ -129,9 +129,12 @@ if (!empty($settings['hero_background_image'])) {
 <section class="section">
     <div class="container">
         <div class="columns is-vcentered">
-            <!-- Left column for image (user will insert image here) -->
+            <!-- Left column for image -->
             <div class="column is-6">
-                <!-- image placeholder - add your image here -->
+                <figure class="image">
+                    <img src="https://images.wsdot.wa.gov/nc/020vc21450.jpg" alt="Traffic Camera" style="border-radius:8px;">
+                </figure>
+                <p class="is-italic is-size-7 mt-2">(updates every 2 minutes)</p>
             </div>
             <!-- Right column for weather widget -->
             <div class="column is-6 has-text-right">
