@@ -29,9 +29,11 @@ $layout = 'main';
             <div class="column is-two-thirds">
                 <h2 class="title is-4">Golf Course Rules</h2>
                 <?php if (!empty($bulletList)): ?>
-                    <ul style="list-style: disc inside;">
+                    <ul style="list-style: disc inside; padding-left:1rem;">
                         <?php foreach ($bulletList as $line): ?>
-                            <li><?= e($line) ?></li>
+                            <li style="text-indent:-0.8rem;">
+                                <?= e($line) ?>
+                            </li>
                         <?php endforeach; ?>
                     </ul>
                 <?php else: ?>
