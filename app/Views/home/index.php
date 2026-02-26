@@ -125,6 +125,25 @@ if (!empty($settings['hero_background_image'])) {
     </div>
 </section>
 
+<!-- Weather Widget Section -->
+<section class="section">
+    <div class="container">
+        <div class="columns is-vcentered">
+            <!-- Left column for image (user will insert image here) -->
+            <div class="column is-6">
+                <!-- image placeholder - add your image here -->
+            </div>
+            <!-- Right column for weather widget -->
+            <div class="column is-6 has-text-right">
+                <a class="weatherwidget-io" href="https://forecast7.com/en/48d41n119d53/omak/?unit=us" data-label_1="OMAK" data-label_2="WEATHER" data-icons="Climacons" data-days="3" data-theme="pure" >OMAK WEATHER</a>
+                <script>
+                !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+                </script>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- Bottom Content Section -->
 <?php if (!empty($settings['bottom_section_title']) || !empty($settings['bottom_section_text']) || !empty($settings['bottom_section_image'])): ?>
 <section class="section has-background-light">
