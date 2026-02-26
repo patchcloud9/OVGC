@@ -29,7 +29,7 @@ $layout = 'main';
             <div class="column is-two-thirds">
                 <h2 class="title is-4">Golf Course Rules</h2>
                 <?php if (!empty($bulletList)): ?>
-                    <ul>
+                    <ul style="list-style: disc inside;">
                         <?php foreach ($bulletList as $line): ?>
                             <li><?= e($line) ?></li>
                         <?php endforeach; ?>
@@ -48,7 +48,10 @@ $layout = 'main';
                     </div>
                     <p class="mt-1">
                         <a href="<?= e($pageContent['scorecard_path']) ?>" download class="button is-primary">
-                            <i class="fas fa-file-download"></i> Download Scorecard
+                            <span class="icon">
+                                <i class="fas fa-file-download"></i>
+                            </span>
+                            <span>Download Scorecard</span>
                         </a>
                     </p>
                 <?php else: ?>
@@ -61,7 +64,7 @@ $layout = 'main';
         <?php if (!empty($pageContent['scorecard_path'])): ?>
             <div id="scorecard-modal" class="modal">
                 <div class="modal-background"></div>
-                <div class="modal-content" style="width:90%;height:90%;">
+                <div class="modal-content" style="width:90%;height:90%;overflow:hidden;">
                     <img src="<?= e($pageContent['scorecard_path']) ?>" style="width:100%;height:100%;object-fit:contain;border:0;" />
                 </div>
                 <button class="modal-close is-large" aria-label="close"></button>
