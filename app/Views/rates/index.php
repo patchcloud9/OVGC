@@ -91,6 +91,16 @@ $layout = 'main';
             </script>
         <?php endif; ?>
 
+        <?php if (!empty($pageContent['above_rates'])): ?>
+            <?php
+                $classes = [];
+                if (str_contains($pageContent['above_format'] ?? '', 'bold')) $classes[] = 'has-text-weight-bold';
+                if (str_contains($pageContent['above_format'] ?? '', 'italic')) $classes[] = 'is-italic';
+            ?>
+            <div class="content" style="max-width:1000px;margin:2rem auto;text-align:left;">
+                <p class="<?= implode(' ', $classes) ?>"><?= nl2br(e($pageContent['above_rates'])) ?></p>
+            </div>
+        <?php endif; ?>
         <div class="columns is-multiline" style="max-width:1000px;margin:2rem auto;text-align:left;">
             <?php foreach ($groups as $group): ?>
                 <div class="column is-one-third">
@@ -116,5 +126,15 @@ $layout = 'main';
                 </div>
             <?php endforeach; ?>
         </div>
+        <?php if (!empty($pageContent['below_rates'])): ?>
+            <?php
+                $classes = [];
+                if (str_contains($pageContent['below_format'] ?? '', 'bold')) $classes[] = 'has-text-weight-bold';
+                if (str_contains($pageContent['below_format'] ?? '', 'italic')) $classes[] = 'is-italic';
+            ?>
+            <div class="content" style="max-width:1000px;margin:2rem auto;text-align:left;">
+                <p class="<?= implode(' ', $classes) ?>"><?= nl2br(e($pageContent['below_rates'])) ?></p>
+            </div>
+        <?php endif; ?>
     </div>
 </section>

@@ -43,6 +43,46 @@ $layout = 'main';
                     </div>
                 </div>
                 <div class="field">
+                    <label class="label" for="above_rates">Paragraph above rates</label>
+                    <div class="control">
+                        <textarea class="textarea" name="above_rates" id="above_rates" rows="3"><?= e(old('above_rates', $pageContent['above_rates'] ?? '')) ?></textarea>
+                    </div>
+                    <div class="field is-grouped is-grouped-multiline mt-2">
+                        <div class="control">
+                            <label class="checkbox">
+                                <input type="checkbox" name="above_format[]" value="bold" <?= in_array('bold', explode(',', $pageContent['above_format'] ?? '')) ? 'checked' : '' ?>>
+                                Bold
+                            </label>
+                        </div>
+                        <div class="control">
+                            <label class="checkbox">
+                                <input type="checkbox" name="above_format[]" value="italic" <?= in_array('italic', explode(',', $pageContent['above_format'] ?? '')) ? 'checked' : '' ?>>
+                                Italic
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="below_rates">Paragraph below rates</label>
+                    <div class="control">
+                        <textarea class="textarea" name="below_rates" id="below_rates" rows="3"><?= e(old('below_rates', $pageContent['below_rates'] ?? '')) ?></textarea>
+                    </div>
+                    <div class="field is-grouped is-grouped-multiline mt-2">
+                        <div class="control">
+                            <label class="checkbox">
+                                <input type="checkbox" name="below_format[]" value="bold" <?= in_array('bold', explode(',', $pageContent['below_format'] ?? '')) ? 'checked' : '' ?>>
+                                Bold
+                            </label>
+                        </div>
+                        <div class="control">
+                            <label class="checkbox">
+                                <input type="checkbox" name="below_format[]" value="italic" <?= in_array('italic', explode(',', $pageContent['below_format'] ?? '')) ? 'checked' : '' ?>>
+                                Italic
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="field">
                     <label class="label" for="scorecard_file">Scorecard Image (jpg/png)</label>
                     <div class="control">
                         <input type="file" name="scorecard_file" id="scorecard_file" accept="image/jpeg,image/png">
