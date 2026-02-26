@@ -20,8 +20,12 @@ CREATE TABLE IF NOT EXISTS theme_settings (
     homepage_logo_path VARCHAR(255) DEFAULT NULL COMMENT 'Path to uploaded homepage/logo file',
     secondary_logo_path VARCHAR(255) DEFAULT NULL COMMENT 'Secondary logo',
     favicon_path VARCHAR(255) DEFAULT NULL COMMENT 'Path to uploaded favicon file',
-    site_name VARCHAR(100) DEFAULT NULL COMMENT 'Site name displayed in navigation',
-    gallery_contact_email VARCHAR(255) DEFAULT NULL COMMENT 'Contact email shown on gallery/footer',
+    site_name VARCHAR(100) NOT NULL COMMENT 'Site name displayed in navigation',
+    contact_email VARCHAR(255) NOT NULL COMMENT 'Contact email shown in footer',
+    phone_number VARCHAR(50) DEFAULT NULL COMMENT 'Contact phone number',
+    address1 VARCHAR(255) DEFAULT NULL COMMENT 'First line of address',
+    address2 VARCHAR(255) DEFAULT NULL COMMENT 'Second address line (optional)',
+    city_state_zip VARCHAR(255) DEFAULT NULL COMMENT 'City/State/ZIP combined',
     footer_tagline VARCHAR(255) DEFAULT NULL COMMENT 'Optional footer tagline',
 
     -- Hero / Header Customization

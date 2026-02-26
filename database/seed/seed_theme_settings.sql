@@ -13,7 +13,11 @@ INSERT INTO theme_settings (
     secondary_logo_path,
     favicon_path,
     site_name,
-    gallery_contact_email,
+    contact_email,
+    phone_number,
+    address1,
+    address2,
+    city_state_zip,
     footer_tagline,
     header_style,
     card_style
@@ -29,7 +33,11 @@ INSERT INTO theme_settings (
     NULL,       -- Secondary logo: reserved for future use
     NULL,       -- Favicon: No custom favicon yet (uses browser default)
     'Base Framework', -- Site name
-    'gallery@example.com', -- Gallery contact email
+    'contact@example.com', -- Contact email
+    NULL, -- phone number
+    NULL, -- address line 1
+    NULL, -- address line 2
+    NULL, -- city/state/zip
     'Customizable theme and gallery', -- Footer tagline
     'static',   -- Header: Static positioning (default)
     'default'   -- Cards: Default Bulma card style
