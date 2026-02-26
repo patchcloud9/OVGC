@@ -21,7 +21,7 @@ if (!empty($settings['hero_background_image'])) {
             <?php if (!empty($settings['hero_subtitle'])): ?>
                 <?php
                     $hero_sub = $settings['hero_subtitle'];
-                    $themeEmail = \App\Models\ThemeSetting::get('gallery_contact_email', '');
+                    $themeEmail = \App\Models\ThemeSetting::get('contact_email', '');
                     $hero_sub = e($hero_sub);
                     if (!empty($themeEmail)) {
                         $hero_sub = str_replace('{email}', "<a href=\"mailto:" . e($themeEmail) . "\">" . e($themeEmail) . "</a>", $hero_sub);
@@ -47,7 +47,7 @@ if (!empty($settings['hero_background_image'])) {
                         <?php
                             $card1 = $settings['card1_text'] ?? 'Built with modern PHP and optimized for speed.';
                             $card1 = nl2br(e($card1));
-                            $themeEmail = \App\Models\ThemeSetting::get('gallery_contact_email', '');
+                            $themeEmail = \App\Models\ThemeSetting::get('contact_email', '');
                             if (!empty($themeEmail)) {
                                 $card1 = str_replace('{email}', "<a href=\"mailto:" . e($themeEmail) . "\">" . e($themeEmail) . "</a>", $card1);
                             } else {
@@ -74,7 +74,7 @@ if (!empty($settings['hero_background_image'])) {
                         <?php
                             $card2 = $settings['card2_text'] ?? 'CSRF protection, authentication, and secure password hashing built in.';
                             $card2 = nl2br(e($card2));
-                            $themeEmail = \App\Models\ThemeSetting::get('gallery_contact_email', '');
+                            $themeEmail = \App\Models\ThemeSetting::get('contact_email', '');
                             if (!empty($themeEmail)) {
                                 $card2 = str_replace('{email}', "<a href=\"mailto:" . e($themeEmail) . "\">" . e($themeEmail) . "</a>", $card2);
                             } else {
@@ -101,7 +101,7 @@ if (!empty($settings['hero_background_image'])) {
                         <?php
                             $card3 = $settings['card3_text'] ?? 'Mobile-friendly design using Bulma CSS framework.';
                             $card3 = nl2br(e($card3));
-                            $themeEmail = \App\Models\ThemeSetting::get('gallery_contact_email', '');
+                            $themeEmail = \App\Models\ThemeSetting::get('contact_email', '');
                             if (!empty($themeEmail)) {
                                 $card3 = str_replace('{email}', "<a href=\"mailto:" . e($themeEmail) . "\">" . e($themeEmail) . "</a>", $card3);
                             } else {
@@ -138,7 +138,7 @@ if (!empty($settings['hero_background_image'])) {
                         <?php
                             $bottomText = $settings['bottom_section_text'] ?? 'This is a minimal, educational PHP MVC framework demonstrating front controller and routing patterns.';
                             $bottomText = nl2br(e($bottomText));
-                            $themeEmail = \App\Models\ThemeSetting::get('gallery_contact_email', '');
+                            $themeEmail = \App\Models\ThemeSetting::get('contact_email', '');
                             if (!empty($themeEmail)) {
                                 $bottomText = str_replace('{email}', "<a href=\"mailto:" . e($themeEmail) . "\">" . e($themeEmail) . "</a>", $bottomText);
                             } else {
@@ -174,7 +174,7 @@ if (!empty($settings['hero_background_image'])) {
                         <?php
                             $bottomText = $settings['bottom_section_text'] ?? 'This is a minimal, educational PHP MVC framework demonstrating front controller and routing patterns.';
                             $bottomText = nl2br(e($bottomText));
-                            $themeEmail = \App\Models\ThemeSetting::get('gallery_contact_email', '');
+                            $themeEmail = \App\Models\ThemeSetting::get('contact_email', '');
                             if (!empty($themeEmail)) {
                                 $bottomText = str_replace('{email}', "<a href=\"mailto:" . e($themeEmail) . "\">" . e($themeEmail) . "</a>", $bottomText);
                             } else {

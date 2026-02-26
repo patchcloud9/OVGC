@@ -341,7 +341,7 @@
                         
                         <!-- Site Name -->
                         <div class="field">
-                            <label class="label">Site Name (Optional)</label>
+                            <label class="label">Site Name <span class="has-text-danger">*</span></label>
                             <div class="control">
                                 <input 
                                     class="input" 
@@ -349,27 +349,68 @@
                                     name="site_name" 
                                     value="<?= e($theme['site_name'] ?? '') ?>"
                                     placeholder="Enter site name"
-                                    maxlength="100">
+                                    maxlength="100" required>
                             </div>
-                            <p class="help">Displayed in navigation after the logo. Leave empty to show nothing.</p>
+                            <p class="help">Displayed in navigation after the logo.</p>
                         </div>
                         
-                        <!-- Gallery Contact Email -->
+                        <!-- Contact Email -->
                         <div class="field">
-                            <label class="label">Gallery Contact Email (Optional)</label>
+                            <label class="label">Contact Email <span class="has-text-danger">*</span></label>
                             <div class="control has-icons-left">
                                 <input 
                                     class="input" 
                                     type="email" 
-                                    name="gallery_contact_email" 
-                                    value="<?= e($theme['gallery_contact_email'] ?? '') ?>"
-                                    placeholder="artist@example.com"
-                                    maxlength="255">
+                                    name="contact_email" 
+                                    value="<?= e($theme['contact_email'] ?? '') ?>"
+                                    placeholder="contact@example.com"
+                                    maxlength="255" required>
                                 <span class="icon is-small is-left">
                                     <i class="fas fa-envelope"></i>
                                 </span>
                             </div>
-                            <p class="help">Email displayed on gallery pages for inquiries. Leave empty to hide.</p>
+                            <p class="help">Email displayed in the footer and contact pages.</p>
+                        </div>
+                        
+                        <!-- Phone Number -->
+                        <div class="field">
+                            <label class="label">Phone Number</label>
+                            <div class="control has-icons-left">
+                                <input 
+                                    class="input" 
+                                    type="text" 
+                                    name="phone_number" 
+                                    value="<?= e($theme['phone_number'] ?? '') ?>"
+                                    placeholder="(555) 123-4567"
+                                    maxlength="50">
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-phone"></i>
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <!-- Address 1 -->
+                        <div class="field">
+                            <label class="label">Address Line 1</label>
+                            <div class="control">
+                                <input class="input" type="text" name="address1" value="<?= e($theme['address1'] ?? '') ?>" maxlength="255">
+                            </div>
+                        </div>
+                        
+                        <!-- Address 2 -->
+                        <div class="field">
+                            <label class="label">Address Line 2 (Optional)</label>
+                            <div class="control">
+                                <input class="input" type="text" name="address2" value="<?= e($theme['address2'] ?? '') ?>" maxlength="255">
+                            </div>
+                        </div>
+                        
+                        <!-- City/State/ZIP -->
+                        <div class="field">
+                            <label class="label">City / State / ZIP</label>
+                            <div class="control">
+                                <input class="input" type="text" name="city_state_zip" value="<?= e($theme['city_state_zip'] ?? '') ?>" maxlength="255">
+                            </div>
                         </div>
                         
                         <!-- Footer Tagline -->

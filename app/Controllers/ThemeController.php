@@ -45,6 +45,12 @@ class ThemeController extends Controller
             'accent_color' => 'required',
             'header_style' => 'required|in:fixed,static',
             'card_style' => 'required|in:default,elevated,flat',
+            'site_name' => 'required|max:100',
+            'contact_email' => 'required|email|max:255',
+            'phone_number' => 'max:50',
+            'address1' => 'max:255',
+            'address2' => 'max:255',
+            'city_state_zip' => 'max:255',
         ]);
         
         if ($validator->fails()) {
@@ -64,7 +70,11 @@ class ThemeController extends Controller
             'navbar_hover_color' => $this->input('navbar_hover_color'),            'navbar_text_color' => $this->input('navbar_text_color'),
             'hero_background_color' => $this->input('hero_background_color'),
             'site_name' => $this->input('site_name'),
-            'gallery_contact_email' => $this->input('gallery_contact_email'),
+            'contact_email' => $this->input('contact_email'),
+            'phone_number' => $this->input('phone_number'),
+            'address1' => $this->input('address1'),
+            'address2' => $this->input('address2'),
+            'city_state_zip' => $this->input('city_state_zip'),
             'footer_tagline' => $this->input('footer_tagline'),
             'header_style' => $this->input('header_style'),
             'card_style' => $this->input('card_style'),

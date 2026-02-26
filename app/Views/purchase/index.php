@@ -26,7 +26,7 @@ $layout = 'main';
                     <?php
                         // Replace {email} placeholder with the theme contact email
                         $text = nl2br(e($content['content_text']));
-                        $email = \App\Models\ThemeSetting::get('gallery_contact_email', '');
+                        $email = \App\Models\ThemeSetting::get('contact_email', '');
 
                         if (!empty($email)) {
                             $text = str_replace('{email}', "<a href=\"mailto:" . e($email) . "\">" . e($email) . "</a>", $text);

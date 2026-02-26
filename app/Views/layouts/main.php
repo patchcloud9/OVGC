@@ -298,7 +298,7 @@ function rgba_from_hex(string $hex, float $alpha = 1.0): string
     <!-- Footer -->
     <?php
     $siteName = theme_setting('site_name') ?: APP_NAME;
-    $footerEmail = theme_setting('gallery_contact_email');
+    $footerEmail = theme_setting('contact_email');
     $footerTagline = theme_setting('footer_tagline');
     $currentYear = date('Y');
     ?>

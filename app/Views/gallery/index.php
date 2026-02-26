@@ -49,7 +49,7 @@
                                        data-price-amount="<?= e($image['price_amount'] ?? '') ?>"
                                        data-prints-available="<?= isset($image['prints_available']) && $image['prints_available'] ? '1' : '0' ?>"
                                        data-prints-url="<?= e($image['prints_url'] ?? '') ?>"
-                                       data-theme-email="<?= e(\App\Models\ThemeSetting::get('gallery_contact_email', '')) ?>">
+                                       data-theme-email="<?= e(\App\Models\ThemeSetting::get('contact_email', '')) ?>">
                                         <img src="<?= e($image['file_path']) ?>" alt="<?= e($image['title']) ?>" class="gallery-image">
                                     </a>
                                 </figure>
@@ -65,7 +65,7 @@
                                            data-price-amount="<?= e($image['price_amount'] ?? '') ?>"
                                            data-prints-available="<?= isset($image['prints_available']) && $image['prints_available'] ? '1' : '0' ?>"
                                            data-prints-url="<?= e($image['prints_url'] ?? '') ?>"
-                                           data-theme-email="<?= e(\App\Models\ThemeSetting::get('gallery_contact_email', '')) ?>">
+                                           data-theme-email="<?= e(\App\Models\ThemeSetting::get('contact_email', '')) ?>">
                                             <?= e($image['title']) ?>
                                         </a>
                                     </p>
@@ -81,7 +81,7 @@
                                                 <p class="has-text-weight-semibold is-size-6 has-text-left" style="margin-bottom:0;">
                                                     <span>$<?= number_format((float)$image['price_amount'], 2) ?> for the original artwork</span>
                                                 </p>
-                                                <?php $themeEmail = \App\Models\ThemeSetting::get('gallery_contact_email', ''); if (!empty($themeEmail)): ?>
+                                                <?php $themeEmail = \App\Models\ThemeSetting::get('contact_email', ''); if (!empty($themeEmail)): ?>
                                                     <p class="is-size-7" style="margin:0;">Email: <a href="mailto:<?= e($themeEmail) ?>"><?= e($themeEmail) ?></a></p>
                                                 <div class="mt-2"></div>
                                                 <?php endif; ?>

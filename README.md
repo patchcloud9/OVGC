@@ -192,7 +192,7 @@ When you visit `/users/42`:
 
 ## Recent Changes & Notes
 - Migrations: This repo no longer includes SQL migration files; use the `database/initialize/` create scripts and the `database/seed/` files for fresh installs. If you need incremental migrations for upgrades, consider adding a `database/migrations/` workflow.
-- Placeholders: The homepage and purchase pages support the `{email}` placeholder — it will be replaced by the Theme Settings `gallery_contact_email` value when rendering public views (admin fields should use `{email}` to insert the site-wide contact email).
+- Placeholders: The homepage and purchase pages support the `{email}` placeholder — it will be replaced by the Theme Settings `contact_email` value when rendering public views (admin fields should use `{email}` to insert the site-wide contact email).
 - Page subtitles: `page_subtitle` is supported on About and Purchase pages (stored in their respective tables and editable in admin).
 - Purchase Page: Public route available at `/purchase` and editable in Admin → Pages → Purchase.
 - Footer menu: Footer Quick Links are now driven by `menu_items` DB table (same visibility rules as the main navbar).
