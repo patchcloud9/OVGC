@@ -1,19 +1,31 @@
 /**
  * FullCalendar initialisation for the public events calendar.
  * Loaded on /events page only.
+ *
+ * Responsive behaviour:
+ *   < 768px  → starts in listMonth (readable on phones)
+ *   ≥ 768px  → starts in dayGridMonth (full month grid)
+ * The Month / List toggle lets users switch at any time.
  */
 document.addEventListener('DOMContentLoaded', function () {
     var calEl = document.getElementById('events-calendar');
     if (!calEl) return;
 
+    var isMobile = window.innerWidth < 768;
+
     var cal = new FullCalendar.Calendar(calEl, {
-        initialView: 'dayGridMonth',
+        initialView: isMobile ? 'listMonth' : 'dayGridMonth',
         fixedWeekCount: false,
         headerToolbar: {
             left:   'prev,next today',
             center: 'title',
-            right:  ''
+            right:  'dayGridMonth,listMonth'
         },
+        buttonText: {
+            dayGridMonth: 'Month',
+            listMonth:    'List'
+        },
+        noEventsText: 'No events this month.',
         height: 'auto',
         events: {
             url: '/events/feed',
