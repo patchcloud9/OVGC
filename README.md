@@ -74,33 +74,9 @@ define('DB_PASS', 'your_password');
 
 Run the SQL files in `database/initialize/` (files are named with a numeric prefix, e.g. `001_create_*.sql`, to enforce execution order):
 
-```bash
-# POSIX (Linux/macOS)
-cat database/initialize/create_*.sql | mysql -u your_username -p ovgc
-# numeric prefix ensures proper ordering (rate groups before rates, etc.)
-```
-
-Windows (PowerShell):
-
-```powershell
-Get-ChildItem -Path database\\initialize\\create_*.sql | Sort-Object Name | Get-Content | mysql -u your_username -p ovgc
-```
-Note: This repository uses a simple create+seed workflow. Migration SQL files have been removed from `database/migrations/` to keep the setup process explicit and idempotent for new installs. If you maintain running installations you may prefer a migrations approach — contact the maintainer if you need a migration runner added back.
-
 ### 4.1 Seed Test Data (Optional)
 
 Run the seed SQL files in `database/seed/` to insert default/example data (files are named with a numeric prefix for order, e.g. `001_seed_*.sql`):
-
-```bash
-# POSIX (Linux/macOS)
-cat database/seed/seed_*.sql | mysql -u your_username -p ovgc
-```
-
-Windows (PowerShell):
-
-```powershell
-Get-ChildItem -Path database\\seed\\seed_*.sql | Sort-Object Name | Get-Content | mysql -u your_username -p ovgc
-```
 
 See [database/README.md](database/README.md) for detailed instructions.
 
