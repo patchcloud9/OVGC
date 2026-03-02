@@ -80,8 +80,8 @@ When adding new classes, follow namespace structure exactly. File `app/Services/
 - Example models: `User.php` and `Log.php` (in `app/Models`)
 
 **Database Setup:**
-- SQL files in `database/initialize/` create tables (named `create_<table>_table.sql`, e.g., `create_users_table.sql`)
-- SQL files in `database/seed/` populate test data (named `seed_<name>.sql`, e.g., `seed_users.sql`)
+- SQL files in `database/initialize/` create tables (prefixed with a three-digit number for ordering, e.g., `001_create_users_table.sql`)
+- SQL files in `database/seed/` populate test data (prefixed with a three-digit number for ordering, e.g., `001_seed_users.sql`)
 - Run initialization (POSIX): `cat database/initialize/create_*.sql | mysql -u user -p dbname`
 - Run initialization (PowerShell): `Get-ChildItem -Path database\\initialize\\create_*.sql | Sort-Object Name | Get-Content | mysql -u user -p dbname`
 - Run seeds (POSIX): `cat database/seed/seed_*.sql | mysql -u user -p dbname`
@@ -90,7 +90,7 @@ When adding new classes, follow namespace structure exactly. File `app/Services/
 - See `database/README.md` for detailed instructions.
 
 **Adding New Tables:**
-1. Create `database/initialize/##_create_tablename.sql`:
+1. Create a new initialization file using a three-digit order prefix, e.g. `database/initialize/003_create_tablename.sql`:
    ```sql
    CREATE TABLE IF NOT EXISTS posts (
        id INT AUTO_INCREMENT PRIMARY KEY,

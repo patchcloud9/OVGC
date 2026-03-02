@@ -70,11 +70,12 @@ define('DB_PASS', 'your_password');
 
 ### 3. Initialize Tables
 
-Run the SQL files in `database/initialize/` (files are named `create_*.sql`):
+Run the SQL files in `database/initialize/` (files are named with a numeric prefix, e.g. `001_create_*.sql`, to enforce execution order):
 
 ```bash
 # POSIX (Linux/macOS)
 cat database/initialize/create_*.sql | mysql -u your_username -p myapp
+# numeric prefix ensures proper ordering (rate groups before rates, etc.)
 ```
 
 Windows (PowerShell):
@@ -86,7 +87,7 @@ Note: This repository uses a simple create+seed workflow. Migration SQL files ha
 
 ### 4.1 Seed Test Data (Optional)
 
-Run the seed SQL files in `database/seed/` to insert default/example data (files are named `seed_*.sql`):
+Run the seed SQL files in `database/seed/` to insert default/example data (files are named with a numeric prefix for order, e.g. `001_seed_*.sql`):
 
 ```bash
 # POSIX (Linux/macOS)
