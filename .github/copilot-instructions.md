@@ -1,8 +1,8 @@
-# PHP MVC Framework - AI Coding Instructions
+# Okanogan Valley Golf Club Website - AI Coding Instructions
 
 ## Architecture Overview
 
-This is a **minimal, educational PHP MVC framework** demonstrating front controller and routing patterns. The framework is intentionally lightweight - not a production framework (yet, but hope to be someday) but a teaching tool for understanding MVC fundamentals.
+This repository now powers the **Okanogan Valley Golf Club website**. It evolved from a PHP MVC teaching framework but has been fully adapted for the club's needs. The codebase targets **PHP 8.4** and runs on a standard LAMP/LEMP stack. The architecture remains a simple front‑controller/MVC pattern, which makes the application easy to extend and maintain.
 
 ### Core Components
 
@@ -20,9 +20,19 @@ Browser → public/index.php → Router::dispatch() → Controller → View → 
 
 ## Critical Patterns
 
+> **Environment & coding style**
+>
+> - PHP 8.4 is required; develop with the same version locally (use Docker, Valet, or equivalent).
+> - Follow **PSR‑12** for PHP formatting. A `phpcs.xml` (or `php-cs-fixer` config) can be added later.
+> - Use `composer` for any third‑party packages; the project currently has no dependencies but may add some in future.
+> - Git workflow: feature branches off `main`, descriptive commits, and PRs with at least one reviewer.
+> - Unit/feature tests (PHPUnit) are encouraged; see the testing section below when it's available.
+
+## Critical Patterns
+
 ### 1. Routing System
 
-Routes are defined in [config/routes.php](config/routes.php) using regex patterns:
+Routes are defined in `config/routes.php` using regex patterns:
 
 ```php
 'GET' => [
@@ -50,12 +60,12 @@ Controllers extend `Controller` base class which provides:
 
 **View rendering:** 
 - Views use `extract()` to convert data array to variables: `['user' => $user]` becomes `$user`
-- Layout wraps view content in `$content` variable (see [app/Views/layouts/main.php](app/Views/layouts/main.php))
+- Layout wraps view content in `$content` variable (see `app/Views/layouts/main.php`)
 - Always escape output: `<?= htmlspecialchars($title) ?>`
 
 ### 3. Autoloading
 
-PSR-4 style autoloader in [core/Autoloader.php](core/Autoloader.php) maps:
+PSR-4 style autoloader in `core/Autoloader.php` maps:
 - `Core\` → `/core/`
 - `App\` → `/app/`
 
@@ -64,10 +74,10 @@ When adding new classes, follow namespace structure exactly. File `app/Services/
 ### 4. Database & Models
 
 **Database Layer:**
-- PDO wrapper at [core/Database.php](core/Database.php) - singleton pattern with prepared statements
-- Model base class at [app/Models/Model.php](app/Models/Model.php) with CRUD: `find()`, `all()`, `create()`, `update()`, `delete()`
+- PDO wrapper at `core/Database.php` - singleton pattern with prepared statements
+- Model base class at `app/Models/Model.php` with CRUD: `find()`, `all()`, `create()`, `update()`, `delete()`
 - Models use `$table`, `$fillable`, `$timestamps` properties
-- Example models: [User.php](app/Models/User.php), [Log.php](app/Models/Log.php)
+- Example models: `User.php` and `Log.php` (in `app/Models`)
 
 **Database Setup:**
 - SQL files in `database/initialize/` create tables (named `create_<table>_table.sql`, e.g., `create_users_table.sql`)
@@ -116,7 +126,7 @@ When adding new classes, follow namespace structure exactly. File `app/Services/
 
 ### 5. Service Layer Pattern
 
-See [app/Services/LogService.php](app/Services/LogService.php) for the project's service pattern:
+See `app/Services/LogService.php` for the project's service pattern:
 - Services handle business logic and data operations
 - Controllers instantiate services and coordinate between them
 - Services should use Models for database access
@@ -126,24 +136,26 @@ See [app/Services/LogService.php](app/Services/LogService.php) for the project's
 
 ### Running the Application
 
-**Primary method:** Push to GitHub, pull from GitHub to a virtual server. (framework.hexgrid.org)
-Application cannot be run directly; must use a web server.
+**Primary method:**
+Code is deployed via GitHub → NerdRack/CPanel using CPanel's GitHub Version Control feature. The repo is checked out to `/home/okanogan/public_html` on the server, and a `.htaccess` file redirects the web root to the `public/` folder. Development work happens on the test site (`https://test.okanoganvalleygolf.com/`); the live site is `https://www.okanoganvalleygolf.com/`. There is no Docker or containerized environment in use – just a standard LAMP stack provided by the host.
 
-**Production Infrastructure:**
-- HTTPS handled by nginx reverse proxy manager
-- SSL/TLS certificates managed at proxy level
-- All HTTP traffic automatically redirected to HTTPS
+Application cannot be run directly; it must be served by a web server (Apache via CPanel in this case).
+
+**Production Infrastructure (host details):**
+- Hosted on NerdRack using CPanel.
+- SSL/TLS certificates managed by CPanel; HTTPS is enforced by redirect rules.
+- All HTTP traffic redirected to HTTPS via `.htaccess`.
 
 ### Debugging
 
-- `APP_DEBUG` constant (in [config/config.php](config/config.php)) controls error logging
+- `APP_DEBUG` constant (in `config/config.php`) controls error logging
 - Router logs matched routes to `error_log` when debug is enabled
 - Flash messages use session storage - check `$_SESSION['flash']` structure
 - The `/debug` route shows request/server info
 
 ### Testing Routes
 
-Visit [/debug](https://framework.hexgrid.org/debug) to see:
+Visit `/debug` on your local test or live site (e.g. `https://test.okanoganvalleygolf.com/debug`) to inspect:
 - Current HTTP method and URI
 - Server variables
 - Route matching diagnostics
@@ -152,7 +164,7 @@ Visit [/debug](https://framework.hexgrid.org/debug) to see:
 
 ### New Route + Controller
 
-1. **Add route** to [config/routes.php](config/routes.php):
+1. **Add route** to `config/routes.php`:
    ```php
    'GET' => [
        '/products/(\d+)' => ['ProductController', 'show'],
@@ -198,7 +210,7 @@ Follow `LogService.php` pattern:
 - **Database:** Uses MySQL via PDO with prepared statements
 - **Models:** Extend `App\Models\Model` base class for CRUD operations
 - **Middleware:** Pipeline implemented (CSRF, Auth, Rate Limiting, etc.)
-- **Sessions started globally:** `session_start()` called in [public/index.php](public/index.php)
+- **Sessions started globally:** `session_start()` called in `public/index.php`
 - **No dependency injection:** Controllers manually instantiate services
 
 ## Common Pitfalls
@@ -211,14 +223,14 @@ Follow `LogService.php` pattern:
 
 ## Configuration
 
-All config in [config/config.php](config/config.php) using constants:
+All config in `config/config.php` using constants:
 - `APP_NAME`, `APP_DEBUG`, `APP_URL`
 - `DB_*` constants configured and in use
 - Timezone set to `America/Los_Angeles`
 
 **Note:** Basic `.env` file loader has been added to `config/config.php`. Use a `.env` file for development and deployment configuration, but never commit your production `.env`. See `.env.example` for required keys.
 
-## Roadmap to Production
+## Roadmap (mostly complete)
 
 ### Features — Completed (Stable) ✅
 
@@ -254,15 +266,7 @@ This project has a stable core with security and admin features completed and re
 **Remaining:**
 - **Phase 4** - User light/dark toggle (session-based preference)
 
-### Features — Planned (Priority Order) 🚧
 
-The following are the highest-priority features to finish before production readiness. Each item includes a recommended next step.
-
-1. **Environment & Secrets (High Priority)**
-   - Replace the basic in-repo `.env` loader with `vlucas/phpdotenv` or platform secrets.
-   - Move all sensitive config (DB credentials, `APP_DEBUG`) to environment variables and ensure CI/hosting uses secret stores.
-
-2. **Testing & CI (High Priority)**
    - Add PHPUnit with a test suite (unit + feature) and configure GitHub Actions to run tests on push.
    - Introduce a test database (SQLite or separate MySQL instance) for CI runs.
 
