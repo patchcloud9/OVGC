@@ -324,15 +324,19 @@ class EventService
         $meta    = self::CATEGORIES[$cat] ?? self::CATEGORIES['other'];
         $allDay  = (bool)$event['all_day'];
 
-        $startDt = new \DateTime($event['start_datetime']);
-        $endDt   = new \DateTime($event['end_datetime']);
+        $startDt    = new \DateTime($event['start_datetime']);
+        $endDt      = new \DateTime($event['end_datetime']);
+        $duration   = $startDt->diff($endDt);
+        $occStartDt = new \DateTime($occurrenceDate . ' ' . $startDt->format('H:i:s'));
+        $occEndDt   = (clone $occStartDt)->add($duration);
 
         if ($allDay) {
             $start = $occurrenceDate;
-            $end   = $occurrenceDate;
+            // FullCalendar end is exclusive, so add 1 day to include the final day
+            $end   = (clone $occEndDt)->modify('+1 day')->format('Y-m-d');
         } else {
-            $start = $occurrenceDate . 'T' . $startDt->format('H:i:s');
-            $end   = $occurrenceDate . 'T' . $endDt->format('H:i:s');
+            $start = $occStartDt->format('Y-m-d\TH:i:s');
+            $end   = $occEndDt->format('Y-m-d\TH:i:s');
         }
 
         return [

@@ -125,31 +125,9 @@ if (!empty($settings['hero_background_image'])) {
     </div>
 </section>
 
-<!-- Weather Widget Section -->
-<section class="section">
-    <div class="container">
-        <div class="columns is-vcentered">
-            <!-- Left column for image -->
-            <div class="column is-6">
-                <figure class="image">
-                    <img src="https://images.wsdot.wa.gov/nc/020vc21450.jpg" alt="Traffic Camera" style="border-radius:8px;">
-                </figure>
-                <p class="is-italic is-size-7 mt-2">(updates every 2 minutes)</p>
-            </div>
-            <!-- Right column for weather widget -->
-            <div class="column is-6 has-text-right">
-                <a class="weatherwidget-io" href="https://forecast7.com/en/48d41n119d53/omak/?unit=us" data-label_1="OMAK" data-label_2="WEATHER" data-icons="Climacons" data-days="3" data-theme="pure" >OMAK WEATHER</a>
-                <script>
-                !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
-                </script>
-            </div>
-        </div>
-    </div>
-</section>
-
 <!-- Upcoming Events Widget -->
 <?php if (!empty($upcomingEvents)): ?>
-<section class="section" style="padding-bottom:0;">
+<section class="section">
     <div class="container">
         <?php require BASE_PATH . '/app/Views/partials/upcoming-events.php'; ?>
     </div>
