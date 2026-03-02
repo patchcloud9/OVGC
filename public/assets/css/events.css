@@ -137,6 +137,37 @@
     .ev-upcoming-item { margin-bottom: 0.5rem; }
 }
 
+/* --- FullCalendar toolbar — mobile layout --------------------------------
+   Wraps the toolbar so the title sits on its own full-width row above the
+   nav buttons and the Month/List toggle, preventing crowding on phones.
+
+   Row 1 (order -1): Month Year title  (centered)
+   Row 2:            < > today         [Month] [List]
+------------------------------------------------------------------------- */
+@media screen and (max-width: 767px) {
+    #events-calendar .fc-header-toolbar {
+        flex-wrap: wrap;
+        gap: 0.4rem 0;
+    }
+    /* Center chunk (title) → full width, first */
+    #events-calendar .fc-header-toolbar .fc-toolbar-chunk:nth-child(2) {
+        order: -1;
+        width: 100%;
+        text-align: center;
+    }
+    #events-calendar .fc-toolbar-title {
+        font-size: 1.3rem;
+    }
+    /* Left and right chunks share the second row, pushed to each edge */
+    #events-calendar .fc-header-toolbar .fc-toolbar-chunk:nth-child(1) {
+        flex: 1;
+    }
+    #events-calendar .fc-header-toolbar .fc-toolbar-chunk:nth-child(3) {
+        display: flex;
+        justify-content: flex-end;
+    }
+}
+
 /* --- FullCalendar container sizing -------------------------------------- */
 #events-calendar {
     min-height: 600px;
