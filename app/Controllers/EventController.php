@@ -110,8 +110,93 @@ class EventController extends Controller
     }
 
     // -------------------------------------------------------------------------
+    // iCal subscription feed
+    // -------------------------------------------------------------------------
+
+    /**
+     * GET /events/calendar.ics
+     *
+     * Outputs an iCalendar (RFC 5545) feed covering the past 30 days and
+     * the next 12 months.  Users subscribe by URL in Google Calendar, Apple
+     * Calendar, Outlook, etc.  Cancelled occurrences are included with
+     * STATUS:CANCELLED so subscribers see cancellations.
+     */
+    public function ical(): void
+    {
+        $rangeStart = (new \DateTime('-30 days'))->format('Y-m-d');
+        $rangeEnd   = (new \DateTime('+12 months'))->format('Y-m-d');
+
+        $occurrences = $this->service->getOccurrencesForRange($rangeStart, $rangeEnd);
+
+        // Drop 'skip' occurrences — they are hidden dates, not real events
+        $occurrences = array_values(array_filter($occurrences, function ($occ) {
+            return ($occ['extendedProps']['status'] ?? '') !== 'skip';
+        }));
+
+        $tzId    = date_default_timezone_get() ?: 'America/Los_Angeles';
+        $dtstamp = gmdate('Ymd\THis\Z');
+        $domain  = parse_url(APP_URL, PHP_URL_HOST) ?: 'okanoganvalleygolf.com';
+        $calName = APP_NAME . ' Events';
+
+        header('Content-Type: text/calendar; charset=utf-8');
+        header('Content-Disposition: inline; filename="ovgc-events.ics"');
+
+        $out = "BEGIN:VCALENDAR\r\n"
+             . "VERSION:2.0\r\n"
+             . "PRODID:-//" . APP_NAME . "//Events//EN\r\n"
+             . "CALSCALE:GREGORIAN\r\n"
+             . "METHOD:PUBLISH\r\n"
+             . "X-WR-CALNAME:" . $this->icalEscape($calName) . "\r\n"
+             . "X-WR-TIMEZONE:" . $tzId . "\r\n";
+
+        foreach ($occurrences as $occ) {
+            $props  = $occ['extendedProps'];
+            $uid    = 'event-' . $props['eventId'] . '-' . $props['occurrenceDate'] . '@' . $domain;
+            $status = ($props['status'] === 'cancelled') ? 'CANCELLED' : 'CONFIRMED';
+            $url    = rtrim(APP_URL, '/') . $props['detailUrl'];
+
+            if ($occ['allDay']) {
+                // iCal DATE format, end is already exclusive (FullCalendar convention)
+                $dtStart = 'DTSTART;VALUE=DATE:' . str_replace('-', '', $occ['start']);
+                $dtEnd   = 'DTEND;VALUE=DATE:'   . str_replace('-', '', $occ['end']);
+            } else {
+                // iCal DATETIME with local timezone: strip dashes and colons from 'Y-m-d\TH:i:s'
+                $fmt     = str_replace(['-', ':'], '', $occ['start']); // 20260307T140000
+                $fmtEnd  = str_replace(['-', ':'], '', $occ['end']);
+                $dtStart = 'DTSTART;TZID=' . $tzId . ':' . $fmt;
+                $dtEnd   = 'DTEND;TZID='   . $tzId . ':' . $fmtEnd;
+            }
+
+            $out .= "BEGIN:VEVENT\r\n"
+                  . "UID:" . $uid . "\r\n"
+                  . "DTSTAMP:" . $dtstamp . "\r\n"
+                  . $dtStart . "\r\n"
+                  . $dtEnd   . "\r\n"
+                  . "SUMMARY:" . $this->icalEscape($occ['title']) . "\r\n"
+                  . "STATUS:" . $status . "\r\n"
+                  . "URL:" . $url . "\r\n"
+                  . "END:VEVENT\r\n";
+        }
+
+        $out .= "END:VCALENDAR\r\n";
+
+        echo $out;
+        exit;
+    }
+
+    // -------------------------------------------------------------------------
     // Private
     // -------------------------------------------------------------------------
+
+    /** Escape special characters per RFC 5545 */
+    private function icalEscape(string $str): string
+    {
+        return str_replace(
+            ['\\',  "\n",  ',',   ';'],
+            ['\\\\','\\n', '\\,', '\\;'],
+            $str
+        );
+    }
 
     private function isValidDate(string $date): bool
     {

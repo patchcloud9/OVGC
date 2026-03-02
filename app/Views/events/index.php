@@ -30,6 +30,17 @@
             <div id="events-calendar"></div>
         </div>
 
+        <!-- Subscribe to Calendar -->
+        <div class="has-text-right mb-4">
+            <a href="/events/calendar.ics" class="button is-light is-small" title="Subscribe in Google Calendar, Apple Calendar, or Outlook">
+                <span class="icon"><i class="fas fa-calendar-plus"></i></span>
+                <span>Subscribe to Calendar</span>
+            </a>
+            <p class="is-size-7 has-text-grey mt-1">
+                Copy the link and paste into Google Calendar → "Add by URL", Apple Calendar → "Subscribe", or Outlook → "Add from web".
+            </p>
+        </div>
+
         <!-- Category Legend -->
         <div class="box">
             <p class="heading mb-2">Event Categories</p>
