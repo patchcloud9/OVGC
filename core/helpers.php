@@ -201,6 +201,31 @@ function sanitize_for_log($data)
 }
 
 /**
+ * Return ordinal suffix for an integer (1st, 2nd, 3rd, 4th, etc.)
+ *
+ * @param int $num
+ * @return string
+ */
+function ordinal_suffix(int $num): string
+{
+    $num = abs($num);
+    $lastTwo = $num % 100;
+    if ($lastTwo >= 11 && $lastTwo <= 13) {
+        return 'th';
+    }
+    switch ($num % 10) {
+        case 1:
+            return 'st';
+        case 2:
+            return 'nd';
+        case 3:
+            return 'rd';
+        default:
+            return 'th';
+    }
+}
+
+/**
  * Dump and die - development-only helper.
  *
  * In production this function does not output sensitive data. Calling it

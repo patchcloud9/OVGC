@@ -72,6 +72,7 @@ return [
         
         // Gallery (Public)
         '/gallery'              => ['GalleryController', 'index'],
+        '/board-members'        => ['BoardController', 'index'],
 
         
         // Gallery Management (Admin Only)
@@ -93,6 +94,15 @@ return [
         '/admin/membership/(\d+)/items'    => ['MembershipItemController', 'index', ['auth', 'role:admin']],
         '/admin/membership/(\d+)/items/create' => ['MembershipItemController', 'create', ['auth', 'role:admin']],
         '/admin/membership/(\d+)/items/(\d+)/edit' => ['MembershipItemController', 'edit', ['auth', 'role:admin']],
+        
+        // Board Members (Admin Only)
+        '/admin/board-members'                  => ['Admin\\BoardMemberController', 'index', ['auth', 'role:admin']],
+        '/admin/board-members/create'           => ['Admin\\BoardMemberController', 'create', ['auth', 'role:admin']],
+        '/admin/board-members/(\d+)/edit'      => ['Admin\\BoardMemberController', 'edit', ['auth', 'role:admin']],
+        // Board Minutes (Admin Only)
+        '/admin/board-minutes'                  => ['Admin\\BoardMinuteController', 'index', ['auth', 'role:admin']],
+        '/admin/board-minutes/create'           => ['Admin\\BoardMinuteController', 'create', ['auth', 'role:admin']],
+        '/admin/board-minutes/(\d+)/edit'      => ['Admin\\BoardMinuteController', 'edit', ['auth', 'role:admin']],
         // Banners (Admin Only)
         '/admin/banners'         => ['PageBannerController', 'index', ['auth', 'role:admin']],
         '/admin/banners/create'  => ['PageBannerController', 'create', ['auth', 'role:admin']],
@@ -154,6 +164,10 @@ return [
         '/admin/membership'       => ['MembershipGroupController', 'store', ['auth', 'role:admin', 'csrf']],
         '/admin/membership/content' => ['MembershipGroupController', 'updateContent', ['auth', 'role:admin', 'csrf']],
         '/admin/membership/(\d+)/items' => ['MembershipItemController', 'store', ['auth', 'role:admin', 'csrf']],
+        
+        // Board Members (Admin Only)
+        '/admin/board-members'    => ['Admin\\BoardMemberController', 'store', ['auth', 'role:admin', 'csrf']],
+        '/admin/board-minutes'    => ['Admin\\BoardMinuteController', 'store', ['auth', 'role:admin', 'csrf']],
 
         // Banners (Admin Only)
         '/admin/banners'          => ['PageBannerController', 'store', ['auth', 'role:admin', 'csrf']],
@@ -185,6 +199,10 @@ return [
         // Membership groups & items (Admin Only)
         '/admin/membership/(\d+)' => ['MembershipGroupController', 'update', ['auth', 'role:admin', 'csrf']],
         '/admin/membership/(\d+)/items/(\d+)' => ['MembershipItemController', 'update', ['auth', 'role:admin', 'csrf']],
+        
+        // Board Members update
+        '/admin/board-members/(\d+)' => ['Admin\\BoardMemberController', 'update', ['auth', 'role:admin', 'csrf']],
+        '/admin/board-minutes/(\d+)' => ['Admin\\BoardMinuteController', 'update', ['auth', 'role:admin', 'csrf']],
 
         // Banners (Admin Only)
         '/admin/banners/(\d+)'    => ['PageBannerController', 'update', ['auth', 'role:admin', 'csrf']],
@@ -200,6 +218,8 @@ return [
         '/admin/rates/(\d+)/rates/(\d+)' => ['RateController', 'destroy', ['auth', 'role:admin', 'csrf']],
         '/admin/membership/(\d+)' => ['MembershipGroupController', 'destroy', ['auth', 'role:admin', 'csrf']],
         '/admin/membership/(\d+)/items/(\d+)' => ['MembershipItemController', 'destroy', ['auth', 'role:admin', 'csrf']],
+        '/admin/board-members/(\d+)' => ['Admin\\BoardMemberController', 'destroy', ['auth', 'role:admin', 'csrf']],
+        '/admin/board-minutes/(\d+)' => ['Admin\\BoardMinuteController', 'destroy', ['auth', 'role:admin', 'csrf']],
         '/admin/banners/(\d+)'   => ['PageBannerController', 'destroy', ['auth', 'role:admin', 'csrf']],
         '/admin/menu/(\d+)'     => ['MenuController', 'destroy', ['auth', 'role:admin', 'csrf']],
     ],
