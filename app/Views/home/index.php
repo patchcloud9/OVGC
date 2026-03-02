@@ -1,4 +1,8 @@
 <?php
+// Load events widget styles (widget appears in camera/events section)
+?>
+<link rel="stylesheet" href="/assets/css/events.css?v=<?= @filemtime(BASE_PATH . '/public/assets/css/events.css') ?>">
+<?php
 // Hero background styling: prefer an uploaded image when present, otherwise use the color
 $heroStyle = '';
 if (!empty($settings['hero_background_image'])) {
