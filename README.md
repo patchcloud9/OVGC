@@ -15,14 +15,17 @@ php-framework/
 │
 ├── app/                    # Your application code
 │   ├── Controllers/        # Handle requests, return responses
+│   │   └── Admin/          # Admin subdirectory controllers (e.g. Admin\EventController)
 │   ├── Middleware/         # Authentication, CSRF, rate limiting
-│   ├── Models/             # Database models (User, Log, etc.)
-│   ├── Services/           # Business logic (AuthService, LogService)
+│   ├── Models/             # Database models (User, Log, Event, etc.)
+│   ├── Services/           # Business logic (AuthService, LogService, EventService)
 │   └── Views/              # HTML templates
 │       ├── layouts/        # Master templates (header, footer, nav)
-│       ├── partials/       # Reusable snippets
+│       ├── partials/       # Reusable snippets (messages, nav, upcoming-events)
 │       ├── auth/           # Login, register pages
 │       ├── admin/          # Admin panel
+│       │   └── events/     # Admin event management views
+│       ├── events/         # Public calendar and detail views
 │       ├── users/          # User management
 │       ├── logs/           # Application logs
 │       └── errors/         # Error pages (404, 500)
@@ -34,6 +37,7 @@ php-framework/
 │   ├── Database.php        # PDO wrapper for database access
 │   ├── Validator.php       # Input validation with rules
 │   ├── RateLimiter.php     # Rate limiting implementation
+│   ├── RRuleExpander.php   # RRULE→occurrence expansion (no Composer)
 │   └── helpers.php         # Global helper functions
 │
 ├── config/
@@ -142,12 +146,14 @@ When you visit `/users/42`:
 8. **`app/Models/User.php`** - Example model implementation
 
 ## Recent Changes & Notes
+- **Events system** (2026-03): Full calendar system added — `events`, `event_exceptions`, `event_results` tables (migrations 016–018). Public calendar at `/events` (FullCalendar v6), event detail pages, admin CRUD at `/admin/events`, and homepage upcoming-events widget. `Core\RRuleExpander` handles recurrence without Composer.
 - Migrations: This repo no longer includes SQL migration files; use the `database/initialize/` create scripts and the `database/seed/` files for fresh installs. If you need incremental migrations for upgrades, consider adding a `database/migrations/` workflow.
 - Placeholders: The homepage and purchase pages support the `{email}` placeholder — it will be replaced by the Theme Settings `contact_email` value when rendering public views (admin fields should use `{email}` to insert the site-wide contact email).
 - Page subtitles: `page_subtitle` is supported on About and Purchase pages (stored in their respective tables and editable in admin).
 - Purchase Page: Public route available at `/purchase` and editable in Admin → Pages → Purchase.
 - Footer menu: Footer Quick Links are now driven by `menu_items` DB table (same visibility rules as the main navbar).
 - Profile link: The user 'Profile' link was removed from the nav (no active profile page in this project).
+- No Composer/vendor: The project has no third-party dependencies. Never add packages — implement as `Core\` classes instead.
 
 ## Using Models
 
@@ -194,6 +200,7 @@ The framework includes many production-ready features:
 - [x] **Admin Panel** - User management with card-based UI
 - [x] **Mobile-Friendly Views** - Responsive design with Bulma CSS
 - [x] **UI Customization** - Theme settings with color palette, logo/favicon uploads, dynamic styling (Phase 1-3 complete)
+- [x] **Events Calendar** - FullCalendar v6, recurring events (RRULE), admin CRUD, cancellation, post-event results, homepage widget
 
 ### Features in Detail
 
@@ -222,8 +229,9 @@ The framework includes many production-ready features:
 ### Still TODO (Optional Enhancements)
 
 - [ ] UI Customization Phase 4 - User light/dark mode toggle
+- [ ] CSP security headers
+- [ ] Testing infrastructure (PHPUnit)
 - [ ] Environment variables (.env file support)
 - [ ] API authentication (token-based)
 - [ ] Email functionality
 - [ ] Caching layer
-- [ ] Testing infrastructure (PHPUnit)

@@ -22,11 +22,11 @@ Browser → public/index.php → Router::dispatch() → Controller → View → 
 
 > **Environment & coding style**
 >
-> - PHP 8.4 is required; develop with the same version locally (use Docker, Valet, or equivalent).
-> - Follow **PSR‑12** for PHP formatting. A `phpcs.xml` (or `php-cs-fixer` config) can be added later.
-> - Use `composer` for any third‑party packages; the project currently has no dependencies but may add some in future.
-> - Git workflow: feature branches off `main`, descriptive commits, and PRs with at least one reviewer.
-> - Unit/feature tests (PHPUnit) are encouraged; see the testing section below when it's available.
+> - PHP 8.4 is required. There is **no local PHP** — the site runs on shared RackNerd/CPanel hosting only.
+> - Follow **PSR‑12** for PHP formatting.
+> - **No Composer, no vendor directory.** All dependencies must be implemented as `Core\` classes. Never add packages.
+> - Deployment: push to GitHub → CPanel pulls automatically. No CI/CD pipeline.
+> - Unit/feature tests (PHPUnit) are planned but not yet set up.
 
 ## Critical Patterns
 
@@ -43,7 +43,8 @@ Routes are defined in `config/routes.php` using regex patterns:
 
 **Key behaviors:**
 - URL parameters are captured via regex groups and passed as string arguments to controller methods
-- The router automatically converts `UserController` → `App\Controllers\UserController`
+- The router converts `UserController` → `App\Controllers\UserController`
+- Subdirectory controllers work: `'Admin\EventController'` → `App\Controllers\Admin\EventController` → `app/Controllers/Admin/EventController.php` with `namespace App\Controllers\Admin`
 - Always cast URL params: `$userId = (int) $id;` before using as array keys
 - Trailing slashes are normalized (both `/about` and `/about/` work)
 
@@ -126,11 +127,38 @@ When adding new classes, follow namespace structure exactly. File `app/Services/
 
 ### 5. Service Layer Pattern
 
-See `app/Services/LogService.php` for the project's service pattern:
+See `app/Services/LogService.php` and `app/Services/EventService.php` for the project's service pattern:
 - Services handle business logic and data operations
 - Controllers instantiate services and coordinate between them
-- Services should use Models for database access
+- Services use Models for database access
 - Legacy: Some services use file-based JSON storage in `storage/`
+
+### 6. Events System
+
+Three DB tables: `events`, `event_exceptions`, `event_results` (migrations 016–018).
+
+**Key classes:**
+- `Core\RRuleExpander` — expands RRULE strings to `Y-m-d` occurrence dates. No Composer. Supports `FREQ=DAILY/WEEKLY/MONTHLY`, `BYDAY`, `UNTIL`.
+- `App\Models\Event` — CRUD + `getForRange()`, `getExceptions()`, `addException()`, `saveResult()`, etc.
+- `App\Services\EventService` — `getOccurrencesForRange()` (feed), `getUpcomingEvents()` (widget), `cancelFromDate()`, `cancelOccurrence()`, `addSkipDate()`, `getOccurrenceDetail()`.
+- `App\Controllers\EventController` — public routes: `/events`, `/events/feed`, `/events/{id}`, `/events/{id}/{date}`
+- `App\Controllers\Admin\EventController` — admin routes under `/admin/events/...`
+
+**Occurrence status logic (in priority order):**
+1. `cancelled_from` set AND `occurrenceDate >= cancelled_from` → `cancelled`
+2. `event_exceptions` row with `type='skip'` → omit entirely (not returned in feed)
+3. `event_exceptions` row with `type='cancelled'` → `cancelled` (shown with badge)
+4. Default → `active`
+
+**RRULE storage:** store only the rule portion, no `RRULE:` prefix. E.g. `FREQ=WEEKLY;BYDAY=TU`.
+
+**Detail page URL pattern:**
+- One-time event: `/events/{id}`
+- Recurring occurrence: `/events/{id}/YYYY-MM-DD`
+
+**FullCalendar feed:** `GET /events/feed?start=YYYY-MM-DD&end=YYYY-MM-DD` returns a flat JSON array of occurrence objects. FullCalendar v6 loaded from CDN in `app/Views/events/index.php` (no `$extraHead` slot in main layout).
+
+**Homepage widget:** `HomeController::index()` calls `EventService::getUpcomingEvents(5)` wrapped in a try/catch (fails silently if table missing). Partial at `app/Views/partials/upcoming-events.php`.
 
 ## Development Workflow
 
@@ -258,6 +286,8 @@ This project has a stable core with security and admin features completed and re
 
 - **Developer conveniences**
   - Basic `.env` loader for development, documented deploy checklist, and helpful utilities.
+
+**Also complete:** Events system — calendar, admin CRUD, recurring events, homepage widget (added 2026-03).
 
 **Minor remaining:** user theme light/dark toggle (planned phase 4)
 

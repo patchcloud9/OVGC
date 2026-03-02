@@ -19,8 +19,13 @@ Deployed via GitHub → RackNerd/CPanel GitHub Version Control → `/home/okanog
 | `core/Router.php` | Regex URL matching + middleware dispatch |
 | `core/Database.php` | PDO singleton wrapper |
 | `core/helpers.php` | Global helpers: `e()`, `csrf_field()`, `flash()`, `old()` |
+| `core/RRuleExpander.php` | RRULE→date expansion (no Composer; DAILY/WEEKLY/MONTHLY+UNTIL) |
 | `app/Controllers/Controller.php` | Base controller with `view/redirect/json/flash` helpers |
+| `app/Controllers/EventController.php` | Public calendar, `/events/feed` JSON, detail pages |
+| `app/Controllers/Admin/EventController.php` | Admin CRUD for events (subdirectory controller) |
 | `app/Models/Model.php` | Base model with `find/all/where/create/update/delete` |
+| `app/Models/Event.php` | Events model + exception/result helpers |
+| `app/Services/EventService.php` | Occurrence expansion, cancellation, upcoming widget logic |
 | `.github/copilot-instructions.md` | Full detailed architecture reference |
 
 ## Request Flow
@@ -36,6 +41,7 @@ PSR-4 in `core/Autoloader.php`:
 - `App\` → `app/`
 
 Namespaces must match directory paths exactly.
+Subdirectory controllers work: `['Admin\EventController', 'method']` → `App\Controllers\Admin\EventController` → `app/Controllers/Admin/EventController.php`.
 
 ## Routing
 
@@ -44,6 +50,7 @@ Namespaces must match directory paths exactly.
 'GET' => [
     '/rates' => ['RatesController', 'index'],
     '/users/(\d+)' => ['UserController', 'show', ['auth', 'role:admin']],
+    '/admin/events/(\d+)/results/(\d{4}-\d{2}-\d{2})' => ['Admin\EventController', 'resultsForm', ['auth', 'role:admin']],
 ],
 'POST' => [
     '/users' => ['UserController', 'store', ['auth', 'role:admin', 'csrf']],
@@ -68,6 +75,7 @@ Namespaces must match directory paths exactly.
 - Seeds in `database/seed/NNN_seed_name.sql` (3-digit prefix)
 - Model `$timestamps = true` auto-manages `created_at`/`updated_at`
 - Tables: lowercase plural (`menu_items`), InnoDB, utf8mb4_unicode_ci
+- Next migration number: **019**
 
 ## Views
 
@@ -76,6 +84,7 @@ Namespaces must match directory paths exactly.
 - Data passed: `$this->view('path/name', ['key' => $val])` — keys become `$key` via `extract()`
 - Always escape untrusted output: `<?= e($var) ?>` (not `htmlspecialchars` directly)
 - Form repopulation: `<?= old('field') ?>`
+- No `$extraHead` slot in main layout — page-specific CDN assets go directly in the view file
 
 ## Security Rules
 
@@ -97,8 +106,9 @@ A `.env` file is supported for development — never commit it. See `.env.exampl
 3. Layout wraps via `$content` — don't `require` views directly
 4. Namespace must match path — `App\Services\FooService` → `app/Services/FooService.php`
 5. `php -S` has limited URL rewriting — use a real Apache instance for local dev
+6. No Composer/vendor — never add third-party packages; implement as `Core\` classes instead
 
 ## Current Status
 
-Core, security, middleware, auth, admin UI, theming, and content management are all complete and stable.
+Core, security, middleware, auth, admin UI, theming, content management, and **Events system** are all complete and stable.
 Outstanding: Phase 4 (user light/dark mode toggle), PHPUnit test suite, CSP headers, full production hardening.
