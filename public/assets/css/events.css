@@ -141,3 +141,9 @@
 #events-calendar {
     min-height: 600px;
 }
+
+/* Uniform day-cell height — prevents light weeks from being shorter than
+   busy ones. Adjust the value if you want taller or shorter rows. */
+#events-calendar .fc-daygrid-day-frame {
+    min-height: 90px;
+}
