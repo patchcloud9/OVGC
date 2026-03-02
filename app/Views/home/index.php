@@ -125,14 +125,26 @@ if (!empty($settings['hero_background_image'])) {
     </div>
 </section>
 
-<!-- Upcoming Events Widget -->
-<?php if (!empty($upcomingEvents)): ?>
+<!-- Camera + Upcoming Events Section -->
 <section class="section">
     <div class="container">
-        <?php require BASE_PATH . '/app/Views/partials/upcoming-events.php'; ?>
+        <div class="columns is-vcentered">
+            <!-- Left column for camera -->
+            <div class="column is-6">
+                <figure class="image">
+                    <img src="https://images.wsdot.wa.gov/nc/020vc21450.jpg" alt="Traffic Camera" style="border-radius:8px;">
+                </figure>
+                <p class="is-italic is-size-7 mt-2">(updates every 2 minutes)</p>
+            </div>
+            <!-- Right column for upcoming events -->
+            <div class="column is-6">
+                <?php if (!empty($upcomingEvents)): ?>
+                    <?php require BASE_PATH . '/app/Views/partials/upcoming-events.php'; ?>
+                <?php endif; ?>
+            </div>
+        </div>
     </div>
 </section>
-<?php endif; ?>
 
 <!-- Bottom Content Section -->
 <?php if (!empty($settings['bottom_section_title']) || !empty($settings['bottom_section_text']) || !empty($settings['bottom_section_image'])): ?>

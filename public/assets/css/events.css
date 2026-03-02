@@ -74,12 +74,9 @@
 }
 
 .ev-upcoming-item {
-    display: grid;
-    grid-template-columns: 110px 1fr auto;
-    align-items: center;
-    gap: 0 1rem;
+    display: block;
     padding: 0.65rem 0.9rem;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.75rem;
     border-radius: 6px;
     border-left: 4px solid #ccc;
     background: #f8f9fa;
@@ -103,21 +100,22 @@
 .ev-upcoming-item.ev-cat-other      { border-left-color: var(--ev-other); }
 
 .ev-upcoming-date {
+    display: block;
     font-size: 0.78rem;
     font-weight: 700;
     color: #555;
-    white-space: nowrap;
 }
 
 .ev-upcoming-title {
+    display: block;
     font-weight: 600;
     font-size: 0.95rem;
 }
 
 .ev-upcoming-time {
+    display: block;
     font-size: 0.78rem;
     color: #666;
-    white-space: nowrap;
 }
 
 .ev-view-all {
@@ -133,11 +131,7 @@
 
 /* --- Mobile adjustments ------------------------------------------------- */
 @media screen and (max-width: 600px) {
-    .ev-upcoming-item {
-        grid-template-columns: 1fr;
-        gap: 0.1rem;
-    }
-    .ev-upcoming-time { text-align: right; }
+    .ev-upcoming-item { margin-bottom: 0.5rem; }
 }
 
 /* --- FullCalendar container sizing -------------------------------------- */
