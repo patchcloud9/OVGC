@@ -82,10 +82,10 @@ When adding new classes, follow namespace structure exactly. File `app/Services/
 **Database Setup:**
 - SQL files in `database/initialize/` create tables (prefixed with a three-digit number for ordering, e.g., `001_create_users_table.sql`)
 - SQL files in `database/seed/` populate test data (prefixed with a three-digit number for ordering, e.g., `001_seed_users.sql`)
-- Run initialization (POSIX): `cat database/initialize/create_*.sql | mysql -u user -p dbname`
-- Run initialization (PowerShell): `Get-ChildItem -Path database\\initialize\\create_*.sql | Sort-Object Name | Get-Content | mysql -u user -p dbname`
-- Run seeds (POSIX): `cat database/seed/seed_*.sql | mysql -u user -p dbname`
-- Run seeds (PowerShell): `Get-ChildItem -Path database\\seed\\seed_*.sql | Sort-Object Name | Get-Content | mysql -u user -p dbname`
+- Run initialization (POSIX): `cat database/initialize/*.sql | mysql -u user -p dbname`
+- Run initialization (PowerShell): `Get-ChildItem -Path database\\initialize\\*.sql | Sort-Object Name | Get-Content | mysql -u user -p dbname`
+- Run seeds (POSIX): `cat database/seed/*.sql | mysql -u user -p dbname`
+- Run seeds (PowerShell): `Get-ChildItem -Path database\\seed\\*.sql | Sort-Object Name | Get-Content | mysql -u user -p dbname`
 - Note: SQL migration files were intentionally removed in this repo to favor explicit `create_*` + `seed_*` files for new installs. If you require migrations for upgrades, migrate them into `database/migrations/` and add a runner script.
 - See `database/README.md` for detailed instructions.
 
