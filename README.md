@@ -1,6 +1,8 @@
-# PHP MVC Framework Skeleton
+# Okanogan Valley Golf Club Website
 
-A minimal, educational PHP MVC framework demonstrating the front controller and routing pattern.
+This repository contains the code that powers the Okanogan Valley Golf Club public site and admin panel. It is built on a simple PHP 8.4 front‑controller/MVC architecture originally derived from an educational PHP framework.
+
+The app runs on a standard LAMP stack and is deployed via RackNerd/CPanel using GitHub Version Control. Docker is not used in production, and all routing, controllers, and views are tailored to the golf club's requirements.
 
 ## Folder Structure
 
@@ -54,7 +56,7 @@ This framework uses MySQL with PDO for database access.
 ### 1. Create Database
 
 ```sql
-CREATE DATABASE myapp CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE ovgc CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
 
 ### 2. Configure Connection
@@ -63,7 +65,7 @@ Edit `config/config.php` with your database credentials:
 
 ```php
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'myapp');
+define('DB_NAME', 'ovgc');
 define('DB_USER', 'your_username');
 define('DB_PASS', 'your_password');
 ```
@@ -74,14 +76,14 @@ Run the SQL files in `database/initialize/` (files are named with a numeric pref
 
 ```bash
 # POSIX (Linux/macOS)
-cat database/initialize/create_*.sql | mysql -u your_username -p myapp
+cat database/initialize/create_*.sql | mysql -u your_username -p ovgc
 # numeric prefix ensures proper ordering (rate groups before rates, etc.)
 ```
 
 Windows (PowerShell):
 
 ```powershell
-Get-ChildItem -Path database\\initialize\\create_*.sql | Sort-Object Name | Get-Content | mysql -u your_username -p myapp
+Get-ChildItem -Path database\\initialize\\create_*.sql | Sort-Object Name | Get-Content | mysql -u your_username -p ovgc
 ```
 Note: This repository uses a simple create+seed workflow. Migration SQL files have been removed from `database/migrations/` to keep the setup process explicit and idempotent for new installs. If you maintain running installations you may prefer a migrations approach — contact the maintainer if you need a migration runner added back.
 
@@ -91,64 +93,36 @@ Run the seed SQL files in `database/seed/` to insert default/example data (files
 
 ```bash
 # POSIX (Linux/macOS)
-cat database/seed/seed_*.sql | mysql -u your_username -p myapp
+cat database/seed/seed_*.sql | mysql -u your_username -p ovgc
 ```
 
 Windows (PowerShell):
 
 ```powershell
-Get-ChildItem -Path database\\seed\\seed_*.sql | Sort-Object Name | Get-Content | mysql -u your_username -p myapp
-```
-### 4. Seed Test Data (Optional)
-
-```bash
-# POSIX (Linux/macOS)
-cat database/seed/seed_*.sql | mysql -u your_username -p myapp
-```
-
-Windows (PowerShell):
-
-```powershell
-Get-ChildItem -Path database\\seed\\seed_*.sql | Sort-Object Name | Get-Content | mysql -u your_username -p myapp
+Get-ChildItem -Path database\\seed\\seed_*.sql | Sort-Object Name | Get-Content | mysql -u your_username -p ovgc
 ```
 
 See [database/README.md](database/README.md) for detailed instructions.
 
 ## How to Run
 
-### Option 1: Docker (Recommended)
+The application is designed to run under a traditional Apache/PHP environment. In production it is deployed to RackNerd using CPanel's GitHub Version Control feature:
 
-See complete Docker configuration in `docs/docker/`:
-- `docker-compose.yml` - Full service configuration
-- `entrypoint.sh` - Container initialization script with automatic directory creation
+1. Configure a repository on RackNerd/CPanel to pull from GitHub.
+2. Set the document root to the `public/` directory.
+3. Ensure PHP 8.4 (or newer) is selected and `pdo_mysql` is enabled.
+4. Upload or initialize the database using the scripts in `database/initialize/` and `database/seed/` (see pages above).
 
-The entrypoint automatically:
-- Installs pdo_mysql extension
-- Enables Apache mod_rewrite
-- Configures DocumentRoot to /public
-- Creates storage and upload directories
-- Sets proper permissions for www-data
-
-Run:
-```bash
-docker-compose up
-```
-
-Visit: http://localhost:8080
-
-### Option 2: PHP Built-in Server
+For local development you can use any LAMP stack (XAMPP, MAMP, WAMP) or the PHP built‑in server for quick tests:
 
 ```bash
 cd public
 php -S localhost:8080
 ```
 
-Note: URL rewriting won't work perfectly with the built-in server.
+URL rewriting may be limited with the built‑in server; the preferred local setup is still an Apache instance pointed at `public/`.
 
-### Option 3: Apache/XAMPP/MAMP
-
-Point your document root to the `public/` folder.
-
+> **Note:** The original framework included Docker support, but the golf club deployment does not use containers; the instructions above supersede the previous Docker section.
 ## How Routing Works
 
 1. **All requests hit `public/index.php`** (via `.htaccess` rewrite)
