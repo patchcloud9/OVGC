@@ -42,6 +42,14 @@
                     <span class="icon"><i class="fas fa-calendar-alt"></i></span>
                     <span>Events</span>
                 </a>
+                <a href="/admin/board-members" class="button is-primary">
+                    <span class="icon"><i class="fas fa-users"></i></span>
+                    <span>Board Members</span>
+                </a>
+                <a href="/admin/board-minutes" class="button is-primary">
+                    <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                    <span>Board Minutes</span>
+                </a>
             </div>
         </div>
 
