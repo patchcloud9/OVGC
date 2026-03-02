@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var cal = new FullCalendar.Calendar(calEl, {
         initialView: 'dayGridMonth',
+        fixedWeekCount: false,
         headerToolbar: {
             left:   'prev,next today',
             center: 'title',

@@ -25,20 +25,20 @@
     <div class="container">
         <?php require BASE_PATH . '/app/Views/partials/messages.php'; ?>
 
-        <!-- Calendar -->
-        <div class="box">
-            <div id="events-calendar"></div>
-        </div>
-
-        <!-- Subscribe to Calendar -->
-        <div class="has-text-right mb-4">
+        <!-- Subscribe to Calendar (top right) -->
+        <div class="has-text-right mb-2">
             <a href="/events/calendar.ics" class="button is-light is-small" title="Subscribe in Google Calendar, Apple Calendar, or Outlook">
                 <span class="icon"><i class="fas fa-calendar-plus"></i></span>
                 <span>Subscribe to Calendar</span>
             </a>
             <p class="is-size-7 has-text-grey mt-1">
-                Copy the link and paste into Google Calendar → "Add by URL", Apple Calendar → "Subscribe", or Outlook → "Add from web".
+                Paste the link into Google Calendar → "Add by URL", Apple Calendar → "Subscribe", or Outlook → "Add from web".
             </p>
+        </div>
+
+        <!-- Calendar -->
+        <div class="box">
+            <div id="events-calendar"></div>
         </div>
 
         <!-- Category Legend -->
