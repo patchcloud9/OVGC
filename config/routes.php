@@ -101,6 +101,19 @@ return [
         '/admin/menu'           => ['MenuController', 'index', ['auth', 'role:admin']],
         '/admin/menu/create'    => ['MenuController', 'create', ['auth', 'role:admin']],
         '/admin/menu/(\d+)/edit' => ['MenuController', 'edit', ['auth', 'role:admin']],
+
+        // Events (Public)
+        '/events'                              => ['EventController', 'index'],
+        '/events/feed'                         => ['EventController', 'feed'],
+        '/events/(\d+)'                        => ['EventController', 'show'],
+        '/events/(\d+)/(\d{4}-\d{2}-\d{2})'   => ['EventController', 'showOccurrence'],
+
+        // Events (Admin Only)
+        '/admin/events'                                   => ['Admin\EventController', 'index',       ['auth', 'role:admin']],
+        '/admin/events/create'                            => ['Admin\EventController', 'create',      ['auth', 'role:admin']],
+        '/admin/events/(\d+)/edit'                        => ['Admin\EventController', 'edit',        ['auth', 'role:admin']],
+        '/admin/events/(\d+)/cancel'                      => ['Admin\EventController', 'cancelForm',  ['auth', 'role:admin']],
+        '/admin/events/(\d+)/results/(\d{4}-\d{2}-\d{2})' => ['Admin\EventController', 'resultsForm', ['auth', 'role:admin']],
     ],
     
     'POST' => [
@@ -147,6 +160,14 @@ return [
         // Menu Management (Admin Only)
         '/admin/menu'           => ['MenuController', 'store', ['auth', 'role:admin', 'csrf']],
         '/admin/menu/reorder'   => ['MenuController', 'reorder', ['auth', 'role:admin', 'csrf']],
+
+        // Events (Admin Only)
+        '/admin/events/create'                             => ['Admin\EventController', 'store',        ['auth', 'role:admin', 'csrf']],
+        '/admin/events/(\d+)/edit'                         => ['Admin\EventController', 'update',       ['auth', 'role:admin', 'csrf']],
+        '/admin/events/(\d+)/cancel'                       => ['Admin\EventController', 'cancelStore',  ['auth', 'role:admin', 'csrf']],
+        '/admin/events/(\d+)/restore'                      => ['Admin\EventController', 'restore',      ['auth', 'role:admin', 'csrf']],
+        '/admin/events/(\d+)/delete'                       => ['Admin\EventController', 'destroy',      ['auth', 'role:admin', 'csrf']],
+        '/admin/events/(\d+)/results/(\d{4}-\d{2}-\d{2})' => ['Admin\EventController', 'resultsStore', ['auth', 'role:admin', 'csrf']],
     ],
     
     'PUT' => [

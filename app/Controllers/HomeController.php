@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\HomepageSetting;
+use App\Services\EventService;
 
 /**
  * Home Controller
@@ -17,15 +18,20 @@ class HomeController extends Controller
      */
     public function index(): void
     {
-        // Get homepage settings
         $settings = HomepageSetting::getSettings();
-        
-        $data = [
-            'title' => 'Welcome Home',
-            'settings' => $settings,
-        ];
-        
-        $this->view('home/index', $data);
+
+        $upcomingEvents = [];
+        try {
+            $upcomingEvents = (new EventService())->getUpcomingEvents(5);
+        } catch (\Exception $e) {
+            // Events table may not exist yet in all environments — fail silently
+        }
+
+        $this->view('home/index', [
+            'title'          => 'Welcome Home',
+            'settings'       => $settings,
+            'upcomingEvents' => $upcomingEvents,
+        ]);
     }
     
     /**

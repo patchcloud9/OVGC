@@ -38,6 +38,10 @@
                     <span class="icon"><i class="fas fa-exclamation-circle"></i></span>
                     <span>Banners</span>
                 </a>
+                <a href="/admin/events" class="button is-primary">
+                    <span class="icon"><i class="fas fa-calendar-alt"></i></span>
+                    <span>Events</span>
+                </a>
             </div>
         </div>
 

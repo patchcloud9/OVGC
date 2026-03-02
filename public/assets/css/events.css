@@ -1,0 +1,146 @@
+/* ==========================================================================
+   Events System Styles
+   ========================================================================== */
+
+/* --- Category color variables ------------------------------------------- */
+:root {
+    --ev-tournament: #2D6A2D;
+    --ev-league:     #3B7DD8;
+    --ev-closed:     #C0392B;
+    --ev-school:     #E67E22;
+    --ev-21plus:     #7D3C98;
+    --ev-special:    #B8860B;
+    --ev-other:      #607D8B;
+}
+
+/* --- Cancelled badge (inside FullCalendar event) ------------------------- */
+.ev-cancelled-badge {
+    display: inline-block;
+    margin-left: 4px;
+    padding: 0 4px;
+    background: #C0392B;
+    color: #fff;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: bold;
+    text-decoration: none;
+    vertical-align: middle;
+    line-height: 1.5;
+}
+
+/* --- Cancelled event banner (detail page) -------------------------------- */
+.ev-cancelled-banner {
+    border-left: 4px solid #C0392B;
+}
+
+/* --- Category legend ----------------------------------------------------- */
+.ev-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.5rem;
+    align-items: center;
+}
+
+.ev-legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.875rem;
+}
+
+.ev-legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+/* --- Detail page results ------------------------------------------------- */
+.ev-results-content {
+    border-left: 3px solid #3B7DD8;
+    padding-left: 1rem;
+}
+
+/* --- Upcoming events widget (homepage) ----------------------------------- */
+.upcoming-events {
+    margin: 2rem 0;
+}
+
+.upcoming-events-heading {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--primary-color, #333);
+}
+
+.ev-upcoming-item {
+    display: grid;
+    grid-template-columns: 110px 1fr auto;
+    align-items: center;
+    gap: 0 1rem;
+    padding: 0.65rem 0.9rem;
+    margin-bottom: 0.4rem;
+    border-radius: 6px;
+    border-left: 4px solid #ccc;
+    background: #f8f9fa;
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.15s, opacity 0.15s;
+}
+
+.ev-upcoming-item:hover {
+    background: #eef1f5;
+    opacity: 0.9;
+}
+
+/* Category border colors */
+.ev-upcoming-item.ev-cat-tournament { border-left-color: var(--ev-tournament); }
+.ev-upcoming-item.ev-cat-league     { border-left-color: var(--ev-league); }
+.ev-upcoming-item.ev-cat-closed     { border-left-color: var(--ev-closed); }
+.ev-upcoming-item.ev-cat-school     { border-left-color: var(--ev-school); }
+.ev-upcoming-item.ev-cat-21plus     { border-left-color: var(--ev-21plus); }
+.ev-upcoming-item.ev-cat-special    { border-left-color: var(--ev-special); }
+.ev-upcoming-item.ev-cat-other      { border-left-color: var(--ev-other); }
+
+.ev-upcoming-date {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #555;
+    white-space: nowrap;
+}
+
+.ev-upcoming-title {
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.ev-upcoming-time {
+    font-size: 0.78rem;
+    color: #666;
+    white-space: nowrap;
+}
+
+.ev-view-all {
+    display: inline-block;
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    color: var(--primary-color, #3B7DD8);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.ev-view-all:hover { text-decoration: underline; }
+
+/* --- Mobile adjustments ------------------------------------------------- */
+@media screen and (max-width: 600px) {
+    .ev-upcoming-item {
+        grid-template-columns: 1fr;
+        gap: 0.1rem;
+    }
+    .ev-upcoming-time { text-align: right; }
+}
+
+/* --- FullCalendar container sizing -------------------------------------- */
+#events-calendar {
+    min-height: 600px;
+}

@@ -147,6 +147,15 @@ if (!empty($settings['hero_background_image'])) {
     </div>
 </section>
 
+<!-- Upcoming Events Widget -->
+<?php if (!empty($upcomingEvents)): ?>
+<section class="section" style="padding-bottom:0;">
+    <div class="container">
+        <?php require BASE_PATH . '/app/Views/partials/upcoming-events.php'; ?>
+    </div>
+</section>
+<?php endif; ?>
+
 <!-- Bottom Content Section -->
 <?php if (!empty($settings['bottom_section_title']) || !empty($settings['bottom_section_text']) || !empty($settings['bottom_section_image'])): ?>
 <section class="section has-background-light">

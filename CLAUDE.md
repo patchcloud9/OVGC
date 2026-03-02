@@ -4,6 +4,7 @@
 
 **Okanogan Valley Golf Club website.** PHP 8.4 MVC, LAMP stack, no Docker.
 Deployed via GitHub → RackNerd/CPanel GitHub Version Control → `/home/okanogan/public_html`.
+**No local PHP or Composer.** No vendor directory. All dependencies are custom in-framework classes.
 - Live: `https://www.okanoganvalleygolf.com/`
 - Test: `https://test.okanoganvalleygolf.com/`
 - Debug route: `/debug` (shows request info; keep gated behind `APP_DEBUG`)
