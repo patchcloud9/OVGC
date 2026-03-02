@@ -21,15 +21,19 @@ $layout = 'main';
             <div class="columns is-multiline">
                 <?php foreach ($members as $m): ?>
                     <div class="column is-half-tablet is-one-third-desktop">
-                        <div class="box has-text-centered">
-                            <?php if (!empty($m['photo_path'])): ?>
-                                <figure class="image is-128x128 is-inline-block">
-                                    <img src="<?= e($m['photo_path']) ?>" alt="<?= e($m['name']) ?>">
-                                </figure>
-                            <?php endif; ?>
-                            <h3 class="title is-5 mt-2"><?= e($m['name']) ?></h3>
-                            <p class="subtitle is-6 has-text-grey"><?= e($m['title']) ?></p>
-                            <p><a href="mailto:<?= e($m['email']) ?>"><?= e($m['email']) ?></a></p>
+                        <div class="box">
+                            <div class="media">
+                                <?php if (!empty($m['photo_path'])): ?>
+                                    <figure class="media-left image is-96x96">
+                                        <img class="is-rounded" src="<?= e($m['photo_path']) ?>" alt="<?= e($m['name']) ?>">
+                                    </figure>
+                                <?php endif; ?>
+                                <div class="media-content">
+                                    <h3 class="title is-5"><?= e($m['name']) ?></h3>
+                                    <p class="subtitle is-6 has-text-grey"><?= e($m['title']) ?></p>
+                                    <p><a href="mailto:<?= e($m['email']) ?>"><?= e($m['email']) ?></a></p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 <?php endforeach; ?>
