@@ -132,7 +132,7 @@ if (!empty($settings['hero_background_image'])) {
 <!-- Camera + Upcoming Events Section -->
 <section class="section">
     <div class="container">
-        <div class="columns is-vcentered">
+        <div class="columns">
             <!-- Left column for camera -->
             <div class="column is-6">
                 <figure class="image">

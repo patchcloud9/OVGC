@@ -63,14 +63,16 @@
 
 /* --- Upcoming events widget (homepage) ----------------------------------- */
 .upcoming-events {
-    margin: 2rem 0;
+    margin: 0;
 }
 
 .upcoming-events-heading {
     font-size: 1.4rem;
     font-weight: 700;
+    margin-top: 0;
     margin-bottom: 0.75rem;
     color: var(--primary-color, #333);
+    text-align: center;
 }
 
 .ev-upcoming-item {
@@ -119,12 +121,13 @@
 }
 
 .ev-view-all {
-    display: inline-block;
+    display: block;
     margin-top: 0.75rem;
     font-size: 0.875rem;
     color: var(--primary-color, #3B7DD8);
     text-decoration: none;
     font-weight: 600;
+    text-align: right;
 }
 
 .ev-view-all:hover { text-decoration: underline; }
