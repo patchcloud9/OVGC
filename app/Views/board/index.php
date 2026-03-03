@@ -68,7 +68,10 @@ $layout = 'main';
                     ?>
                     <div class="column is-full-mobile is-half-tablet is-one-third-desktop">
                         <div class="box">
-                            <a href="<?= e($item['file_path']) ?>" target="_blank"><?= e($label) ?></a>
+                            <a href="<?= e($item['file_path']) ?>" target="_blank">
+                                <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                                <?= e($label) ?>
+                            </a>
                         </div>
                     </div>
                 <?php endforeach; ?>
