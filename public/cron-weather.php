@@ -13,12 +13,18 @@ require BASE_PATH . '/app/Services/WeatherService.php';
 // optionally protect by a simple key param, e.g. ?key=secret
 $expected = 'please_change_me';
 if (isset($_GET['key']) && $_GET['key'] === $expected) {
-    $ok = \App\Services\WeatherService::updateSnapshot();
-    if ($ok) {
-        echo "OK";
-        http_response_code(200);
-    } else {
-        echo "FAIL";
+    try {
+        $ok = \App\Services\WeatherService::updateSnapshot();
+        if ($ok) {
+            echo "OK";
+            http_response_code(200);
+        } else {
+            echo "FAIL";
+            http_response_code(500);
+        }
+    } catch (\Throwable $e) {
+        // output exception text for debugging
+        echo "EXCEPTION: " . $e->getMessage();
         http_response_code(500);
     }
 } else {
