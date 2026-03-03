@@ -44,6 +44,15 @@ class WeatherService
 
         $html = @file_get_contents(self::SOURCE_URL, false, $context);
         if ($html === false) {
+            // log failure details to cron-error.log if defined
+            $log = defined('BASE_PATH') ? BASE_PATH . '/storage/logs/cron-error.log' : null;
+            if ($log) {
+                $msg = "fetch failed";
+                if (isset($http_response_header)) {
+                    $msg .= ' headers=' . implode(' | ', $http_response_header);
+                }
+                file_put_contents($log, date('c') . " WeatherService: $msg\n", FILE_APPEND);
+            }
             return false;
         }
 
@@ -71,7 +80,13 @@ class WeatherService
             $widgetHtml = $html;
         }
 
-        file_put_contents(self::cacheFile(), $widgetHtml);
+        $result = file_put_contents(self::cacheFile(), $widgetHtml);
+        if ($result === false) {
+            if (defined('BASE_PATH')) {
+                file_put_contents(BASE_PATH . '/storage/logs/cron-error.log', date('c') . " WeatherService: failed to write cache\n", FILE_APPEND);
+            }
+            return false;
+        }
         return true;
     }
 
