@@ -68,19 +68,22 @@ $occDt = new DateTime($occurrenceDate . ' ' . (new DateTime($event['start_dateti
                             </button>
                             <a href="/admin/events" class="button is-light">Cancel</a>
                             <?php if ($results): ?>
-                            <form method="POST"
-                                  action="/admin/events/<?= (int)$event['id'] ?>/results/<?= e($occurrenceDate) ?>/delete"
-                                  style="display:inline;"
-                                  onsubmit="return confirm('Remove these results? This cannot be undone.');">
-                                <?= csrf_field() ?>
-                                <button type="submit" class="button is-danger is-light">
-                                    <span class="icon"><i class="fas fa-trash"></i></span>
-                                    <span>Remove Results</span>
-                                </button>
-                            </form>
+                            <button type="button" class="button is-danger is-light"
+                                    onclick="document.getElementById('delete-results-form').submit();">
+                                <span class="icon"><i class="fas fa-trash"></i></span>
+                                <span>Remove Results</span>
+                            </button>
                             <?php endif; ?>
                         </div>
                     </form>
+
+                    <?php if ($results): ?>
+                    <form id="delete-results-form" method="POST"
+                          action="/admin/events/<?= (int)$event['id'] ?>/results/<?= e($occurrenceDate) ?>/delete"
+                          onsubmit="return confirm('Remove these results? This cannot be undone.');">
+                        <?= csrf_field() ?>
+                    </form>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
