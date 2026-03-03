@@ -13,7 +13,9 @@ class WeatherService
 {
     // location URL we pull from (forecast7 page for Omak, WA)
     private const SOURCE_URL = 'https://forecast7.com/en/48d41n119d53/omak/?unit=us';
-    private const CACHE_FILE = BASE_PATH . '/storage/cache/weather-snapshot.html';
+    // BASE_PATH may not yet be defined if this file is loaded outside the normal
+    // web bootstrap (e.g. CLI script); ensure we have a sensible default.
+    private const CACHE_FILE = (defined('BASE_PATH') ? BASE_PATH : __DIR__ . '/../../') . '/storage/cache/weather-snapshot.html';
 
     /**
      * Fetch the source page, extract the widget markup, and save to cache file.
