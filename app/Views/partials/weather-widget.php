@@ -25,7 +25,7 @@ $curIcon = \App\Services\WeatherService::iconClass(
     gap: 2rem;
     max-width: 860px;
     margin: 0 auto;
-    padding: 1.1rem 1.75rem;
+    padding: 0.5rem 1.5rem;
     background: #fff;
     border-radius: 8px;
     box-shadow: 0 1px 6px rgba(0,0,0,.09);
@@ -34,32 +34,32 @@ $curIcon = \App\Services\WeatherService::iconClass(
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-width: 120px;
-    gap: .15rem;
+    min-width: 90px;
+    gap: .1rem;
 }
 .wx-current .wi {
-    font-size: 3.5rem;
+    font-size: 2rem;
     color: #9ca3af;
     line-height: 1;
 }
 .wx-current .wi-day-sunny,
 .wx-current .wi-hot { color: #f59e0b; }
 .wx-current-temp {
-    font-size: 2.25rem;
+    font-size: 1.4rem;
     font-weight: 600;
     color: #374151;
     line-height: 1.1;
 }
 .wx-current-desc {
-    font-size: .8rem;
+    font-size: .75rem;
     color: #6b7280;
     text-align: center;
     text-transform: lowercase;
-    max-width: 130px;
+    max-width: 110px;
 }
 .wx-divider {
     width: 1px;
-    height: 80px;
+    height: 45px;
     background: #e5e7eb;
     flex-shrink: 0;
 }
@@ -73,19 +73,19 @@ $curIcon = \App\Services\WeatherService::iconClass(
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: .65rem .75rem;
+    padding: .35rem .5rem;
     background: #f9fafb;
     border-radius: 6px;
-    gap: .3rem;
+    gap: .15rem;
 }
 .wx-day-name {
-    font-size: .8rem;
+    font-size: .75rem;
     font-weight: 600;
     color: #374151;
     text-align: center;
 }
 .wx-day .wi {
-    font-size: 2rem;
+    font-size: 1.25rem;
     color: #9ca3af;
     line-height: 1;
 }
@@ -93,8 +93,8 @@ $curIcon = \App\Services\WeatherService::iconClass(
 .wx-day .wi-hot { color: #f59e0b; }
 .wx-day-temps {
     display: flex;
-    gap: .45rem;
-    font-size: .85rem;
+    gap: .35rem;
+    font-size: .8rem;
     font-weight: 600;
 }
 .wx-hi { color: #dc2626; }

@@ -40,7 +40,7 @@ if (!empty($settings['hero_background_image'])) {
 </section>
 
 <!-- Feature Cards Section -->
-<section class="section home-cards">
+<section class="section home-cards" style="padding-bottom: 0.5rem;">
     <div class="container">
         <div class="columns">
             <!-- Card 1 -->
@@ -131,7 +131,7 @@ if (!empty($settings['hero_background_image'])) {
 
 <!-- Weather Widget Section -->
 <?php if (!empty($weatherData)): ?>
-<section class="section" style="padding-bottom: 0;">
+<section class="section" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
     <div class="container">
         <?php require BASE_PATH . '/app/Views/partials/weather-widget.php'; ?>
     </div>
@@ -139,7 +139,7 @@ if (!empty($settings['hero_background_image'])) {
 <?php endif; ?>
 
 <!-- Camera + Upcoming Events Section -->
-<section class="section">
+<section class="section" style="padding-top: 0.5rem;">
     <div class="container">
         <div class="columns">
             <!-- Left column for camera -->
