@@ -51,7 +51,8 @@
                             <td><?= e($m['sort_order']) ?></td>
                             <td><?= e($m['name']) ?></td>
                             <td><?= e($m['title']) ?></td>
-                            <td><a href="mailto:<?= e($m['email']) ?>"><?= e($m['email']) ?></a></td>
+                            <?php $email = $m['email'] ?: theme_setting('contact_email'); ?>
+                            <td><a href="mailto:<?= e($email) ?>"><?= e($email) ?><?= empty($m['email']) ? ' <em>(site contact)</em>' : '' ?></a></td>
                             <td>
                                 <div class="buttons are-small">
                                     <a href="/admin/board-members/<?= e($m['id']) ?>/edit" class="button is-small is-info">
@@ -77,7 +78,8 @@
                     <div class="box">
                         <h3 class="title is-5"><?= e($m['name']) ?></h3>
                         <p class="is-size-6 has-text-grey"><?= e($m['title']) ?></p>
-                        <p><a href="mailto:<?= e($m['email']) ?>"><?= e($m['email']) ?></a></p>
+                        <?php $email = $m['email'] ?: theme_setting('contact_email'); ?>
+                        <p><a href="mailto:<?= e($email) ?>"><?= e($email) ?><?= empty($m['email']) ? ' <em>(site contact)</em>' : '' ?></a></p>
                         <div class="buttons is-small mt-2">
                             <a href="/admin/board-members/<?= e($m['id']) ?>/edit" class="button is-info"><span class="icon is-small"><i class="fas fa-edit"></i></span></a>
                             <a href="#" class="button is-danger" onclick="if(confirm('Delete this member?')){document.getElementById('delete-form-<?= e($m['id']) ?>').submit();}return false;"><span class="icon is-small"><i class="fas fa-trash"></i></span></a>

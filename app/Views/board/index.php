@@ -27,11 +27,18 @@ $layout = 'main';
                                     <figure class="media-left image is-96x96">
                                         <img class="is-rounded" src="<?= e($m['photo_path']) ?>" alt="<?= e($m['name']) ?>">
                                     </figure>
+                                <?php else: ?>
+                                    <figure class="media-left image is-96x96">
+                                        <img class="is-rounded" src="/assets/images/board-member-default.png" alt="<?= e($m['name']) ?>">
+                                    </figure>
                                 <?php endif; ?>
                                 <div class="media-content">
                                     <h3 class="title is-5"><?= e($m['name']) ?></h3>
                                     <p class="subtitle is-6 has-text-grey"><?= e($m['title']) ?></p>
-                                    <p><a href="mailto:<?= e($m['email']) ?>"><?= e($m['email']) ?></a></p>
+                                    <?php
+                                $email = $m['email'] ?: theme_setting('contact_email');
+                            ?>
+                            <p><a href="mailto:<?= e($email) ?>"><?= e($email) ?></a></p>
                                 </div>
                             </div>
                         </div>

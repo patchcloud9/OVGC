@@ -44,7 +44,7 @@ class BoardMemberController extends Controller
             [
                 'name' => 'required|max:100',
                 'title' => 'required|max:100',
-                'email' => 'required|email|max:255',
+                'email' => 'email|max:255', // optional
                 'sort_order' => 'numeric',
             ]
         );
@@ -90,7 +90,7 @@ class BoardMemberController extends Controller
         $member = BoardMember::create([
             'name' => $this->input('name'),
             'title' => $this->input('title'),
-            'email' => $this->input('email'),
+            'email' => trim($this->input('email')) ?: null,
             'photo_path' => $photoPath,
             'sort_order' => (int) $this->input('sort_order'),
         ]);
@@ -135,7 +135,7 @@ class BoardMemberController extends Controller
             [
                 'name' => 'required|max:100',
                 'title' => 'required|max:100',
-                'email' => 'required|email|max:255',
+                'email' => 'email|max:255', // optional
                 'sort_order' => 'numeric',
             ]
         );
@@ -188,7 +188,7 @@ class BoardMemberController extends Controller
         BoardMember::update($mid, [
             'name' => $this->input('name'),
             'title' => $this->input('title'),
-            'email' => $this->input('email'),
+            'email' => trim($this->input('email')) ?: null,
             'photo_path' => $photoPath,
             'sort_order' => (int) $this->input('sort_order'),
         ]);

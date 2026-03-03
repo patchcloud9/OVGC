@@ -29,10 +29,11 @@ $layout = 'main';
                 </div>
             </div>
             <div class="field">
-                <label class="label">Email *</label>
+                <label class="label">Email</label>
                 <div class="control">
-                    <input class="input" type="email" name="email" value="<?= e(old('email')) ?>" required maxlength="255">
+                    <input class="input" type="email" name="email" value="<?= e(old('email')) ?>" placeholder="Leave blank for site contact" maxlength="255">
                 </div>
+                <p class="help">Optional; will default to site-wide contact email if empty.</p>
             </div>
             <div class="field">
                 <label class="label">Photo</label>
