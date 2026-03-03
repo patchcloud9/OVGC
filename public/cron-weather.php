@@ -8,8 +8,22 @@ try {
     if (!defined('BASE_PATH')) {
         define('BASE_PATH', realpath(__DIR__ . '/..'));
     }
-    require BASE_PATH . '/core/Autoloader.php';
-    \Core\Autoloader::register();
+    // diagnostic log of base path and existence of files
+    $debugLog = BASE_PATH . '/storage/logs/cron-error.log';
+    file_put_contents($debugLog, date('c') . " BASE_PATH={$GLOBALS['BASE_PATH']}\n", FILE_APPEND);
+    $autoloaderPath = BASE_PATH . '/core/Autoloader.php';
+    file_put_contents($debugLog, date('c') . " autoloader exists?=" . (is_file($autoloaderPath) ? 'yes' : 'no') . " path={$autoloaderPath}\n", FILE_APPEND);
+    if (is_file($autoloaderPath)) {
+        require $autoloaderPath;
+    } else {
+        throw new \RuntimeException("Autoloader file missing");
+    }
+    // now register if class exists
+    if (class_exists('Core\\Autoloader')) {
+        \Core\Autoloader::register();
+    } else {
+        file_put_contents($debugLog, date('c') . " Class Core\\Autoloader not defined after include\n", FILE_APPEND);
+    }
     require BASE_PATH . '/app/Services/WeatherService.php';
 
     // optionally protect by a simple key param, e.g. ?key=secret
