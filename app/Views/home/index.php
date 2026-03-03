@@ -154,9 +154,14 @@ if (!empty($settings['hero_background_image'])) {
             </div>
             <script>
             (function () {
-                var img = document.getElementById('camera1');
+                var visible = document.getElementById('camera1');
                 setInterval(function () {
-                    img.src = '/uploads/camera1.jpg?t=' + Date.now();
+                    var loader = new Image();
+                    loader.onload = function () {
+                        visible.src = loader.src;
+                    };
+                    // onerror: do nothing — keep showing last good frame
+                    loader.src = '/uploads/camera1.jpg?t=' + Date.now();
                 }, 20000);
             })();
             </script>
