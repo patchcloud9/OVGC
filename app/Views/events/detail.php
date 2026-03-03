@@ -138,20 +138,18 @@ if ($isRecurring && !empty($event['rrule'])) {
 
                 <?php endif; // not cancelled ?>
 
-                <?php
-                    if (($_GET['from'] ?? '') === 'admin') {
-                        $backUrl   = '/admin/events/' . (int)$event['id'] . '/results/' . $occurrenceDate;
-                        $backLabel = 'Back to Results';
-                    } else {
-                        $backUrl   = '/events';
-                        $backLabel = 'Back to Calendar';
-                    }
-                ?>
                 <div class="mt-5">
-                    <a href="<?= e($backUrl) ?>" class="button is-light">
+                    <a href="/events" class="button is-light">
                         <span class="icon"><i class="fas fa-arrow-left"></i></span>
-                        <span><?= e($backLabel) ?></span>
+                        <span>Back to Calendar</span>
                     </a>
+                    <?php if (is_admin()): ?>
+                    <a href="/admin/events/<?= (int)$event['id'] ?>/results/<?= e($occurrenceDate) ?>"
+                       class="button is-info is-light">
+                        <span class="icon"><i class="fas fa-trophy"></i></span>
+                        <span>Back to Results</span>
+                    </a>
+                    <?php endif; ?>
                 </div>
 
             </div><!-- /.column -->
