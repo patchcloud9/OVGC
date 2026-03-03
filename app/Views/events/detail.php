@@ -138,10 +138,20 @@ if ($isRecurring && !empty($event['rrule'])) {
 
                 <?php endif; // not cancelled ?>
 
+                <?php
+                    $ref = $_SERVER['HTTP_REFERER'] ?? '';
+                    if (preg_match('#/admin/events/\d+/results#', $ref)) {
+                        $backUrl   = $ref;
+                        $backLabel = 'Back to Results';
+                    } else {
+                        $backUrl   = '/events';
+                        $backLabel = 'Back to Calendar';
+                    }
+                ?>
                 <div class="mt-5">
-                    <a href="/events" class="button is-light">
+                    <a href="<?= e($backUrl) ?>" class="button is-light">
                         <span class="icon"><i class="fas fa-arrow-left"></i></span>
-                        <span>Back to Calendar</span>
+                        <span><?= e($backLabel) ?></span>
                     </a>
                 </div>
 
