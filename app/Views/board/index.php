@@ -58,7 +58,7 @@ $layout = 'main';
         <?php if (empty($minutes)): ?>
             <p class="has-text-grey">No minutes available.</p>
         <?php else: ?>
-            <ul>
+            <div class="columns is-multiline">
                 <?php foreach ($minutes as $item): ?>
                     <?php
                         $dt = new \DateTime($item['meeting_date']);
@@ -66,11 +66,13 @@ $layout = 'main';
                         $suffix = ordinal_suffix($day);
                         $label = $dt->format('Y F ') . $day . $suffix . ' Board Minutes';
                     ?>
-                    <li>
-                        <a href="<?= e($item['file_path']) ?>" target="_blank"><?= e($label) ?></a>
-                    </li>
+                    <div class="column is-full-mobile is-half-tablet is-one-third-desktop">
+                        <div class="box">
+                            <a href="<?= e($item['file_path']) ?>" target="_blank"><?= e($label) ?></a>
+                        </div>
+                    </div>
                 <?php endforeach; ?>
-            </ul>
+            </div>
 
             <?php if ($totalPages > 1): ?>
                 <nav class="pagination is-centered mt-4" role="navigation" aria-label="pagination">
