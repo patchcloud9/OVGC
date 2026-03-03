@@ -266,27 +266,27 @@ class EventController extends Controller
             return;
         }
 
-        // Recurring — show a list of past occurrences to pick from
-        $today      = (new \DateTime('today'))->format('Y-m-d');
-        $rangeStart = (new \DateTime($event['start_datetime']))->format('Y-m-d');
-        $occurrences = $this->service->getOccurrencesForRange($rangeStart, $today);
+        // Recurring — show all occurrences (past and upcoming) to pick from
+        $rangeStart  = (new \DateTime($event['start_datetime']))->format('Y-m-d');
+        $rangeEnd    = (new \DateTime('+2 years'))->format('Y-m-d');
+        $occurrences = $this->service->getOccurrencesForRange($rangeStart, $rangeEnd);
 
-        // Filter to this event's past occurrences, newest first
-        $past = [];
+        // Filter to this event's occurrences, newest first
+        $dates = [];
         foreach ($occurrences as $occ) {
             $props = $occ['extendedProps'];
-            if ((int) $props['eventId'] === (int) $id && $props['occurrenceDate'] < $today) {
-                $past[] = $props['occurrenceDate'];
+            if ((int) $props['eventId'] === (int) $id) {
+                $dates[] = $props['occurrenceDate'];
             }
         }
-        usort($past, fn($a, $b) => strcmp($b, $a));
+        usort($dates, fn($a, $b) => strcmp($b, $a));
 
         $existingResults = Event::getResultsForEvent((int) $id);
 
         $this->view('admin/events/results-pick', [
             'title'           => 'Post Results — ' . e($event['title']),
             'event'           => $event,
-            'pastOccurrences' => $past,
+            'occurrences'     => $dates,
             'existingResults' => $existingResults,
         ]);
     }

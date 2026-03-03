@@ -177,7 +177,7 @@ class EventService
 
         $status      = $this->resolveOccurrenceStatus($event, $occurrenceDate, $excMap);
         $isPostEvent = $occurrenceDate < (new \DateTime('today'))->format('Y-m-d');
-        $results     = $isPostEvent ? Event::getResult($eventId, $occurrenceDate) : null;
+        $results     = Event::getResult($eventId, $occurrenceDate);
 
         return [
             'event'          => $event,

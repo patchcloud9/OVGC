@@ -99,8 +99,29 @@ if ($isRecurring && !empty($event['rrule'])) {
 
                 <?php if ($status !== 'cancelled'): ?>
 
-                    <?php if (!$isPostEvent): ?>
-                    <!-- ── Pre-event view ── -->
+                    <?php if ($results): ?>
+                    <!-- ── Results posted (pre- or post-event) ── -->
+                    <h2 class="title is-4 mt-4"><i class="fas fa-trophy"></i> Results</h2>
+                    <div class="content ev-results-content">
+                        <?= $results['results_text'] ?>
+                    </div>
+                    <?php if (!empty($results['conditions_notes'])): ?>
+                    <div class="notification is-light mt-4">
+                        <p class="heading">Course Conditions / Notes</p>
+                        <div class="content"><?= nl2br(e($results['conditions_notes'])) ?></div>
+                    </div>
+                    <?php endif; ?>
+                    <p class="has-text-grey is-size-7 mt-2">
+                        Posted <?= e((new DateTime($results['posted_at']))->format('M j, Y')) ?>
+                    </p>
+                    <?php if (!empty($event['description'])): ?>
+                    <div class="content mt-4">
+                        <?= nl2br(e($event['description'])) ?>
+                    </div>
+                    <?php endif; ?>
+
+                    <?php else: ?>
+                    <!-- ── No results yet ── -->
                     <?php if (!empty($event['description'])): ?>
                     <div class="content">
                         <?= nl2br(e($event['description'])) ?>
@@ -108,34 +129,12 @@ if ($isRecurring && !empty($event['rrule'])) {
                     <?php else: ?>
                     <p class="has-text-grey">No additional details available.</p>
                     <?php endif; ?>
-
-                    <?php else: ?>
-                    <!-- ── Post-event view ── -->
-                    <h2 class="title is-4 mt-4"><i class="fas fa-trophy"></i> Results</h2>
-                    <?php if ($results): ?>
-                        <div class="content ev-results-content">
-                            <?= $results['results_text'] ?>
-                        </div>
-                        <?php if (!empty($results['conditions_notes'])): ?>
-                        <div class="notification is-light mt-4">
-                            <p class="heading">Course Conditions / Notes</p>
-                            <div class="content"><?= nl2br(e($results['conditions_notes'])) ?></div>
-                        </div>
-                        <?php endif; ?>
-                        <p class="has-text-grey is-size-7 mt-2">
-                            Posted <?= e((new DateTime($results['posted_at']))->format('M j, Y')) ?>
-                        </p>
-                    <?php else: ?>
-                        <div class="notification is-light">
-                            Results have not been posted yet. Check back soon.
-                        </div>
-                        <?php if (!empty($event['description'])): ?>
-                        <div class="content mt-4">
-                            <?= nl2br(e($event['description'])) ?>
-                        </div>
-                        <?php endif; ?>
+                    <?php if ($isPostEvent): ?>
+                    <div class="notification is-light mt-4">
+                        Results have not been posted yet. Check back soon.
+                    </div>
                     <?php endif; ?>
-                    <?php endif; // post-event ?>
+                    <?php endif; // results ?>
 
                 <?php endif; // not cancelled ?>
 

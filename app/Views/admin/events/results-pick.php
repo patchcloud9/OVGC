@@ -1,7 +1,7 @@
 <?php
 /**
  * Admin Results — Pick Occurrence (recurring events)
- * Variables: $title, $event (array), $pastOccurrences (string[]), $existingResults (array keyed by date)
+ * Variables: $title, $event (array), $occurrences (string[]), $existingResults (array keyed by date)
  */
 ?>
 
@@ -25,8 +25,8 @@
                 <div class="box">
                     <p class="heading mb-3">Select an occurrence to post or update results</p>
 
-                    <?php if (empty($pastOccurrences)): ?>
-                    <p class="has-text-grey">No past occurrences found for this event.</p>
+                    <?php if (empty($occurrences)): ?>
+                    <p class="has-text-grey">No occurrences found for this event.</p>
                     <?php else: ?>
                     <table class="table is-fullwidth is-hoverable">
                         <thead>
@@ -37,7 +37,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                        <?php foreach ($pastOccurrences as $date):
+                        <?php foreach ($occurrences as $date):
                             $hasResults = isset($existingResults[$date]);
                             $dt = new DateTime($date);
                         ?>
