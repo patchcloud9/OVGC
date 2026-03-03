@@ -29,7 +29,7 @@ $layout = 'main';
                                     </figure>
                                 <?php else: ?>
                                     <figure class="media-left image is-96x96">
-                                        <img class="is-rounded" src="/assets/images/board-member-default.png" alt="<?= e($m['name']) ?>">
+                                        <img class="is-rounded" src="/assets/images/board-member-default.png?v=<?= @filemtime(BASE_PATH . '/public/assets/images/board-member-default.png') ?>" alt="<?= e($m['name']) ?>">
                                     </figure>
                                 <?php endif; ?>
                                 <div class="media-content">

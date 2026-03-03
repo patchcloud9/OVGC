@@ -1,0 +1,9 @@
+---
+deployment:
+  tasks:
+    # Set all directories to 755 (rwxr-xr-x)
+    - /bin/find /home/okanogan/public_html -type d -exec /bin/chmod 755 {} +
+    # Set all files to 644 (rw-r--r--)
+    - /bin/find /home/okanogan/public_html -type f -exec /bin/chmod 644 {} +
+    # Harden .env to 600 (owner read/write only) — overrides the broad sweep above
+    - /bin/bash -c "test -f /home/okanogan/public_html/.env && /bin/chmod 600 /home/okanogan/public_html/.env || true"

@@ -39,6 +39,8 @@ return [
         // Authentication routes
         '/login'                => ['AuthController', 'showLogin', ['guest']],
         '/register'             => ['AuthController', 'showRegister', ['guest']],
+        '/password/forgot'      => ['PasswordResetController', 'showForgotForm', ['guest']],
+        '/password/reset'       => ['PasswordResetController', 'showResetForm',  ['guest']],
         
         // Admin Panel
         '/admin'                => ['AdminController', 'index', ['auth', 'role:admin']],
@@ -132,9 +134,14 @@ return [
     
     'POST' => [
         // Authentication routes
-        '/login'                => ['AuthController', 'login', ['guest', 'csrf', 'rate-limit:login,5,300']],
-        '/register'             => ['AuthController', 'register', ['guest', 'csrf', 'rate-limit:register,3,600']],
-        '/logout'               => ['AuthController', 'logout', ['auth', 'csrf']],
+        '/login'                => ['AuthController', 'login',          ['guest', 'csrf', 'rate-limit:login,5,300']],
+        '/register'             => ['AuthController', 'register',       ['guest', 'csrf', 'rate-limit:register,3,600']],
+        '/logout'               => ['AuthController', 'logout',         ['auth',  'csrf']],
+        '/password/forgot'      => ['PasswordResetController', 'sendResetLink',  ['guest', 'csrf', 'rate-limit:password-reset,3,600']],
+        '/password/reset'       => ['PasswordResetController', 'resetPassword',  ['guest', 'csrf']],
+
+        // Contact form
+        '/contact'              => ['ContactController', 'send', ['csrf', 'rate-limit:contact,5,300']],
         
         // Theme Settings (Admin Only)
         '/admin/theme'          => ['ThemeController', 'update', ['auth', 'role:admin', 'csrf']],

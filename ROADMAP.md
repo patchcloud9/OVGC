@@ -27,18 +27,19 @@
 ## Planned Work
 
 ### Phase 1 — Production Hardening & Cleanup
-- [ ] Content Security Policy (CSP) headers
-- [ ] HSTS and X-Frame-Options via `.htaccess` (Apache, no reverse proxy)
-- [ ] Restrictive file permissions (755 dirs, 644 files)
-- [ ] Disable directory listing in web server config
-- [ ] Asset versioning and static caching strategy
-- [ ] Monitoring and alerting (Sentry / Uptime)
-- [ ] Email functionality
+- [x] Content Security Policy (CSP) headers
+- [x] HSTS and X-Frame-Options via `.htaccess` (Apache, no reverse proxy)
+- [x] Restrictive file permissions (755 dirs, 644 files)
+- [x] Disable directory listing in web server config
+- [x] Asset versioning and static caching strategy
+- [x] Monitoring and alerting — UptimeRobot free tier (external setup only, no code); Sentry skipped as site is lightly used and errors surface via user reports
+- [x] Email functionality
 
 ### Phase 2 — Testing & Dev Tools
 - [ ] PHPUnit test suite (unit + feature) + GitHub Actions CI
 - [ ] Test database (SQLite or separate MySQL instance) for CI runs
 - [ ] Debug toolbar (dev-only)
+- [ ] Move inline `<script>` blocks out of view files into external JS assets to allow removing `'unsafe-inline'` from CSP `script-src` (affects: `main.php`, `home/index.php`, `gallery/`, `admin/`, `banners/`, `users/`, `menu/`, `logs/`, `rates/` views)
 
 ---
 
@@ -65,10 +66,10 @@
 - [x] SVG uploads excluded by default (SVG can contain executable content)
 - [x] Proper error logging (dual database + file logging with graceful degradation)
 - [x] Environment variables for sensitive config (`.env` loader; prefer secret store in CI/CD)
-- [ ] Content Security Policy headers (`default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'`)
+- [x] Content Security Policy headers (`default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'`)
 - [ ] Remove or protect debug/test routes in production
-- [ ] Restrictive file permissions (755 dirs, 644 files)
-- [ ] Disable directory listing in web server config
+- [x] Restrictive file permissions (755 dirs, 644 files)
+- [x] Disable directory listing in web server config
 - [ ] Keep framework dependencies updated
 
-> **Deploy checklist:** Set `APP_DEBUG=false` and `APP_ENV=production`; ensure `.env` is not committed; rotate DB credentials; add CSP/HSTS/X-Frame-Options to `.htaccess`; verify upload directory permissions.
+> **Deploy checklist:** Set `APP_DEBUG=false` and `APP_ENV=production`; ensure `.env` is not committed; rotate DB credentials; verify upload directory permissions.

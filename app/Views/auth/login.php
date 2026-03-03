@@ -60,7 +60,11 @@
                         <hr>
                         
                         <p class="has-text-centered">
-                            Don't have an account? 
+                            <a href="/password/forgot">Forgot your password?</a>
+                        </p>
+
+                        <p class="has-text-centered mt-2">
+                            Don't have an account?
                             <a href="/register">Register here</a>
                         </p>
                     </form>

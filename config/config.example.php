@@ -47,6 +47,20 @@ define('DB_PASS', env('DB_PASS', ''));
 // Timezone
 date_default_timezone_set(env('APP_TIMEZONE', 'America/Los_Angeles'));
 
+// Mail / SMTP settings
+// Gmail:   MAIL_HOST=smtp.gmail.com, MAIL_PORT=587, MAIL_ENCRYPTION=tls
+//          MAIL_PASSWORD must be a Google App Password (not your account password).
+//          Create one at: myaccount.google.com → Security → App passwords
+// Outlook: MAIL_HOST=smtp-mail.outlook.com, MAIL_PORT=587, MAIL_ENCRYPTION=tls
+//          MAIL_PASSWORD is your account password (or app password if MFA enabled).
+define('MAIL_HOST',         env('MAIL_HOST',         'smtp.gmail.com'));
+define('MAIL_PORT',         (int) env('MAIL_PORT',   '587'));
+define('MAIL_ENCRYPTION',   env('MAIL_ENCRYPTION',   'tls'));    // 'tls' = STARTTLS (587), 'ssl' = port 465
+define('MAIL_USERNAME',     env('MAIL_USERNAME',     ''));        // full email address
+define('MAIL_PASSWORD',     env('MAIL_PASSWORD',     ''));        // app password or account password
+define('MAIL_FROM_ADDRESS', env('MAIL_FROM_ADDRESS', ''));        // address emails are sent from
+define('MAIL_FROM_NAME',    env('MAIL_FROM_NAME',    APP_NAME));  // display name in From header
+
 // IMPORTANT: Do not commit a production .env file. Use .env.example as a template
 // and set secrets via your deployment system or CI/CD secret store.
 

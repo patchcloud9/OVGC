@@ -54,28 +54,29 @@ $layout = 'main';
                 <div class="box has-background-light">
                     <h2 class="title is-4 has-text-centered">Send a Message</h2>
                     <form method="POST" action="/contact" style="max-width:600px;margin:0 auto;">
+                    <?= csrf_field() ?>
                     <div class="field">
                         <label class="label">Name</label>
                         <div class="control">
-                            <input class="input" type="text" name="name" required>
+                            <input class="input" type="text" name="name" value="<?= e(old('name')) ?>" required>
                         </div>
                     </div>
                     <div class="field">
                         <label class="label">Phone Number</label>
                         <div class="control">
-                            <input class="input" type="tel" name="phone">
+                            <input class="input" type="tel" name="phone" value="<?= e(old('phone')) ?>">
                         </div>
                     </div>
                     <div class="field">
                         <label class="label">Email</label>
                         <div class="control">
-                            <input class="input" type="email" name="email" required>
+                            <input class="input" type="email" name="email" value="<?= e(old('email')) ?>" required>
                         </div>
                     </div>
                     <div class="field">
                         <label class="label">Comment</label>
                         <div class="control">
-                            <textarea class="textarea" name="comment" rows="4"></textarea>
+                            <textarea class="textarea" name="comment" rows="4"><?= e(old('comment')) ?></textarea>
                         </div>
                     </div>
                     <div class="field is-grouped is-grouped-centered">
