@@ -215,6 +215,28 @@ No middleware (public, read-only image endpoint). Output: `Content-Type: image/j
 - `.htaccess` in that directory enforces no-cache headers at the Apache level.
 - The `uploads/` directory should **not** execute PHP (add `php_flag engine off` or equivalent if needed).
 
+### 9. Authentication & Password Reset
+
+**Login/Logout:**
+- `GET /login` → `AuthController::showLogin()` | `POST /login` → `AuthController::login()` — middleware: `guest, csrf, rate-limit:login,5,300`
+- `POST /logout` → `AuthController::logout()` — middleware: `auth, csrf`
+
+**Registration:** Disabled. Both `GET /register` and `POST /register` redirect immediately to `/login`. Code is preserved in `AuthController` — remove the early `redirect('/login'); return;` blocks to re-enable.
+
+**Password Reset:**
+- `GET  /password/forgot` → `PasswordResetController::showForgotForm()`
+- `POST /password/forgot` → `PasswordResetController::sendResetLink()` — middleware: `guest, csrf, rate-limit:password-reset,3,600`
+- `GET  /password/reset`  → `PasswordResetController::showResetForm()`
+- `POST /password/reset`  → `PasswordResetController::resetPassword()` — middleware: `guest, csrf`
+
+**Token security:** `bin2hex(random_bytes(32))` raw token is emailed; only `password_hash()` of the token is stored in the `password_resets` DB table. A DB leak cannot be used to reset accounts directly. Tokens expire after 1 hour. Expired tokens are purged opportunistically on every new reset request (no cron needed).
+
+**Key files:**
+- `app/Controllers/AuthController.php`
+- `app/Controllers/PasswordResetController.php`
+- `app/Views/auth/login.php`, `forgot-password.php`, `reset-password.php`, `register.php`
+- `database/initialize/021_create_password_resets.sql`
+
 ## Development Workflow
 
 ### Running the Application

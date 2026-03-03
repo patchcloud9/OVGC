@@ -21,6 +21,8 @@ Deployed via GitHub → RackNerd/CPanel GitHub Version Control → `/home/okanog
 | `core/helpers.php` | Global helpers: `e()`, `csrf_field()`, `flash()`, `old()` |
 | `core/RRuleExpander.php` | RRULE→date expansion (no Composer; DAILY/WEEKLY/MONTHLY+UNTIL) |
 | `app/Controllers/Controller.php` | Base controller with `view/redirect/json/flash` helpers |
+| `app/Controllers/AuthController.php` | Login, logout; registration disabled (redirects to `/login`) |
+| `app/Controllers/PasswordResetController.php` | Forgot/reset password flow; tokens stored hashed in `password_resets` table |
 | `app/Controllers/EventController.php` | Public calendar, `/events/feed` JSON, detail pages |
 | `app/Controllers/Admin/EventController.php` | Admin CRUD for events (subdirectory controller) |
 | `app/Models/Model.php` | Base model with `find/all/where/create/update/delete` |
@@ -122,5 +124,7 @@ Core, security, middleware, auth, admin UI, theming, content management, **Event
 **Weather widget:** NWS API (free, no key) → `storage/cache/weather-data.json` (30-min cron) → rendered server-side by `WeatherService` + `partials/weather-widget.php`. Cron endpoint: `GET /cron-weather.php?key=<WEATHER_KEY>`. Widget hidden gracefully when cache is absent.
 
 **Camera widget:** FTP camera drops `public/uploads/camera1.jpg`. `GET /camera/live` → `CameraController::live()` validates the JPEG with `getimagesize()`, promotes good frames to `storage/cache/camera1_stable.jpg`, and falls back to the stable copy during mid-write corruption. Homepage JS (`home/index.php`) polls `/camera/live?t=<timestamp>` every 17 s using a hidden `Image()` loader and only swaps the visible frame when `naturalWidth > 0`.
+
+**Password reset:** `GET/POST /password/forgot` → `PasswordResetController`. Raw token emailed; only `password_hash()` of token stored in `password_resets` table (expires 1 hour). Expired tokens purged opportunistically on each new request. Self-registration is disabled — accounts are created manually by an admin.
 
 See [ROADMAP.md](ROADMAP.md) for planned work, the security checklist, and changelog.

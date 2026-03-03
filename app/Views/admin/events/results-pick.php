@@ -23,7 +23,17 @@
         <div class="columns">
             <div class="column is-7">
                 <div class="box">
-                    <p class="heading mb-3">Select an occurrence to post or update results</p>
+                    <div class="level mb-3">
+                        <div class="level-left">
+                            <p class="heading level-item mb-0">Select an occurrence to post or update results</p>
+                        </div>
+                        <div class="level-right">
+                            <label class="checkbox level-item" style="font-size:0.85rem;">
+                                <input type="checkbox" id="hideFuture">
+                                &nbsp;Hide future results
+                            </label>
+                        </div>
+                    </div>
 
                     <?php if (empty($occurrences)): ?>
                     <p class="has-text-grey">No occurrences found for this event.</p>
@@ -41,7 +51,7 @@
                             $hasResults = isset($existingResults[$date]);
                             $dt = new DateTime($date);
                         ?>
-                        <tr>
+                        <tr data-date="<?= e($date) ?>">
                             <td><?= e($dt->format('D, M j, Y')) ?></td>
                             <td>
                                 <?php if ($hasResults): ?>
@@ -77,3 +87,25 @@
         </div>
     </div>
 </section>
+
+<script>
+(function () {
+    const cb    = document.getElementById('hideFuture');
+    const today = new Date().toISOString().slice(0, 10);
+
+    function applyFilter() {
+        document.querySelectorAll('tr[data-date]').forEach(function (row) {
+            row.style.display = (cb.checked && row.dataset.date > today) ? 'none' : '';
+        });
+        localStorage.setItem('results-hide-future', cb.checked ? '1' : '0');
+    }
+
+    // Restore saved preference
+    if (localStorage.getItem('results-hide-future') === '1') {
+        cb.checked = true;
+        applyFilter();
+    }
+
+    cb.addEventListener('change', applyFilter);
+})();
+</script>

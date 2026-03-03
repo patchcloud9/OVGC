@@ -84,14 +84,14 @@ class EventService
 
     /**
      * Return the next $limit upcoming ACTIVE events (no cancelled occurrences).
-     * Uses a 90-day lookahead window from today.
+     * Uses a 2-year lookahead window from today.
      *
      * @return array[]  Simplified event arrays for the homepage widget
      */
     public function getUpcomingEvents(int $limit = 5): array
     {
         $today     = new \DateTime('today');
-        $lookahead = (clone $today)->modify('+90 days');
+        $lookahead = (clone $today)->modify('+2 years');
 
         $rangeStart = $today->format('Y-m-d');
         $rangeEnd   = $lookahead->format('Y-m-d');
