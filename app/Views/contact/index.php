@@ -1,6 +1,23 @@
 <?php
 $layout = 'main';
-?>
+$recaptchaSiteKey = defined('RECAPTCHA_SITE_KEY') ? RECAPTCHA_SITE_KEY : '';
+?><?php if ($recaptchaSiteKey): ?>
+<script src="https://www.google.com/recaptcha/api.js?render=<?= e($recaptchaSiteKey) ?>"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var form = document.getElementById('contact-form');
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        grecaptcha.ready(function () {
+            grecaptcha.execute('<?= e($recaptchaSiteKey) ?>', {action: 'contact'}).then(function (token) {
+                document.getElementById('recaptcha_token').value = token;
+                form.submit();
+            });
+        });
+    });
+});
+</script>
+<?php endif; ?>
 
 <!-- top map (replace coordinates with actual club location) -->
 <section class="map-container">
@@ -53,8 +70,9 @@ $layout = 'main';
             <div class="column is-half">
                 <div class="box has-background-light">
                     <h2 class="title is-4 has-text-centered">Send a Message</h2>
-                    <form method="POST" action="/contact" style="max-width:600px;margin:0 auto;">
+                    <form id="contact-form" method="POST" action="/contact" style="max-width:600px;margin:0 auto;">
                     <?= csrf_field() ?>
+                    <input type="hidden" id="recaptcha_token" name="recaptcha_token" value="">
                     <div class="field">
                         <label class="label">Name</label>
                         <div class="control">

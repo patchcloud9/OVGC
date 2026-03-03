@@ -45,6 +45,16 @@ class ContactController extends Controller
             return;
         }
 
+        // reCAPTCHA v3 verification
+        if (defined('RECAPTCHA_SECRET_KEY') && RECAPTCHA_SECRET_KEY !== '') {
+            $token = trim($_POST['recaptcha_token'] ?? '');
+            if (empty($token) || !$this->verifyRecaptcha($token)) {
+                $this->flash('error', 'Security check failed. Please try again.');
+                $this->redirect('/contact');
+                return;
+            }
+        }
+
         // Destination: admin contact email from theme settings
         $adminEmail = theme_setting('contact_email');
         if (empty($adminEmail)) {
@@ -69,5 +79,36 @@ class ContactController extends Controller
         }
 
         $this->redirect('/contact');
+    }
+
+    /**
+     * Verify a reCAPTCHA v3 token with Google's API.
+     * Returns true if human (score >= 0.5), false if bot.
+     * Fails open if Google's API is unreachable so real users aren't blocked.
+     */
+    private function verifyRecaptcha(string $token): bool
+    {
+        $context = stream_context_create([
+            'http' => [
+                'method'  => 'POST',
+                'header'  => 'Content-Type: application/x-www-form-urlencoded',
+                'content' => http_build_query([
+                    'secret'   => RECAPTCHA_SECRET_KEY,
+                    'response' => $token,
+                    'remoteip' => $_SERVER['REMOTE_ADDR'] ?? '',
+                ]),
+                'timeout' => 5,
+            ],
+        ]);
+
+        $response = @file_get_contents('https://www.google.com/recaptcha/api/siteverify', false, $context);
+
+        if ($response === false) {
+            error_log('reCAPTCHA: API unreachable — failing open');
+            return true;
+        }
+
+        $data = json_decode($response, true);
+        return ($data['success'] ?? false) && ($data['score'] ?? 0) >= 0.5;
     }
 }
