@@ -150,7 +150,7 @@ if (!empty($settings['hero_background_image'])) {
                 <figure class="image">
                     <img id="camera1" src="/camera/live" alt="Traffic Camera" style="border-radius:8px;">
                 </figure>
-                <p class="is-italic is-size-7 mt-2">(updates every 20 seconds)</p>
+                <p class="is-italic is-size-7 mt-2">(updates every 10 seconds)</p>
             </div>
             <script>
             (function () {
@@ -162,7 +162,7 @@ if (!empty($settings['hero_background_image'])) {
                     };
                     // onerror: do nothing — keep showing last good frame
                     loader.src = '/camera/live?t=' + Date.now();
-                }, 20000);
+                }, 17000);
             })();
             </script>
             <!-- Right column for upcoming events -->
