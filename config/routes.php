@@ -120,6 +120,9 @@ return [
         '/admin/menu/create'    => ['MenuController', 'create', ['auth', 'role:admin']],
         '/admin/menu/(\d+)/edit' => ['MenuController', 'edit', ['auth', 'role:admin']],
 
+        // Results (Public)
+        '/results'                             => ['ResultsController', 'index'],
+
         // Events (Public)
         '/events'                              => ['EventController', 'index'],
         '/events/feed'                         => ['EventController', 'feed'],

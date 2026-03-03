@@ -134,6 +134,21 @@ class Event extends Model
     }
 
     /**
+     * Get recent posted results across all events, newest occurrence first.
+     * Each row includes all event_results columns plus e.title, e.category, e.rrule.
+     */
+    public static function getRecentResults(int $limit = 50): array
+    {
+        $db  = (new static())->getDatabase();
+        $sql = "SELECT er.*, e.title, e.category, e.rrule
+                FROM event_results er
+                JOIN events e ON e.id = er.event_id
+                ORDER BY er.occurrence_date DESC
+                LIMIT ?";
+        return $db->fetchAll($sql, [$limit]);
+    }
+
+    /**
      * Upsert a results row (insert or update on duplicate key).
      */
     public static function saveResult(int $eventId, string $occurrenceDate, array $data): void
