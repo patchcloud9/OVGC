@@ -19,9 +19,10 @@ use App\Services\EventService;
  *   POST /admin/events/(\d+)/cancel            → cancelStore($id)
  *   POST /admin/events/(\d+)/restore           → restore($id)
  *   POST /admin/events/(\d+)/delete            → destroy($id)
- *   GET  /admin/events/(\d+)/results            → resultsIndex($id)
- *   GET  /admin/events/(\d+)/results/(.+)      → resultsForm($id, $date)
- *   POST /admin/events/(\d+)/results/(.+)      → resultsStore($id, $date)
+ *   GET  /admin/events/(\d+)/results                → resultsIndex($id)
+ *   GET  /admin/events/(\d+)/results/(.+)          → resultsForm($id, $date)
+ *   POST /admin/events/(\d+)/results/(.+)          → resultsStore($id, $date)
+ *   POST /admin/events/(\d+)/results/(.+)/delete   → resultsDestroy($id, $date)
  */
 class EventController extends Controller
 {
@@ -328,6 +329,21 @@ class EventController extends Controller
 
         $this->flash('success', 'Results saved.');
         $this->redirect('/admin/events/' . (int) $id . '/results/' . $date);
+    }
+
+    /**
+     * POST /admin/events/{id}/results/{date}/delete
+     */
+    public function resultsDestroy(string $id, string $date): void
+    {
+        $event = Event::find((int) $id);
+        if (!$event || !$this->isValidDate($date)) {
+            throw new \Core\Exceptions\NotFoundHttpException('Event not found');
+        }
+
+        Event::deleteResult((int) $id, $date);
+        $this->flash('success', 'Results removed.');
+        $this->redirect('/admin/events/' . (int) $id . '/results');
     }
 
     // -------------------------------------------------------------------------

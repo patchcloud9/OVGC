@@ -202,7 +202,8 @@ return [
         '/admin/events/(\d+)/cancel'                       => ['Admin\EventController', 'cancelStore',  ['auth', 'role:admin', 'csrf']],
         '/admin/events/(\d+)/restore'                      => ['Admin\EventController', 'restore',      ['auth', 'role:admin', 'csrf']],
         '/admin/events/(\d+)/delete'                       => ['Admin\EventController', 'destroy',      ['auth', 'role:admin', 'csrf']],
-        '/admin/events/(\d+)/results/(\d{4}-\d{2}-\d{2})' => ['Admin\EventController', 'resultsStore', ['auth', 'role:admin', 'csrf']],
+        '/admin/events/(\d+)/results/(\d{4}-\d{2}-\d{2})'         => ['Admin\EventController', 'resultsStore',   ['auth', 'role:admin', 'csrf']],
+        '/admin/events/(\d+)/results/(\d{4}-\d{2}-\d{2})/delete' => ['Admin\EventController', 'resultsDestroy', ['auth', 'role:admin', 'csrf']],
     ],
     
     'PUT' => [

@@ -167,4 +167,14 @@ class Event extends Model
             $data['conditions_notes'] ?? null,
         ]);
     }
+
+    /**
+     * Delete a results row for a specific event occurrence.
+     */
+    public static function deleteResult(int $eventId, string $occurrenceDate): void
+    {
+        $db  = (new static())->getDatabase();
+        $sql = "DELETE FROM event_results WHERE event_id = ? AND occurrence_date = ?";
+        $db->execute($sql, [$eventId, $occurrenceDate]);
+    }
 }

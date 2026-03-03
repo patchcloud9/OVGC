@@ -67,6 +67,18 @@ $occDt = new DateTime($occurrenceDate . ' ' . (new DateTime($event['start_dateti
                                 <span><?= $results ? 'Update Results' : 'Post Results' ?></span>
                             </button>
                             <a href="/admin/events" class="button is-light">Cancel</a>
+                            <?php if ($results): ?>
+                            <form method="POST"
+                                  action="/admin/events/<?= (int)$event['id'] ?>/results/<?= e($occurrenceDate) ?>/delete"
+                                  style="display:inline;"
+                                  onsubmit="return confirm('Remove these results? This cannot be undone.');">
+                                <?= csrf_field() ?>
+                                <button type="submit" class="button is-danger is-light">
+                                    <span class="icon"><i class="fas fa-trash"></i></span>
+                                    <span>Remove Results</span>
+                                </button>
+                            </form>
+                            <?php endif; ?>
                         </div>
                     </form>
                 </div>
