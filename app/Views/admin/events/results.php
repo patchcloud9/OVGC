@@ -66,7 +66,12 @@ $occDt = new DateTime($occurrenceDate . ' ' . (new DateTime($event['start_dateti
                                 <span class="icon"><i class="fas fa-save"></i></span>
                                 <span><?= $results ? 'Update Results' : 'Post Results' ?></span>
                             </button>
-                            <a href="/admin/events" class="button is-light">Cancel</a>
+                            <a href="/admin/events/<?= (int)$event['id'] ?>/results" class="button is-light">Cancel</a>
+                            <a href="/events/<?= (int)$event['id'] ?>/<?= e($occurrenceDate) ?>?from=admin"
+                               class="button is-info is-light" target="_blank">
+                                <span class="icon"><i class="fas fa-eye"></i></span>
+                                <span>View on Site</span>
+                            </a>
                             <?php if ($results): ?>
                             <button type="button" class="button is-danger is-light"
                                     onclick="document.getElementById('delete-results-form').submit();">

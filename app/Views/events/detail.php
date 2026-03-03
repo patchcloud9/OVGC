@@ -139,9 +139,8 @@ if ($isRecurring && !empty($event['rrule'])) {
                 <?php endif; // not cancelled ?>
 
                 <?php
-                    $ref = $_SERVER['HTTP_REFERER'] ?? '';
-                    if (preg_match('#/admin/events/\d+/results#', $ref)) {
-                        $backUrl   = $ref;
+                    if (($_GET['from'] ?? '') === 'admin') {
+                        $backUrl   = '/admin/events/' . (int)$event['id'] . '/results/' . $occurrenceDate;
                         $backLabel = 'Back to Results';
                     } else {
                         $backUrl   = '/events';
