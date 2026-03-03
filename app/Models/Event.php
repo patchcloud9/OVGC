@@ -134,18 +134,28 @@ class Event extends Model
     }
 
     /**
-     * Get recent posted results across all events, newest occurrence first.
+     * Count total posted results across all events.
+     */
+    public static function countResults(): int
+    {
+        $db  = (new static())->getDatabase();
+        $row = $db->fetch("SELECT COUNT(*) AS total FROM event_results er JOIN events e ON e.id = er.event_id");
+        return $row ? (int) $row['total'] : 0;
+    }
+
+    /**
+     * Get a page of posted results across all events, newest occurrence first.
      * Each row includes all event_results columns plus e.title, e.category, e.rrule.
      */
-    public static function getRecentResults(int $limit = 50): array
+    public static function getRecentResults(int $limit = 10, int $offset = 0): array
     {
         $db  = (new static())->getDatabase();
         $sql = "SELECT er.*, e.title, e.category, e.rrule
                 FROM event_results er
                 JOIN events e ON e.id = er.event_id
                 ORDER BY er.occurrence_date DESC
-                LIMIT ?";
-        return $db->fetchAll($sql, [$limit]);
+                LIMIT ? OFFSET ?";
+        return $db->fetchAll($sql, [$limit, $offset]);
     }
 
     /**

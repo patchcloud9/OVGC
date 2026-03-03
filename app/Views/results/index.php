@@ -114,6 +114,40 @@ $hasFuture  = !empty(array_filter($results, fn($r) => $r['occurrence_date'] > $t
 
         <?php endif; ?>
 
+        <?php if ($totalPages > 1): ?>
+        <nav class="pagination is-centered mt-5 mb-4" role="navigation" aria-label="pagination">
+            <?php if ($page > 1): ?>
+            <a class="pagination-previous" href="/results?page=<?= $page - 1 ?>">Previous</a>
+            <?php else: ?>
+            <a class="pagination-previous" disabled>Previous</a>
+            <?php endif; ?>
+
+            <?php if ($page < $totalPages): ?>
+            <a class="pagination-next" href="/results?page=<?= $page + 1 ?>">Next</a>
+            <?php else: ?>
+            <a class="pagination-next" disabled>Next</a>
+            <?php endif; ?>
+
+            <ul class="pagination-list">
+            <?php
+            $window = range(max(1, $page - 1), min($totalPages, $page + 1));
+            if (!in_array(1, $window)) {
+                echo '<li><a class="pagination-link" href="/results?page=1">1</a></li>';
+                if (!in_array(2, $window)) echo '<li><span class="pagination-ellipsis">&hellip;</span></li>';
+            }
+            foreach ($window as $p) {
+                $cls = $p === $page ? ' is-current' : '';
+                echo '<li><a class="pagination-link' . $cls . '" href="/results?page=' . $p . '" aria-label="Page ' . $p . '">' . $p . '</a></li>';
+            }
+            if (!in_array($totalPages, $window)) {
+                if (!in_array($totalPages - 1, $window)) echo '<li><span class="pagination-ellipsis">&hellip;</span></li>';
+                echo '<li><a class="pagination-link" href="/results?page=' . $totalPages . '">' . $totalPages . '</a></li>';
+            }
+            ?>
+            </ul>
+        </nav>
+        <?php endif; ?>
+
         <div class="mt-4">
             <a href="/events" class="button is-light">
                 <span class="icon"><i class="fas fa-calendar-alt"></i></span>
