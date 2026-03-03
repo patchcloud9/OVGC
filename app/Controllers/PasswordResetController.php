@@ -155,6 +155,9 @@ class PasswordResetController extends Controller
         $hash  = password_hash($token, PASSWORD_DEFAULT);
         $expires = date('Y-m-d H:i:s', strtotime('+1 hour'));
 
+        // Purge all expired tokens (opportunistic cleanup — no cron needed)
+        $db->execute('DELETE FROM password_resets WHERE expires_at < NOW()');
+
         // One reset per email at a time
         $db->execute('DELETE FROM password_resets WHERE email = ?', [$email]);
         $db->execute(

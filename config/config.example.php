@@ -33,7 +33,7 @@ function env(string $key, $default = null)
 }
 
 // Application settings
-define('APP_NAME', env('APP_NAME', 'Base Framework'));
+define('APP_NAME', env('APP_NAME', 'Okanogan Valley Golf Club'));
 define('APP_ENV', env('APP_ENV', 'development'));  // 'development' or 'production'
 define('APP_DEBUG', filter_var(env('APP_DEBUG', 'false'), FILTER_VALIDATE_BOOLEAN));
 define('APP_URL', env('APP_URL', 'http://localhost'));

@@ -48,11 +48,6 @@
                     </form>
                 </div>
 
-                <div class="content has-text-centered">
-                    <p class="help">
-                        <strong>Security:</strong> CSRF protected, rate limited (3 requests per 10 minutes)
-                    </p>
-                </div>
             </div>
         </div>
     </div>
