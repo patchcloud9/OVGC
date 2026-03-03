@@ -143,13 +143,10 @@ if ($isRecurring && !empty($event['rrule'])) {
                         <span class="icon"><i class="fas fa-arrow-left"></i></span>
                         <span>Back to Calendar</span>
                     </a>
-                    <?php if (is_admin()): ?>
-                    <a href="/admin/events/<?= (int)$event['id'] ?>/results/<?= e($occurrenceDate) ?>"
-                       class="button is-info is-light">
+                    <a href="/results" class="button is-light">
                         <span class="icon"><i class="fas fa-trophy"></i></span>
                         <span>Back to Results</span>
                     </a>
-                    <?php endif; ?>
                 </div>
 
             </div><!-- /.column -->
