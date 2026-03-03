@@ -11,6 +11,9 @@ foreach ($results as $row) {
     $byYear[$year][] = $row;
 }
 krsort($byYear); // newest year first
+
+$today      = date('Y-m-d');
+$hasFuture  = !empty(array_filter($results, fn($r) => $r['occurrence_date'] > $today));
 ?>
 
 <style>
@@ -54,7 +57,20 @@ krsort($byYear); // newest year first
         <div class="notification is-light">No results have been posted yet. Check back after events!</div>
         <?php else: ?>
 
+        <?php if ($hasFuture): ?>
+        <div class="level mb-4">
+            <div class="level-left"></div>
+            <div class="level-right">
+                <label class="checkbox" style="font-size:0.9rem;">
+                    <input type="checkbox" id="hideFuture">
+                    &nbsp;Hide future results
+                </label>
+            </div>
+        </div>
+        <?php endif; ?>
+
         <?php foreach ($byYear as $year => $yearResults): ?>
+        <div class="year-group">
         <h2 class="title is-4 mb-3"><?= (int) $year ?></h2>
 
         <div class="columns is-multiline mb-5">
@@ -63,7 +79,7 @@ krsort($byYear); // newest year first
             $catMeta = $categories[$cat] ?? $categories['other'];
             $dt      = new DateTime($row['occurrence_date']);
         ?>
-        <div class="column is-12-tablet is-6-desktop">
+        <div class="column is-12-tablet is-6-desktop" data-date="<?= e($row['occurrence_date']) ?>">
             <div class="box result-card">
                 <div class="level is-mobile mb-2">
                     <div class="level-left">
@@ -93,6 +109,7 @@ krsort($byYear); // newest year first
         </div>
         <?php endforeach; ?>
         </div>
+        </div><!-- .year-group -->
         <?php endforeach; ?>
 
         <?php endif; ?>
@@ -105,3 +122,31 @@ krsort($byYear); // newest year first
         </div>
     </div>
 </section>
+
+<?php if ($hasFuture): ?>
+<script>
+(function () {
+    const cb    = document.getElementById('hideFuture');
+    const today = new Date().toISOString().slice(0, 10);
+
+    function applyFilter() {
+        document.querySelectorAll('[data-date]').forEach(function (col) {
+            col.style.display = (cb.checked && col.dataset.date > today) ? 'none' : '';
+        });
+        document.querySelectorAll('.year-group').forEach(function (group) {
+            const anyVisible = Array.from(group.querySelectorAll('[data-date]'))
+                .some(col => col.style.display !== 'none');
+            group.style.display = anyVisible ? '' : 'none';
+        });
+        localStorage.setItem('results-hide-future', cb.checked ? '1' : '0');
+    }
+
+    if (localStorage.getItem('results-hide-future') === '1') {
+        cb.checked = true;
+        applyFilter();
+    }
+
+    cb.addEventListener('change', applyFilter);
+})();
+</script>
+<?php endif; ?>
