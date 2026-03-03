@@ -73,3 +73,10 @@
 - [ ] Keep framework dependencies updated
 
 > **Deploy checklist:** Set `APP_DEBUG=false` and `APP_ENV=production`; ensure `.env` is not committed; rotate DB credentials; verify upload directory permissions.
+
+
+**Develooper Notes:
+ - Make the homepage Hero Section optional.
+ - Events right and left buttons are missing icon after the security updates.
+ - Show the next 5 events even if over a month away.
+ - Fix the image to not be blank sometimes.
