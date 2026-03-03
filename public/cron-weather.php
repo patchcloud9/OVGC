@@ -27,7 +27,7 @@ try {
     require BASE_PATH . '/app/Services/WeatherService.php';
 
     // optionally protect by a simple key param, e.g. ?key=secret
-    $expected = 'please_change_me';
+    $expected = '477kHwPEw6ZBSUbhEB';
     if (isset($_GET['key']) && $_GET['key'] === $expected) {
         try {
             $ok = \App\Services\WeatherService::updateSnapshot();
