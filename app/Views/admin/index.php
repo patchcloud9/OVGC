@@ -92,6 +92,10 @@
                     <span class="icon"><i class="fas fa-bomb"></i></span>
                     <span>Test 500</span>
                 </a>
+                <a href="/admin/test-email" class="button is-light">
+                    <span class="icon"><i class="fas fa-envelope"></i></span>
+                    <span>Test Email</span>
+                </a>
             </div>
         </div>
         

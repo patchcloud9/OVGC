@@ -68,6 +68,9 @@ return [
         // Test error pages (Admin Only)
         '/test-500'             => ['HomeController', 'test500', ['auth', 'role:admin']],
 
+        // Test Email (Admin Only)
+        '/admin/test-email'     => ['AdminController', 'testEmail', ['auth', 'role:admin']],
+
         // Logs (Admin Only)
         '/logs'                 => ['LogController', 'index', ['auth', 'role:admin']],
         '/logs/(\d+)'           => ['LogController', 'show', ['auth', 'role:admin']],
@@ -157,6 +160,9 @@ return [
         // User Management (Admin Only)
         '/admin/users'          => ['UserController', 'store', ['auth', 'role:admin', 'csrf', 'rate-limit:user-creation,3,300']],
         
+        // Test Email (Admin Only)
+        '/admin/test-email'     => ['AdminController', 'sendTestEmail', ['auth', 'role:admin', 'csrf']],
+
         // Logs (Admin Only)
         '/logs/clear'           => ['LogController', 'clear', ['auth', 'role:admin', 'csrf']],
         '/logs/sync'            => ['LogController', 'sync', ['auth', 'role:admin', 'csrf']],
