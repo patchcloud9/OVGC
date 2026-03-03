@@ -61,6 +61,13 @@ define('MAIL_PASSWORD',     env('MAIL_PASSWORD',     ''));        // app passwor
 define('MAIL_FROM_ADDRESS', env('MAIL_FROM_ADDRESS', ''));        // address emails are sent from
 define('MAIL_FROM_NAME',    env('MAIL_FROM_NAME',    APP_NAME));  // display name in From header
 
+// Google reCAPTCHA v3
+// Register your site at https://www.google.com/recaptcha (choose "v3")
+// Add your domain, then copy the Site Key and Secret Key below.
+// If these are left empty, reCAPTCHA is silently skipped.
+define('RECAPTCHA_SITE_KEY',   env('RECAPTCHA_SITE_KEY',   ''));  // public — embedded in page JS
+define('RECAPTCHA_SECRET_KEY', env('RECAPTCHA_SECRET_KEY', ''));  // private — server-side only
+
 // IMPORTANT: Do not commit a production .env file. Use .env.example as a template
 // and set secrets via your deployment system or CI/CD secret store.
 
