@@ -119,6 +119,21 @@ class Event extends Model
     }
 
     /**
+     * Get all results rows for an event, keyed by occurrence_date.
+     */
+    public static function getResultsForEvent(int $eventId): array
+    {
+        $db  = (new static())->getDatabase();
+        $sql = "SELECT * FROM event_results WHERE event_id = ? ORDER BY occurrence_date DESC";
+        $rows = $db->fetchAll($sql, [$eventId]);
+        $keyed = [];
+        foreach ($rows as $row) {
+            $keyed[$row['occurrence_date']] = $row;
+        }
+        return $keyed;
+    }
+
+    /**
      * Upsert a results row (insert or update on duplicate key).
      */
     public static function saveResult(int $eventId, string $occurrenceDate, array $data): void

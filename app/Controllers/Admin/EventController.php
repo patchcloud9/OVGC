@@ -19,6 +19,7 @@ use App\Services\EventService;
  *   POST /admin/events/(\d+)/cancel            → cancelStore($id)
  *   POST /admin/events/(\d+)/restore           → restore($id)
  *   POST /admin/events/(\d+)/delete            → destroy($id)
+ *   GET  /admin/events/(\d+)/results            → resultsIndex($id)
  *   GET  /admin/events/(\d+)/results/(.+)      → resultsForm($id, $date)
  *   POST /admin/events/(\d+)/results/(.+)      → resultsStore($id, $date)
  */
@@ -248,6 +249,49 @@ class EventController extends Controller
     // -------------------------------------------------------------------------
 
     /**
+     * GET /admin/events/{id}/results
+     * Entry point: redirect one-time events directly; show occurrence picker for recurring.
+     */
+    public function resultsIndex(string $id): void
+    {
+        $event = Event::find((int) $id);
+        if (!$event) {
+            throw new \Core\Exceptions\NotFoundHttpException('Event not found');
+        }
+
+        // One-time event — go straight to the results form for its start date
+        if (empty($event['rrule'])) {
+            $date = (new \DateTime($event['start_datetime']))->format('Y-m-d');
+            $this->redirect('/admin/events/' . (int) $id . '/results/' . $date);
+            return;
+        }
+
+        // Recurring — show a list of past occurrences to pick from
+        $today      = (new \DateTime('today'))->format('Y-m-d');
+        $rangeStart = (new \DateTime($event['start_datetime']))->format('Y-m-d');
+        $occurrences = $this->service->getOccurrencesForRange($rangeStart, $today);
+
+        // Filter to this event's past occurrences, newest first
+        $past = [];
+        foreach ($occurrences as $occ) {
+            $props = $occ['extendedProps'];
+            if ((int) $props['eventId'] === (int) $id && $props['occurrenceDate'] < $today) {
+                $past[] = $props['occurrenceDate'];
+            }
+        }
+        usort($past, fn($a, $b) => strcmp($b, $a));
+
+        $existingResults = Event::getResultsForEvent((int) $id);
+
+        $this->view('admin/events/results-pick', [
+            'title'           => 'Post Results — ' . e($event['title']),
+            'event'           => $event,
+            'pastOccurrences' => $past,
+            'existingResults' => $existingResults,
+        ]);
+    }
+
+    /**
      * GET /admin/events/{id}/results/{date}
      */
     public function resultsForm(string $id, string $date): void
@@ -283,7 +327,7 @@ class EventController extends Controller
         ]);
 
         $this->flash('success', 'Results saved.');
-        $this->redirect('/admin/events');
+        $this->redirect('/admin/events/' . (int) $id . '/results/' . $date);
     }
 
     // -------------------------------------------------------------------------

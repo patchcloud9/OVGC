@@ -132,7 +132,8 @@ return [
         '/admin/events/create'                            => ['Admin\EventController', 'create',      ['auth', 'role:admin']],
         '/admin/events/(\d+)/edit'                        => ['Admin\EventController', 'edit',        ['auth', 'role:admin']],
         '/admin/events/(\d+)/cancel'                      => ['Admin\EventController', 'cancelForm',  ['auth', 'role:admin']],
-        '/admin/events/(\d+)/results/(\d{4}-\d{2}-\d{2})' => ['Admin\EventController', 'resultsForm', ['auth', 'role:admin']],
+        '/admin/events/(\d+)/results/(\d{4}-\d{2}-\d{2})' => ['Admin\EventController', 'resultsForm',  ['auth', 'role:admin']],
+        '/admin/events/(\d+)/results'                      => ['Admin\EventController', 'resultsIndex', ['auth', 'role:admin']],
     ],
     
     'POST' => [

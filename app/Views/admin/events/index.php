@@ -87,8 +87,11 @@ use App\Services\EventService;
                 </td>
                 <td>
                     <div class="buttons are-small" style="flex-wrap:nowrap;">
-                        <a href="/admin/events/<?= (int)$ev['id'] ?>/edit" class="button is-info is-light">
+                        <a href="/admin/events/<?= (int)$ev['id'] ?>/edit" class="button is-info is-light" title="Edit">
                             <span class="icon"><i class="fas fa-edit"></i></span>
+                        </a>
+                        <a href="/admin/events/<?= (int)$ev['id'] ?>/results" class="button is-success is-light" title="Post Results">
+                            <span class="icon"><i class="fas fa-trophy"></i></span>
                         </a>
                         <?php if ($ev['status'] !== 'cancelled'): ?>
                         <a href="/admin/events/<?= (int)$ev['id'] ?>/cancel" class="button is-warning is-light">
