@@ -47,20 +47,22 @@ class WeatherService
             return false;
         }
 
-        // parse out the <a class="weatherwidget-io" ...> element and script
+        // parse out the <a class="weatherwidget-io" ...> element and script if DOM is available
         $widgetHtml = '';
-        libxml_use_internal_errors(true);
-        $dom = new \DOMDocument();
-        if ($dom->loadHTML($html)) {
-            $xpath = new \DOMXPath($dom);
-            $nodes = $xpath->query('//a[contains(@class,"weatherwidget-io")]');
-            if ($nodes->length) {
-                $widgetHtml .= $dom->saveHTML($nodes->item(0));
-            }
-            // include the initialization script if present
-            $scripts = $xpath->query('//script[contains(text(),"weatherwidget.io") or contains(@src,"weatherwidget.io")]);');
-            foreach ($scripts as $script) {
-                $widgetHtml .= "\n" . $dom->saveHTML($script);
+        if (class_exists('DOMDocument')) {
+            libxml_use_internal_errors(true);
+            $dom = new \DOMDocument();
+            if ($dom->loadHTML($html)) {
+                $xpath = new \DOMXPath($dom);
+                $nodes = $xpath->query('//a[contains(@class,"weatherwidget-io")]');
+                if ($nodes->length) {
+                    $widgetHtml .= $dom->saveHTML($nodes->item(0));
+                }
+                // include the initialization script if present
+                $scripts = $xpath->query('//script[contains(text(),"weatherwidget.io") or contains(@src,"weatherwidget.io")]);');
+                foreach ($scripts as $script) {
+                    $widgetHtml .= "\n" . $dom->saveHTML($script);
+                }
             }
         }
 
