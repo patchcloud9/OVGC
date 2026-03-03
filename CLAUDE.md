@@ -29,6 +29,10 @@ Deployed via GitHub → RackNerd/CPanel GitHub Version Control → `/home/okanog
 | `app/Services/WeatherService.php` | NWS API fetch, JSON cache, widget icon mapping |
 | `app/Views/partials/weather-widget.php` | Homepage weather widget (current + 3-day forecast) |
 | `public/cron-weather.php` | HTTP cron endpoint → calls `WeatherService::updateCache()` |
+| `app/Controllers/CameraController.php` | Serves FTP camera image via `GET /camera/live` with corruption protection |
+| `public/uploads/camera1.jpg` | FTP-dropped source image (continuously overwritten by camera) |
+| `storage/cache/camera1_stable.jpg` | Last known-good frame promoted by `CameraController` |
+| `public/uploads/.htaccess` | Disables Apache caching for uploaded files (camera feed) |
 | `.github/copilot-instructions.md` | Full detailed architecture reference |
 
 ## Request Flow
@@ -113,8 +117,10 @@ A `.env` file is supported for development — never commit it. See `.env.exampl
 
 ## Current Status
 
-Core, security, middleware, auth, admin UI, theming, content management, **Events system**, and **Weather widget** are all complete and stable.
+Core, security, middleware, auth, admin UI, theming, content management, **Events system**, **Weather widget**, and **Camera widget** are all complete and stable.
 
 **Weather widget:** NWS API (free, no key) → `storage/cache/weather-data.json` (30-min cron) → rendered server-side by `WeatherService` + `partials/weather-widget.php`. Cron endpoint: `GET /cron-weather.php?key=<WEATHER_KEY>`. Widget hidden gracefully when cache is absent.
 
-Outstanding: CSP headers, full production hardening.
+**Camera widget:** FTP camera drops `public/uploads/camera1.jpg`. `GET /camera/live` → `CameraController::live()` validates the JPEG with `getimagesize()`, promotes good frames to `storage/cache/camera1_stable.jpg`, and falls back to the stable copy during mid-write corruption. Homepage JS (`home/index.php`) polls `/camera/live?t=<timestamp>` every 17 s using a hidden `Image()` loader and only swaps the visible frame when `naturalWidth > 0`.
+
+See [ROADMAP.md](ROADMAP.md) for planned work, the security checklist, and changelog.

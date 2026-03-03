@@ -183,6 +183,38 @@ Serves current conditions + 3-day forecast on the homepage with zero external HT
 
 **Key:** default `477kHwPEw6ZBSUbhEB`; override via `WEATHER_KEY` environment variable.
 
+### 8. Camera Widget
+
+Live traffic camera on the homepage with corruption-safe serving.
+
+**Key files:**
+- `app/Controllers/CameraController.php` — `GET /camera/live` controller. No auth, no middleware.
+- `public/uploads/camera1.jpg` — source image overwritten by the FTP camera continuously.
+- `storage/cache/camera1_stable.jpg` — last known-good frame promoted by the controller.
+- `public/uploads/.htaccess` — sets `Cache-Control: no-store` on all files in `uploads/` so Apache never serves a stale frame from its own cache.
+
+**Serving logic (in priority order):**
+1. `clearstatcache()` to flush PHP's internal stat cache.
+2. `getimagesize($source)` — if it returns a non-false result the file is fully written; promote to stable and serve.
+3. If `getimagesize()` fails (mid-FTP write) and stable copy is ≤ `MAX_STABLE_AGE` (60 s) old → serve stable.
+4. Safety valve: if stable is missing or too old, serve source anyway — client-side JS discards undecoded frames.
+
+**Client-side refresh (in `app/Views/home/index.php`):**
+- A hidden `Image()` loader fetches `/camera/live?t=<Date.now()>` every 17 seconds (cache-busting via query string).
+- Only swaps the visible `<img id="camera1">` when `loader.naturalWidth > 0` (browser decoded successfully).
+- `onerror` is a no-op — keeps showing the last good frame on network errors.
+
+**Route:**
+```php
+'/camera/live' => ['CameraController', 'live'],
+```
+No middleware (public, read-only image endpoint). Output: `Content-Type: image/jpeg` with `no-store` cache headers.
+
+**Upload directory:**
+- `public/uploads/` — writable by the web server; camera writes here via FTP.
+- `.htaccess` in that directory enforces no-cache headers at the Apache level.
+- The `uploads/` directory should **not** execute PHP (add `php_flag engine off` or equivalent if needed).
+
 ## Development Workflow
 
 ### Running the Application
@@ -281,175 +313,6 @@ All config in `config/config.php` using constants:
 
 **Note:** Basic `.env` file loader has been added to `config/config.php`. Use a `.env` file for development and deployment configuration, but never commit your production `.env`. See `.env.example` for required keys.
 
-## Roadmap (mostly complete)
+## Roadmap
 
-### Features — Completed (Stable) ✅
-
-This project has a stable core with security and admin features completed and ready for production after deployment hardening. Highlights include:
-
-- **Core / Data**
-  - PDO-based `Database` wrapper and `Model` base class (CRUD, migrations/seeds).
-  - Seeding and SQL-based initialization in `database/initialize/` and `database/seed/`.
-
-- **Security**
-  - CSRF protection, `e()` helper for safe output, input validation (Core\Validator), and prepared statements across DB access.
-  - Password hashing, rate limiting, and development-only debug tools gated by `APP_DEBUG`.
-
-- **Routing & Middleware**
-  - Middleware pipeline with built-in middleware (csrf, auth, guest, rate-limit, log-request) and clean route definitions.
-
-- **Authentication & Authorization**
-  - Session-based auth, role-based permissions, login/register, and auth helpers.
-
-- **Error Handling & Logging**
-  - Global exception handler, 404/500 views, HTTP exception classes, and a dual-persistence `LogService` (DB + file fallback).
-
-- **Admin UI & Theming**
-  - Responsive admin UI, theme settings, color pickers, secure file uploads (MIME checks, random filenames), and dynamic CSS application.
-
-- **Developer conveniences**
-  - Basic `.env` loader for development, documented deploy checklist, and helpful utilities.
-
-**Also complete:** Events system — calendar, admin CRUD, recurring events, homepage widget (added 2026-03). Weather widget — NWS API cached widget, server-side render, cron refresh (added 2026-03).
-
-**Minor remaining:** user theme light/dark toggle (planned phase 4)
-
-- Pattern: Admin configures theme → Stored in database → Applied globally via CSS variables → Cached per request
-
-**Remaining:**
-- **Phase 4** - User light/dark toggle (session-based preference)
-
-
-   - Add PHPUnit with a test suite (unit + feature) and configure GitHub Actions to run tests on push.
-   - Introduce a test database (SQLite or separate MySQL instance) for CI runs.
-
-3. **Production Hardening (High Priority)**
-   - Add and enforce security headers (CSP, HSTS, X-Frame-Options) at the reverse proxy.
-   - Implement asset versioning and static caching strategy; add a monitoring and alerting integration (Sentry/Uptime).
-
-4. **Developer Experience (Medium Priority)**
-   - Debug toolbar (dev only), CLI scaffolding (`make:controller`, `make:model`), and hot-reload for local development.
-
-5. **Performance & Ops (Medium Priority)**
-   - Add caching (file/Redis for expensive queries), enable OPcache in production, and plan CDN for static assets.
-
-### Features — Optional (Nice to Have) ✨
-
-These enhancements are valuable but not required for initial production rollout. Prioritize once core and security items are done.
-
-- **API & Integrations** — RESTful controllers, token-based auth, versioning (`/api/v1/`), and CORS policy.
-- **Advanced Storage & Media** — SVG sanitizer, image optimization, and optional S3/remote storage support.
-- **Enhanced Developer Tools** — CLI generators, code scaffolding, and richer debug tooling.
-- **Advanced Security & Policies** — granular RBAC, audit logs, and per-user rate limits.
-- **Performance Upgrades** — Redis caching, query optimization, advanced asset pipelines, CDN support.
-
-### Critical Security Checklist Before Production
-
-- [x] Enable `display_errors = 0` in production PHP config
-- [x] Use HTTPS only (✅ nginx reverse proxy manager)
-- [x] Implement CSRF protection on all state-changing routes (✅ tokens + validation)
-- [x] Validate and sanitize ALL user input (✅ e() helper, prepared statements, Validator class)
-- [x] Use prepared statements for ALL database queries (✅ PDO with prepared statements)
-- [x] Set secure session cookie flags: `httponly`, `secure`, `samesite` (✅ configured in index.php)
-- [x] Implement rate limiting on authentication endpoints (✅ RateLimiter class, applied to contact and user creation)
-- [ ] Add Content Security Policy headers (recommended policy: default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' if needed)
-- [x] Configure proper file upload restrictions (type, size, location) (✅ ThemeController validates type, 2MB limit, dedicated directory)
-- [x] Disallow SVG uploads unless sanitized (SVG can contain executable content) — Theme uploads exclude SVG by default
-- [ ] Remove or protect debug/test routes in production
-- [ ] Set restrictive file permissions (755 for directories, 644 for files)
-- [ ] Disable directory listing in web server config
-- [ ] Keep framework and dependencies updated
-- [x] Implement proper error logging (✅ dual database + file logging with graceful degradation)
-- [x] Use environment variables for sensitive configuration (basic `.env` loader implemented; prefer CI secret stores in production)
-
-> Deploy checklist: **Set `APP_DEBUG=false`** and `APP_ENV=production`; ensure `.env` is not committed, rotate database credentials, enable CSP/HSTS at the reverse proxy, and verify upload directories and file permissions prior to going live.
-
-### Implementation Priority
-
-**Phase 1 - Core Stability (Weeks 1-2)** ✅ COMPLETE
-- ✅ Database layer + Models
-- Environment configuration (.env) - IMPLEMENTED (basic loader; consider replacing with `vlucas/phpdotenv` or secrets manager for production)
-- ✅ Error handling & logging
-
-**Phase 2 - Security (Weeks 3-4)** ✅ COMPLETE
-- ✅ CSRF protection
-- ✅ Input validation
-- ✅ Rate limiting
-- ✅ Middleware pipeline
-- ✅ Authentication & Authorization
-
-**Phase 3 - User Experience (Weeks 5-6)** ✅ COMPLETE
-- ✅ Admin panel with user management
-- ✅ Application logs with dual persistence
-- ✅ Mobile-friendly card layouts
-- ✅ Search and pagination for logs
-- ✅ Role-based redirects after login
-- ✅ Unauthorized access logging
-
-**Phase 4 - Developer Tools (Weeks 7-8)** - PLANNED
-- CLI commands
-- Debug toolbar
-
-**Phase 5 - Production Ready (Weeks 9-10)** - PLANNED
-- Environment variables (.env support)
-- Security hardening (CSP headers, file upload restrictions)
-- Deployment configuration
-- Monitoring setup
-
-### When Adding Each Feature
-
-**Database class example:**
-```php
-// core/Database.php
-namespace Core;
-
-class Database
-{
-    private \PDO $pdo;
-    
-    public function query(string $sql, array $params = []): \PDOStatement
-    {
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute($params);
-        return $stmt;
-    }
-}
-```
-
-**Model base class example:**
-```php
-// app/Models/Model.php
-namespace App\Models;
-
-abstract class Model
-{
-    protected string $table;
-    protected string $primaryKey = 'id';
-    
-    public function find(int $id): ?array
-    {
-        return $this->db->query(
-            "SELECT * FROM {$this->table} WHERE {$this->primaryKey} = ?",
-            [$id]
-        )->fetch();
-    }
-}
-```
-
-**Middleware example:**
-```php
-// app/Middleware/AuthMiddleware.php
-namespace App\Middleware;
-
-class AuthMiddleware
-{
-    public function handle(): bool
-    {
-        if (!isset($_SESSION['user_id'])) {
-            header('Location: /login');
-            exit;
-        }
-        return true;
-    }
-}
-```
+See [ROADMAP.md](../ROADMAP.md) for the changelog, planned work, optional enhancements, and security checklist.
