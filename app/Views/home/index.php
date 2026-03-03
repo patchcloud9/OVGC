@@ -148,11 +148,18 @@ if (!empty($settings['hero_background_image'])) {
             <!-- Left column for camera -->
             <div class="column is-6">
                 <figure class="image">
-                    <!-- Use local upload instead of external WSDOT camera -->
-                    <img src="/uploads/camera1.jpg" alt="Traffic Camera" style="border-radius:8px;">
+                    <img id="camera1" src="/uploads/camera1.jpg" alt="Traffic Camera" style="border-radius:8px;">
                 </figure>
-                <p class="is-italic is-size-7 mt-2">(updates every 2 minutes)</p>
+                <p class="is-italic is-size-7 mt-2">(updates every 20 seconds)</p>
             </div>
+            <script>
+            (function () {
+                var img = document.getElementById('camera1');
+                setInterval(function () {
+                    img.src = '/uploads/camera1.jpg?t=' + Date.now();
+                }, 20000);
+            })();
+            </script>
             <!-- Right column for upcoming events -->
             <div class="column is-6">
                 <?php if (!empty($upcomingEvents)): ?>
