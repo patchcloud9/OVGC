@@ -111,4 +111,4 @@ A `.env` file is supported for development — never commit it. See `.env.exampl
 ## Current Status
 
 Core, security, middleware, auth, admin UI, theming, content management, and **Events system** are all complete and stable.
-Outstanding: Phase 4 (user light/dark mode toggle), PHPUnit test suite, CSP headers, full production hardening.
+Outstanding: CSP headers, full production hardening.

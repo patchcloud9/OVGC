@@ -2,8 +2,14 @@
 // CLI script to update weather snapshot. Run from the workspace root:
 //   php scripts/fetch_weather.php
 
-// bootstrap config so BASE_PATH, etc. are defined
-require __DIR__ . '/../config/config.php';
+// define BASE_PATH for CLI environment
+if (!defined('BASE_PATH')) {
+    define('BASE_PATH', realpath(__DIR__ . '/..'));
+}
+// register autoloader so App\Services\WeatherService is available
+require BASE_PATH . '/core/Autoloader.php';
+\Core\Autoloader::register();
+
 require __DIR__ . '/../app/Services/WeatherService.php';
 
 $result = WeatherService::updateSnapshot();

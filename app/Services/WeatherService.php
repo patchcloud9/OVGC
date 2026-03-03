@@ -13,9 +13,13 @@ class WeatherService
 {
     // location URL we pull from (forecast7 page for Omak, WA)
     private const SOURCE_URL = 'https://forecast7.com/en/48d41n119d53/omak/?unit=us';
-    // BASE_PATH may not yet be defined if this file is loaded outside the normal
-    // web bootstrap (e.g. CLI script); ensure we have a sensible default.
-    private const CACHE_FILE = (defined('BASE_PATH') ? BASE_PATH : __DIR__ . '/../../') . '/storage/cache/weather-snapshot.html';
+    // previous constant replaced by a method to allow dynamic resolution of BASE_PATH
+    // even when running from CLI. The storage/cache directory holds the snapshot.
+    private static function cacheFile(): string
+    {
+        $base = defined('BASE_PATH') ? BASE_PATH : realpath(__DIR__ . '/../../');
+        return rtrim($base, '/\\') . '/storage/cache/weather-snapshot.html';
+    }
 
     /**
      * Fetch the source page, extract the widget markup, and save to cache file.
@@ -24,7 +28,8 @@ class WeatherService
     public static function updateSnapshot(): bool
     {
         // make sure cache directory exists
-        $dir = dirname(self::CACHE_FILE);
+        $file = self::cacheFile();
+        $dir = dirname($file);
         if (!is_dir($dir)) {
             mkdir($dir, 0775, true);
         }
@@ -64,7 +69,7 @@ class WeatherService
             $widgetHtml = $html;
         }
 
-        file_put_contents(self::CACHE_FILE, $widgetHtml);
+        file_put_contents(self::cacheFile(), $widgetHtml);
         return true;
     }
 
@@ -75,8 +80,9 @@ class WeatherService
      */
     public static function getSnapshot(): string
     {
-        if (is_file(self::CACHE_FILE)) {
-            return file_get_contents(self::CACHE_FILE);
+        $path = self::cacheFile();
+        if (is_file($path)) {
+            return file_get_contents($path);
         }
         return '';
     }
