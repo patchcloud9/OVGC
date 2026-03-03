@@ -129,6 +129,14 @@ if (!empty($settings['hero_background_image'])) {
     </div>
 </section>
 
+<!-- Weather Widget Section -->
+<section class="section">
+    <div class="container has-text-centered">
+        <!-- oneweather.org responsive widget for Omak, WA -->
+        <div id="ww_b5e95080380b0" v='1.3' loc='id' a='{"t":"responsive","lang":"en","sl_lpl":1,"ids":[],"font":"Arial","sl_ics":"one","sl_sot":"fahrenheit","cl_bkg":"#FFFFFF","cl_font":"#000000","cl_cloud":"#d4d4d4","cl_persp":"#2196F3","cl_sun":"#FFC107","cl_moon":"#FFC107","cl_thund":"#FF5722","sl_tof":"3","cl_odd":"#0000000a","el_nme":3}'>More forecasts: <a href="https://oneweather.org/omak_wa/30_days/" id="ww_b5e95080380b0_u" target="_blank">Omak 30 day forecast</a></div><script async src="https://app3.weatherwidget.org/js/?id=ww_b5e95080380b0"></script>
+    </div>
+</section>
+
 <!-- Camera + Upcoming Events Section -->
 <section class="section">
     <div class="container">
