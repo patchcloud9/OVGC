@@ -42,14 +42,48 @@ class WeatherService
         ];
         $context = stream_context_create($opts);
 
-        $html = @file_get_contents(self::SOURCE_URL, false, $context);
-        if ($html === false) {
+        $html = false;
+        // try using file_get_contents if allowed
+        if (ini_get('allow_url_fopen')) {
+            $html = @file_get_contents(self::SOURCE_URL, false, $context);
+        }
+
+        // if we still have nothing and curl is available, try that as a fallback
+        if (($html === false || $html === null) && function_exists('curl_version')) {
+            $ch = curl_init(self::SOURCE_URL);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_TIMEOUT, $opts['http']['timeout']);
+            curl_setopt($ch, CURLOPT_USERAGENT, $opts['http']['user_agent']);
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+            $html = curl_exec($ch);
+            $curlErr = curl_error($ch);
+            curl_close($ch);
+            if ($html === false || $html === null || $html === '') {
+                // record curl error for logging below
+                $curlErr = $curlErr ?: 'unknown';
+            } else {
+                $curlErr = null;
+            }
+        } else {
+            $curlErr = null;
+        }
+
+        if ($html === false || $html === null) {
             // log failure details to cron-error.log if defined
             $log = defined('BASE_PATH') ? BASE_PATH . '/storage/logs/cron-error.log' : null;
             if ($log) {
                 $msg = "fetch failed";
+                $msg .= ' allow_url_fopen=' . (ini_get('allow_url_fopen') ? '1' : '0');
+                $msg .= ' curl_available=' . (function_exists('curl_version') ? '1' : '0');
                 if (isset($http_response_header)) {
                     $msg .= ' headers=' . implode(' | ', $http_response_header);
+                }
+                if (!empty($curlErr)) {
+                    $msg .= ' curl_error=' . $curlErr;
+                }
+                $err = error_get_last();
+                if ($err) {
+                    $msg .= ' php_error=' . $err['message'];
                 }
                 file_put_contents($log, date('c') . " WeatherService: $msg\n", FILE_APPEND);
             }
