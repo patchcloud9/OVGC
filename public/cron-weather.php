@@ -6,23 +6,19 @@
 try {
     // bootstrap minimal environment
     if (!defined('BASE_PATH')) {
-        define('BASE_PATH', realpath(__DIR__ . '/..'));
+        // public/cron-weather.php lives one level below the project root
+        define('BASE_PATH', dirname(__DIR__));
     }
     // diagnostic log of base path and existence of files
     $debugLog = BASE_PATH . '/storage/logs/cron-error.log';
-    file_put_contents($debugLog, date('c') . " BASE_PATH={$GLOBALS['BASE_PATH']}\n", FILE_APPEND);
+    file_put_contents($debugLog, date('c') . " BASE_PATH=" . BASE_PATH . "\n", FILE_APPEND);
     $autoloaderPath = BASE_PATH . '/core/Autoloader.php';
     file_put_contents($debugLog, date('c') . " autoloader exists?=" . (is_file($autoloaderPath) ? 'yes' : 'no') . " path={$autoloaderPath}\n", FILE_APPEND);
     if (is_file($autoloaderPath)) {
+        // simply include the autoloader file (it registers itself)
         require $autoloaderPath;
     } else {
         throw new \RuntimeException("Autoloader file missing");
-    }
-    // now register if class exists
-    if (class_exists('Core\\Autoloader')) {
-        \Core\Autoloader::register();
-    } else {
-        file_put_contents($debugLog, date('c') . " Class Core\\Autoloader not defined after include\n", FILE_APPEND);
     }
     require BASE_PATH . '/app/Services/WeatherService.php';
 
