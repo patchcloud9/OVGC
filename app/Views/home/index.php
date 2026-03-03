@@ -148,7 +148,8 @@ if (!empty($settings['hero_background_image'])) {
             <!-- Left column for camera -->
             <div class="column is-6">
                 <figure class="image">
-                    <img src="https://images.wsdot.wa.gov/nc/020vc21450.jpg" alt="Traffic Camera" style="border-radius:8px;">
+                    <!-- Use local upload instead of external WSDOT camera -->
+                    <img src="/uploads/camera1.jpg" alt="Traffic Camera" style="border-radius:8px;">
                 </figure>
                 <p class="is-italic is-size-7 mt-2">(updates every 2 minutes)</p>
             </div>
