@@ -13,6 +13,28 @@ foreach ($results as $row) {
 krsort($byYear); // newest year first
 ?>
 
+<style>
+.result-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: box-shadow 0.15s ease;
+}
+.result-card:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}
+.result-preview {
+    color: #4a4a4a;
+    font-size: 0.925rem;
+    line-height: 1.5;
+    flex: 1;
+}
+.result-card .result-footer {
+    margin-top: auto;
+    padding-top: 0.75rem;
+}
+</style>
+
 <section class="hero is-primary subpage-hero">
     <div class="hero-body">
         <div class="container">
@@ -42,7 +64,7 @@ krsort($byYear); // newest year first
             $dt      = new DateTime($row['occurrence_date']);
         ?>
         <div class="column is-12-tablet is-6-desktop">
-            <a href="<?= e($row['detailUrl']) ?>" class="box result-card" style="display:block;text-decoration:none;color:inherit;">
+            <div class="box result-card">
                 <div class="level is-mobile mb-2">
                     <div class="level-left">
                         <span class="tag" style="background:<?= e($catMeta['color']) ?>;color:#fff;">
@@ -53,16 +75,21 @@ krsort($byYear); // newest year first
                         <span class="has-text-grey is-size-7"><?= e($dt->format('M j, Y')) ?></span>
                     </div>
                 </div>
-                <p class="title is-5 mb-2"><?= e($row['title']) ?></p>
-                <?php if (!empty($row['results_text'])): ?>
-                <div class="content is-size-7 has-text-grey result-preview">
-                    <?= mb_strimwidth(strip_tags($row['results_text']), 0, 120, '…') ?>
-                </div>
-                <?php endif; ?>
-                <p class="is-size-7 has-text-info mt-2">
-                    View results <i class="fas fa-arrow-right fa-xs"></i>
+                <p class="title is-5 mb-2">
+                    <a href="<?= e($row['detailUrl']) ?>"><?= e($row['title']) ?></a>
                 </p>
-            </a>
+                <?php if (!empty($row['results_text'])): ?>
+                <p class="result-preview">
+                    <?= e(mb_strimwidth(strip_tags($row['results_text']), 0, 140, '…')) ?>
+                </p>
+                <?php endif; ?>
+                <div class="result-footer">
+                    <a href="<?= e($row['detailUrl']) ?>" class="button is-small is-primary is-light">
+                        <span class="icon"><i class="fas fa-trophy"></i></span>
+                        <span>View Results</span>
+                    </a>
+                </div>
+            </div>
         </div>
         <?php endforeach; ?>
         </div>
