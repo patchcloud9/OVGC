@@ -132,7 +132,12 @@ if (!empty($settings['hero_background_image'])) {
 <!-- Weather Widget Section (cached snapshot) -->
 <section class="section">
     <div class="container has-text-centered">
-        <?= \App\Services\WeatherService::getSnapshot() ?>
+        <?php
+            // protect against broken service autoload - avoid fatal error
+            if (class_exists(\App\Services\WeatherService::class)) {
+                echo \App\Services\WeatherService::getSnapshot();
+            }
+        ?>
     </div>
 </section>
 
