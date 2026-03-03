@@ -129,13 +129,10 @@ if (!empty($settings['hero_background_image'])) {
     </div>
 </section>
 
-<!-- Weather Widget Section -->
+<!-- Weather Widget Section (cached snapshot) -->
 <section class="section">
     <div class="container has-text-centered">
-        <a class="weatherwidget-io" href="https://forecast7.com/en/48d41n119d53/omak/?unit=us" data-days="3" data-theme="pure">Omak, WA, USA</a>
-        <script>
-        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
-        </script>
+        <?= \App\Services\WeatherService::getSnapshot() ?>
     </div>
 </section>
 
