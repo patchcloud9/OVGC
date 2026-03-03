@@ -58,22 +58,11 @@
                         </div>
                         
                         <hr>
-                        
+
                         <p class="has-text-centered">
                             <a href="/password/forgot">Forgot your password?</a>
                         </p>
-
-                        <p class="has-text-centered mt-2">
-                            Don't have an account?
-                            <a href="/register">Register here</a>
-                        </p>
                     </form>
-                </div>
-                
-                <div class="content has-text-centered">
-                    <p class="help">
-                        <strong>Security:</strong> CSRF protected, rate limited (5 attempts per 5 minutes)
-                    </p>
                 </div>
             </div>
         </div>

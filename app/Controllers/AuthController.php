@@ -94,6 +94,11 @@ class AuthController extends Controller
      */
     public function showRegister(): void
     {
+        $this->redirect('/login');
+        return;
+
+        // Registration is currently disabled — accounts are created manually.
+        // Remove the redirect above to re-enable.
         $this->view('auth/register', [
             'title' => 'Register',
         ]);
@@ -106,6 +111,12 @@ class AuthController extends Controller
      */
     public function register(): void
     {
+        $this->redirect('/login');
+        return;
+
+        // Registration is currently disabled — accounts are created manually.
+        // Remove the redirect above to re-enable.
+
         // Validate input
         $validator = new Validator($_POST, [
             'name' => 'required|min:2|max:100',
