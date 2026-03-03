@@ -130,14 +130,13 @@ if (!empty($settings['hero_background_image'])) {
 </section>
 
 <!-- Weather Widget Section -->
-<section class="section">
-    <div class="container has-text-centered">
-        <a class="weatherwidget-io" href="https://forecast7.com/en/48d41n119d53/omak/?unit=us" data-days="3" data-theme="pure">Omak, WA, USA</a>
-        <script>
-        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
-        </script>
+<?php if (!empty($weatherData)): ?>
+<section class="section" style="padding-bottom: 0;">
+    <div class="container">
+        <?php require BASE_PATH . '/app/Views/partials/weather-widget.php'; ?>
     </div>
 </section>
+<?php endif; ?>
 
 <!-- Camera + Upcoming Events Section -->
 <section class="section">

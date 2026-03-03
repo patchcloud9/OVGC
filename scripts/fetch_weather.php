@@ -1,26 +1,21 @@
 <?php
-// CLI script to update weather snapshot. Run from the workspace root:
+// CLI script to update weather cache. Run from the workspace root:
 //   php scripts/fetch_weather.php
 
-// define BASE_PATH for CLI environment
 if (!defined('BASE_PATH')) {
     define('BASE_PATH', realpath(__DIR__ . '/..'));
 }
-// register autoloader so App\Services\WeatherService is available
+
 require BASE_PATH . '/core/Autoloader.php';
 \Core\Autoloader::register();
 
-require __DIR__ . '/../app/Services/WeatherService.php';
-
-$result = WeatherService::updateSnapshot();
+$result = \App\Services\WeatherService::updateCache();
 if ($result) {
-    echo "Weather snapshot updated successfully.\n";
+    echo "Weather cache updated successfully.\n";
     exit(0);
 } else {
-    echo "Failed to update weather snapshot.\n";
-    // log failure for diagnostics (reuse cron-error.log for consistency)
-    $logfile = __DIR__ . '/../storage/logs/cron-error.log';
-    file_put_contents($logfile, date('Y-m-d H:i:s') . " CLI snapshot update failed\n", FILE_APPEND);
+    echo "Failed to update weather cache.\n";
+    $logfile = BASE_PATH . '/storage/logs/cron-error.log';
     if (is_file($logfile)) {
         echo "--- recent log entries ---\n";
         $lines = array_slice(file($logfile), -20);

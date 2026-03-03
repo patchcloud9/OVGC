@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\HomepageSetting;
 use App\Services\EventService;
+use App\Services\WeatherService;
 
 /**
  * Home Controller
@@ -27,10 +28,13 @@ class HomeController extends Controller
             // Events table may not exist yet in all environments — fail silently
         }
 
+        $weatherData = WeatherService::getWidgetData();
+
         $this->view('home/index', [
             'title'          => 'Welcome Home',
             'settings'       => $settings,
             'upcomingEvents' => $upcomingEvents,
+            'weatherData'    => $weatherData,
         ]);
     }
     

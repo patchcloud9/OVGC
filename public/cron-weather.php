@@ -29,7 +29,7 @@ try {
     define('CRON_WEATHER_VERSION', '20260302-1');
     if (isset($_GET['key']) && $_GET['key'] === $expected) {
         try {
-            $ok = \App\Services\WeatherService::updateSnapshot();
+            $ok = \App\Services\WeatherService::updateCache();
             if ($ok) {
                 echo "OK";
                 http_response_code(200);
