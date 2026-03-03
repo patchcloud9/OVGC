@@ -7,10 +7,12 @@ This directory contains runtime data and logs that are not committed to version 
 ```
 storage/
 ├── logs/
-│   ├── app.json      # Application logs (file backup)
-│   └── .gitkeep      # Preserves directory structure
+│   ├── app.json           # Application logs (file backup)
+│   ├── cron-error.log     # Weather cron errors and diagnostics
+│   └── .gitkeep           # Preserves directory structure
 └── cache/
-    └── .gitkeep      # For future caching system
+    ├── weather-data.json  # NWS weather cache (refreshed every 30 min by cron)
+    └── .gitkeep
 ```
 
 ## Logging System
@@ -72,10 +74,18 @@ The `app.json` file contains an array of log entries:
 - Web UI: Click "Sync to Database" button when shown
 - Skips duplicates automatically
 
+## Weather Cache
+
+`storage/cache/weather-data.json` is written by `App\Services\WeatherService::updateCache()`, triggered by the cron endpoint `GET /cron-weather.php?key=<WEATHER_KEY>` (every 30 minutes). The homepage widget reads this file on every page load — zero external HTTP per request.
+
+- If the file is missing or older than 60 minutes, the widget is hidden gracefully.
+- Errors from the weather cron are appended to `storage/logs/cron-error.log`.
+- Do **not** commit `weather-data.json` (covered by `.gitignore`).
+
 ## Best Practices
 
-1. **Don't commit** `app.json` - it's in `.gitignore`
-2. **Monitor file size** - if it grows large, database may be down
+1. **Don't commit** `app.json` or `weather-data.json` - both are in `.gitignore`
+2. **Monitor file size** - if `app.json` grows large, database may be down
 3. **Sync regularly** - keeps database as primary source
 4. **Back up file** - before clearing, especially if database was down
 

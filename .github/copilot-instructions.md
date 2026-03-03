@@ -160,6 +160,29 @@ Three DB tables: `events`, `event_exceptions`, `event_results` (migrations 016�
 
 **Homepage widget:** `HomeController::index()` calls `EventService::getUpcomingEvents(5)` wrapped in a try/catch (fails silently if table missing). Partial at `app/Views/partials/upcoming-events.php`.
 
+### 7. Weather Widget
+
+Serves current conditions + 3-day forecast on the homepage with zero external HTTP per page load.
+
+**Key classes / files:**
+- `App\Services\WeatherService` — fetches from free NWS API (`api.weather.gov`; no key required), caches result to `storage/cache/weather-data.json` (JSON). Cache TTL = 30 min; widget accepts data up to 60 min old before hiding itself.
+- `app/Views/partials/weather-widget.php` — renders the widget using the Weather Icons CDN font (`wi-*` classes). Receives `$weatherData` from the controller.
+- `public/cron-weather.php` — HTTP endpoint for the server cron job. Protected by a key (`?key=<WEATHER_KEY>`; env var `WEATHER_KEY` or fallback). Call every 30 minutes.
+- `scripts/fetch_weather.php` — CLI equivalent for manual or SSH-based refresh.
+
+**Data flow:**
+1. Cron hits `GET /cron-weather.php?key=…` every 30 min → `WeatherService::updateCache()`
+2. NWS API calls: `/points/48.4104,-119.5296` → forecast URL + nearest station → observations
+3. Processed data saved to `storage/cache/weather-data.json`
+4. `HomeController::index()` calls `WeatherService::getWidgetData()` (reads local JSON, no HTTP)
+5. `$weatherData` passed to view → `partials/weather-widget.php` renders the widget
+
+**NWS condition → icon mapping:** `WeatherService::iconClass(string $condition, bool $isDaytime)` returns a `wi-*` class. Condition codes are extracted from the NWS icon URL path (e.g. `…/icons/land/day/ovc?size=medium` → `"ovc"`).
+
+**Cron errors** logged to `storage/logs/cron-error.log`.
+
+**Key:** default `477kHwPEw6ZBSUbhEB`; override via `WEATHER_KEY` environment variable.
+
 ## Development Workflow
 
 ### Running the Application
@@ -287,7 +310,7 @@ This project has a stable core with security and admin features completed and re
 - **Developer conveniences**
   - Basic `.env` loader for development, documented deploy checklist, and helpful utilities.
 
-**Also complete:** Events system — calendar, admin CRUD, recurring events, homepage widget (added 2026-03).
+**Also complete:** Events system — calendar, admin CRUD, recurring events, homepage widget (added 2026-03). Weather widget — NWS API cached widget, server-side render, cron refresh (added 2026-03).
 
 **Minor remaining:** user theme light/dark toggle (planned phase 4)
 

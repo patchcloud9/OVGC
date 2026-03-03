@@ -147,6 +147,7 @@ When you visit `/users/42`:
 
 ## Recent Changes & Notes
 - **Events system** (2026-03): Full calendar system added — `events`, `event_exceptions`, `event_results` tables (migrations 016–018). Public calendar at `/events` (FullCalendar v6), event detail pages, admin CRUD at `/admin/events`, and homepage upcoming-events widget. `Core\RRuleExpander` handles recurrence without Composer.
+- **Weather widget** (2026-03): Homepage weather widget powered by the free NWS API (`api.weather.gov` — no key required). `App\Services\WeatherService` fetches current conditions + 3-day forecast and caches to `storage/cache/weather-data.json`. A cron job hits `GET /cron-weather.php?key=<WEATHER_KEY>` every 30 minutes to refresh the cache. The widget renders server-side (zero external HTTP on page load) using the Weather Icons font and shows current temp/conditions on the left with hi/lo forecast cards on the right.
 - Migrations: This repo no longer includes SQL migration files; use the `database/initialize/` create scripts and the `database/seed/` files for fresh installs. If you need incremental migrations for upgrades, consider adding a `database/migrations/` workflow.
 - Placeholders: The homepage and purchase pages support the `{email}` placeholder — it will be replaced by the Theme Settings `contact_email` value when rendering public views (admin fields should use `{email}` to insert the site-wide contact email).
 - Page subtitles: `page_subtitle` is supported on About and Purchase pages (stored in their respective tables and editable in admin).
@@ -215,4 +216,3 @@ User::delete(1);
 - [ ] CSP security headers
 - [ ] Environment variables (.env file support)
 - [ ] Email functionality
-- [ ] Caching layer

@@ -26,6 +26,9 @@ Deployed via GitHub → RackNerd/CPanel GitHub Version Control → `/home/okanog
 | `app/Models/Model.php` | Base model with `find/all/where/create/update/delete` |
 | `app/Models/Event.php` | Events model + exception/result helpers |
 | `app/Services/EventService.php` | Occurrence expansion, cancellation, upcoming widget logic |
+| `app/Services/WeatherService.php` | NWS API fetch, JSON cache, widget icon mapping |
+| `app/Views/partials/weather-widget.php` | Homepage weather widget (current + 3-day forecast) |
+| `public/cron-weather.php` | HTTP cron endpoint → calls `WeatherService::updateCache()` |
 | `.github/copilot-instructions.md` | Full detailed architecture reference |
 
 ## Request Flow
@@ -110,5 +113,8 @@ A `.env` file is supported for development — never commit it. See `.env.exampl
 
 ## Current Status
 
-Core, security, middleware, auth, admin UI, theming, content management, and **Events system** are all complete and stable.
+Core, security, middleware, auth, admin UI, theming, content management, **Events system**, and **Weather widget** are all complete and stable.
+
+**Weather widget:** NWS API (free, no key) → `storage/cache/weather-data.json` (30-min cron) → rendered server-side by `WeatherService` + `partials/weather-widget.php`. Cron endpoint: `GET /cron-weather.php?key=<WEATHER_KEY>`. Widget hidden gracefully when cache is absent.
+
 Outstanding: CSP headers, full production hardening.
