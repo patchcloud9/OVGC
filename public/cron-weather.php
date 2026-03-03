@@ -25,6 +25,8 @@ try {
     // optionally protect by a simple key param, e.g. ?key=secret
     // prefer environment variable so key isn't stored in source
     $expected = getenv('WEATHER_KEY') ?: '477kHwPEw6ZBSUbhEB';
+    // version constant to help verify deployment
+    define('CRON_WEATHER_VERSION', '20260302-1');
     if (isset($_GET['key']) && $_GET['key'] === $expected) {
         try {
             $ok = \App\Services\WeatherService::updateSnapshot();
@@ -40,6 +42,10 @@ try {
             file_put_contents(BASE_PATH . '/storage/logs/cron-error.log', date('c') . " Exception: " . $e->getMessage() . "\n", FILE_APPEND);
             http_response_code(500);
         }
+        // show version and fetch diagnostics
+        $diags = \App\Services\WeatherService::getFetchDiagnostics();
+        echo "\nversion=" . CRON_WEATHER_VERSION . "\n";
+        echo "allow_url_fopen=" . $diags['allow_url_fopen'] . " curl=" . $diags['curl_available'] . "\n";
         // always append last 20 lines of log to response
         $logfile = BASE_PATH . '/storage/logs/cron-error.log';
         if (is_file($logfile)) {

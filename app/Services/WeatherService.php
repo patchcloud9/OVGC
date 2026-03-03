@@ -137,4 +137,17 @@ class WeatherService
         }
         return '';
     }
+
+    /**
+     * Return useful environment diagnostics related to fetching
+     *
+     * @return array<string,string>
+     */
+    public static function getFetchDiagnostics(): array
+    {
+        return [
+            'allow_url_fopen' => ini_get('allow_url_fopen') ? '1' : '0',
+            'curl_available' => function_exists('curl_version') ? '1' : '0',
+        ];
+    }
 }
