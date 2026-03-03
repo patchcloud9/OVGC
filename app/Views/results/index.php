@@ -80,7 +80,7 @@ krsort($byYear); // newest year first
                 </p>
                 <?php if (!empty($row['results_text'])): ?>
                 <p class="result-preview">
-                    <?= e(mb_strimwidth(strip_tags($row['results_text']), 0, 140, '…')) ?>
+                    <?= e(mb_strimwidth(strip_tags(format_results($row['results_text'])), 0, 140, '…')) ?>
                 </p>
                 <?php endif; ?>
                 <div class="result-footer">

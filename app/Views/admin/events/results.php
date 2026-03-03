@@ -32,11 +32,19 @@ $occDt = new DateTime($occurrenceDate . ' ' . (new DateTime($event['start_dateti
 
                         <div class="field">
                             <label class="label">Results / Leaderboard</label>
+                            <div class="notification is-light p-3 mb-2" style="font-size:0.85rem;">
+                                <strong>Formatting:</strong>
+                                &nbsp;&nbsp;
+                                <code>**text**</code> = <strong>bold</strong>
+                                &nbsp;&nbsp;&bull;&nbsp;&nbsp;
+                                <code>--item</code> = bullet list item
+                                &nbsp;&nbsp;&bull;&nbsp;&nbsp;
+                                Press <kbd>Enter</kbd> for a new line
+                            </div>
                             <div class="control">
                                 <textarea class="textarea" name="results_text" rows="10"
-                                    placeholder="Winners, scores, leaderboard... Basic HTML is allowed."><?= e($results['results_text'] ?? '') ?></textarea>
+                                    placeholder="**1st Place:** John Smith - 72&#10;**2nd Place:** Jane Doe - 74&#10;&#10;-- Low gross: John Smith&#10;-- Low net: Jane Doe"><?= e($results['results_text'] ?? '') ?></textarea>
                             </div>
-                            <p class="help">Basic HTML allowed (bold, lists, etc.).</p>
                         </div>
 
                         <div class="field">

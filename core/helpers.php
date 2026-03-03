@@ -201,6 +201,59 @@ function sanitize_for_log($data)
 }
 
 /**
+ * Convert simple results markup to safe HTML.
+ *
+ * Syntax:
+ *   **text**        → bold
+ *   --item          → unordered list item (consecutive lines grouped into <ul>)
+ *   blank line      → visual break
+ *   everything else → paragraph
+ *
+ * All user text is htmlspecialchars-escaped before conversion, so no raw
+ * HTML from the database can reach the browser.
+ */
+function format_results(string $text): string
+{
+    $text  = str_replace(["\r\n", "\r"], "\n", trim($text));
+    $lines = explode("\n", $text);
+
+    $output = '';
+    $inList = false;
+
+    foreach ($lines as $line) {
+        $line = rtrim($line);
+
+        if (str_starts_with($line, '--')) {
+            if (!$inList) {
+                $output .= "<ul>\n";
+                $inList  = true;
+            }
+            $item    = htmlspecialchars(ltrim(substr($line, 2)), ENT_QUOTES, 'UTF-8');
+            $item    = preg_replace('/\*\*(.+?)\*\*/u', '<strong>$1</strong>', $item);
+            $output .= '<li>' . $item . "</li>\n";
+        } else {
+            if ($inList) {
+                $output .= "</ul>\n";
+                $inList  = false;
+            }
+            if ($line === '') {
+                $output .= "<br>\n";
+            } else {
+                $safe    = htmlspecialchars($line, ENT_QUOTES, 'UTF-8');
+                $safe    = preg_replace('/\*\*(.+?)\*\*/u', '<strong>$1</strong>', $safe);
+                $output .= '<p>' . $safe . "</p>\n";
+            }
+        }
+    }
+
+    if ($inList) {
+        $output .= "</ul>\n";
+    }
+
+    return $output;
+}
+
+/**
  * Return ordinal suffix for an integer (1st, 2nd, 3rd, 4th, etc.)
  *
  * @param int $num

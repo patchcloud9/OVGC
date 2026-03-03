@@ -103,7 +103,7 @@ if ($isRecurring && !empty($event['rrule'])) {
                     <!-- ── Results posted (pre- or post-event) ── -->
                     <h2 class="title is-4 mt-4"><i class="fas fa-trophy"></i> Results</h2>
                     <div class="content ev-results-content">
-                        <?= $results['results_text'] ?>
+                        <?= format_results($results['results_text'] ?? '') ?>
                     </div>
                     <?php if (!empty($results['conditions_notes'])): ?>
                     <div class="notification is-light mt-4">
