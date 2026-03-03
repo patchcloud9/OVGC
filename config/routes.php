@@ -70,6 +70,9 @@ return [
         '/logs'                 => ['LogController', 'index', ['auth', 'role:admin']],
         '/logs/(\d+)'           => ['LogController', 'show', ['auth', 'role:admin']],
         
+        // Camera proxy (serves FTP image only when file is stable)
+        '/camera/live'          => ['CameraController', 'live'],
+
         // Gallery (Public)
         '/gallery'              => ['GalleryController', 'index'],
         '/board-members'        => ['BoardController', 'index'],

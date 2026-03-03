@@ -148,7 +148,7 @@ if (!empty($settings['hero_background_image'])) {
             <!-- Left column for camera -->
             <div class="column is-6">
                 <figure class="image">
-                    <img id="camera1" src="/uploads/camera1.jpg" alt="Traffic Camera" style="border-radius:8px;">
+                    <img id="camera1" src="/camera/live" alt="Traffic Camera" style="border-radius:8px;">
                 </figure>
                 <p class="is-italic is-size-7 mt-2">(updates every 20 seconds)</p>
             </div>
@@ -161,7 +161,7 @@ if (!empty($settings['hero_background_image'])) {
                         visible.src = loader.src;
                     };
                     // onerror: do nothing — keep showing last good frame
-                    loader.src = '/uploads/camera1.jpg?t=' + Date.now();
+                    loader.src = '/camera/live?t=' + Date.now();
                 }, 20000);
             })();
             </script>
