@@ -39,10 +39,18 @@ try {
                 http_response_code(500);
             }
         } catch (\Throwable $e) {
-            // output exception text for debugging
             echo "EXCEPTION: " . $e->getMessage();
             file_put_contents(BASE_PATH . '/storage/logs/cron-error.log', date('c') . " Exception: " . $e->getMessage() . "\n", FILE_APPEND);
             http_response_code(500);
+        }
+        // always append last 20 lines of log to response
+        $logfile = BASE_PATH . '/storage/logs/cron-error.log';
+        if (is_file($logfile)) {
+            echo "\n--- log ---\n";
+            $lines = array_slice(file($logfile), -20);
+            foreach ($lines as $line) {
+                echo htmlspecialchars($line);
+            }
         }
     } else {
         echo "Unauthorized";
