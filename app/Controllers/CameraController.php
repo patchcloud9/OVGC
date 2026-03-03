@@ -35,20 +35,19 @@ class CameraController extends Controller
         $stableExists = file_exists($stable);
         $stableAge    = $stableExists ? (time() - filemtime($stable)) : PHP_INT_MAX;
 
-        if ($stableAge > self::MAX_STABLE_AGE) {
-            // Safety valve: stable copy is too old — serve live file regardless
-            // and promote it, so the image can never be permanently stuck.
-            copy($source, $stable);
-            $serve = $source;
-        } elseif (@getimagesize($source) !== false) {
+        $sourceValid = (@getimagesize($source) !== false);
+
+        if ($sourceValid) {
             // Source passes a basic JPEG integrity check — promote and serve it.
             copy($source, $stable);
             $serve = $source;
-        } elseif ($stableExists) {
-            // Source is mid-write (corrupt) — serve the last known-good copy.
+        } elseif ($stableExists && $stableAge <= self::MAX_STABLE_AGE) {
+            // Source is mid-write — serve the last known-good copy.
             $serve = $stable;
         } else {
-            // No stable copy yet and source is bad — best effort.
+            // Safety valve: stable is too old (or missing) and source is bad.
+            // Serve source anyway — better a rare partial frame than a frozen image.
+            // The JS naturalWidth check on the client will discard it if undecodable.
             $serve = $source;
         }
 

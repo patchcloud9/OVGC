@@ -150,7 +150,7 @@ if (!empty($settings['hero_background_image'])) {
                 <figure class="image">
                     <img id="camera1" src="/camera/live" alt="Traffic Camera" style="border-radius:8px;">
                 </figure>
-                <p class="is-italic is-size-7 mt-2">(updates every 10 seconds)</p>
+                <p class="is-italic is-size-7 mt-2">(updates every 10&ndash;60 seconds)</p>
             </div>
             <script>
             (function () {
@@ -158,7 +158,11 @@ if (!empty($settings['hero_background_image'])) {
                 setInterval(function () {
                     var loader = new Image();
                     loader.onload = function () {
-                        visible.src = loader.src;
+                        // naturalWidth === 0 means the browser got a response but
+                        // couldn't decode the image (e.g. truncated JPEG mid-write).
+                        if (loader.naturalWidth > 0) {
+                            visible.src = loader.src;
+                        }
                     };
                     // onerror: do nothing — keep showing last good frame
                     loader.src = '/camera/live?t=' + Date.now();
