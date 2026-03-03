@@ -105,11 +105,6 @@
                     </form>
                 </div>
                 
-                <div class="content has-text-centered">
-                    <p class="help">
-                        <strong>Security:</strong> CSRF protected, rate limited (3 registrations per 10 minutes), email uniqueness checked
-                    </p>
-                </div>
             </div>
         </div>
     </div>

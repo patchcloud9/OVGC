@@ -2,10 +2,21 @@
 <section class="hero is-dark subpage-hero">
     <div class="hero-body">
         <div class="container">
-            <h1 class="title is-3">
-                <i class="fas fa-crown"></i> Admin Panel
-            </h1>
-            <p class="subtitle is-6 has-text-white">Welcome, <?= e(auth_user()['name']) ?>!</p>
+            <div class="is-flex is-justify-content-space-between is-align-items-center">
+                <div>
+                    <h1 class="title is-3">
+                        <i class="fas fa-crown"></i> Admin Panel
+                    </h1>
+                    <p class="subtitle is-6 has-text-white">Welcome, <?= e(auth_user()['name']) ?>!</p>
+                </div>
+                <form method="POST" action="/logout">
+                    <?= csrf_field() ?>
+                    <button type="submit" class="button is-danger is-light">
+                        <span class="icon"><i class="fas fa-sign-out-alt"></i></span>
+                        <span>Logout</span>
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 </section>
