@@ -8,7 +8,7 @@
 ?>
 
 <!-- FullCalendar v6 (loaded here so it only affects this page) -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.20/index.global.min.css">
 
 <section class="hero is-primary subpage-hero">
     <div class="hero-body">
@@ -57,6 +57,6 @@
 </section>
 
 <!-- FullCalendar JS + init (deferred until DOM ready) -->
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.20/index.global.min.js"></script>
 <script src="/assets/js/events-calendar.js?v=<?= @filemtime(BASE_PATH . '/public/assets/js/events-calendar.js') ?>"></script>
 <link rel="stylesheet" href="/assets/css/events.css?v=<?= @filemtime(BASE_PATH . '/public/assets/css/events.css') ?>">
