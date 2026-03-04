@@ -201,4 +201,3 @@ User::delete(1);
 - Application logs with search and pagination
 - Unauthorized access attempt logging
 - Mobile-optimized card layouts
-
