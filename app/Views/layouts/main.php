@@ -33,7 +33,9 @@ function rgba_from_hex(string $hex, float $alpha = 1.0): string
     <!-- Custom Favicon -->
     <link rel="icon" type="image/x-icon" href="<?= e($theme['favicon_path']) ?>">
     <?php endif; ?>
-    
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+
     <!-- Bulma CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 
