@@ -147,7 +147,7 @@ if (!empty($settings['hero_background_image'])) {
             <!-- Left column for camera -->
             <div class="column is-6">
                 <figure class="image">
-                    <img id="camera1" src="/assets/images/loading_circles_blue_gradient.jpg" alt="Traffic Camera" style="border-radius:8px;">
+                    <img id="camera1" src="/camera/live" alt="Traffic Camera" style="border-radius:8px;">
                 </figure>
                 <p class="is-italic is-size-7 mt-2">(updates every 10&ndash;60 seconds)</p>
             </div>
