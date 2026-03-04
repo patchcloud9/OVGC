@@ -158,34 +158,4 @@
     </div>
 </section>
 
-<script>
-    // Toggle price amount field based on pricing type
-    function togglePriceAmount() {
-        const priceType = document.getElementById('price-type-select').value;
-        const priceAmountField = document.getElementById('price-amount-field');
-        
-        if (priceType === 'amount') {
-            priceAmountField.style.display = 'block';
-        } else {
-            priceAmountField.style.display = 'none';
-        }
-    }
-    
-    // Toggle prints URL field based on checkbox
-    function togglePrintsUrl() {
-        const printsCheckbox = document.getElementById('prints-available-checkbox');
-        const printsUrlField = document.getElementById('prints-url-field');
-        
-        if (printsCheckbox.checked) {
-            printsUrlField.style.display = 'block';
-        } else {
-            printsUrlField.style.display = 'none';
-        }
-    }
-    
-    // Initialize on page load
-    document.addEventListener('DOMContentLoaded', function() {
-        togglePriceAmount();
-        togglePrintsUrl();
-    });
-</script>
+<script src="/assets/js/gallery-field-toggle.js?v=<?= @filemtime(BASE_PATH . '/public/assets/js/gallery-field-toggle.js') ?>"></script>

@@ -274,64 +274,7 @@
     <input type="hidden" name="direction" id="reorder-direction">
 </form>
 
-<script>
-    // Update file name display
-    function updateFileName(input) {
-        const fileName = input.files[0]?.name || 'No file selected';
-        document.getElementById('file-name').textContent = fileName;
-    }
-    
-    // Delete image with confirmation
-    function deleteImage(imageId, imageTitle) {
-        if (!confirm(`Are you sure you want to delete "${imageTitle}"?\n\nThis action cannot be undone.`)) {
-            return;
-        }
-        
-        const form = document.getElementById('delete-form');
-        form.action = `/admin/gallery/${imageId}`;
-        form.submit();
-    }
-    
-    // Move image up or down - save position to return to after reload
-    function moveImage(imageId, direction) {
-        // Store the image ID in session storage to scroll back after page reload
-        sessionStorage.setItem('scrollToImage', imageId);
-        
-        document.getElementById('reorder-image-id').value = imageId;
-        document.getElementById('reorder-direction').value = direction;
-        document.getElementById('reorder-form').submit();
-    }
-    
-    // On page load, scroll back to the image that was moved
-    document.addEventListener('DOMContentLoaded', function() {
-        const scrollToImageId = sessionStorage.getItem('scrollToImage');
-        
-        if (scrollToImageId) {
-            const imageElement = document.getElementById('image-' + scrollToImageId);
-            
-            if (imageElement) {
-                // Scroll to the image with smooth behavior
-                setTimeout(() => {
-                    imageElement.scrollIntoView({ 
-                        behavior: 'smooth', 
-                        block: 'center' 
-                    });
-                    
-                    // Add a brief highlight effect
-                    imageElement.style.transition = 'background-color 0.5s';
-                    imageElement.style.backgroundColor = 'rgba(72, 199, 142, 0.1)';
-                    
-                    setTimeout(() => {
-                        imageElement.style.backgroundColor = '';
-                    }, 1000);
-                }, 100);
-            }
-            
-            // Clear the stored image ID
-            sessionStorage.removeItem('scrollToImage');
-        }
-    });
-</script>
+<script src="/assets/js/gallery-admin.js?v=<?= @filemtime(BASE_PATH . '/public/assets/js/gallery-admin.js') ?>"></script>
 
 <style>
     /* Gallery admin card layout - equal heights */
@@ -410,33 +353,4 @@
         transform: scale(1.05);
     }
 </style>
-<script>
-    // Toggle price amount field based on pricing type
-    function togglePriceAmount() {
-        const priceType = document.getElementById('price-type-select').value;
-        const priceAmountField = document.getElementById('price-amount-field');
-        
-        if (priceType === 'amount') {
-            priceAmountField.style.display = 'block';
-        } else {
-            priceAmountField.style.display = 'none';
-        }
-    }
-    
-    // Toggle prints URL field based on checkbox
-    function togglePrintsUrl() {
-        const printsCheckbox = document.getElementById('prints-available-checkbox');
-        const printsUrlField = document.getElementById('prints-url-field');
-        
-        if (printsCheckbox.checked) {
-            printsUrlField.style.display = 'block';
-        } else {
-            printsUrlField.style.display = 'none';
-        }
-    }
-    
-    // Initialize on page load
-    document.addEventListener('DOMContentLoaded', function() {
-        togglePriceAmount();
-        togglePrintsUrl();
-    });
+<script src="/assets/js/gallery-field-toggle.js?v=<?= @filemtime(BASE_PATH . '/public/assets/js/gallery-field-toggle.js') ?>"></script>

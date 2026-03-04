@@ -129,36 +129,4 @@ $layout = 'main';
     </div>
 </section>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    var pageInput = document.getElementById('banner-page-input');
-    var clearBtn = document.getElementById('clear-page');
-    function toggleClear() {
-        if (pageInput.value.length) {
-            clearBtn.style.display = 'block';
-        } else {
-            clearBtn.style.display = 'none';
-        }
-    }
-    function normalize() {
-        var v = pageInput.value;
-        v = v.replace(/\/+/g, '/').replace(/#/g, '');
-        if (!v.startsWith('/')) v = '/' + v;
-        if (v.length > 1 && v.endsWith('/')) v = v.slice(0, -1);
-        pageInput.value = v;
-    }
-    pageInput.addEventListener('input', function() {
-        normalize();
-        toggleClear();
-    });
-    pageInput.addEventListener('blur', normalize);
-    // also normalize on form submit to catch edge cases
-    pageInput.closest('form').addEventListener('submit', normalize);
-    clearBtn.addEventListener('click', function() {
-        pageInput.value = '';
-        toggleClear();
-        pageInput.focus();
-    });
-    toggleClear();
-});
-</script>
+<script src="/assets/js/banner-path.js?v=<?= @filemtime(BASE_PATH . '/public/assets/js/banner-path.js') ?>"></script>

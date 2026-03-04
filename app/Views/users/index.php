@@ -122,40 +122,4 @@
     </div>
 </section>
 
-<script>
-// Search and filter functionality
-document.addEventListener('DOMContentLoaded', function() {
-    const searchInput = document.getElementById('searchInput');
-    const roleFilter = document.getElementById('roleFilter');
-    const userCards = document.querySelectorAll('.user-card');
-    const noResults = document.getElementById('noResults');
-    
-    function filterUsers() {
-        const searchTerm = searchInput.value.toLowerCase();
-        const roleValue = roleFilter.value.toLowerCase();
-        let visibleCount = 0;
-        
-        userCards.forEach(card => {
-            const name = card.dataset.name;
-            const email = card.dataset.email;
-            const role = card.dataset.role;
-            
-            const matchesSearch = name.includes(searchTerm) || email.includes(searchTerm);
-            const matchesRole = roleValue === '' || role === roleValue;
-            
-            if (matchesSearch && matchesRole) {
-                card.style.display = '';
-                visibleCount++;
-            } else {
-                card.style.display = 'none';
-            }
-        });
-        
-        // Show/hide no results message
-        noResults.style.display = visibleCount === 0 ? 'block' : 'none';
-    }
-    
-    searchInput.addEventListener('input', filterUsers);
-    roleFilter.addEventListener('change', filterUsers);
-});
-</script>
+<script src="/assets/js/users-filter.js?v=<?= @filemtime(BASE_PATH . '/public/assets/js/users-filter.js') ?>"></script>

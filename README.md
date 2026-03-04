@@ -10,8 +10,10 @@ The app runs on a standard LAMP stack and is deployed via RackNerd/CPanel using 
 php-framework/
 ├── public/                 # Web root (point Apache/Nginx here)
 │   ├── index.php           # Front controller - ALL requests go here
-│   ├── .htaccess           # Apache URL rewriting rules
+│   ├── .htaccess           # Apache URL rewriting + CSP/security headers
 │   └── assets/             # CSS, JS, images (publicly accessible)
+│       ├── css/app.css     # Custom styles
+│       └── js/             # External JS files (no inline <script> blocks in views)
 │
 ├── app/                    # Your application code
 │   ├── Controllers/        # Handle requests, return responses
@@ -194,6 +196,8 @@ User::delete(1);
 - SQL injection protection via prepared statements
 - Secure session configuration
 - Rate limiting on login/register
+- Content Security Policy header in `public/.htaccess`
+- No inline `<script>` blocks — all JS in external files under `public/assets/js/`
 
 **Admin Features:**
 - User management (create, edit, delete)

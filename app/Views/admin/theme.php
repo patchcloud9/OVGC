@@ -564,41 +564,4 @@
     </div>
 </section>
 
-<script>
-// Confirm reset action
-function confirmReset() {
-    return confirm('Are you sure you want to reset all theme settings to defaults? This action cannot be undone.');
-}
-
-// Update file name display when file is selected
-function updateFileName(input, displayId) {
-    const display = document.getElementById(displayId);
-    if (input.files && input.files[0]) {
-        display.textContent = input.files[0].name;
-    } else {
-        display.textContent = 'No file selected';
-    }
-}
-
-// Sync color picker with text input
-document.addEventListener('DOMContentLoaded', function() {
-    const colorInputs = document.querySelectorAll('input[type="color"]');
-    
-    colorInputs.forEach(colorInput => {
-        const textInput = colorInput.parentElement.nextElementSibling.querySelector('input[type="text"]');
-        
-        // Update text when color picker changes
-        colorInput.addEventListener('input', function() {
-            textInput.value = this.value.toUpperCase();
-        });
-        
-        // Update color picker when text changes (with validation)
-        textInput.addEventListener('input', function() {
-            const value = this.value.trim();
-            if (/^#[0-9A-F]{6}$/i.test(value)) {
-                colorInput.value = value;
-            }
-        });
-    });
-});
-</script>
+<script src="/assets/js/admin-theme.js?v=<?= @filemtime(BASE_PATH . '/public/assets/js/admin-theme.js') ?>"></script>

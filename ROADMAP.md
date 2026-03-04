@@ -29,6 +29,7 @@
 ### Phase 1 — Testing & Dev Tools
 
 - [ ] Move inline `<script>` blocks out of view files into external JS assets to allow removing `'unsafe-inline'` from CSP `script-src` (affects: `main.php`, `home/index.php`, `gallery/`, `admin/`, `banners/`, `users/`, `menu/`, `logs/`, `rates/` views)
+- [ ] text replacer, email, address, name, custom.  Such as {{email}}
 - [ ] Debug toolbar (dev-only)
 - [ ] Maybe add top menu and bottom menu to be seperate.
 - [ ] Note about updating dependancies

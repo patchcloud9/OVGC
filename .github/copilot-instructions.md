@@ -199,10 +199,10 @@ Live traffic camera on the homepage with corruption-safe serving.
 3. If `getimagesize()` fails (mid-FTP write) and stable copy is ≤ `MAX_STABLE_AGE` (60 s) old → serve stable.
 4. Safety valve: if stable is missing or too old, serve source anyway — client-side JS discards undecoded frames.
 
-**Client-side refresh (in `app/Views/home/index.php`):**
+**Client-side refresh (`public/assets/js/camera-poll.js`, included by `app/Views/home/index.php`):**
 - A hidden `Image()` loader fetches `/camera/live?t=<Date.now()>` every 17 seconds (cache-busting via query string).
 - Only swaps the visible `<img id="camera1">` when `loader.naturalWidth > 0` (browser decoded successfully).
-- `onerror` is a no-op — keeps showing the last good frame on network errors.
+- On `onerror` or undecoded frame, retries after 3 seconds instead of waiting the full 17 s.
 
 **Route:**
 ```php
@@ -215,7 +215,43 @@ No middleware (public, read-only image endpoint). Output: `Content-Type: image/j
 - `.htaccess` in that directory enforces no-cache headers at the Apache level.
 - The `uploads/` directory should **not** execute PHP (add `php_flag engine off` or equivalent if needed).
 
-### 9. Authentication & Password Reset
+### 9. JavaScript Assets
+
+All page-specific JavaScript lives in external files — **no inline `<script>` blocks** in any view.
+
+**Location:** `public/assets/js/`
+
+**Cache-busting pattern** (established in `layouts/main.php`):
+```php
+<script src="/assets/js/file.js?v=<?= @filemtime(BASE_PATH . '/public/assets/js/file.js') ?>"></script>
+```
+
+**Current files:**
+
+| File | Used by | Purpose |
+|------|---------|---------|
+| `app.js` | all pages (via layout) | Nav drawer, card equalization, transparent hero |
+| `admin-event-form.js` | admin event create/edit | All-day toggle, recurrence fields, skip dates |
+| `events-calendar.js` | `events/index.php` | FullCalendar initialization |
+| `banner-dismiss.js` | all pages (via layout) | Cookie-based banner close |
+| `camera-poll.js` | `home/index.php` | Live camera 17 s polling with 3 s retry |
+| `contact.js` | `contact/index.php` | reCAPTCHA v3 execute on submit |
+| `gallery-field-toggle.js` | `gallery/edit.php`, `gallery/admin.php` | Price/prints field visibility |
+| `gallery-admin.js` | `gallery/admin.php` | Upload display, delete, reorder scroll-back |
+| `gallery-lightbox.js` | `gallery/index.php` | Overlay open/close, keyboard, right-click block |
+| `admin-theme.js` | `admin/theme.php` | Color picker sync, file name display, reset confirm |
+| `admin-homepage.js` | `admin/homepage.php` | Color picker sync, image clear, file name display |
+| `banner-path.js` | `banners/create.php`, `banners/edit.php` | Page path normalization |
+| `users-filter.js` | `users/index.php` | Client-side search + role filter |
+| `menu-admin.js` | `menu/admin.php` | Delete confirm, reorder scroll-back |
+| `logs-filter.js` | `logs/index.php` | Client-side search + level filter |
+| `rates-scorecard.js` | `rates/index.php` | Scorecard modal |
+
+**Passing PHP values to JS:** use `data-*` attributes on DOM elements; read in the external JS file. Example: `contact/index.php` sets `data-key="<?= e($recaptchaSiteKey) ?>"` on the form; `contact.js` reads `form.dataset.key`.
+
+**CSP note:** `public/.htaccess` sets a `Content-Security-Policy` header. `script-src` still includes `'unsafe-inline'` because ~35 inline `onclick=`/`onchange=`/`onsubmit=` event handler attributes remain in views. Once those are converted to `addEventListener` calls in external JS, `'unsafe-inline'` can be removed.
+
+### 10. Authentication & Password Reset
 
 **Login/Logout:**
 - `GET /login` → `AuthController::showLogin()` | `POST /login` → `AuthController::login()` — middleware: `guest, csrf, rate-limit:login,5,300`

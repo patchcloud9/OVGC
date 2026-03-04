@@ -151,37 +151,7 @@ if (!empty($settings['hero_background_image'])) {
                 </figure>
                 <p class="is-italic is-size-7 mt-2">(updates every 10&ndash;60 seconds)</p>
             </div>
-            <script>
-            (function () {
-                var visible = document.getElementById('camera1');
-                var timer = null;
-                function scheduleNext(delay) {
-                    clearTimeout(timer);
-                    timer = setTimeout(loadFrame, delay);
-                }
-                function loadFrame() {
-                    var loader = new Image();
-                    loader.onload = function () {
-                        // naturalWidth === 0 means the browser got a response but
-                        // couldn't decode the image (e.g. truncated JPEG mid-write).
-                        if (loader.naturalWidth > 0) {
-                            visible.src = loader.src;
-                            scheduleNext(17000);
-                        } else {
-                            // Bad frame — retry quickly
-                            scheduleNext(3000);
-                        }
-                    };
-                    loader.onerror = function () {
-                        // Network/server error — retry quickly
-                        scheduleNext(3000);
-                    };
-                    loader.src = '/camera/live?t=' + Date.now();
-                }
-                // Load first frame immediately, then poll every 17 seconds (3s on failure)
-                loadFrame();
-            })();
-            </script>
+            <script src="/assets/js/camera-poll.js?v=<?= @filemtime(BASE_PATH . '/public/assets/js/camera-poll.js') ?>"></script>
             <!-- Right column for upcoming events -->
             <div class="column is-6">
                 <?php if (!empty($upcomingEvents)): ?>

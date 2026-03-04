@@ -71,24 +71,7 @@ $layout = 'main';
                 </div>
                 <button class="modal-close is-large" aria-label="close"></button>
             </div>
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    var thumb = document.getElementById('scorecard-thumb');
-                    var modal = document.getElementById('scorecard-modal');
-                    var closeEls = modal.querySelectorAll('.modal-close, .modal-background');
-                    if (thumb) {
-                        thumb.addEventListener('click', function(e){
-                            e.preventDefault();
-                            modal.classList.add('is-active');
-                        });
-                    }
-                    closeEls.forEach(function(el){
-                        el.addEventListener('click', function(){
-                            modal.classList.remove('is-active');
-                        });
-                    });
-                });
-            </script>
+            <script src="/assets/js/rates-scorecard.js?v=<?= @filemtime(BASE_PATH . '/public/assets/js/rates-scorecard.js') ?>"></script>
         <?php endif; ?>
 
         <?php if (!empty($pageContent['above_rates'])): ?>

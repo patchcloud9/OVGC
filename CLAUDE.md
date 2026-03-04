@@ -70,6 +70,15 @@ Subdirectory controllers work: `['Admin\EventController', 'method']` → `App\Co
 - Middleware list is the 3rd element; admin routes always need `['auth', 'role:admin']`
 - Available middleware: `auth`, `guest`, `csrf`, `role:admin`, `rate-limit:key,max,secs`, `log-request`
 
+## Documentation Rule
+
+**After any significant change — new feature, new file pattern, architectural decision — update these three files before considering the task done:**
+1. `CLAUDE.md` (this file) — keep Key Files table, Views rules, Current Status, and Common Pitfalls current
+2. `.github/copilot-instructions.md` — update the relevant numbered section with implementation details
+3. `README.md` — update Folder Structure or feature descriptions if the public-facing picture changed
+
+Do this without being asked. If the change is minor (bug fix, copy tweak), skip README but still update CLAUDE.md/copilot-instructions if any pattern changed.
+
 ## Adding a Feature
 
 1. **Route** → `config/routes.php`
@@ -94,6 +103,8 @@ Subdirectory controllers work: `['Admin\EventController', 'method']` → `App\Co
 - Always escape untrusted output: `<?= e($var) ?>` (not `htmlspecialchars` directly)
 - Form repopulation: `<?= old('field') ?>`
 - No `$extraHead` slot in main layout — page-specific CDN assets go directly in the view file
+- **No inline `<script>` blocks in any view** — all JS lives in `public/assets/js/`. Include with cache-bust: `<script src="/assets/js/file.js?v=<?= @filemtime(BASE_PATH . '/public/assets/js/file.js') ?>"></script>`
+- If a PHP value is needed in JS, pass it via a `data-*` attribute on a DOM element; read it in the external JS file
 
 ## Security Rules
 
@@ -123,7 +134,7 @@ Core, security, middleware, auth, admin UI, theming, content management, **Event
 
 **Weather widget:** NWS API (free, no key) → `storage/cache/weather-data.json` (30-min cron) → rendered server-side by `WeatherService` + `partials/weather-widget.php`. Cron endpoint: `GET /cron-weather.php?key=<WEATHER_KEY>`. Widget hidden gracefully when cache is absent.
 
-**Camera widget:** FTP camera drops `public/uploads/camera1.jpg`. `GET /camera/live` → `CameraController::live()` validates the JPEG with `getimagesize()`, promotes good frames to `storage/cache/camera1_stable.jpg`, and falls back to the stable copy during mid-write corruption. Homepage JS (`home/index.php`) polls `/camera/live?t=<timestamp>` every 17 s using a hidden `Image()` loader and only swaps the visible frame when `naturalWidth > 0`.
+**Camera widget:** FTP camera drops `public/uploads/camera1.jpg`. `GET /camera/live` → `CameraController::live()` validates the JPEG with `getimagesize()`, promotes good frames to `storage/cache/camera1_stable.jpg`, and falls back to the stable copy during mid-write corruption. `public/assets/js/camera-poll.js` polls `/camera/live?t=<timestamp>` every 17 s using a hidden `Image()` loader and only swaps the visible `<img id="camera1">` when `naturalWidth > 0`.
 
 **Password reset:** `GET/POST /password/forgot` → `PasswordResetController`. Raw token emailed; only `password_hash()` of token stored in `password_resets` table (expires 1 hour). Expired tokens purged opportunistically on each new request. Self-registration is disabled — accounts are created manually by an admin.
 
