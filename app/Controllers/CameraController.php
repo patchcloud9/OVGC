@@ -16,7 +16,7 @@ class CameraController extends Controller
 {
     private const SOURCE        = '/public/uploads/camera1.jpg';
     private const STABLE        = '/storage/cache/camera1_stable.jpg';
-    private const MAX_STABLE_AGE = 60; // force-refresh stable after this many seconds
+    private const MAX_STABLE_AGE = 300; // force-refresh stable after this many seconds
 
     public function live(): void
     {
