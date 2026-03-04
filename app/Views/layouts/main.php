@@ -251,7 +251,7 @@ function rgba_from_hex(string $hex, float $alpha = 1.0): string
             }
             $colour = $b['colour'] ?: 'info';
             $dismissHtml = $b['dismissable'] ? '<button class="delete"></button>' : '';
-            $topHtml .= "<div class=\"banner notification is-$colour\" data-id=\"" . e($b['id']) . "\">$dismissHtml" . e($b['text']) . "</div>";
+            $topHtml .= "<div class=\"banner notification is-$colour\" data-id=\"" . e($b['id']) . "\">$dismissHtml" . tpl(e($b['text'])) . "</div>";
         }
         $topHtml .= "</div>";
     }
@@ -291,7 +291,7 @@ function rgba_from_hex(string $hex, float $alpha = 1.0): string
             }
             $colour = $b['colour'] ?: 'info';
             $dismissHtml = $b['dismissable'] ? '<button class="delete"></button>' : '';
-            echo "<div class=\"banner notification is-$colour\" data-id=\"" . e($b['id']) . "\">$dismissHtml" . e($b['text']) . "</div>";
+            echo "<div class=\"banner notification is-$colour\" data-id=\"" . e($b['id']) . "\">$dismissHtml" . tpl(e($b['text'])) . "</div>";
         }
         echo "</div>";
     }

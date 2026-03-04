@@ -433,3 +433,38 @@ function theme_setting(string $key, $default = null)
     $theme = get_site_theme();
     return $theme[$key] ?? $default;
 }
+
+/**
+ * Replace {{template}} variables in already-HTML-escaped text with theme values.
+ *
+ * Pass the output of e() (or nl2br(e())) into this function.
+ * Supported tokens:
+ *   {{name}}     → site_name
+ *   {{email}}    → contact_email  (wrapped in <a href="mailto:...">)
+ *   {{phone}}    → phone_number   (wrapped in <a href="tel:...">)
+ *   {{address1}} → address1
+ *   {{address2}} → address2
+ *   {{city}}     → city_state_zip
+ *
+ * @param string $text Already HTML-escaped text containing {{tokens}}
+ * @return string Text with tokens replaced by safe HTML
+ */
+function tpl(string $text): string
+{
+    $theme = get_site_theme();
+
+    $email = $theme['contact_email'] ?? '';
+    $phone = $theme['phone_number'] ?? '';
+    $telHref = preg_replace('/[^\d+]/', '', $phone);
+
+    $replacements = [
+        '{{name}}'     => e($theme['site_name'] ?? ''),
+        '{{email}}'    => $email ? '<a href="mailto:' . e($email) . '">' . e($email) . '</a>' : '',
+        '{{phone}}'    => $phone ? '<a href="tel:' . e($telHref) . '">' . e($phone) . '</a>' : '',
+        '{{address1}}' => e($theme['address1'] ?? ''),
+        '{{address2}}' => e($theme['address2'] ?? ''),
+        '{{city}}'     => e($theme['city_state_zip'] ?? ''),
+    ];
+
+    return str_replace(array_keys($replacements), array_values($replacements), $text);
+}

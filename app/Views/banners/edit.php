@@ -81,6 +81,7 @@ $layout = 'main';
                 <div class="control">
                     <textarea class="textarea" name="text" rows="3"><?= e(old('text', $banner['text'])) ?></textarea>
                 </div>
+                <p class="help">Supports template variables: <code>{{name}}</code> <code>{{email}}</code> <code>{{phone}}</code> <code>{{address1}}</code> <code>{{address2}}</code> <code>{{city}}</code></p>
             </div>
 
             <div class="field">

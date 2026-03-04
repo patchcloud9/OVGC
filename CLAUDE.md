@@ -18,7 +18,7 @@ Deployed via GitHub → RackNerd/CPanel GitHub Version Control → `/home/okanog
 | `config/config.php` | Constants: APP_*, DB_*, timezone; loads `.env` |
 | `core/Router.php` | Regex URL matching + middleware dispatch |
 | `core/Database.php` | PDO singleton wrapper |
-| `core/helpers.php` | Global helpers: `e()`, `csrf_field()`, `flash()`, `old()` |
+| `core/helpers.php` | Global helpers: `e()`, `csrf_field()`, `flash()`, `old()`, `tpl()` |
 | `core/RRuleExpander.php` | RRULE→date expansion (no Composer; DAILY/WEEKLY/MONTHLY+UNTIL) |
 | `app/Controllers/Controller.php` | Base controller with `view/redirect/json/flash` helpers |
 | `app/Controllers/AuthController.php` | Login, logout; registration disabled (redirects to `/login`) |
@@ -105,6 +105,7 @@ Do this without being asked. If the change is minor (bug fix, copy tweak), skip 
 - No `$extraHead` slot in main layout — page-specific CDN assets go directly in the view file
 - **No inline `<script>` blocks in any view** — all JS lives in `public/assets/js/`. Include with cache-bust: `<script src="/assets/js/file.js?v=<?= @filemtime(BASE_PATH . '/public/assets/js/file.js') ?>"></script>`
 - If a PHP value is needed in JS, pass it via a `data-*` attribute on a DOM element; read it in the external JS file
+- **Template variables in admin-editable text:** wrap `e()` output in `tpl()` to expand `{{name}}`, `{{email}}`, `{{phone}}`, `{{address1}}`, `{{address2}}`, `{{city}}` from theme settings. Pattern: `<?= tpl(e($text)) ?>` or `<?= tpl(nl2br(e($text))) ?>` for multi-line fields. Email/phone render as clickable links.
 
 ## Security Rules
 
@@ -121,7 +122,8 @@ A `.env` file is supported for development — never commit it. See `.env.exampl
 
 ## Common Pitfalls
 
-1. URL params are strings — cast before arithmetic: `(int) $id`
+1. **Git commands must be run separately** — never chain with `&&` (e.g. `git add` then `git diff` as separate calls). The permission matcher checks the full command string, so `git add ... && git diff ...` won't match the `Bash(git add *)` allow rule and will prompt for approval unnecessarily.
+2. URL params are strings — cast before arithmetic: `(int) $id`
 2. Flash messages are single-use — `getFlash()` clears them on read
 3. Layout wraps via `$content` — don't `require` views directly
 4. Namespace must match path — `App\Services\FooService` → `app/Services/FooService.php`
@@ -130,7 +132,7 @@ A `.env` file is supported for development — never commit it. See `.env.exampl
 
 ## Current Status
 
-Core, security, middleware, auth, admin UI, theming, content management, **Events system**, **Weather widget**, and **Camera widget** are all complete and stable.
+Core, security, middleware, auth, admin UI, theming, content management, **Events system**, **Weather widget**, **Camera widget**, and **Template Variables** are all complete and stable.
 
 **Weather widget:** NWS API (free, no key) → `storage/cache/weather-data.json` (30-min cron) → rendered server-side by `WeatherService` + `partials/weather-widget.php`. Cron endpoint: `GET /cron-weather.php?key=<WEATHER_KEY>`. Widget hidden gracefully when cache is absent.
 

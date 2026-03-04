@@ -251,7 +251,36 @@ All page-specific JavaScript lives in external files — **no inline `<script>` 
 
 **CSP note:** `public/.htaccess` sets a `Content-Security-Policy` header. `script-src` still includes `'unsafe-inline'` because ~35 inline `onclick=`/`onchange=`/`onsubmit=` event handler attributes remain in views. Once those are converted to `addEventListener` calls in external JS, `'unsafe-inline'` can be removed.
 
-### 10. Authentication & Password Reset
+### 10. Template Variables
+
+Admin-editable text fields support `{{token}}` placeholders that are replaced with live theme values when the page renders.
+
+**Helper:** `tpl(string $text): string` in `core/helpers.php`.
+
+**Usage pattern:** always escape HTML first, then apply `tpl()`:
+```php
+<?= tpl(e($rawText)) ?>
+<?= tpl(nl2br(e($rawText))) ?>   // multi-line fields
+```
+
+**Supported tokens:**
+
+| Token | Theme field | Rendered as |
+|-------|-------------|-------------|
+| `{{name}}` | `site_name` | plain text |
+| `{{email}}` | `contact_email` | `<a href="mailto:...">` link |
+| `{{phone}}` | `phone_number` | `<a href="tel:...">` link |
+| `{{address1}}` | `address1` | plain text |
+| `{{address2}}` | `address2` | plain text |
+| `{{city}}` | `city_state_zip` | plain text |
+
+**Currently applied to:** all homepage content fields (hero subtitle, card texts, bottom section text) in `app/Views/home/index.php`.
+
+To apply to a new view, wrap rendered text fields with `tpl()`. No DB changes needed — source values come from the cached `get_site_theme()` call.
+
+**Admin UI:** `admin/homepage.php` shows a reference panel listing all tokens. Edit values under Admin → Theme Settings → Contact Information.
+
+### 11. Authentication & Password Reset
 
 **Login/Logout:**
 - `GET /login` → `AuthController::showLogin()` | `POST /login` → `AuthController::login()` — middleware: `guest, csrf, rate-limit:login,5,300`

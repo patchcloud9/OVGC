@@ -32,7 +32,22 @@ $layout = 'main';
         
         <!-- Flash Messages -->
         <?php require BASE_PATH . '/app/Views/partials/messages.php'; ?>
-        
+
+        <!-- Template Variables Reference -->
+        <div class="notification is-info is-light">
+            <p class="has-text-weight-semibold mb-2"><span class="icon"><i class="fas fa-tags"></i></span> Template Variables</p>
+            <p class="is-size-7 mb-2">Use these tokens in any text field below — they are replaced with your current Theme Settings values when the page is displayed.</p>
+            <div class="tags">
+                <span class="tag is-info is-light is-family-monospace">{{name}}</span>
+                <span class="tag is-info is-light is-family-monospace">{{email}}</span>
+                <span class="tag is-info is-light is-family-monospace">{{phone}}</span>
+                <span class="tag is-info is-light is-family-monospace">{{address1}}</span>
+                <span class="tag is-info is-light is-family-monospace">{{address2}}</span>
+                <span class="tag is-info is-light is-family-monospace">{{city}}</span>
+            </div>
+            <p class="is-size-7 has-text-grey">Edit these values under <a href="/admin/theme">Theme Settings → Contact Information</a>. Email and phone render as clickable links.</p>
+        </div>
+
         <!-- Settings Form -->
         <form method="POST" action="/admin/homepage" enctype="multipart/form-data">
             <?= csrf_field() ?>
@@ -69,7 +84,7 @@ $layout = 'main';
                     <div class="control">
                         <input type="text" name="hero_subtitle" class="input" value="<?= e($settings['hero_subtitle'] ?? 'Your PHP MVC Framework') ?>" maxlength="255" placeholder="Your PHP MVC Framework">
                     </div>
-                    <p class="help">Subheading displayed below the title (optional). Use <code>{email}</code> to insert the contact email from Theme Settings.</p>
+                    <p class="help">Subheading displayed below the title (optional). Supports template variables — see the reference panel above.</p>
                 </div>
 
                 <!-- Subtitle Color (moved directly under subtitle) -->
