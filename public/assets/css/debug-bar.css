@@ -1,0 +1,217 @@
+/* ============================================================
+   Debug Toolbar — isolated styles (all selectors .dbg-*)
+   Only loaded when APP_DEBUG=true and user is authorized.
+   ============================================================ */
+
+/* ---- Container ---- */
+.dbg-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    font-size: 12px;
+    line-height: 1.4;
+    color: #e2e8f0;
+    background: #1a202c;
+    border-top: 2px solid #4a5568;
+    box-shadow: 0 -2px 12px rgba(0,0,0,.45);
+}
+
+/* ---- Summary strip ---- */
+.dbg-summary {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    padding: 5px 12px;
+    background: transparent;
+    border: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    text-align: left;
+    white-space: nowrap;
+    overflow-x: auto;
+}
+.dbg-summary:hover {
+    background: #2d3748;
+}
+
+.dbg-brand {
+    font-weight: 700;
+    color: #68d391;
+    flex-shrink: 0;
+}
+
+.dbg-stat {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #a0aec0;
+    flex-shrink: 0;
+}
+
+.dbg-route {
+    color: #cbd5e0;
+    gap: 6px;
+}
+
+.dbg-muted {
+    color: #718096;
+    font-size: 11px;
+}
+
+.dbg-chevron {
+    margin-left: auto;
+    color: #718096;
+    font-size: 10px;
+    flex-shrink: 0;
+    transition: transform .2s;
+}
+
+.dbg-bar:not(.dbg-collapsed) .dbg-chevron {
+    transform: rotate(180deg);
+}
+
+/* ---- HTTP method badges ---- */
+.dbg-method {
+    display: inline-block;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+.dbg-method-get    { background: #2b6cb0; color: #bee3f8; }
+.dbg-method-post   { background: #276749; color: #c6f6d5; }
+.dbg-method-put    { background: #744210; color: #fefcbf; }
+.dbg-method-patch  { background: #744210; color: #fefcbf; }
+.dbg-method-delete { background: #742a2a; color: #fed7d7; }
+
+/* ---- Warn / error states ---- */
+.dbg-warn  { color: #f6ad55 !important; }
+.dbg-error { color: #fc8181 !important; }
+.dbg-slow  { background: rgba(246,173,85,.08); }
+.dbg-slow td.dbg-warn { color: #f6ad55 !important; }
+
+/* ---- Panel ---- */
+.dbg-panel {
+    max-height: 340px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid #2d3748;
+}
+
+/* ---- Tabs ---- */
+.dbg-tabs {
+    display: flex;
+    gap: 1px;
+    background: #2d3748;
+    flex-shrink: 0;
+    overflow-x: auto;
+}
+.dbg-tab {
+    padding: 5px 14px;
+    background: #1a202c;
+    border: none;
+    color: #a0aec0;
+    font: inherit;
+    cursor: pointer;
+    white-space: nowrap;
+}
+.dbg-tab:hover         { background: #2d3748; color: #e2e8f0; }
+.dbg-tab-active        { color: #e2e8f0; background: #171923; border-bottom: 2px solid #68d391; }
+.dbg-tab-error         { color: #fc8181; }
+.dbg-tab-error.dbg-tab-active { border-bottom-color: #fc8181; }
+
+/* ---- Panes ---- */
+.dbg-pane {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px 12px;
+}
+
+.dbg-empty {
+    color: #718096;
+    padding: 10px 0;
+    margin: 0;
+}
+
+.dbg-subheading {
+    color: #a0aec0;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    margin: 10px 0 4px;
+    font-weight: 600;
+}
+
+/* ---- Tables ---- */
+.dbg-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+.dbg-table th,
+.dbg-table td {
+    padding: 4px 8px;
+    text-align: left;
+    border-bottom: 1px solid #2d3748;
+    vertical-align: top;
+}
+.dbg-table thead th {
+    color: #718096;
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+}
+.dbg-table tbody th {
+    color: #718096;
+    font-weight: 600;
+    width: 110px;
+    white-space: nowrap;
+}
+.dbg-table code {
+    color: #9ae6b4;
+    background: rgba(0,0,0,.2);
+    padding: 1px 4px;
+    border-radius: 3px;
+    font: inherit;
+    word-break: break-all;
+}
+
+.dbg-num  { text-align: right; width: 50px; color: #a0aec0; }
+.dbg-sql  { max-width: 500px; word-break: break-all; }
+.dbg-ua   { word-break: break-all; color: #718096; }
+.dbg-params { max-width: 200px; }
+
+/* ---- Badges ---- */
+.dbg-badge {
+    display: inline-block;
+    padding: 1px 6px;
+    background: #2d3748;
+    border-radius: 10px;
+    font-size: 11px;
+    color: #a0aec0;
+    margin-left: 4px;
+}
+.dbg-badge-mw {
+    color: #90cdf4;
+    background: rgba(66,153,225,.15);
+}
+
+/* ---- Exception blocks ---- */
+.dbg-exception {
+    border: 1px solid #742a2a;
+    border-radius: 4px;
+    padding: 8px 10px;
+    margin-bottom: 8px;
+    background: rgba(116,42,42,.2);
+}
+.dbg-exception-class { color: #fc8181; font-weight: 700; margin-bottom: 3px; }
+.dbg-exception-msg   { color: #e2e8f0; margin-bottom: 3px; }
+.dbg-exception-loc   { color: #718096; font-size: 11px; }

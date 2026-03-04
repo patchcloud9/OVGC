@@ -15,7 +15,7 @@ Deployed via GitHub → RackNerd/CPanel GitHub Version Control → `/home/okanog
 |------|---------|
 | `public/index.php` | Front controller — all requests enter here |
 | `config/routes.php` | All route definitions |
-| `config/config.php` | Constants: APP_*, DB_*, timezone; loads `.env` |
+| `config/config.php` | Constants: APP_*, DB_*, timezone (copy of config.example.php with real values) |
 | `core/Router.php` | Regex URL matching + middleware dispatch |
 | `core/Database.php` | PDO singleton wrapper |
 | `core/helpers.php` | Global helpers: `e()`, `csrf_field()`, `flash()`, `old()`, `tpl()` |
@@ -35,6 +35,8 @@ Deployed via GitHub → RackNerd/CPanel GitHub Version Control → `/home/okanog
 | `public/uploads/camera1.jpg` | FTP-dropped source image (continuously overwritten by camera) |
 | `storage/cache/camera1_stable.jpg` | Last known-good frame promoted by `CameraController` |
 | `public/uploads/.htaccess` | Disables Apache caching for uploaded files (camera feed) |
+| `core/DebugBar.php` | Dev-only debug toolbar singleton — collects queries, views, route, exceptions |
+| `app/Views/partials/debug-bar.php` | Debug toolbar HTML — rendered by `main.php` when `DebugBar::isVisible()` |
 | `.github/copilot-instructions.md` | Full detailed architecture reference |
 
 ## Request Flow
@@ -118,7 +120,7 @@ Do this without being asked. If the change is minor (bug fix, copy tweak), skip 
 ## Configuration
 
 All config in `config/config.php` as constants (`APP_NAME`, `APP_DEBUG`, `DB_HOST`, etc.).
-A `.env` file is supported for development — never commit it. See `.env.example`.
+Copy `config/config.example.php` → `config/config.php` and fill in real values. Never commit `config.php`.
 
 ## Common Pitfalls
 
@@ -139,5 +141,7 @@ Core, security, middleware, auth, admin UI, theming, content management, **Event
 **Camera widget:** FTP camera drops `public/uploads/camera1.jpg`. `GET /camera/live` → `CameraController::live()` validates the JPEG with `getimagesize()`, promotes good frames to `storage/cache/camera1_stable.jpg`, and falls back to the stable copy during mid-write corruption. `public/assets/js/camera-poll.js` polls `/camera/live?t=<timestamp>` every 17 s using a hidden `Image()` loader and only swaps the visible `<img id="camera1">` when `naturalWidth > 0`.
 
 **Password reset:** `GET/POST /password/forgot` → `PasswordResetController`. Raw token emailed; only `password_hash()` of token stored in `password_resets` table (expires 1 hour). Expired tokens purged opportunistically on each new request. Self-registration is disabled — accounts are created manually by an admin.
+
+**Debug toolbar:** Fixed bottom bar rendered when `APP_DEBUG=true` AND (admin is logged in OR request IP is in `DEBUG_ALLOWED_IPS`). Tabs: Queries (with timing), Route, Views, Session, Request. Data collected via hooks in `Database::query()`, `Router::callController()`, `Controller::view()`. CSS/JS in `public/assets/css/debug-bar.css` and `public/assets/js/debug-bar.js`. Configure allowed IPs in `config/config.php`: `define('DEBUG_ALLOWED_IPS', '127.0.0.1,::1,your.ip.here');`
 
 See [ROADMAP.md](ROADMAP.md) for planned work, the security checklist, and changelog.

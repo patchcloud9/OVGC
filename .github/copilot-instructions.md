@@ -321,7 +321,39 @@ Application cannot be run directly; it must be served by a web server (Apache vi
 - `APP_DEBUG` constant (in `config/config.php`) controls error logging
 - Router logs matched routes to `error_log` when debug is enabled
 - Flash messages use session storage - check `$_SESSION['flash']` structure
-- The `/debug` route shows request/server info
+- The `/debug` route shows request/server info (full-page dump)
+
+#### Debug Toolbar
+
+A persistent bottom toolbar is injected into every page when `APP_DEBUG=true` AND the viewer is authorized.
+
+**Visibility:** `\Core\DebugBar::isVisible()` — true when `APP_DEBUG=true` AND (admin session OR request IP in `DEBUG_ALLOWED_IPS`).
+
+**Allowed IPs** — set in `config/config.php`:
+```php
+define('DEBUG_ALLOWED_IPS', env('DEBUG_ALLOWED_IPS', '127.0.0.1,::1'));
+```
+Add your office/home IP here to view the toolbar on the test server without logging in.
+
+**Tabs:**
+- **Queries** — SQL, sanitized params, duration ms, row count; rows >50ms highlighted
+- **Route** — matched pattern, controller, action, middleware list, URL params
+- **Views** — rendered view paths in order, render time each
+- **Session** — all session keys/values (sensitive keys masked)
+- **Request** — GET, POST (passwords masked), User-Agent, IP, PHP version
+- **Exceptions** — tab only appears if an exception was recorded
+
+**Key files:**
+- `core/DebugBar.php` — singleton collector; hooks into Database, Router, Controller
+- `app/Views/partials/debug-bar.php` — toolbar HTML partial
+- `public/assets/css/debug-bar.css` — isolated styles (`.dbg-*` prefix, dark theme)
+- `public/assets/js/debug-bar.js` — vanilla JS for toggle/tabs/body-padding
+
+**Hook points:**
+- `core/Database.php::query()` — records SQL + timing + row count
+- `core/Router.php::callController()` — records matched route
+- `app/Controllers/Controller.php::view()` — records view path + render time
+- `public/index.php` — initialises singleton early; records exceptions
 
 ### Testing Routes
 

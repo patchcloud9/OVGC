@@ -394,5 +394,10 @@ function rgba_from_hex(string $hex, float $alpha = 1.0): string
     <!-- Custom JavaScript (cache-busted using file modification time) -->
     <script src="/assets/js/app.js?v=<?= @filemtime(BASE_PATH . '/public/assets/js/app.js') ?>"></script>
     <script src="/assets/js/banner-dismiss.js?v=<?= @filemtime(BASE_PATH . '/public/assets/js/banner-dismiss.js') ?>"></script>
+<?php if (\Core\DebugBar::isVisible()): ?>
+    <link rel="stylesheet" href="/assets/css/debug-bar.css?v=<?= @filemtime(BASE_PATH . '/public/assets/css/debug-bar.css') ?>">
+    <?php require BASE_PATH . '/app/Views/partials/debug-bar.php'; ?>
+    <script src="/assets/js/debug-bar.js?v=<?= @filemtime(BASE_PATH . '/public/assets/js/debug-bar.js') ?>"></script>
+<?php endif; ?>
 </body>
 </html>

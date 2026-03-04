@@ -6,6 +6,10 @@
 
 ## Changelog
 
+### 2026-03 Additions (continued)
+
+- **Debug toolbar** — `core/DebugBar.php` singleton collects queries/timing, matched route, rendered views, exceptions. Fixed bottom bar rendered by `app/Views/partials/debug-bar.php` when `APP_DEBUG=true` AND admin is logged in OR request IP is in `DEBUG_ALLOWED_IPS`. Tabs: Queries, Route, Views, Session, Request. Zero overhead in production.
+
 ### 2026-03 Additions
 
 - **Events system** — `events`, `event_exceptions`, `event_results` tables (migrations 016–018). Public calendar at `/events` (FullCalendar v6), event detail pages, admin CRUD at `/admin/events`, homepage upcoming-events widget. `Core\RRuleExpander` handles recurrence without Composer.
@@ -28,7 +32,7 @@
 
 ### Phase 1 — Testing & Dev Tools
 - [ ] text replacer, email, address, name, custom.  Such as {{email}}
-- [ ] Debug toolbar (dev-only)
+- [x] Debug toolbar (dev-only)
 - [ ] Maybe add top menu and bottom menu to be seperate.
 - [ ] Convert inline `onclick=`/`onchange=`/`onsubmit=` event handler attributes to `addEventListener` calls in external JS, then remove `'unsafe-inline'` from CSP `script-src` (~35 handlers across: `board_members/`, `board_minutes/`, `banners/admin.php`, `membership/`, `rates/admin.php`, `gallery/admin.php`, `menu/admin.php`, `users/edit.php`, `admin/events/`, `partials/messages.php`, `errors/`)
 - [ ] Note about updating dependancies

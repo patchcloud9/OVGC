@@ -28,6 +28,11 @@ require_once BASE_PATH . '/core/Autoloader.php';
 // Load helper functions
 require_once BASE_PATH . '/core/helpers.php';
 
+// Initialize debug bar as early as possible so it can time the full request
+if (is_debug()) {
+    \Core\DebugBar::getInstance();
+}
+
 // Start session with secure settings
 session_start([
     'cookie_httponly' => true,
@@ -41,6 +46,10 @@ session_start([
 set_exception_handler(function ($exception) {
     // Log the error both to system log and application logs
     error_log("Uncaught Exception: " . $exception->getMessage());
+
+    if (is_debug() && class_exists('Core\DebugBar')) {
+        \Core\DebugBar::getInstance()->recordException($exception);
+    }
 
     try {
         $logService = new \App\Services\LogService();

@@ -55,9 +55,17 @@ class Controller
         
         if ($layout) {
             // Capture the view content into a variable
-            ob_start();
-            require $viewFile;
-            $content = ob_get_clean();
+            if (APP_DEBUG && class_exists('Core\DebugBar')) {
+                $dbgT = microtime(true);
+                ob_start();
+                require $viewFile;
+                $content = ob_get_clean();
+                \Core\DebugBar::getInstance()->recordView($viewPath, (microtime(true) - $dbgT) * 1000);
+            } else {
+                ob_start();
+                require $viewFile;
+                $content = ob_get_clean();
+            }
             
             // Now render the layout, which will use $content
             $layoutFile = BASE_PATH . '/app/Views/layouts/' . $layout . '.php';

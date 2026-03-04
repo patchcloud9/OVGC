@@ -74,14 +74,22 @@ class Database
     {
         try {
             $stmt = $this->pdo->prepare($sql);
-            $stmt->execute($params);
-            
-            if (APP_DEBUG) {
-                error_log("Database Query: {$sql}");
+
+            if (APP_DEBUG && class_exists('Core\DebugBar')) {
+                $t = microtime(true);
+                $stmt->execute($params);
+                \Core\DebugBar::getInstance()->recordQuery(
+                    $sql, $params, (microtime(true) - $t) * 1000, $stmt->rowCount()
+                );
+            } else {
+                $stmt->execute($params);
+                if (APP_DEBUG) {
+                    error_log("Database Query: {$sql}");
+                }
             }
-            
+
             return $stmt;
-            
+
         } catch (PDOException $e) {
             error_log("Database Query Error: " . $e->getMessage());
             error_log("SQL: {$sql}");

@@ -21,6 +21,11 @@ class Router
      * @var array
      */
     protected array $routes;
+
+    /** Scratch storage for the current dispatched request (used by debug bar). */
+    private string $lastMethod  = '';
+    private string $lastUri     = '';
+    private string $lastPattern = '';
     
     /**
      * Middleware aliases for cleaner route definitions
@@ -77,6 +82,9 @@ class Router
             
             // If we got a match (returns array, even if empty)
             if ($params !== false) {
+                $this->lastMethod  = $method;
+                $this->lastUri     = $uri;
+                $this->lastPattern = $pattern;
                 $this->callController($handler, $params);
                 return;
             }
@@ -147,7 +155,20 @@ class Router
         $controllerName = $handler[0];
         $methodName = $handler[1];
         $middleware = $handler[2] ?? [];
-        
+
+        // Record route in debug bar
+        if (APP_DEBUG && class_exists('Core\DebugBar')) {
+            \Core\DebugBar::getInstance()->recordRoute(
+                $this->lastMethod ?? '',
+                $this->lastUri ?? '',
+                $this->lastPattern ?? '',
+                $controllerName,
+                $methodName,
+                $middleware,
+                $params
+            );
+        }
+
         // Execute middleware pipeline
         if (!$this->runMiddleware($middleware)) {
             // Middleware stopped the request
