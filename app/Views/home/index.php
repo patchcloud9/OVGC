@@ -154,6 +154,11 @@ if (!empty($settings['hero_background_image'])) {
             <script>
             (function () {
                 var visible = document.getElementById('camera1');
+                var timer = null;
+                function scheduleNext(delay) {
+                    clearTimeout(timer);
+                    timer = setTimeout(loadFrame, delay);
+                }
                 function loadFrame() {
                     var loader = new Image();
                     loader.onload = function () {
@@ -161,14 +166,20 @@ if (!empty($settings['hero_background_image'])) {
                         // couldn't decode the image (e.g. truncated JPEG mid-write).
                         if (loader.naturalWidth > 0) {
                             visible.src = loader.src;
+                            scheduleNext(17000);
+                        } else {
+                            // Bad frame — retry quickly
+                            scheduleNext(3000);
                         }
                     };
-                    // onerror: do nothing — keep showing last good frame
+                    loader.onerror = function () {
+                        // Network/server error — retry quickly
+                        scheduleNext(3000);
+                    };
                     loader.src = '/camera/live?t=' + Date.now();
                 }
-                // Load first frame immediately, then poll every 17 seconds
+                // Load first frame immediately, then poll every 17 seconds (3s on failure)
                 loadFrame();
-                setInterval(loadFrame, 17000);
             })();
             </script>
             <!-- Right column for upcoming events -->
