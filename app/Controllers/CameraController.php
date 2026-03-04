@@ -15,40 +15,53 @@ namespace App\Controllers;
 class CameraController extends Controller
 {
     private const SOURCE        = '/public/uploads/camera1.jpg';
+    private const SOURCE_TMP    = '/public/uploads/camera1.jpg.tmp';
     private const STABLE        = '/storage/cache/camera1_stable.jpg';
     private const MAX_STABLE_AGE = 300; // force-refresh stable after this many seconds
 
     public function live(): void
     {
-        $source = BASE_PATH . self::SOURCE;
-        $stable = BASE_PATH . self::STABLE;
+        $source    = BASE_PATH . self::SOURCE;
+        $sourceTmp = BASE_PATH . self::SOURCE_TMP;
+        $stable    = BASE_PATH . self::STABLE;
 
-        if (!file_exists($source)) {
+        if (!file_exists($source) && !file_exists($sourceTmp)) {
             http_response_code(404);
             exit;
         }
 
         // Clear PHP's internal stat/file-info cache so filemtime() is fresh.
         clearstatcache(true, $source);
+        clearstatcache(true, $sourceTmp);
         clearstatcache(true, $stable);
 
         $stableExists = file_exists($stable);
         $stableAge    = $stableExists ? (time() - filemtime($stable)) : PHP_INT_MAX;
 
-        $sourceValid = (@getimagesize($source) !== false);
+        // Try primary source, then .tmp as fallback (Reolink "alternately overwrite"
+        // writes to one file while the other sits complete from the previous cycle).
+        $sourceValid = false;
+        $liveSource  = null;
+        foreach ([$source, $sourceTmp] as $candidate) {
+            if (file_exists($candidate) && @getimagesize($candidate) !== false) {
+                $sourceValid = true;
+                $liveSource  = $candidate;
+                break;
+            }
+        }
 
         if ($sourceValid) {
             // Source passes a basic JPEG integrity check — promote and serve it.
-            copy($source, $stable);
-            $serve = $source;
+            copy($liveSource, $stable);
+            $serve = $liveSource;
         } elseif ($stableExists && $stableAge <= self::MAX_STABLE_AGE) {
             // Source is mid-write — serve the last known-good copy.
             $serve = $stable;
         } else {
-            // Safety valve: stable is too old (or missing) and source is bad.
-            // Serve source anyway — better a rare partial frame than a frozen image.
+            // Safety valve: stable is too old (or missing) and both sources are bad.
+            // Serve whichever source exists — better a rare partial frame than a frozen image.
             // The JS naturalWidth check on the client will discard it if undecodable.
-            $serve = $source;
+            $serve = file_exists($source) ? $source : $sourceTmp;
         }
 
         header('Content-Type: image/jpeg');
