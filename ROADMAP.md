@@ -27,11 +27,10 @@
 ## Planned Work
 
 ### Phase 1 — Testing & Dev Tools
-
-- [ ] Move inline `<script>` blocks out of view files into external JS assets to allow removing `'unsafe-inline'` from CSP `script-src` (affects: `main.php`, `home/index.php`, `gallery/`, `admin/`, `banners/`, `users/`, `menu/`, `logs/`, `rates/` views)
 - [ ] text replacer, email, address, name, custom.  Such as {{email}}
 - [ ] Debug toolbar (dev-only)
 - [ ] Maybe add top menu and bottom menu to be seperate.
+- [ ] Convert inline `onclick=`/`onchange=`/`onsubmit=` event handler attributes to `addEventListener` calls in external JS, then remove `'unsafe-inline'` from CSP `script-src` (~35 handlers across: `board_members/`, `board_minutes/`, `banners/admin.php`, `membership/`, `rates/admin.php`, `gallery/admin.php`, `menu/admin.php`, `users/edit.php`, `admin/events/`, `partials/messages.php`, `errors/`)
 - [ ] Note about updating dependancies
 - [ ] Bulma .9x to 1.x migration at some point.
 - [ ] Create full documentation on how to use this in markdown files.
