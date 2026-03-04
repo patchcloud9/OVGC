@@ -19,8 +19,34 @@
             </ul>
         </nav>
         
-        
-        
+
+        <!-- Action Buttons -->
+        <div class="level mb-4">
+            <div class="level-left"></div>
+            <div class="level-right">
+                <?php if ($needsSync ?? false): ?>
+                <div class="level-item">
+                    <form method="POST" action="/logs/sync">
+                        <?= csrf_field() ?>
+                        <button type="submit" class="button is-warning is-outlined is-small">
+                            <span class="icon"><i class="fas fa-sync"></i></span>
+                            <span>Sync to Database</span>
+                        </button>
+                    </form>
+                </div>
+                <?php endif; ?>
+                <div class="level-item">
+                    <form method="POST" action="/logs/clear" onsubmit="return confirm('Clear all logs? This cannot be undone.');">
+                        <?= csrf_field() ?>
+                        <button type="submit" class="button is-danger is-outlined is-small">
+                            <span class="icon"><i class="fas fa-trash"></i></span>
+                            <span>Clear All Logs</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
         <!-- Search and Filter Bar -->
         <div class="box">
             <div class="columns is-multiline">
