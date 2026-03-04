@@ -122,7 +122,7 @@ A `.env` file is supported for development — never commit it. See `.env.exampl
 
 ## Common Pitfalls
 
-1. **Git commands must be run separately and never use `cd ... && git ...`** — always use `git -C /c/Users/jeffb/Desktop/OVGC <subcommand>` so each call starts with `git` and matches the allow rules. Never chain with `&&`. Never run `git status` before committing — it's not auto-allowed and wastes an approval. Correct push sequence: `git add [files]` → `git commit` → `git push` (user approves only the push).
+1. **Git commands must be run separately and never use `cd ... && git ...`** — always use `git -C /c/Users/jeffb/Desktop/OVGC <subcommand>` so each call starts with `git` and matches the allow rules. Never chain with `&&`. All common git commands (`add`, `commit`, `status`, `diff`, `log`, `fetch`, `pull`, `branch`, `show`) are auto-allowed with the `-C` prefix. `git push` always requires user approval (deny list). Correct push sequence: `git -C ... add [files]` → `git -C ... commit -m "..."` → `git -C ... push` (user approves only the push).
 2. URL params are strings — cast before arithmetic: `(int) $id`
 2. Flash messages are single-use — `getFlash()` clears them on read
 3. Layout wraps via `$content` — don't `require` views directly
