@@ -77,6 +77,7 @@
 
 **Develooper Notes:
  - Make the homepage Hero Section optional.
- - Events right and left buttons are missing icon after the security updates.
- - Show the next 5 events even if over a month away.
+ - Fix the menu on the homepage when at the top, dropdown doesn't show correct.
  - Fix the image to not be blank sometimes.
+ -
+ - Maybe add top menu and bottom menu to be seperate.

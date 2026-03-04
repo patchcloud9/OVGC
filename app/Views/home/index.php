@@ -145,14 +145,14 @@ if (!empty($settings['hero_background_image'])) {
             <!-- Left column for camera -->
             <div class="column is-6">
                 <figure class="image">
-                    <img id="camera1" src="/camera/live" alt="Traffic Camera" style="border-radius:8px;">
+                    <img id="camera1" src="/assets/images/loading_circles_blue_gradient.jpg" alt="Traffic Camera" style="border-radius:8px;">
                 </figure>
                 <p class="is-italic is-size-7 mt-2">(updates every 10&ndash;60 seconds)</p>
             </div>
             <script>
             (function () {
                 var visible = document.getElementById('camera1');
-                setInterval(function () {
+                function loadFrame() {
                     var loader = new Image();
                     loader.onload = function () {
                         // naturalWidth === 0 means the browser got a response but
@@ -163,7 +163,10 @@ if (!empty($settings['hero_background_image'])) {
                     };
                     // onerror: do nothing — keep showing last good frame
                     loader.src = '/camera/live?t=' + Date.now();
-                }, 17000);
+                }
+                // Load first frame immediately, then poll every 17 seconds
+                loadFrame();
+                setInterval(loadFrame, 17000);
             })();
             </script>
             <!-- Right column for upcoming events -->
