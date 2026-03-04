@@ -94,7 +94,7 @@ $maskValue = function (string $k, $v) use ($sensitiveKeys): string {
                                 <td class="dbg-num"><?= $i + 1 ?></td>
                                 <td class="dbg-sql">
                                     <span class="dbg-sql-short" title="<?= e($q['sql']) ?>">
-                                        <?= e(mb_strimwidth($q['sql'], 0, 120, '…')) ?>
+                                        <?= e(strlen($q['sql']) > 120 ? substr($q['sql'], 0, 120) . '…' : $q['sql']) ?>
                                     </span>
                                 </td>
                                 <td class="dbg-params">
