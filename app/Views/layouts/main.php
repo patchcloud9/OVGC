@@ -340,29 +340,14 @@ function rgba_from_hex(string $hex, float $alpha = 1.0): string
                             }
                         }
 
-                        foreach ($menuStructure as $item) {
-                            // If item has no children, render directly
-                            if (empty($item['children'])) {
-                                ?>
-                                <li class="mt-2"><a href="<?= e($item['url']) ?>" class="has-text-light" <?= $item['open_new_tab'] ? 'target="_blank" rel="noopener noreferrer"' : '' ?>><?= e($item['title']) ?></a></li>
-                                <?php
-                            } else {
-                                // Render parent if it has a URL
-                                if (!empty($item['url'])) {
-                                    ?>
-                                    <li class="mt-2"><a href="<?= e($item['url']) ?>" class="has-text-light" <?= $item['open_new_tab'] ? 'target="_blank" rel="noopener noreferrer"' : '' ?>><?= e($item['title']) ?></a></li>
-                                    <?php
-                                }
-
-                                // Render children as indented links
-                                foreach ($item['children'] as $child) {
-                                    ?>
-                                    <li class="mt-2"><a href="<?= e($child['url']) ?>" class="has-text-light" <?= $child['open_new_tab'] ? 'target="_blank" rel="noopener noreferrer"' : '' ?>>&nbsp;&nbsp;<?= e($child['title']) ?></a></li>
-                                    <?php
-                                }
-                            }
-                        }
+                        // Footer shows only top-level items (no children).
+                        // Parent items with dropdowns should have a real URL set in the
+                        // admin — the nav ignores it (uses <button>), the footer uses it.
+                        foreach ($menuStructure as $item):
+                            if (empty($item['url']) || $item['url'] === '#') continue;
                         ?>
+                            <li class="mt-2"><a href="<?= e($item['url']) ?>" class="has-text-light" <?= $item['open_new_tab'] ? 'target="_blank" rel="noopener noreferrer"' : '' ?>><?= e($item['title']) ?></a></li>
+                        <?php endforeach; ?>
 
 
                     </ul>
