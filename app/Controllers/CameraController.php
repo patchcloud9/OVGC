@@ -65,9 +65,11 @@ class CameraController extends Controller
         }
 
         header('Content-Type: image/jpeg');
-        header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+        // max-age=20: JS cache-busts with ?t=timestamp so stale reuse never happens.
+        // Allowing brief browser caching means the hidden Image() loader and the
+        // visible <img> swap share the same decoded frame without a second HTTP round-trip.
+        header('Cache-Control: private, max-age=20');
         header('Pragma: no-cache');
-        header('Expires: 0');
         readfile($serve);
         exit;
     }
