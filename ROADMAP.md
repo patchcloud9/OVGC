@@ -36,6 +36,25 @@
 - [ ] Note about updating dependancies
 - [ ] Bulma .9x to 1.x migration at some point.
 - [ ] Create full documentation on how to use this in markdown files.
+- [ ] Write novice admin documentation covering:
+  - [x] Admin Login (accessing the admin panel, credentials, logging out)
+  - [x] Board Members (adding, editing, reordering, removing members)
+  - [x] Board Minutes (uploading, publishing, managing meeting minutes)
+  - [x] Events (creating single and recurring events, editing, cancelling occurrences, adding results) — **needs update: results section added after initial write**
+  - [x] Dashboard (navigation overview, what each section is for)
+  - [x] Users (creating and editing admin accounts, changing passwords)
+  - [ ] Theme Settings (colors, fonts, branding, template variables like `{{email}}`)
+  - [ ] Homepage (editing hero content and featured sections)
+  - [ ] Banners (creating and managing page banners)
+  - [x] Menu (adding and reordering nav items, visibility rules)
+  - [ ] Gallery (uploading and organizing photos)
+  - [ ] Rates (rate groups and individual fee entries)
+  - [ ] Membership (tiers and included items)
+  - [ ] Logs (what they show, when to check them)
+  - [ ] Test Email (verifying SMTP is working)
+  - [ ] cPanel basics (logging in, file manager, databases, email accounts, error logs, backups)
+  - [ ] Cloudflare basics (domain registration, DNS records, what to change if hosting moves)
+  - [ ] RackNerd basics (logging into client area, managing the VPS/hosting plan, support tickets, renewal)
 
 ---
 
