@@ -21,7 +21,9 @@ if (!empty($settings['hero_background_image'])) {
     
     <div class="hero-body" style="padding-top: 120px; position: relative; z-index: 1;">
         <div class="container has-text-centered">
-            <h1 class="title is-1" style="color: <?= e($settings['hero_title_color'] ?? '#ffffff') ?>;"><?= e($settings['hero_title'] ?? 'Welcome Home') ?></h1>
+            <?php if (!empty($settings['hero_title'])): ?>
+            <h1 class="title is-1" style="color: <?= e($settings['hero_title_color'] ?? '#ffffff') ?>;"><?= e($settings['hero_title']) ?></h1>
+            <?php endif; ?>
             <?php if (!empty($settings['hero_subtitle'])): ?>
                 <?php
                     $hero_sub = $settings['hero_subtitle'];

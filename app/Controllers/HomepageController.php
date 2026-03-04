@@ -46,7 +46,7 @@ class HomepageController extends Controller
         
         // Validate input
         $validator = new Validator($_POST, [
-            'hero_title' => 'required|max:100',
+            'hero_title' => 'max:100',
             'hero_subtitle' => 'max:255',
             'card1_title' => 'required|max:100',
             'card2_title' => 'required|max:100',

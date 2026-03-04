@@ -45,7 +45,7 @@ $layout = 'main';
                 <div class="field">
                     <label class="label">Hero Title</label>
                     <div class="control">
-                        <input type="text" name="hero_title" class="input" value="<?= e($settings['hero_title'] ?? 'Welcome Home') ?>" required maxlength="100" placeholder="Welcome Home">
+                        <input type="text" name="hero_title" class="input" value="<?= e($settings['hero_title'] ?? '') ?>" maxlength="100" placeholder="Leave blank to hide the title">
                     </div>
                     <p class="help">Main heading displayed on the hero banner</p>
                 </div>
