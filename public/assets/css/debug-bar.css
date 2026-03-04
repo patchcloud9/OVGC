@@ -104,6 +104,8 @@
     flex-direction: column;
     border-top: 1px solid #2d3748;
 }
+/* display:flex above overrides the browser's [hidden]=display:none — restore it */
+.dbg-panel[hidden] { display: none; }
 
 /* ---- Tabs ---- */
 .dbg-tabs {
