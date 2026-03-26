@@ -331,6 +331,8 @@ To apply to a new view, wrap rendered text fields with `tpl()`. No DB changes ne
 
 **CSS:** `public/assets/css/docs.css` — typography, tables, code, callouts, sidebar, search results, screenshot placeholders. Loaded via cache-busted `<link>` directly in each view (no `$extraHead` slot).
 
+**Current doc files (in sidebar order):** dashboard, homepage, theme, banners, menu-management, user-management, rates, membership, board-members, contact, board-minutes, events, events-managing, event-results.
+
 **Adding a new doc:**
 1. Create `app/Views/docs/your-slug.html` (HTML partial, `<h2 id="...">` headings required)
 2. Add entry to `DOCS` constant in `DocsController` at the desired position

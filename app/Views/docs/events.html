@@ -1,0 +1,179 @@
+<h1>Events</h1>
+
+<p>The Events system is the most actively used part of the site. It powers the public calendar, the homepage upcoming-events widget, and the event detail pages where members can view schedules and results. This guide covers what members see and how to create new events.</p>
+
+<hr>
+
+<h2 id="public-calendar">Public Calendar (What Members See)</h2>
+
+<pre><code>https://www.okanoganvalleygolf.com/events</code></pre>
+
+<p>The public calendar shows all upcoming events on a month-by-month grid. Each event is color-coded by category. Members can:</p>
+<ul>
+    <li>Browse forward and backward through months.</li>
+    <li>Click any event to open its detail page (time, description, results if posted).</li>
+    <li>See cancelled events displayed with a strikethrough badge (they remain visible so members know the event was planned).</li>
+</ul>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot suggestion: public /events calendar with a few colored events visible.</em></div>
+
+<h3 id="category-colors">Category Colors</h3>
+
+<table>
+    <thead>
+        <tr><th>Category</th><th>Color</th><th>Use for</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>Tournament</strong></td><td style="background:#2D6A2D;color:#fff;padding:2px 8px;border-radius:3px;">Dark Green</td><td>Competitive tournaments open to members.</td></tr>
+        <tr><td><strong>League Play</strong></td><td style="background:#3B7DD8;color:#fff;padding:2px 8px;border-radius:3px;">Blue</td><td>Regular weekly or seasonal league rounds.</td></tr>
+        <tr><td><strong>Closed</strong></td><td style="background:#C0392B;color:#fff;padding:2px 8px;border-radius:3px;">Red</td><td>Course closed — no public play.</td></tr>
+        <tr><td><strong>School / Youth</strong></td><td style="background:#E67E22;color:#fff;padding:2px 8px;border-radius:3px;">Orange</td><td>Junior programs, school outings.</td></tr>
+        <tr><td><strong>21+ Only</strong></td><td style="background:#7D3C98;color:#fff;padding:2px 8px;border-radius:3px;">Purple</td><td>Events restricted to adults 21 and over.</td></tr>
+        <tr><td><strong>Special Event</strong></td><td style="background:#B8860B;color:#fff;padding:2px 8px;border-radius:3px;">Gold</td><td>One-off special occasions, fundraisers.</td></tr>
+        <tr><td><strong>Other</strong></td><td style="background:#607D8B;color:#fff;padding:2px 8px;border-radius:3px;">Gray</td><td>Anything that doesn't fit above.</td></tr>
+    </tbody>
+</table>
+
+<hr>
+
+<h2 id="admin-event-list">Admin Event List</h2>
+
+<pre><code>https://www.okanoganvalleygolf.com/admin/events</code></pre>
+
+<p>This is your starting point for all event management. The list shows every event in the system along with its category, start date, recurrence status, and current status (active / cancelled).</p>
+
+<p>From each row you can:</p>
+<ul>
+    <li><strong>Edit</strong> — change any field (affects all occurrences of a recurring series).</li>
+    <li><strong>Results</strong> — post or update post-event results.</li>
+    <li><strong>Cancel</strong> — cancel from a specific date forward, or the entire event.</li>
+    <li><strong>Restore</strong> — un-cancel a previously cancelled event.</li>
+    <li><strong>Delete</strong> — permanently remove the event and all its data.</li>
+</ul>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot suggestion: /admin/events list with several events and action buttons visible.</em></div>
+
+<hr>
+
+<h2 id="create-event">Create a New Event</h2>
+
+<pre><code>https://www.okanoganvalleygolf.com/admin/events/create</code></pre>
+
+<p>Click <strong>Create Event</strong> from the admin event list. The form is divided into four sections: basic info, date &amp; time, recurrence, and blackout dates.</p>
+
+<h3 id="basic-info">Basic Info</h3>
+
+<ol>
+    <li>Enter a <strong>Title</strong> (required) — this is what members see on the calendar and detail page.</li>
+    <li>Choose a <strong>Category</strong> — controls the color on the calendar. See the color table above.</li>
+    <li>Optionally add a <strong>Description</strong> — include eligibility rules, handicap limits, contact info, entry fees, or any other notes members need to know.</li>
+</ol>
+
+<h3 id="date-and-time">Date &amp; Time</h3>
+
+<ol>
+    <li>Check <strong>All Day Event</strong> if the event occupies the whole day (no specific start/end time shown — typical for course-closed days).</li>
+    <li>Set <strong>Start Date</strong> and, unless it's all-day, <strong>Start Time</strong>.</li>
+    <li>Set <strong>End Date</strong> and <strong>End Time</strong>. For a single-day event, End Date = Start Date.</li>
+</ol>
+
+<div class="notification is-light">
+    <p>For recurring events the start and end date/time define a <em>template</em> for each occurrence. Every occurrence will use the same time of day as the original start. You do not need to re-enter it each week.</p>
+</div>
+
+<hr>
+
+<h2 id="recurring-events">Recurring Events</h2>
+
+<p>Check <strong>Recurring Event</strong> in the Recurrence section to reveal the recurrence options. The three repeat frequencies are:</p>
+
+<h3 id="daily-events">Every Day</h3>
+
+<p>Select <strong>Every Day</strong> from the Repeat dropdown. No additional day selection is needed. Useful for multi-day course closures.</p>
+
+<h3 id="weekly-events">Every Week</h3>
+
+<p>Select <strong>Every Week</strong> and then tick one or more days of the week. For example, ticking <strong>Wed</strong> creates an event every Wednesday. Ticking <strong>Tue</strong> and <strong>Thu</strong> creates two occurrences per week.</p>
+
+<div class="notification is-light">
+    <p>The start date you set determines the <em>first</em> occurrence. The system will only generate occurrences on the days you ticked, starting from that date.</p>
+</div>
+
+<h3 id="monthly-events">Every Month</h3>
+
+<p>Select <strong>Every Month</strong> and enter a day pattern in the <strong>On</strong> field. This uses a coded format:</p>
+
+<table>
+    <thead>
+        <tr><th>Code</th><th>Meaning</th><th>Example</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><code>1SA</code></td><td>1st Saturday of each month</td><td>Member-guest tournament on 1st Saturday</td></tr>
+        <tr><td><code>2TU</code></td><td>2nd Tuesday of each month</td><td>Board meeting on 2nd Tuesday</td></tr>
+        <tr><td><code>-1MO</code></td><td>Last Monday of each month</td><td>End-of-month league night</td></tr>
+        <tr><td><code>3WE</code></td><td>3rd Wednesday of each month</td><td>Ladies' day on 3rd Wednesday</td></tr>
+    </tbody>
+</table>
+
+<div class="notification is-warning is-light">
+    <p>The monthly day code is case-sensitive and must use the two-letter abbreviations: <code>MO TU WE TH FR SA SU</code>. A typo here will cause the event to not repeat correctly.</p>
+</div>
+
+<h3 id="repeat-until">Repeat Until</h3>
+
+<p>Leave blank to repeat indefinitely (you can always cancel later). Set a date to stop the series automatically on that date — useful for a summer league that ends in August.</p>
+
+<div class="notification is-success is-light">
+    <p><strong>Best practice:</strong> For seasonal events (leagues, school programs) always set a Repeat Until date matching the end of the season. This prevents orphaned future occurrences appearing on the calendar after the season ends.</p>
+</div>
+
+<hr>
+
+<h2 id="blackout-dates">Blackout Dates</h2>
+
+<p>Blackout dates silently remove specific occurrences of a recurring event without cancelling the whole series. They do <em>not</em> appear on the public calendar at all — the date simply has no event.</p>
+
+<p>Use blackout dates for:</p>
+<ul>
+    <li>A holiday week when the course closes.</li>
+    <li>A one-off date when a regular event won't be held but will continue the following week.</li>
+    <li>Tournament prep days that conflict with a recurring league.</li>
+</ul>
+
+<p>To add a blackout date:</p>
+<ol>
+    <li>In the <strong>Blackout Dates</strong> section, click the date picker and choose the date to skip.</li>
+    <li>Click <strong>Add Date</strong>. It appears as a removable tag.</li>
+    <li>To remove a blackout date, click the × on its tag.</li>
+    <li>Save the form.</li>
+</ol>
+
+<div class="notification is-warning is-light">
+    <p><strong>Blackout vs. Cancel:</strong> A blackout date removes the occurrence silently — members won't see any trace of it. A cancellation shows the event on the calendar with a "Cancelled" badge. Use blackout when the event simply doesn't happen; use Cancel when you want members to know it was planned but called off. See the <a href="/admin/docs/events-managing">Managing Events</a> guide for how to cancel.</p>
+</div>
+
+<hr>
+
+<h2 id="field-reference">Field Reference</h2>
+
+<table>
+    <thead>
+        <tr><th>Field</th><th>Required</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>Title</strong></td><td>Yes</td><td>Shown on calendar, homepage widget, and detail page.</td></tr>
+        <tr><td><strong>Category</strong></td><td>Yes</td><td>Controls the color dot on the calendar. Defaults to Other.</td></tr>
+        <tr><td><strong>Description</strong></td><td>No</td><td>Free text. Visible on the public detail page. Include eligibility, contact info, entry fees, etc.</td></tr>
+        <tr><td><strong>All Day</strong></td><td>No</td><td>Check to hide time from public display. Useful for closures spanning a full day.</td></tr>
+        <tr><td><strong>Start Date</strong></td><td>Yes</td><td>Date of the first (or only) occurrence.</td></tr>
+        <tr><td><strong>Start Time</strong></td><td>No</td><td>Hidden when All Day is checked.</td></tr>
+        <tr><td><strong>End Date</strong></td><td>Yes</td><td>Same as start date for single-day events. Can differ for multi-day events.</td></tr>
+        <tr><td><strong>End Time</strong></td><td>No</td><td>Hidden when All Day is checked.</td></tr>
+        <tr><td><strong>Recurring</strong></td><td>No</td><td>Check to reveal recurrence options.</td></tr>
+        <tr><td><strong>Repeat</strong></td><td>If recurring</td><td>Every Day / Every Week / Every Month.</td></tr>
+        <tr><td><strong>On these days</strong></td><td>If weekly</td><td>Checkboxes for each day of the week.</td></tr>
+        <tr><td><strong>On (monthly)</strong></td><td>If monthly</td><td>Coded pattern like <code>1SA</code> (1st Saturday). See table above.</td></tr>
+        <tr><td><strong>Repeat Until</strong></td><td>No</td><td>Last date of the series. Leave blank for indefinite.</td></tr>
+        <tr><td><strong>Blackout Dates</strong></td><td>No</td><td>Individual dates to skip within a recurring series.</td></tr>
+    </tbody>
+</table>

@@ -1,0 +1,134 @@
+<h1>Managing Events</h1>
+
+<p>This guide covers what to do <em>after</em> an event is created: editing details, cancelling occurrences, restoring cancelled events, and permanently deleting events. See the <a href="/admin/docs/events">Events</a> guide for creating new events.</p>
+
+<hr>
+
+<h2 id="editing-events">Editing an Event</h2>
+
+<pre><code>https://www.okanoganvalleygolf.com/admin/events/{id}/edit</code></pre>
+
+<p>Click <strong>Edit</strong> on any event in the admin list to open the edit form. All fields from the create form are available.</p>
+
+<div class="notification is-warning is-light">
+    <p><strong>Editing a recurring series changes ALL occurrences.</strong> If you change the title, time, or description on a recurring event, every past and future occurrence is updated immediately. There is no way to change only one occurrence of a recurring series — use the <a href="#cancel-single-occurrence">Cancel a Single Occurrence</a> approach for one-off changes.</p>
+</div>
+
+<h3 id="updating-blackout-dates">Updating Blackout Dates on an Existing Event</h3>
+
+<p>The Blackout Dates section shows all currently saved skip dates as removable tags. To update them:</p>
+<ol>
+    <li>Click the × on any tag to remove that blackout date.</li>
+    <li>Use the date picker to add new blackout dates.</li>
+    <li>Click <strong>Save Changes</strong>.</li>
+</ol>
+
+<p>When you save, the system replaces all blackout dates with whatever is shown in the tags — removed tags are gone, new tags are saved.</p>
+
+<hr>
+
+<h2 id="cancelling-events">Cancelling Events</h2>
+
+<p>Cancellations show the event on the public calendar with a <strong>Cancelled</strong> badge. Members can see the event was planned but called off. This is different from a <a href="/admin/docs/events#blackout-dates">blackout date</a>, which removes the occurrence silently.</p>
+
+<h3 id="cancel-from-date">Cancel From a Date Forward</h3>
+
+<p>Use this when a recurring series is stopping — for example, a league that was supposed to run through August but is ending in June.</p>
+
+<ol>
+    <li>In the admin event list, click <strong>Cancel</strong> next to the event.</li>
+    <li>Enter the <strong>Cancel From Date</strong> — the first date you want cancelled (inclusive).</li>
+    <li>Click <strong>Cancel Event</strong>.</li>
+</ol>
+
+<p>All occurrences on or after that date will show as cancelled on the calendar. Occurrences <em>before</em> that date remain active and unaffected.</p>
+
+<h3 id="cancel-entire-event">Cancel the Entire Event</h3>
+
+<p>If you set the Cancel From Date equal to the event's original start date, the entire series is cancelled — including all past and future occurrences. The event remains in the database and stays visible on the calendar (with a Cancelled badge) so members can see the history.</p>
+
+<div class="notification is-light">
+    <p>Cancelling does not delete the event. Use <a href="#delete-event">Delete</a> only when you want to permanently erase all record of it.</p>
+</div>
+
+<h3 id="cancel-single-occurrence">Handling a One-Off Cancellation Within a Recurring Series</h3>
+
+<p>The cancel form applies a date range, not a single date. To cancel just one occurrence of an ongoing series (e.g., next Wednesday's league is rained out but resumes the week after):</p>
+
+<ol>
+    <li>Add the date as a <strong>Blackout Date</strong> on the edit form — this removes it silently from the calendar.</li>
+    <li><strong>Or</strong>, if you want members to see it as "Cancelled that week", add a separate one-time event for that specific date with the same title and mark it cancelled. (This is uncommon — most clubs use blackout dates for silent skips and post a banner or news item for high-visibility cancellations.)</li>
+</ol>
+
+<hr>
+
+<h2 id="restore-event">Restoring a Cancelled Event</h2>
+
+<p>If an event was cancelled by mistake, or the situation changed and the event is back on:</p>
+
+<ol>
+    <li>In the admin event list, find the cancelled event (it will show a "Cancelled" status badge).</li>
+    <li>Click <strong>Restore</strong>.</li>
+    <li>Confirm the action.</li>
+</ol>
+
+<p>This clears the cancellation and all occurrences become active again. Any blackout dates that were set previously are not affected — they remain in place.</p>
+
+<div class="notification is-warning is-light">
+    <p>Restoring removes the <code>cancelled_from</code> date entirely. If you had a partial cancellation (cancelled from a future date) and restore it, the entire series goes back to active — including the occurrences that were previously marked cancelled.</p>
+</div>
+
+<hr>
+
+<h2 id="delete-event">Deleting an Event Permanently</h2>
+
+<p>Deleting an event removes it and all associated data — every occurrence, every result, every exception — from the database. This cannot be undone.</p>
+
+<ol>
+    <li>In the admin event list, click <strong>Delete</strong> next to the event.</li>
+    <li>A confirmation checkbox will appear — check it to confirm you understand the deletion is permanent.</li>
+    <li>Click <strong>Delete Event</strong>.</li>
+</ol>
+
+<div class="notification is-danger is-light">
+    <p><strong>Permanent and unrecoverable.</strong> If the event has historical results posted (scores, leaderboards), deleting the event removes those results too. Consider cancelling instead of deleting if the event has history worth keeping.</p>
+</div>
+
+<h3 id="cancel-vs-delete">Cancel vs. Delete — Which Should I Use?</h3>
+
+<table>
+    <thead>
+        <tr><th>Situation</th><th>Recommended action</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>Season is over, event won't run next year</td><td><strong>Cancel</strong> from the last occurrence date. History stays visible.</td></tr>
+        <tr><td>Event was created by mistake, never ran</td><td><strong>Delete</strong> — no history to keep.</td></tr>
+        <tr><td>Event has posted results you want to preserve</td><td><strong>Cancel</strong> — keeps results on the public detail page.</td></tr>
+        <tr><td>Duplicate event accidentally created</td><td><strong>Delete</strong> the duplicate.</td></tr>
+        <tr><td>Event details need major correction</td><td><strong>Edit</strong> — don't cancel and recreate.</td></tr>
+    </tbody>
+</table>
+
+<hr>
+
+<h2 id="tips">Tips &amp; Common Mistakes</h2>
+
+<div class="notification is-success is-light">
+    <p><strong>Verify your change on the public calendar.</strong><br>
+    After editing, cancelling, or restoring an event, open <code>/events</code> in a new tab and navigate to the affected month to confirm the calendar looks correct.</p>
+</div>
+
+<div class="notification is-success is-light">
+    <p><strong>Use Blackout Dates for weather/holiday skips.</strong><br>
+    For a recurring event that simply won't happen one week (holiday, weather), a blackout date is cleaner than a cancellation — it silently skips that week and members won't see any notice of it.</p>
+</div>
+
+<div class="notification is-warning is-light">
+    <p><strong>Editing changes every occurrence.</strong><br>
+    If you need to adjust only a future part of a series (e.g., the start time is changing from 8 AM to 9 AM starting next month), the cleanest approach is to cancel the old event from the changeover date and create a new event with the updated time starting from that same date.</p>
+</div>
+
+<div class="notification is-warning is-light">
+    <p><strong>Cancelled events still appear on the calendar.</strong><br>
+    This is intentional — members can see that the event was planned but won't be happening. If you want it gone entirely, delete it. If you want it gone from one specific date forward only, use a Cancel From Date on that occurrence.</p>
+</div>

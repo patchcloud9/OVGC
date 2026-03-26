@@ -1,0 +1,164 @@
+<h1>Event Results</h1>
+
+<p>After a tournament or league round completes, you can post results directly on the event's detail page. Members visiting <code>/events</code> can click the event and see the leaderboard, scores, and course condition notes.</p>
+
+<hr>
+
+<h2 id="what-members-see">What Members See</h2>
+
+<p>When results have been posted for an event, the public detail page shows:</p>
+<ul>
+    <li>A <strong>Results</strong> section with the formatted leaderboard text.</li>
+    <li>An optional <strong>Course Conditions / Notes</strong> section below the scores.</li>
+    <li>The date the results were last updated.</li>
+</ul>
+
+<p>If no results have been posted yet, the Results section is not shown.</p>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot suggestion: public event detail page with a posted leaderboard visible.</em></div>
+
+<hr>
+
+<h2 id="navigate-to-results">Getting to the Results Form</h2>
+
+<h3 id="one-time-event-results">One-Time Event</h3>
+
+<ol>
+    <li>Go to <code>/admin/events</code>.</li>
+    <li>Click <strong>Results</strong> next to the event.</li>
+    <li>The results form opens immediately — there is only one occurrence to post for.</li>
+</ol>
+
+<h3 id="recurring-event-results">Recurring Event</h3>
+
+<p>A recurring event (e.g., weekly league) has many occurrences. You pick the specific date you want to post results for:</p>
+
+<ol>
+    <li>Go to <code>/admin/events</code>.</li>
+    <li>Click <strong>Results</strong> next to the recurring event.</li>
+    <li>A date picker page lists all occurrences, newest first. Dates that already have results posted are marked with a trophy icon.</li>
+    <li>Click a date to open the results form for that occurrence.</li>
+</ol>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot suggestion: occurrence picker page showing a list of dates with some marked as "Results posted".</em></div>
+
+<div class="notification is-light">
+    <p>You can post results for any past or future occurrence. Results for future dates are not shown on the public site until that date has passed.</p>
+</div>
+
+<hr>
+
+<h2 id="posting-results">Posting Results</h2>
+
+<p>The results form has two fields: <strong>Results / Leaderboard</strong> and <strong>Course Conditions / Notes</strong>.</p>
+
+<ol>
+    <li>Enter the leaderboard in the <strong>Results / Leaderboard</strong> box using the formatting described below.</li>
+    <li>Optionally enter weather, course conditions, or attendance notes in the <strong>Course Conditions / Notes</strong> box.</li>
+    <li>Click <strong>Post Results</strong>.</li>
+</ol>
+
+<p>Results save immediately and appear on the public detail page right away.</p>
+
+<hr>
+
+<h2 id="formatting-results">Formatting the Results Text</h2>
+
+<p>The results field uses a simple formatting system. No HTML knowledge is needed.</p>
+
+<table>
+    <thead>
+        <tr><th>What you type</th><th>How it appears on the site</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><code>**1st Place:**</code></td><td><strong>1st Place:</strong> (bold text)</td></tr>
+        <tr><td><code>--Low gross winner</code></td><td>• Low gross winner (bullet list item)</td></tr>
+        <tr><td>A blank line</td><td>Paragraph break / visual spacing</td></tr>
+        <tr><td>Press Enter once</td><td>New line within the same paragraph</td></tr>
+    </tbody>
+</table>
+
+<h3 id="results-example">Example Results Entry</h3>
+
+<pre><code>**1st Place:** John Smith - 72
+**2nd Place:** Jane Doe - 74
+**3rd Place:** Bob Johnson - 75
+
+-- Low Gross: John Smith (72)
+-- Low Net: Jane Doe (66 net)
+-- Closest to Pin #7: Bob Johnson
+
+**Skins results:**
+-- Hole 3: Jane Doe
+-- Hole 9: John Smith
+-- Hole 14: No winner</code></pre>
+
+<p>This would render with bold labels, bullet points for the side awards, and clear visual groupings.</p>
+
+<div class="notification is-success is-light">
+    <p><strong>Keep it simple.</strong> Most members just want to quickly see where they placed and who won skins. A clean list with bold labels for each place and bullets for side awards is easy to read on both desktop and mobile.</p>
+</div>
+
+<hr>
+
+<h2 id="editing-results">Editing Results</h2>
+
+<p>If you need to correct a score or add a missed entry, just navigate back to the same results form and update the text. The form will show the current saved content pre-filled in the text area.</p>
+
+<ol>
+    <li>Navigate to the event results form the same way you did when posting (via the Results button in the admin list).</li>
+    <li>Edit the text in the Results box.</li>
+    <li>Click <strong>Update Results</strong>.</li>
+</ol>
+
+<p>The "last updated" timestamp shown to members will refresh to the current time.</p>
+
+<hr>
+
+<h2 id="deleting-results">Removing Results</h2>
+
+<p>If results were posted by mistake or need to be completely cleared:</p>
+
+<ol>
+    <li>Navigate to the results form for the event and date.</li>
+    <li>Click the red <strong>Remove Results</strong> button.</li>
+    <li>Confirm the deletion in the browser prompt.</li>
+</ol>
+
+<p>The Results section will no longer appear on the public detail page for that occurrence. The event itself is unaffected.</p>
+
+<div class="notification is-warning is-light">
+    <p>Removing results is permanent — the text cannot be recovered. If you need to make corrections, use <strong>Update Results</strong> instead of removing and re-entering.</p>
+</div>
+
+<hr>
+
+<h2 id="view-on-site">View the Public Page After Posting</h2>
+
+<p>The results form has a <strong>View on Site</strong> button that opens the public event detail page in a new tab. Use this to confirm formatting looks correct after saving.</p>
+
+<p>You can also navigate directly to the public page:</p>
+<ul>
+    <li><strong>One-time event:</strong> <code>/events/{id}</code></li>
+    <li><strong>Recurring event occurrence:</strong> <code>/events/{id}/{YYYY-MM-DD}</code></li>
+</ul>
+
+<hr>
+
+<h2 id="results-tips">Tips</h2>
+
+<div class="notification is-success is-light">
+    <p><strong>Post within a day or two.</strong> Members check results quickly after an event. Posting within 24 hours keeps engagement high and reduces "did anyone post results yet?" questions.</p>
+</div>
+
+<div class="notification is-success is-light">
+    <p><strong>Use Course Conditions for context.</strong> Noting "Greens were aerated, scores ran high" or "9-hole round only due to weather" helps members understand the scores in context, especially for handicap calculations.</p>
+</div>
+
+<div class="notification is-warning is-light">
+    <p><strong>Bold formatting uses double asterisks.</strong> A common mistake is using single asterisks (*text*) which won't render as bold. Always use double: <code>**text**</code>.</p>
+</div>
+
+<div class="notification is-warning is-light">
+    <p><strong>Bullet items need two dashes.</strong> Single dashes won't create a bullet. Use <code>--</code> at the start of the line: <code>-- Low gross: John Smith</code>.</p>
+</div>
