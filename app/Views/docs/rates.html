@@ -1,71 +1,140 @@
-<h2 id="public-rates-page">Public Rates Page: /rates</h2>
-<p>The public rates page is the visitor-facing green fees and cart rental page.
-    It displays active rate groups and each group's rates in sorted order.</p>
+<h1>Rates</h1>
 
+<p>Use this page when you need to update or review the [rates page](/rates) (green fees, cart rentals) on the public
+    site, and manage price groups in the admin panel.</p>
+
+<hr>
+
+<h2 id="public-rates page">Public Rates Page (Visitor View)</h2>
+
+<p>URL: <code>/rates</code></p>
+
+<p>Visitors can see:</p>
 <ul>
-    <li>Route: <code>GET /rates</code></li>
-    <li>Controller: <code>App\Controllers\RatesController::index()</code></li>
-    <li>View: <code>app/Views/rates/index.php</code></li>
+    <li>Rate group headings (Golf Fees, Cart Rentals, etc.)</li>
+    <li>Line items with a description and price</li>
+    <li>Optional text blocks above or below the rates table</li>
+    <li>Rules/bullet list text</li>
 </ul>
 
-<h3 id="data-source">Data source</h3>
-<p>Rate data comes from:</p>
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot suggestion: public /rates page with at
+        least one group, rate lines, and a rules section.</em></div>
+
+<hr>
+
+<h2 id="admin-rates-dashboard">Admin Rate Group Management</h2>
+
+<p>URL: <code>/admin/rates</code></p>
+
+<p>This page is for admin users only. You can:</p>
 <ul>
-    <li><code>App\Models\RateGroup::allGroups(true)</code> for active groups</li>
-    <li><code>App\Models\Rate::where(['group_id' => $g['id']])</code> for group rates</li>
-    <li><code>App\Models\RatePageContent::getContent()</code> for editable content blocks (above/below sections, rules
-        text)</li>
+    <li>Create, edit, delete rate groups (categories)</li>
+    <li>Set active/inactive status for showing/hiding on public page</li>
+    <li>Adjust group sort order</li>
+    <li>Edit the public page text (rules + above/below text)</li>
+    <li>Upload or replace a scorecard image</li>
 </ul>
 
-<h3 id="display-logic">Display logic</h3>
-<ul>
-    <li>Groups sorted by group <code>sort_order</code> and active flag</li>
-    <li>Rates within groups sorted by <code>sort_order</code></li>
-    <li>Rules text parsed into bullet list lines (non-empty newline-separated lines)</li>
-</ul>
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot suggestion: /admin/rates page showing
+        group list and action buttons.</em></div>
 
-<h2 id="admin-rates-dashboard">Admin Rates Dashboard: /admin/rates</h2>
-<p>Admin rates management consists of two layers:</p>
-<ul>
-    <li><strong>Rate groups</strong> via <code>RateGroupController</code></li>
-    <li><strong>Rates within groups</strong> via <code>RateController</code></li>
-</ul>
+<h3 id="create-rate-group">Create a Rate Group</h3>
 
-<h3 id="admin-rate-group-routes">Rate group routes</h3>
-<ul>
-    <li><code>GET /admin/rates</code> &mdash; list groups (controller <code>RateGroupController::index</code>, view
-        <code>app/Views/rates/admin.php</code>)</li>
-    <li><code>GET /admin/rates/create</code> &mdash; show create group form</li>
-    <li><code>POST /admin/rates</code> &mdash; create group (CSRF + auth admin)
+<ol>
+    <li>Go to <code>/admin/rates</code>.</li>
+    <li>Click the <strong>Create Rate Group</strong> button.</li>
+    <li>Fill in:
+        <ul>
+            <li><strong>Slug</strong> (machine name, e.g. <code>golf-fees</code>).</li>
+            <li><strong>Title</strong> (visible heading on /rates).</li>
+            <li><strong>Subtitle</strong> (optional additional heading text).</li>
+            <li><strong>Note</strong> (optional description).</li>
+            <li><strong>Sort Order</strong> (smaller numbers appear first).</li>
+            <li><strong>Active</strong> set to 1 to publish.</li>
+        </ul>
     </li>
-    <li><code>GET /admin/rates/{id}/edit</code> &mdash; edit group form</li>
-    <li><code>PUT /admin/rates/{id}</code> &mdash; update group</li>
-    <li><code>DELETE /admin/rates/{id}</code> &mdash; delete group</li>
+    <li>Click <strong>Save</strong>.</li>
+</ol>
+
+<div class="notification is-light">
+    <p>If you get a validation error, the page will show a message and keep your input so you can adjust the fields.</p>
+</div>
+
+<h3 id="edit-rate-group">Edit or Delete a Rate Group</h3>
+
+<ol>
+    <li>From <code>/admin/rates</code>, click the group name or Edit action.</li>
+    <li>Change values and click <strong>Save Changes</strong>.</li>
+    <li>To remove a group, click <strong>Delete</strong> and confirm. This also removes all rates in that group.</li>
+</ol>
+
+<div class="notification is-warning is-light">
+    <p>Deleting is permanent. If you want to hide a group without losing data, set Active=&nbsp;0 instead.</p>
+</div>
+
+<hr>
+
+<h2 id="manage-rates-in-group">Manage Rates within a Group</h2>
+
+<p>After selecting a group, go to <code>/admin/rates/{groupId}/rates</code>.</p>
+
+<p>Actions available:</p>
+<ul>
+    <li><strong>Add Rate</strong> (new line item)</li>
+    <li><strong>Edit</strong> (modify description, price, notes, sort order)</li>
+    <li><strong>Delete</strong> (remove rate line)</li>
 </ul>
 
-<h3 id="admin-rate-routes">Rate routes (per-group)</h3>
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot suggestion: group rates page with list
+        of lines and Add/Edit/Delete controls.</em></div>
+
+<h3 id="add-new-rate">Add a New Rate</h3>
+
+<ol>
+    <li>Click <strong>Add Rate</strong>.</li>
+    <li>Provide <strong>Description</strong>, <strong>Price</strong>, <strong>Sort Order</strong>, and optional
+        <strong>Notes</strong>.</li>
+    <li>Click <strong>Create Rate</strong>.</li>
+</ol>
+
+<h3 id="edit-existing-rate">Edit a Rate</h3>
+
+<ol>
+    <li>Click <strong>Edit</strong> next to the rate.</li>
+    <li>Change values and click <strong>Save</strong>.</li>
+</ol>
+
+<h3 id="remove-rate">Delete a Rate</h3>
+
+<ol>
+    <li>Click <strong>Delete</strong> on the rate row.</li>
+    <li>Confirm the deletion prompt.</li>
+</ol>
+
+<hr>
+
+<h2 id="update-rates-page-content">Update the public rates page text</h2>
+
+<p>The main /admin/rates page also has fields for page content:</p>
 <ul>
-    <li><code>GET /admin/rates/{groupId}/rates</code> &mdash; list rates in group</li>
-    <li><code>GET /admin/rates/{groupId}/rates/create</code> &mdash; create rate form</li>
-    <li><code>POST /admin/rates/{groupId}/rates</code> &mdash; store rate</li>
-    <li><code>GET /admin/rates/{groupId}/rates/{rateId}/edit</code> &mdash; edit rate form</li>
-    <li><code>PUT /admin/rates/{groupId}/rates/{rateId}</code> &mdash; update rate</li>
-    <li><code>DELETE /admin/rates/{groupId}/rates/{rateId}</code> &mdash; delete rate</li>
+    <li><strong>Rules Text</strong> – appears as bullet lists on /rates.</li>
+    <li><strong>Above Rates</strong> – content shown before rate groups.</li>
+    <li><strong>Below Rates</strong> – content shown after rate groups.</li>
+    <li><strong>Scorecard Upload</strong> – optional image file (JPG/PNG) used by the scorecard link.</li>
 </ul>
 
-<h3 id="admin-rate-content">Rates page content editing</h3>
-<p><code>RateGroupController::updateContent()</code> handles editing page text sections and optional scorecard upload:
-</p>
-<ul>
-    <li><code>POST /admin/rates/content</code> (auth+role:admin+csrf)</li>
-    <li>Editable fields: <code>rules_text</code>, <code>above_rates</code>, <code>below_rates</code></li>
-    <li>Optional scorecard image upload (jpg/png) saved to <code>/public/assets/scorecard.{jpg|png}</code></li>
-</ul>
+<ol>
+    <li>Enter or edit text fields.</li>
+    <li>Upload scorecard using the file selector (only JPG/PNG).</li>
+    <li>Click <strong>Save</strong>.</li>
+</ol>
 
-<h3 id="validation">Validation and security</h3>
+<hr>
+
+<h2 id="tips">Tips and reminders</h2>
+
 <ul>
-    <li>`RateGroupController` validates slug/title/subtitle/note/sort_order/active</li>
-    <li>`RateController` validates description/price/sort_order/notes</li>
-    <li>All admin rate routes use `auth` + `role:admin` middleware</li>
-    <li>CSRF protected forms plus proper flash feedback on validation errors</li>
+    <li>Use active/inactive to control visibility without deleting group settings.</li>
+    <li>Check public /rates after changes to confirm layout and order.</li>
+    <li>Work with the pro shop manager before changing published rates.</li>
 </ul>
