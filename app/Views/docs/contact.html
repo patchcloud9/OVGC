@@ -1,0 +1,129 @@
+<h1>Contact Page</h1>
+
+<p>The Contact page lets visitors send a message directly to the club. When the form is submitted, the message is emailed to the club's contact address — there is no inbox inside the admin panel. This guide covers what visitors see, how to configure where messages go, and how to adjust related settings.</p>
+
+<hr>
+
+<h2 id="what-visitors-see">What Visitors See</h2>
+
+<p>The public contact page at <code>/contact</code> has a two-column layout:</p>
+
+<table>
+    <thead>
+        <tr><th>Column</th><th>Contents</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>Left</strong></td><td>Club name, address, phone number, email address, and an embedded Google Map</td></tr>
+        <tr><td><strong>Right</strong></td><td>The contact form (Name, Phone, Email, Comment fields)</td></tr>
+    </tbody>
+</table>
+
+<p>After a visitor submits the form, they see a success message on the same page. The message is immediately emailed to the club's contact address.</p>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot suggestion: public /contact page showing both columns — club info on the left with the map, and the filled-in form on the right.</em></div>
+
+<hr>
+
+<h2 id="where-messages-go">Where Messages Go</h2>
+
+<p>Submitted messages are emailed to the <strong>Contact Email</strong> address set in Theme Settings. To change where contact form submissions are delivered:</p>
+
+<ol>
+    <li>Go to <strong>Admin → Theme Settings</strong> (<code>/admin/theme</code>).</li>
+    <li>Find the <strong>Contact Email</strong> field.</li>
+    <li>Enter the email address that should receive form submissions.</li>
+    <li>Click <strong>Save Settings</strong>.</li>
+</ol>
+
+<div class="notification is-warning is-light">
+    <p><strong>No contact email = no delivery.</strong> If the Contact Email field in Theme Settings is blank, the form will appear to work but messages will not be sent. Always verify a valid email is set before the site goes live.</p>
+</div>
+
+<div class="notification is-info is-light">
+    <p><strong>The contact info displayed on the page also comes from Theme Settings.</strong> The club name, address, phone, and email shown in the left column are all pulled from <strong>Admin → Theme Settings</strong>. Update them there to keep the contact page current.</p>
+</div>
+
+<hr>
+
+<h2 id="contact-form-fields">Contact Form Fields</h2>
+
+<table>
+    <thead>
+        <tr><th>Field</th><th>Required</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>Name</strong></td><td>Yes</td><td>Visitor's name, included in the email subject and body.</td></tr>
+        <tr><td><strong>Phone Number</strong></td><td>No</td><td>Optional. Included in the email body if provided.</td></tr>
+        <tr><td><strong>Email</strong></td><td>Yes</td><td>Must be a valid email address. Set as the Reply-To on the outgoing email so you can reply directly.</td></tr>
+        <tr><td><strong>Comment</strong></td><td>Yes</td><td>The message body. No length limit.</td></tr>
+    </tbody>
+</table>
+
+<p>If a visitor submits the form with missing or invalid fields, the page reloads with an error message and their input is preserved so they can correct only what needs fixing.</p>
+
+<hr>
+
+<h2 id="spam-protection">Spam Protection</h2>
+
+<p>The contact form has two layers of spam protection built in:</p>
+
+<h3>Rate Limiting</h3>
+
+<p>The form accepts a maximum of <strong>5 submissions per 5 minutes</strong> from the same browser. If a visitor hits that limit, they see an error message and must wait before trying again. This is automatic — no configuration needed.</p>
+
+<h3>reCAPTCHA v3</h3>
+
+<p>If reCAPTCHA v3 keys are configured in <code>config/config.php</code>, the form silently scores each submission in the background. Submissions that score below the threshold (0.5) are rejected with an error message. Visitors never see a checkbox or image challenge — it runs invisibly.</p>
+
+<div class="notification is-light">
+    <p>reCAPTCHA is optional. If the keys are not configured, the form works normally without it. If the Google reCAPTCHA API is unreachable (network issue), the form fails open — the submission is allowed through rather than blocking a legitimate visitor.</p>
+</div>
+
+<hr>
+
+<h2 id="smtp-email-configuration">SMTP / Email Configuration</h2>
+
+<p>The contact form sends email through the site's SMTP configuration. These settings live in <code>config/config.php</code> on the server and are set up once by whoever manages hosting. They are not editable from the admin panel.</p>
+
+<table>
+    <thead>
+        <tr><th>Setting</th><th>Purpose</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><code>MAIL_HOST</code></td><td>SMTP server hostname (e.g., <code>mail.okanoganvalleygolf.com</code>)</td></tr>
+        <tr><td><code>MAIL_PORT</code></td><td>587 for STARTTLS, 465 for SSL</td></tr>
+        <tr><td><code>MAIL_USERNAME</code></td><td>SMTP login username</td></tr>
+        <tr><td><code>MAIL_PASSWORD</code></td><td>SMTP password or app password</td></tr>
+        <tr><td><code>MAIL_FROM_ADDRESS</code></td><td>The "From" address on outgoing emails</td></tr>
+        <tr><td><code>MAIL_FROM_NAME</code></td><td>The display name shown in the From field</td></tr>
+        <tr><td><code>MAIL_ENCRYPTION</code></td><td><code>tls</code> (default) or <code>ssl</code></td></tr>
+    </tbody>
+</table>
+
+<div class="notification is-warning is-light">
+    <p><strong>If contact form submissions are not arriving</strong>, first check that the Contact Email in Theme Settings is correct, then ask your hosting provider to verify the SMTP credentials in <code>config/config.php</code>. Also check your spam/junk folder — some mail servers flag automated messages.</p>
+</div>
+
+<hr>
+
+<h2 id="tips">Tips &amp; Gotchas</h2>
+
+<div class="notification is-success is-light">
+    <p><strong>Reply directly from your email client.</strong><br>
+    Each submission sets the visitor's email address as the Reply-To header. Open the notification email and click Reply — your response goes straight to the visitor, not back to the site.</p>
+</div>
+
+<div class="notification is-light">
+    <p><strong>There is no message archive in the admin panel.</strong><br>
+    Contact form submissions are emailed and not stored in the database. If you need a record of messages, keep them in your email inbox or set up a filter to tag them automatically.</p>
+</div>
+
+<div class="notification is-warning is-light">
+    <p><strong>The rate limit applies per browser, not per IP.</strong><br>
+    If you are testing the form yourself and hit the limit (5 submissions in 5 minutes), wait a few minutes before trying again. This is expected behavior — not a bug.</p>
+</div>
+
+<div class="notification is-info is-light">
+    <p><strong>Contact info on the page is controlled by Theme Settings.</strong><br>
+    If the address, phone, or email shown on <code>/contact</code> needs updating, go to <strong>Admin → Theme Settings</strong> — not to any contact-specific admin page.</p>
+</div>

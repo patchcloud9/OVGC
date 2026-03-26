@@ -20,6 +20,7 @@ class DocsController extends Controller
         'rates'           => ['title' => 'Rates',      'icon' => 'fa-tags'],
         'membership'      => ['title' => 'Membership',         'icon' => 'fa-id-card'],
         'board-members'   => ['title' => 'Board of Directors', 'icon' => 'fa-users'],
+        'contact'         => ['title' => 'Contact Page',       'icon' => 'fa-envelope'],
     ];
 
     /** Landing page — shows search results or a welcome message. */
