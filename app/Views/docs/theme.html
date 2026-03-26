@@ -1,0 +1,270 @@
+<h1>Theme Settings — Colors, Branding &amp; Layout</h1>
+
+<p>Theme Settings is where you control the overall look of the website — the color scheme, the club logo and favicon, contact information used site-wide, and a few layout preferences. Changes here take effect immediately for all visitors.</p>
+
+<div class="notification is-info is-light">
+    <p><strong>This is also where template variables get their values</strong><br>
+    When any page uses <code>{{name}}</code>, <code>{{email}}</code>, <code>{{phone}}</code>, <code>{{address1}}</code>, <code>{{address2}}</code>, or <code>{{city}}</code>, the actual text comes from the fields on this page. Update them once here and they update everywhere.</p>
+</div>
+
+<hr>
+
+<h2 id="getting-to-theme-settings">Getting to Theme Settings</h2>
+
+<ol>
+    <li>Log in to the admin panel.</li>
+    <li>In the top navigation, click <strong>Admin</strong> (or go directly to <code>/admin</code>).</li>
+    <li>Click <strong>Theme</strong> in the admin menu, or go directly to <code>/admin/theme</code>.</li>
+</ol>
+
+<p>The page has three sections: <strong>Color Palette</strong>, <strong>Branding Assets</strong>, and <strong>Layout Options</strong>. All three are saved together with a single <strong>Save Theme Settings</strong> button.</p>
+
+<hr>
+
+<h2 id="color-palette">Color Palette</h2>
+
+<p>Every color field works the same way: a color picker square on the left and a text box showing the hex code on the right. Click the square to open a color chooser, or type a hex code directly. Both stay in sync automatically.</p>
+
+<div class="notification is-light">
+    <p><strong>What is a hex color code?</strong><br>
+    A six-character code starting with <code>#</code> that represents a color. <code>#ffffff</code> is white, <code>#000000</code> is black. You can find hex codes using any online color picker or by picking from the color square.</p>
+</div>
+
+<table>
+    <thead>
+        <tr><th>Field</th><th>Where it appears</th><th>Default</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>Primary Color</strong></td><td>Standard buttons (Save, Submit, etc.) and primary action elements. Hover shade is auto-generated.</td><td><code>#667eea</code></td></tr>
+        <tr><td><strong>Secondary Color</strong></td><td>Low-priority buttons (Cancel, Back, etc.)</td><td><code>#b5b5b5</code></td></tr>
+        <tr><td><strong>Accent Color</strong></td><td>Success messages, standard links, and status icons</td><td><code>#48c78e</code></td></tr>
+        <tr><td><strong>Danger Color</strong></td><td>Delete buttons, reset actions, and destructive confirmations</td><td><code>#f14668</code></td></tr>
+        <tr><td><strong>Navbar Background Color</strong></td><td>Background fill of the top navigation bar</td><td><code>#667eea</code></td></tr>
+        <tr><td><strong>Navbar Hover Color</strong></td><td>Text/icon color when hovering over a navbar link</td><td><code>#ffffff</code></td></tr>
+        <tr><td><strong>Navbar Text Color</strong></td><td>Default (non-hover) color for navbar links</td><td><code>#ffffff</code></td></tr>
+        <tr><td><strong>Hero Background Color</strong></td><td>Solid fill behind the large banner on subpages. Leave empty to use the automatic gradient.</td><td>(empty — gradient)</td></tr>
+    </tbody>
+</table>
+
+<div class="notification is-success is-light">
+    <p><strong>Keeping the navbar readable</strong><br>
+    The navbar text color and navbar background color need good contrast. If your background is dark, use a light text color like <code>#ffffff</code>. If the background is light, use a dark text color like <code>#222222</code>.</p>
+</div>
+
+<div class="notification is-warning is-light">
+    <p><strong>Hero Background Color vs. Homepage hero</strong><br>
+    This color field controls the hero banners on <em>subpages</em> (Rates, Contact, etc.). The homepage hero has its own separate background color and image settings — those are managed under <strong>Admin → Homepage</strong>.</p>
+</div>
+
+<hr>
+
+<h2 id="branding-assets">Branding Assets</h2>
+
+<p>This section holds the club name, contact information, logo files, and footer tagline — all the identity information used throughout the site.</p>
+
+<h3>Club Contact Information</h3>
+
+<p>These fields power the <code>{{template}}</code> variables used in homepage content, banners, and other editable text areas across the site.</p>
+
+<table>
+    <thead>
+        <tr><th>Field</th><th>Required</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>Site Name</strong></td><td><strong>Yes</strong></td><td>Shown in the navbar after the logo. Max 100 characters. Powers <code>{{name}}</code>.</td></tr>
+        <tr><td><strong>Contact Email</strong></td><td><strong>Yes</strong></td><td>Must be a valid email address. Shown in the footer and on the Contact page. Powers <code>{{email}}</code>.</td></tr>
+        <tr><td><strong>Phone Number</strong></td><td>No</td><td>Shown in the footer. Max 50 characters. Powers <code>{{phone}}</code>.</td></tr>
+        <tr><td><strong>Address Line 1</strong></td><td>No</td><td>Street address. Powers <code>{{address1}}</code>.</td></tr>
+        <tr><td><strong>Address Line 2</strong></td><td>No</td><td>Suite, unit, or secondary address line. Powers <code>{{address2}}</code>.</td></tr>
+        <tr><td><strong>City / State / ZIP</strong></td><td>No</td><td>Full city line (e.g., <code>Okanogan, WA 98840</code>). Powers <code>{{city}}</code>.</td></tr>
+        <tr><td><strong>Footer Tagline</strong></td><td>No</td><td>A short motto or slogan shown in the footer. Leave blank to hide. Max 255 characters.</td></tr>
+    </tbody>
+</table>
+
+<h3>Homepage Logo</h3>
+
+<p>The homepage logo appears in the navigation bar at the top of every page.</p>
+
+<ol>
+    <li>Click <strong>Choose logo…</strong> under <strong>Homepage Logo</strong>.</li>
+    <li>Select a PNG, JPG, or SVG file from your computer (max 2 MB).</li>
+    <li>Click <strong>Save Theme Settings</strong>.</li>
+</ol>
+
+<p>A preview of the current logo is shown below the upload field once one has been saved.</p>
+
+<div class="notification is-light">
+    <p><strong>Recommended size: 200 × 50 px</strong><br>
+    The logo is displayed at a fixed height in the navbar. Very tall or square images may be cropped or look oversized. A wide, horizontal logo at roughly 4:1 aspect ratio works best.</p>
+</div>
+
+<div class="notification is-warning is-light">
+    <p><strong>SVG files</strong><br>
+    SVG logos are accepted and ideal for logos because they stay sharp at any size. If your SVG file contains embedded scripts or unusual markup, the browser may not render it — use a clean export from a design tool.</p>
+</div>
+
+<h3>Secondary Logo</h3>
+
+<p>The secondary logo field is available for storing an alternate logo (for example, a dark-background version or a small icon-only version). It is saved to the server but not currently displayed anywhere on the site. You can upload one now to have it ready for future use.</p>
+
+<h3>Favicon</h3>
+
+<p>The favicon is the small icon that appears in browser tabs and bookmarks next to the site name.</p>
+
+<ol>
+    <li>Click <strong>Choose favicon…</strong> under <strong>Favicon</strong>.</li>
+    <li>Select an ICO or PNG file (max 2 MB).</li>
+    <li>Click <strong>Save Theme Settings</strong>.</li>
+</ol>
+
+<div class="notification is-light">
+    <p><strong>Recommended size: 32 × 32 px or 16 × 16 px</strong><br>
+    Favicons are displayed very small. Use a simple, high-contrast icon — a logo with fine text will not be legible at tab size. A square PNG at 32 × 32 px is the most compatible choice.</p>
+</div>
+
+<hr>
+
+<h2 id="layout-options">Layout Options</h2>
+
+<h3>Header Style</h3>
+
+<table>
+    <thead>
+        <tr><th>Option</th><th>What it does</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>Static (scrolls with page)</strong></td><td>The navbar scrolls up and out of view when the visitor scrolls down. More screen space for content.</td></tr>
+        <tr><td><strong>Fixed (stays at top)</strong></td><td>The navbar remains pinned to the top of the window at all times, even while scrolling.</td></tr>
+    </tbody>
+</table>
+
+<h3>Card Style</h3>
+
+<p>Controls the visual treatment of content cards throughout the site (feature cards, admin list rows, etc.).</p>
+
+<table>
+    <thead>
+        <tr><th>Option</th><th>What it looks like</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>Default</strong></td><td>Standard card with a light border and subtle background</td></tr>
+        <tr><td><strong>Elevated</strong></td><td>Card with a drop shadow, giving it a "raised" feel</td></tr>
+        <tr><td><strong>Flat</strong></td><td>No border or shadow — content sits directly on the page background</td></tr>
+    </tbody>
+</table>
+
+<hr>
+
+<h2 id="saving-your-changes">Saving Your Changes</h2>
+
+<ol>
+    <li>Make your changes anywhere on the form.</li>
+    <li>Scroll to the bottom and click the green <strong>Save Theme Settings</strong> button.</li>
+    <li>The page reloads and a green confirmation bar appears at the top.</li>
+</ol>
+
+<div class="notification is-success is-light">
+    <p><strong>All three sections are saved together</strong><br>
+    There is one save button for the entire form. You do not need to save Color Palette, Branding, and Layout separately.</p>
+</div>
+
+<hr>
+
+<h2 id="reset-to-defaults">Reset to Defaults</h2>
+
+<p>At the bottom of the page, below the save button, there is a <strong>Reset Theme to Defaults</strong> button inside a yellow warning box.</p>
+
+<p>Clicking it will:</p>
+<ul>
+    <li>Restore all colors to their original values (primary blue-purple, accent green, etc.)</li>
+    <li>Remove the saved logo and favicon paths (the uploaded files are not deleted from the server, but the theme will stop using them)</li>
+    <li>Reset the header to Static and the card style to Default</li>
+</ul>
+
+<div class="notification is-danger is-light">
+    <p><strong>This cannot be undone</strong><br>
+    The reset happens immediately when you confirm the browser prompt. Your custom colors and logo selections will be cleared. The uploaded image files remain on the server, so you can re-upload them, but you will need to re-enter all color values manually if you want them back.</p>
+</div>
+
+<hr>
+
+<h2 id="field-reference">Field Reference</h2>
+
+<h3>Color Palette</h3>
+
+<table>
+    <thead>
+        <tr><th>Field</th><th>Required</th><th>Format</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>Primary Color</td><td><strong>Yes</strong></td><td>Hex code, e.g. <code>#667eea</code></td></tr>
+        <tr><td>Secondary Color</td><td><strong>Yes</strong></td><td>Hex code</td></tr>
+        <tr><td>Accent Color</td><td><strong>Yes</strong></td><td>Hex code</td></tr>
+        <tr><td>Danger Color</td><td>No</td><td>Hex code</td></tr>
+        <tr><td>Navbar Background Color</td><td>No</td><td>Hex code</td></tr>
+        <tr><td>Navbar Hover Color</td><td>No</td><td>Hex code</td></tr>
+        <tr><td>Navbar Text Color</td><td>No</td><td>Hex code</td></tr>
+        <tr><td>Hero Background Color</td><td>No</td><td>Hex code; leave empty for gradient</td></tr>
+    </tbody>
+</table>
+
+<h3>Branding Assets</h3>
+
+<table>
+    <thead>
+        <tr><th>Field</th><th>Required</th><th>Max</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>Site Name</td><td><strong>Yes</strong></td><td>100 chars</td><td>Powers <code>{{name}}</code></td></tr>
+        <tr><td>Contact Email</td><td><strong>Yes</strong></td><td>255 chars</td><td>Must be valid email. Powers <code>{{email}}</code></td></tr>
+        <tr><td>Phone Number</td><td>No</td><td>50 chars</td><td>Powers <code>{{phone}}</code></td></tr>
+        <tr><td>Address Line 1</td><td>No</td><td>255 chars</td><td>Powers <code>{{address1}}</code></td></tr>
+        <tr><td>Address Line 2</td><td>No</td><td>255 chars</td><td>Powers <code>{{address2}}</code></td></tr>
+        <tr><td>City / State / ZIP</td><td>No</td><td>255 chars</td><td>Powers <code>{{city}}</code></td></tr>
+        <tr><td>Footer Tagline</td><td>No</td><td>255 chars</td><td>Leave blank to hide</td></tr>
+        <tr><td>Homepage Logo</td><td>No</td><td>2 MB</td><td>PNG, JPG, or SVG. Recommended 200×50 px</td></tr>
+        <tr><td>Secondary Logo</td><td>No</td><td>2 MB</td><td>PNG, JPG, or SVG. Stored but not yet displayed</td></tr>
+        <tr><td>Favicon</td><td>No</td><td>2 MB</td><td>ICO or PNG. Recommended 32×32 px</td></tr>
+    </tbody>
+</table>
+
+<h3>Layout Options</h3>
+
+<table>
+    <thead>
+        <tr><th>Field</th><th>Options</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>Header Style</td><td><code>static</code> (default) or <code>fixed</code></td></tr>
+        <tr><td>Card Style</td><td><code>default</code>, <code>elevated</code>, or <code>flat</code></td></tr>
+    </tbody>
+</table>
+
+<hr>
+
+<h2 id="tips--gotchas">Tips &amp; Gotchas</h2>
+
+<div class="notification is-success is-light">
+    <p><strong>Change the club name and contact info first</strong><br>
+    Before customizing colors or uploading a logo, fill in Site Name, Contact Email, Phone, and Address. These power the <code>{{template}}</code> variables used in homepage text, and missing values will leave blank gaps on the live site.</p>
+</div>
+
+<div class="notification is-success is-light">
+    <p><strong>Test your color choices</strong><br>
+    After saving, visit a few public pages to check that text is readable against your chosen navbar and button colors. Low-contrast combinations are easy to miss in the admin form but obvious to visitors.</p>
+</div>
+
+<div class="notification is-warning is-light">
+    <p><strong>Logo file size limit is 2 MB, not 5 MB</strong><br>
+    The theme logo and favicon have a stricter 2 MB limit (compared to the 5 MB limit for homepage images). If your upload silently fails, check that the file is under 2 MB.</p>
+</div>
+
+<div class="notification is-light">
+    <p><strong>Hero Background Color only applies to subpages</strong><br>
+    The homepage hero has its own independent background color and image settings under <strong>Admin → Homepage</strong>. The "Hero Background Color" field here only affects the dark banner at the top of pages like Rates, Contact, and Board Minutes.</p>
+</div>
+
+<div class="notification is-light">
+    <p><strong>Secondary Logo is stored but not yet displayed</strong><br>
+    Uploading a secondary logo saves the file to the server for future use. It does not currently appear anywhere on the public site. You can safely skip this field.</p>
+</div>

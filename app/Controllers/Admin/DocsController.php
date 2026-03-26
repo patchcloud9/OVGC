@@ -14,6 +14,7 @@ class DocsController extends Controller
     private const DOCS = [
         'dashboard'       => ['title' => 'Admin Dashboard',  'icon' => 'fa-tachometer-alt'],
         'homepage'        => ['title' => 'Homepage Editor',  'icon' => 'fa-home'],
+        'theme'           => ['title' => 'Theme Settings',   'icon' => 'fa-palette'],
         'banners'         => ['title' => 'Page Banners',     'icon' => 'fa-exclamation-circle'],
         'menu-management' => ['title' => 'Menu Management',  'icon' => 'fa-bars'],
         'user-management' => ['title' => 'User Management',  'icon' => 'fa-users-cog'],
