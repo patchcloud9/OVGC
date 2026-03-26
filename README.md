@@ -201,6 +201,7 @@ User::delete(1);
 
 **Admin Features:**
 - User management (create, edit, delete)
+- Super-admin integrity guard: user ID 6 cannot be modified or deleted by other admins
 - Role-based access control
 - Application logs with search and pagination
 - Unauthorized access attempt logging

@@ -119,6 +119,7 @@ Do this without being asked. If the change is minor (bug fix, copy tweak), skip 
 - Passwords: `password_hash($pass, PASSWORD_DEFAULT)` / `password_verify()`
 - Rate limiting: apply `rate-limit:key,max,secs` to login/register/contact routes
 - Never interpolate user input into SQL — use prepared statements via `Database::query()`
+- Super-admin account protection: `user_id === 6` is now enforced in `UserController` to prevent other admins from editing/deleting this account (UI and backend checks)
 
 ## Configuration
 
