@@ -1,0 +1,71 @@
+<h2 id="public-rates-page">Public Rates Page: /rates</h2>
+<p>The public rates page is the visitor-facing green fees and cart rental page.
+    It displays active rate groups and each group's rates in sorted order.</p>
+
+<ul>
+    <li>Route: <code>GET /rates</code></li>
+    <li>Controller: <code>App\Controllers\RatesController::index()</code></li>
+    <li>View: <code>app/Views/rates/index.php</code></li>
+</ul>
+
+<h3 id="data-source">Data source</h3>
+<p>Rate data comes from:</p>
+<ul>
+    <li><code>App\Models\RateGroup::allGroups(true)</code> for active groups</li>
+    <li><code>App\Models\Rate::where(['group_id' => $g['id']])</code> for group rates</li>
+    <li><code>App\Models\RatePageContent::getContent()</code> for editable content blocks (above/below sections, rules
+        text)</li>
+</ul>
+
+<h3 id="display-logic">Display logic</h3>
+<ul>
+    <li>Groups sorted by group <code>sort_order</code> and active flag</li>
+    <li>Rates within groups sorted by <code>sort_order</code></li>
+    <li>Rules text parsed into bullet list lines (non-empty newline-separated lines)</li>
+</ul>
+
+<h2 id="admin-rates-dashboard">Admin Rates Dashboard: /admin/rates</h2>
+<p>Admin rates management consists of two layers:</p>
+<ul>
+    <li><strong>Rate groups</strong> via <code>RateGroupController</code></li>
+    <li><strong>Rates within groups</strong> via <code>RateController</code></li>
+</ul>
+
+<h3 id="admin-rate-group-routes">Rate group routes</h3>
+<ul>
+    <li><code>GET /admin/rates</code> &mdash; list groups (controller <code>RateGroupController::index</code>, view
+        <code>app/Views/rates/admin.php</code>)</li>
+    <li><code>GET /admin/rates/create</code> &mdash; show create group form</li>
+    <li><code>POST /admin/rates</code> &mdash; create group (CSRF + auth admin)
+    </li>
+    <li><code>GET /admin/rates/{id}/edit</code> &mdash; edit group form</li>
+    <li><code>PUT /admin/rates/{id}</code> &mdash; update group</li>
+    <li><code>DELETE /admin/rates/{id}</code> &mdash; delete group</li>
+</ul>
+
+<h3 id="admin-rate-routes">Rate routes (per-group)</h3>
+<ul>
+    <li><code>GET /admin/rates/{groupId}/rates</code> &mdash; list rates in group</li>
+    <li><code>GET /admin/rates/{groupId}/rates/create</code> &mdash; create rate form</li>
+    <li><code>POST /admin/rates/{groupId}/rates</code> &mdash; store rate</li>
+    <li><code>GET /admin/rates/{groupId}/rates/{rateId}/edit</code> &mdash; edit rate form</li>
+    <li><code>PUT /admin/rates/{groupId}/rates/{rateId}</code> &mdash; update rate</li>
+    <li><code>DELETE /admin/rates/{groupId}/rates/{rateId}</code> &mdash; delete rate</li>
+</ul>
+
+<h3 id="admin-rate-content">Rates page content editing</h3>
+<p><code>RateGroupController::updateContent()</code> handles editing page text sections and optional scorecard upload:
+</p>
+<ul>
+    <li><code>POST /admin/rates/content</code> (auth+role:admin+csrf)</li>
+    <li>Editable fields: <code>rules_text</code>, <code>above_rates</code>, <code>below_rates</code></li>
+    <li>Optional scorecard image upload (jpg/png) saved to <code>/public/assets/scorecard.{jpg|png}</code></li>
+</ul>
+
+<h3 id="validation">Validation and security</h3>
+<ul>
+    <li>`RateGroupController` validates slug/title/subtitle/note/sort_order/active</li>
+    <li>`RateController` validates description/price/sort_order/notes</li>
+    <li>All admin rate routes use `auth` + `role:admin` middleware</li>
+    <li>CSRF protected forms plus proper flash feedback on validation errors</li>
+</ul>
