@@ -25,6 +25,21 @@
     <div class="container">
         <?php require BASE_PATH . '/app/Views/partials/messages.php'; ?>
 
+        <!-- Documentation Banner -->
+        <a href="/admin/docs" class="notification is-warning is-light mb-4 py-3" style="display:flex; align-items:center; justify-content:space-between; gap:0.75rem; flex-wrap:wrap; text-decoration:none;">
+            <span class="icon-text">
+                <span class="icon has-text-warning-dark"><i class="fas fa-book-open fa-lg"></i></span>
+                <span>
+                    <strong>Admin Documentation</strong>
+                    <span class="has-text-grey ml-2 is-hidden-mobile">— Step-by-step guides for managing the website</span>
+                </span>
+            </span>
+            <span class="button is-warning is-small">
+                <span class="icon"><i class="fas fa-arrow-right"></i></span>
+                <span>Open Docs</span>
+            </span>
+        </a>
+
         <!-- Pages -->
         <div class="box mt-5">
             <h2 class="title is-4"><i class="fas fa-file-alt"></i> Pages</h2>

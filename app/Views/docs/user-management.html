@@ -1,0 +1,268 @@
+<h1>User Management</h1>
+
+<p>Admin accounts for the Okanogan Valley Golf Club website are created and managed entirely by existing admins — there is no public sign-up. This section covers how to create new accounts, edit existing ones, change passwords, and understand the two access levels the site supports.</p>
+
+<hr>
+
+<h2 id="concepts">Concepts</h2>
+
+<h3>What is a "user"?</h3>
+
+<p>A <strong>user</strong> is anyone who has an account on this website. Right now the site has two kinds of accounts:</p>
+
+<table>
+    <thead>
+        <tr><th>Role</th><th>What they can do</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>Admin</strong></td><td>Log in to the admin panel and manage all site content — events, pages, menus, users, etc.</td></tr>
+        <tr><td><strong>User</strong></td><td>Has an account but cannot access the admin panel. Currently this role is reserved for possible future use.</td></tr>
+    </tbody>
+</table>
+
+<p>Most accounts you will create will be <strong>Admin</strong> accounts (for staff or board members who need to update the site).</p>
+
+<h3>How are accounts created?</h3>
+
+<p>People <strong>cannot sign themselves up</strong> — that feature is turned off. Every account must be created manually by someone who is already an admin. Think of it like issuing a key card: only someone who already has access can create a new one.</p>
+
+<h3>What happens to passwords?</h3>
+
+<p>Passwords are never stored as plain text. The site converts each password into a scrambled code (called a <strong>hash</strong>) that cannot be reversed. When someone logs in, the site checks the scrambled code — not the original password — so even the people who run the server cannot see anyone's password.</p>
+
+<hr>
+
+<h2 id="logging-in">Logging In</h2>
+
+<p>Navigate to:</p>
+
+<pre><code>https://www.okanoganvalleygolf.com/login</code></pre>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot: The login page — show the full page with the email field, password field, "Forgot your password?" link, and the Login button. Capture it on a desktop browser at normal zoom.</em></div>
+
+<p>Enter your <strong>email address</strong> and <strong>password</strong>, then click <strong>Log In</strong>.</p>
+
+<div class="notification is-light">
+    <p>If you type your password wrong five times in five minutes, the site will temporarily lock the login form for that browser. Wait a few minutes and try again, or use the Forgot Password link to reset your password.</p>
+</div>
+
+<p>After a successful login, admins are taken directly to the admin dashboard.</p>
+
+<hr>
+
+<h2 id="viewing-all-users">Viewing All Users</h2>
+
+<p>From the admin dashboard, click <strong>Users</strong> in the navigation, or go directly to:</p>
+
+<pre><code>https://www.okanoganvalleygolf.com/admin/users</code></pre>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot: The Users list page — show the full grid of user cards with at least two users visible. Each card should show the user's initial avatar, name, email, role badge, and the Edit/Delete buttons. Also capture the search box and Role filter dropdown at the top.</em></div>
+
+<p>The page shows a card for each account. Each card displays:</p>
+<ul>
+    <li>The user's <strong>initials</strong> (as a coloured circle)</li>
+    <li>Their <strong>name</strong> and <strong>email address</strong></li>
+    <li>A <strong>role badge</strong> (Admin or User)</li>
+    <li>Their <strong>account ID number</strong></li>
+    <li><strong>Edit</strong> and <strong>Delete</strong> buttons</li>
+</ul>
+
+<h3>Searching and filtering</h3>
+
+<p>Use the <strong>search box</strong> to find a user by name or email. Use the <strong>Role</strong> dropdown to show only Admins or only Users. The list filters as you type — no need to press Enter.</p>
+
+<hr>
+
+<h2 id="creating-a-new-user">Creating a New User</h2>
+
+<ol>
+    <li>Go to <strong>Admin → Users</strong> (<code>/admin/users</code>).</li>
+    <li>Click the <strong>Add User</strong> button (top right of the page).</li>
+</ol>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot: The "Add User" button on the Users list page — highlight or circle the button so it is easy to spot.</em></div>
+
+<ol start="3">
+    <li>Fill in the form:
+        <ul>
+            <li><strong>Name</strong> — The person's full name (e.g., <code>Jane Smith</code>).</li>
+            <li><strong>Email</strong> — Their email address. This must be unique; no two accounts can share the same email.</li>
+            <li><strong>Password</strong> — Choose a strong password (at least 8 characters). You will need to share this with the person securely — the site does not send a welcome email automatically.</li>
+            <li><strong>Role</strong> — Choose <strong>Admin</strong> if they need to manage the website, or <strong>User</strong> for a non-admin account.</li>
+        </ul>
+    </li>
+</ol>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot: The Create User form — show all four fields (Name, Email, Password, Role dropdown) filled in with example data before clicking Save. The Role dropdown should be open showing the Admin/User options.</em></div>
+
+<ol start="4">
+    <li>Click <strong>Create User</strong>.</li>
+</ol>
+
+<p>If everything is correct, you will see a green success message and be returned to the user list. If there is a problem (for example, the email is already in use), a red error message will appear and the form will stay open so you can fix it.</p>
+
+<div class="notification is-success is-light">
+    <p>After creating an account, tell the new admin to change their password right away. They can do this through the Forgot Password link on the login page (see <a href="#resetting-your-own-password-forgot-password">Resetting Your Own Password</a>) or you can change it for them through the Edit screen.</p>
+</div>
+
+<hr>
+
+<h2 id="editing-a-user">Editing a User</h2>
+
+<ol>
+    <li>Go to <strong>Admin → Users</strong>.</li>
+    <li>Find the user's card and click <strong>Edit</strong>.</li>
+</ol>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot: The Edit User form — show the form pre-filled with a user's existing name, email, and role. The password field should be visibly empty (with placeholder text). Also show the "Danger Zone" delete section at the bottom of the page.</em></div>
+
+<ol start="3">
+    <li>Update any fields you need to change:
+        <ul>
+            <li><strong>Name</strong> — Change the display name.</li>
+            <li><strong>Email</strong> — Change the login email address.</li>
+            <li><strong>Password</strong> — Leave this <strong>blank</strong> if you do not want to change the password. Only fill it in if you are setting a new password.</li>
+            <li><strong>Role</strong> — Promote to Admin or demote to User.</li>
+        </ul>
+    </li>
+    <li>Click <strong>Save Changes</strong>.</li>
+</ol>
+
+<div class="notification is-light">
+    <p>The password field on the Edit screen is always empty. This is normal — the site never shows the current password. You only need to type something here if you are changing it.</p>
+</div>
+
+<hr>
+
+<h2 id="changing-a-password-admin">Changing a Password (Admin)</h2>
+
+<p>An admin can change any user's password through the Edit screen:</p>
+
+<ol>
+    <li>Go to <strong>Admin → Users</strong> and click <strong>Edit</strong> on the account.</li>
+    <li>Leave the <strong>Name</strong>, <strong>Email</strong>, and <strong>Role</strong> fields as they are.</li>
+    <li>Type the new password (at least 8 characters) in the <strong>Password</strong> field.</li>
+    <li>Click <strong>Save Changes</strong>.</li>
+</ol>
+
+<p>The old password is immediately replaced. The user will need to use the new password the next time they log in.</p>
+
+<div class="notification is-warning is-light">
+    <p>There is no "current password" confirmation when an admin changes a password through this screen. Make sure you are editing the correct account before saving.</p>
+</div>
+
+<hr>
+
+<h2 id="resetting-your-own-password-forgot-password">Resetting Your Own Password (Forgot Password)</h2>
+
+<p>If you have forgotten your password and cannot log in:</p>
+
+<ol>
+    <li>Go to the login page: <code>https://www.okanoganvalleygolf.com/login</code></li>
+    <li>Click <strong>Forgot your password?</strong></li>
+</ol>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot: The login page with the "Forgot your password?" link visible — circle or highlight the link.</em></div>
+
+<ol start="3">
+    <li>Enter your <strong>email address</strong> and click <strong>Send Reset Link</strong>.</li>
+</ol>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot: The Forgot Password page — show the single email input field and the Send Reset Link button.</em></div>
+
+<ol start="4">
+    <li>Check your email inbox for a message with a reset link. The link is valid for <strong>one hour</strong>.</li>
+</ol>
+
+<div class="notification is-light">
+    <p>The site always shows the same message ("If that email address is registered, you will receive a password reset link shortly") whether or not the email matched an account. This is a privacy measure — it prevents someone from using this page to find out which emails have accounts.</p>
+</div>
+
+<ol start="5">
+    <li>Click the link in the email. You will be taken to a page where you can enter a new password.</li>
+</ol>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot: The Reset Password page — show the two fields (New Password and Confirm New Password) and the Reset Password button.</em></div>
+
+<ol start="6">
+    <li>Type your <strong>new password</strong> (at least 8 characters) in both fields and click <strong>Reset Password</strong>.</li>
+    <li>You will be redirected to the login page. Log in with your new password.</li>
+</ol>
+
+<div class="notification is-warning is-light">
+    <p>The reset link expires after <strong>one hour</strong>. If you click an expired link, the site will show an error. Go back to the Forgot Password page and request a fresh link.</p>
+</div>
+
+<hr>
+
+<h2 id="deleting-a-user">Deleting a User</h2>
+
+<div class="notification is-warning is-light">
+    <p>Deleting a user account is permanent and cannot be undone. The account and all its data are removed immediately.</p>
+</div>
+
+<ol>
+    <li>Go to <strong>Admin → Users</strong>.</li>
+    <li>Find the user's card and click <strong>Delete</strong>, or open their <strong>Edit</strong> screen and scroll to the <strong>Danger Zone</strong> section at the bottom.</li>
+    <li>Confirm the deletion in the pop-up dialog.</li>
+</ol>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot: The delete confirmation modal/dialog — show the dialog asking the admin to confirm they want to delete the account, with the Cancel and Delete buttons visible.</em></div>
+
+<div class="notification is-success is-light">
+    <p>If someone leaves the organization and you are not sure whether to delete their account, consider changing their password to something unknown instead of deleting. That way their account history is preserved and you can restore access later if needed.</p>
+</div>
+
+<hr>
+
+<h2 id="field-reference">Field Reference</h2>
+
+<table>
+    <thead>
+        <tr><th>Field</th><th>Required?</th><th>Rules</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>Name</strong></td><td>Yes</td><td>2–100 characters</td><td>Used as the display name throughout the admin panel.</td></tr>
+        <tr><td><strong>Email</strong></td><td>Yes</td><td>Must be a valid email; must be unique across all accounts</td><td>This is the username for login.</td></tr>
+        <tr><td><strong>Password</strong></td><td>Yes (create) / No (edit)</td><td>At least 8 characters</td><td>On the Edit screen, leave blank to keep the current password.</td></tr>
+        <tr><td><strong>Role</strong></td><td>Yes</td><td>Admin or User</td><td>Admins can access the admin panel; Users cannot.</td></tr>
+    </tbody>
+</table>
+
+<hr>
+
+<h2 id="tips--gotchas">Tips &amp; Gotchas</h2>
+
+<div class="notification is-success is-light">
+    <p><strong>You can only create accounts — the site does not send a welcome email.</strong><br>
+    After creating an account you will need to share the login credentials with the new user yourself (for example, by phone or a secure message). Remind them to change their password immediately using the Forgot Password flow.</p>
+</div>
+
+<div class="notification is-warning is-light">
+    <p><strong>You cannot lock yourself out, but you can create a situation where no one can log in.</strong><br>
+    If you delete or demote all admin accounts, no one will be able to access the admin panel. Always keep at least one active admin account.</p>
+</div>
+
+<div class="notification is-light">
+    <p><strong>The "User" role has no admin access.</strong><br>
+    If someone needs to update the website, their role must be set to <strong>Admin</strong>. A role of "User" is effectively a placeholder for possible future features.</p>
+</div>
+
+<div class="notification is-warning is-light">
+    <p><strong>Rate limiting applies to account creation.</strong><br>
+    You can create up to 3 new accounts within a 5-minute window. If you need to add many accounts at once, pause briefly between each one.</p>
+</div>
+
+<div class="notification is-light">
+    <p><strong>Changing a user's email changes their login username.</strong><br>
+    After updating the email on the Edit screen, the user must log in with the new email address. Make sure to let them know.</p>
+</div>
+
+<div class="notification is-success is-light">
+    <p><strong>Use the search and filter tools on the Users list</strong> when you have many accounts. Type a name or email in the search box, or use the Role dropdown to show only Admins, to quickly find the account you need.</p>
+</div>
+
+<div class="notification is-light">
+    <p><strong>Password reset links expire in one hour.</strong><br>
+    If a user contacts you saying their reset link did not work, ask them to request a new one from the Forgot Password page. Each new request cancels any previous link.</p>
+</div>

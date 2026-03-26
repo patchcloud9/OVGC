@@ -1,0 +1,401 @@
+<h1>Homepage — Editing Hero Content &amp; Featured Sections</h1>
+
+<p>The homepage is the first thing visitors see when they come to the website. As an admin, you can change the large banner at the top (called the "hero"), the three feature cards in the middle, and the content block at the bottom — all without touching any code.</p>
+
+<hr>
+
+<h2 id="how-the-homepage-is-organized">How the Homepage Is Organized</h2>
+
+<p>The public homepage has four main zones, from top to bottom:</p>
+
+<table>
+    <thead>
+        <tr><th>Zone</th><th>What It Is</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>Hero Banner</strong></td><td>Full-width banner with a title, subtitle, and background color or photo</td></tr>
+        <tr><td><strong>Feature Cards</strong></td><td>Three side-by-side info cards, each with a heading, description, and optional button</td></tr>
+        <tr><td><strong>Weather &amp; Camera</strong></td><td>Auto-updating widgets (not editable here — they run automatically)</td></tr>
+        <tr><td><strong>Bottom Content Section</strong></td><td>A two-column block with a heading, paragraph text, and optional photo</td></tr>
+    </tbody>
+</table>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot: Full public homepage as seen by a visitor — show all four zones labeled with numbered callouts</em></div>
+
+<hr>
+
+<h2 id="getting-to-the-homepage-editor">Getting to the Homepage Editor</h2>
+
+<ol>
+    <li>Log in to the admin panel.</li>
+    <li>In the top navigation, click <strong>Admin</strong> (or go directly to <code>/admin</code>).</li>
+    <li>Click <strong>Homepage</strong> in the admin menu.</li>
+</ol>
+
+<p>You will land on the <strong>Homepage Settings</strong> form.</p>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot: Admin navigation menu with "Homepage" link highlighted</em></div>
+
+<div class="notification is-info is-light">
+    <p><strong>One form, one save</strong><br>
+    Everything on this page — hero, cards, and bottom section — is saved with a single <strong>Save Settings</strong> button at the bottom of the form. You do not need to save each section separately.</p>
+</div>
+
+<hr>
+
+<h2 id="template-variables">Template Variables — Insert Club Info Automatically</h2>
+
+<p>At the top of the Homepage Settings form, you will see a yellow reference box listing special codes called <strong>template variables</strong>. These are shortcuts you can type anywhere in a text field, and the website will automatically replace them with your club's real contact information.</p>
+
+<table>
+    <thead>
+        <tr><th>What you type</th><th>What visitors see</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><code>{{name}}</code></td><td>The club name</td></tr>
+        <tr><td><code>{{email}}</code></td><td>A clickable email link</td></tr>
+        <tr><td><code>{{phone}}</code></td><td>A clickable phone number</td></tr>
+        <tr><td><code>{{address1}}</code></td><td>Street address (line 1)</td></tr>
+        <tr><td><code>{{address2}}</code></td><td>Street address (line 2)</td></tr>
+        <tr><td><code>{{city}}</code></td><td>City, state, and zip</td></tr>
+    </tbody>
+</table>
+
+<p><strong>Example:</strong> If you type <code>Call us at {{phone}} or email {{email}}</code> in a card description, visitors will see those as live, clickable links.</p>
+
+<div class="notification is-success is-light">
+    <p><strong>Where to change these values</strong><br>
+    The actual club name, phone, address, and email are managed under <strong>Admin → Theme Settings</strong> (<code>/admin/theme</code>). Change them there once, and they update everywhere on the site automatically.</p>
+</div>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot: The yellow "Template Variables" reference box at the top of the Homepage Settings form</em></div>
+
+<hr>
+
+<h2 id="editing-the-hero-banner">Editing the Hero Banner</h2>
+
+<p>The hero banner is the large, attention-grabbing strip at the very top of the homepage. It can show a background photo or a solid color, and it can display a title and subtitle on top.</p>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot: The "Hero Section" form box in Homepage Settings, showing the title/subtitle fields and color pickers</em></div>
+
+<h3>Set the Title and Subtitle</h3>
+
+<ol>
+    <li>In the <strong>Hero Section</strong> box, find the <strong>Title</strong> field.</li>
+    <li>Type the main heading you want (e.g., <code>Welcome to Okanogan Valley Golf Club</code>). Leave it blank to hide the title entirely.</li>
+    <li>Find the <strong>Subtitle</strong> field and type a short line of supporting text (e.g., <code>18 holes of championship golf</code>). Leave it blank to hide it. Supports template variables (see above).</li>
+</ol>
+
+<h3>Change Text Colors</h3>
+
+<p>Each text field has a matching color picker next to it. You can change the color in two ways:</p>
+<ul>
+    <li><strong>Click the colored square</strong> to open a color chooser and pick visually.</li>
+    <li><strong>Type a hex color code</strong> directly in the text box next to the square (e.g., <code>#ffffff</code> for white).</li>
+</ul>
+<p>Both controls stay in sync — change one and the other updates automatically.</p>
+
+<div class="notification is-light">
+    <p><strong>What is a hex color code?</strong><br>
+    A hex code is a six-character code starting with <code>#</code> that represents a color. <code>#ffffff</code> is white, <code>#000000</code> is black, <code>#667eea</code> is a medium purple-blue. You can find hex codes using any online color picker.</p>
+</div>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot: Close-up of one color picker pair — the colored square open, the hex input field next to it, and the sync behavior visible</em></div>
+
+<h3>Set the Background</h3>
+
+<p>You have two choices for the hero background:</p>
+
+<p><strong>Option A — Solid Color:</strong><br>
+Use the <strong>Background Color</strong> picker to choose a color. The default is a blue-purple.</p>
+
+<p><strong>Option B — Photo:</strong></p>
+<ol>
+    <li>Click <strong>Choose File</strong> under <strong>Background Image</strong>.</li>
+    <li>Select a photo from your computer (JPEG, PNG, GIF, or WebP; max 5 MB).</li>
+    <li>Save the form — the photo will appear as the hero background.</li>
+</ol>
+
+<div class="notification is-warning is-light">
+    <p><strong>Image takes priority</strong><br>
+    If you have both a background color and a background image uploaded, the <strong>photo will always be shown</strong> and the color will be hidden behind it. To show only the color, remove the image first.</p>
+</div>
+
+<h3>Remove the Hero Photo</h3>
+
+<p>If you want to go back to a solid color background after uploading a photo:</p>
+<ol>
+    <li>Find the thumbnail preview of your current hero photo.</li>
+    <li>Click the red <strong>Remove Image</strong> button below it.</li>
+    <li>Confirm when prompted. The photo is deleted immediately.</li>
+</ol>
+
+<div class="notification is-warning is-light">
+    <p><strong>Removal is instant</strong><br>
+    Clicking "Remove Image" deletes the photo right away — you do not need to click Save Settings afterward. There is no undo.</p>
+</div>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot: The hero image upload area showing a current image thumbnail and the red "Remove Image" button</em></div>
+
+<hr>
+
+<h2 id="editing-the-feature-cards">Editing the Feature Cards</h2>
+
+<p>Below the hero, the homepage shows three cards side by side. Each card has a heading, a description, and an optional button.</p>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot: The "Feature Cards" section in the admin form, showing Card 1's fields expanded — title, text area, button text, and button link</em></div>
+
+<h3>Edit a Card</h3>
+
+<p>Each card (Card 1, Card 2, Card 3) has the same four fields:</p>
+<ol>
+    <li><strong>Title</strong> — The bold heading at the top of the card. Required; cannot be left blank.</li>
+    <li><strong>Description</strong> — The paragraph below the heading. Optional; supports template variables and line breaks.</li>
+    <li><strong>Button Text</strong> — The label on the card's button (e.g., <code>Learn More</code>, <code>Book a Tee Time</code>). Leave blank to hide the button entirely.</li>
+    <li><strong>Button Link</strong> — The page the button leads to when clicked. Use the path after the domain name.</li>
+</ol>
+
+<p><strong>Button Link examples:</strong></p>
+
+<table>
+    <thead>
+        <tr><th>Where you want to send visitors</th><th>What to type</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>The About page</td><td><code>/about</code></td></tr>
+        <tr><td>The Rates page</td><td><code>/rates</code></td></tr>
+        <tr><td>The Contact page</td><td><code>/contact</code></td></tr>
+        <tr><td>An external website</td><td><code>https://www.example.com</code></td></tr>
+    </tbody>
+</table>
+
+<div class="notification is-success is-light">
+    <p><strong>Hiding a button</strong><br>
+    If you do not want a button on a card, simply leave the <strong>Button Text</strong> field empty. No button will appear, even if you have a link typed in.</p>
+</div>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot: The three cards as they appear on the live public homepage, showing heading, description text, and a "Learn More" button on one card</em></div>
+
+<hr>
+
+<h2 id="editing-the-bottom-content-section">Editing the Bottom Content Section</h2>
+
+<p>At the bottom of the homepage (above the footer) is a two-column block — text on one side and a photo on the other. This is a good place for an "About the Club" summary or a seasonal message.</p>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot: The "Bottom Content Section" form box, showing the layout radio buttons, title/text fields, and image upload area</em></div>
+
+<h3>Choose the Layout</h3>
+
+<p>Two radio button options control which side the photo sits on:</p>
+
+<table>
+    <thead>
+        <tr><th>Option</th><th>What it looks like</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>Text Left, Image Right</strong></td><td>Paragraph on the left, photo on the right</td></tr>
+        <tr><td><strong>Image Left, Text Right</strong></td><td>Photo on the left, paragraph on the right</td></tr>
+    </tbody>
+</table>
+
+<p>Select the one that looks best with your photo.</p>
+
+<h3>Add the Title and Text</h3>
+
+<ol>
+    <li><strong>Title</strong> — The section heading (e.g., <code>About Our Course</code>). Required.</li>
+    <li><strong>Text</strong> — The body paragraph(s). Optional; you can press Enter for line breaks. Supports template variables.</li>
+</ol>
+
+<h3>Add or Change the Photo</h3>
+
+<ol>
+    <li>Click <strong>Choose File</strong> under <strong>Bottom Section Image</strong>.</li>
+    <li>Select a photo (JPEG, PNG, GIF, or WebP; max 5 MB).</li>
+    <li>Save the form.</li>
+</ol>
+
+<p>To remove the photo, click the red <strong>Remove Image</strong> button below the current image preview and confirm.</p>
+
+<div class="notification is-light">
+    <p><strong>Section visibility</strong><br>
+    The bottom section only appears on the public homepage if at least one of Title, Text, or Image has content. If all three are empty, the section is hidden automatically.</p>
+</div>
+
+<hr>
+
+<h2 id="camera-widget--live-vs-maintenance-mode">Camera Widget — Live vs. Maintenance Mode</h2>
+
+<p>The camera section on the homepage normally shows the live auto-refreshing feed from the course camera. When the camera is offline, being serviced, or physically moved, you can switch it to <strong>Maintenance Mode</strong> so visitors see a clean static image instead of a broken or blank feed.</p>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot: The "Camera Widget" box in Homepage Settings, showing the two radio buttons and the image upload/preview area</em></div>
+
+<h3>Switch Between Modes</h3>
+
+<p>In the <strong>Camera Widget</strong> box, choose one of the two radio buttons:</p>
+
+<table>
+    <thead>
+        <tr><th>Option</th><th>What visitors see</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>Live Camera</strong></td><td>The auto-refreshing live feed (default)</td></tr>
+        <tr><td><strong>Maintenance Mode</strong></td><td>A static maintenance image you upload</td></tr>
+    </tbody>
+</table>
+
+<p>Select the mode and click <strong>Save Settings</strong> at the bottom of the form.</p>
+
+<h3>Upload the Maintenance Image</h3>
+
+<p>The maintenance image upload and preview are always visible regardless of which mode is selected. This lets you prepare the image ahead of time before you need it.</p>
+
+<ol>
+    <li>Click <strong>Choose File</strong> under <strong>Maintenance Image</strong>.</li>
+    <li>Select a photo (JPEG, PNG, GIF, or WebP; max 5 MB).</li>
+    <li>Click <strong>Save Settings</strong>.</li>
+</ol>
+
+<p>A preview of the uploaded image will appear below the upload field. You can update it at any time by uploading a new file — the old one will be replaced.</p>
+
+<div class="notification is-success is-light">
+    <p><strong>Prepare it ahead of time</strong><br>
+    Upload a maintenance image while the camera is still working. When you need to take the camera offline, you only have to flip the toggle and save — no scrambling to find an image at the last minute.</p>
+</div>
+
+<h3>Remove the Maintenance Image</h3>
+
+<p>Click the red <strong>Remove Image</strong> button below the preview. This deletes the file immediately.</p>
+
+<div class="notification is-warning is-light">
+    <p><strong>What happens if Maintenance Mode is on but no image is uploaded?</strong><br>
+    The camera section will be hidden entirely on the public homepage. Visitors will not see any camera widget. Upload a maintenance image before switching modes to avoid an empty gap on the page.</p>
+</div>
+
+<h3>Switch Back to Live</h3>
+
+<p>When the camera is back online:</p>
+<ol>
+    <li>Select <strong>Live Camera</strong> in the Camera Widget box.</li>
+    <li>Click <strong>Save Settings</strong>.</li>
+</ol>
+
+<p>The auto-refreshing feed resumes immediately — no other changes needed.</p>
+
+<hr>
+
+<h2 id="saving-your-changes">Saving Your Changes</h2>
+
+<p>When you are done editing any part of the form:</p>
+
+<ol>
+    <li>Scroll to the bottom of the page.</li>
+    <li>Click the green <strong>Save Settings</strong> button.</li>
+    <li>Wait for the page to reload. A green success bar will appear at the top confirming your changes were saved.</li>
+</ol>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot: The bottom of the form showing the "Save Settings" and "Back to Admin" buttons, and a green success flash message at the top of the page after saving</em></div>
+
+<div class="notification is-success is-light">
+    <p><strong>Preview your changes</strong><br>
+    After saving, click <strong>Back to Admin</strong> and then click the site logo or navigate to <code>/</code> to see the public homepage with your changes applied.</p>
+</div>
+
+<hr>
+
+<h2 id="field-reference">Field Reference</h2>
+
+<h3>Hero Section</h3>
+
+<table>
+    <thead>
+        <tr><th>Field</th><th>Required</th><th>Max Length</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>Title</td><td>No</td><td>100 characters</td><td>Leave blank to hide</td></tr>
+        <tr><td>Title Color</td><td>No</td><td>—</td><td>Hex code, e.g. <code>#ffffff</code></td></tr>
+        <tr><td>Subtitle</td><td>No</td><td>255 characters</td><td>Supports <code>{{template}}</code> variables</td></tr>
+        <tr><td>Subtitle Color</td><td>No</td><td>—</td><td>Hex code</td></tr>
+        <tr><td>Background Color</td><td>No</td><td>—</td><td>Hex code; hidden if image is uploaded</td></tr>
+        <tr><td>Background Image</td><td>No</td><td>5 MB max</td><td>JPEG, PNG, GIF, or WebP</td></tr>
+    </tbody>
+</table>
+
+<h3>Feature Cards (applies to each of Card 1, 2, 3)</h3>
+
+<table>
+    <thead>
+        <tr><th>Field</th><th>Required</th><th>Max Length</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>Title</td><td><strong>Yes</strong></td><td>100 characters</td><td>Card heading</td></tr>
+        <tr><td>Description</td><td>No</td><td>Unlimited</td><td>Supports template variables and line breaks</td></tr>
+        <tr><td>Button Text</td><td>No</td><td>100 characters</td><td>Leave blank to hide the button</td></tr>
+        <tr><td>Button Link</td><td>No</td><td>255 characters</td><td>Use <code>/path</code> for internal pages or full URL for external</td></tr>
+    </tbody>
+</table>
+
+<h3>Bottom Content Section</h3>
+
+<table>
+    <thead>
+        <tr><th>Field</th><th>Required</th><th>Max Length</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>Layout</td><td><strong>Yes</strong></td><td>—</td><td>Choose text-left or image-left</td></tr>
+        <tr><td>Title</td><td><strong>Yes</strong></td><td>255 characters</td><td>Section heading</td></tr>
+        <tr><td>Text</td><td>No</td><td>Unlimited</td><td>Supports template variables and line breaks</td></tr>
+        <tr><td>Image</td><td>No</td><td>5 MB max</td><td>JPEG, PNG, GIF, or WebP</td></tr>
+    </tbody>
+</table>
+
+<h3>Camera Widget</h3>
+
+<table>
+    <thead>
+        <tr><th>Field</th><th>Required</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>Camera Display Mode</td><td><strong>Yes</strong></td><td><code>live</code> (default) or <code>maintenance</code></td></tr>
+        <tr><td>Maintenance Image</td><td>No</td><td>5 MB max; JPEG, PNG, GIF, or WebP. Shown when mode is Maintenance. Section hidden if mode is Maintenance and no image is set.</td></tr>
+    </tbody>
+</table>
+
+<hr>
+
+<h2 id="tips--gotchas">Tips &amp; Gotchas</h2>
+
+<div class="notification is-success is-light">
+    <p><strong>Keep hero text short</strong><br>
+    The hero title and subtitle overlay the background. Very long text can wrap awkwardly on phones. Aim for a title under 6–8 words and a subtitle under 12–15 words.</p>
+</div>
+
+<div class="notification is-success is-light">
+    <p><strong>Use high-contrast text colors</strong><br>
+    If your hero background is dark (a dark photo or dark color), use a light text color like <code>#ffffff</code>. If the background is light, use a dark color like <code>#1a1a1a</code>. Low contrast makes text hard to read.</p>
+</div>
+
+<div class="notification is-warning is-light">
+    <p><strong>Image removal is permanent</strong><br>
+    Clicking <strong>Remove Image</strong> on either the hero or bottom section deletes the file immediately — no confirmation step beyond the browser pop-up, and no undo. Download the photo to your computer first if you think you might want it back.</p>
+</div>
+
+<div class="notification is-warning is-light">
+    <p><strong>Card titles cannot be blank</strong><br>
+    All three card titles are required. If you try to save with a blank card title, the form will fail silently (you will be returned to the form without a save confirmation). Check that all three titles have text.</p>
+</div>
+
+<div class="notification is-light">
+    <p><strong>Line breaks in descriptions</strong><br>
+    When you press Enter in a card description or the bottom section text, those line breaks show up as paragraph breaks on the live site. You do not need to do anything special — just write naturally.</p>
+</div>
+
+<div class="notification is-light">
+    <p><strong>Button links for external sites</strong><br>
+    If a button should open a different website (e.g., an online booking service), use the full address including <code>https://</code>, like <code>https://www.golfnow.com/</code>. For pages on your own site, use just the path, like <code>/contact</code>.</p>
+</div>
+
+<div class="notification is-success is-light">
+    <p><strong>Template variables only work in certain fields</strong><br>
+    Template variables (<code>{{phone}}</code>, <code>{{email}}</code>, etc.) work in the hero subtitle, card descriptions, and the bottom section title and text. They do <strong>not</strong> work in the hero title, card titles, or button text fields.</p>
+</div>

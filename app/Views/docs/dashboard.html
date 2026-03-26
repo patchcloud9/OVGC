@@ -1,0 +1,210 @@
+<h1>Admin Dashboard</h1>
+
+<div class="notification is-info is-light">
+    <p><strong>Quick Reference</strong></p>
+    <p><strong>Audience:</strong> Site administrator<br>
+    <strong>Location:</strong> Log in → you land here automatically<br>
+    <strong>Direct URL:</strong> <code>/admin</code></p>
+</div>
+
+<p>The Admin Dashboard is your home base for managing the Okanogan Valley Golf Club website. Every button, link, and setting for the site is reachable from here. Think of it as a control panel — you don't do most of your work <em>on</em> this page, but you use it to navigate to wherever you need to go.</p>
+
+<hr>
+
+<h2 id="concepts">Concepts</h2>
+
+<h3>What is the Admin Panel?</h3>
+<p>The Admin Panel is a private area of the website that only logged-in administrators can see. Visitors to the public site never have access to it. You use it to update content, change settings, and manage everything that appears on the website.</p>
+
+<h3>How changes reach the live site</h3>
+<p>When you save something in the admin panel, it takes effect immediately — there is no "publish" step. Visitors to the website will see your changes as soon as their browser loads the next page. If a change doesn't appear right away, try a hard refresh in your browser (<code>Ctrl + Shift + R</code> on Windows, <code>Cmd + Shift + R</code> on Mac).</p>
+
+<h3>Sections vs. Settings</h3>
+<p>The admin panel has two types of areas:</p>
+<ul>
+    <li><strong>Content sections</strong> (Pages) — where you manage things visitors read, see, or download (events, gallery images, rates, etc.)</li>
+    <li><strong>Configuration settings</strong> (Settings) — where you control how the site looks and behaves (theme colors, navigation menu, user accounts)</li>
+</ul>
+
+<hr>
+
+<h2 id="how-to-get-here">How to Get Here</h2>
+
+<ol>
+    <li>Go to <code>https://www.okanoganvalleygolf.com/login</code></li>
+    <li>Enter your administrator email and password.</li>
+    <li>Click <strong>Log In</strong>.</li>
+    <li>You will land on the Admin Dashboard at <code>/admin</code>.</li>
+</ol>
+
+<div class="notification is-success is-light">
+    <p>Bookmark <code>/admin</code> directly. Once you are logged in, visiting that URL always brings you back to this page.</p>
+</div>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot: The login page at /login — show the email/password form with the site logo above it</em></div>
+
+<hr>
+
+<h2 id="dashboard-layout">Dashboard Layout</h2>
+
+<p>The dashboard is divided into four collapsible boxes. Each box has a title bar — click the title bar to expand or collapse that section.</p>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot: The full Admin Dashboard page as it appears when first loaded — all four sections visible, showing the Pages, Settings, Developer Tools, and Recent Activity boxes</em></div>
+
+<hr>
+
+<h3>Pages Section</h3>
+
+<p>This section contains buttons that take you to each content area of the site. These are the places you will visit most often.</p>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot: The Pages section of the dashboard — the grid of colored buttons (Homepage, Gallery, Rates, etc.) with the section header "Pages" visible</em></div>
+
+<table>
+    <thead>
+        <tr><th>Button</th><th>What it manages</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>Homepage</strong></td><td>The main landing page — hero image and text, the three content cards, and the bottom section</td></tr>
+        <tr><td><strong>Gallery</strong></td><td>The photo gallery — upload new photos, remove old ones, change captions, reorder images</td></tr>
+        <tr><td><strong>Rates</strong></td><td>Green fees and other pricing — organized into groups (e.g., "Weekday Rates") with individual line items inside each group</td></tr>
+        <tr><td><strong>Membership</strong></td><td>Membership plans and their benefits — organized the same way as Rates (groups → items)</td></tr>
+        <tr><td><strong>Banners</strong></td><td>Temporary announcement bars that appear at the top or bottom of specific pages (e.g., "Course closed for maintenance")</td></tr>
+        <tr><td><strong>Events</strong></td><td>The golf calendar — add tournaments, league days, and other events; mark dates as cancelled; enter tournament results</td></tr>
+        <tr><td><strong>Board Members</strong></td><td>The list of board members shown on the About/Board page — names, titles, email addresses</td></tr>
+        <tr><td><strong>Board Minutes</strong></td><td>Meeting minutes available for download — upload PDFs with the meeting date</td></tr>
+    </tbody>
+</table>
+
+<hr>
+
+<h3>Settings Section</h3>
+
+<p>This section contains buttons for site-wide configuration. Changes here affect the whole site, not just one page.</p>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot: The Settings section of the dashboard — the row of buttons (Theme, Menu, Users, Logs) with the section header "Settings" visible</em></div>
+
+<table>
+    <thead>
+        <tr><th>Button</th><th>What it manages</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>Theme</strong></td><td>Site-wide appearance — colors, fonts, logo image, favicon (the tiny icon in the browser tab), header style, site name, contact details</td></tr>
+        <tr><td><strong>Menu</strong></td><td>The navigation bar at the top of every page — add links, create dropdown menus, change the order</td></tr>
+        <tr><td><strong>Users</strong></td><td>Administrator accounts — create new admin logins, change passwords, deactivate old accounts</td></tr>
+        <tr><td><strong>Logs</strong></td><td>A running record of activity and errors on the site — useful for troubleshooting if something goes wrong</td></tr>
+    </tbody>
+</table>
+
+<hr>
+
+<h3>Developer Tools Section</h3>
+
+<div class="notification is-warning is-light">
+    <p>This section is only visible when the site is in <strong>debug mode</strong> (a development setting). On the live production site, this section is hidden entirely. Do not rely on these links for day-to-day work.</p>
+</div>
+
+<p>These tools are for the site developer to test and diagnose technical issues. As a site admin you can ignore this section — it will not appear on the public site.</p>
+
+<table>
+    <thead>
+        <tr><th>Button</th><th>Purpose</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>Debug Info</strong></td><td>Shows technical details about the current page request</td></tr>
+        <tr><td><strong>Test 404</strong></td><td>Loads the "Page Not Found" error page to confirm it looks correct</td></tr>
+        <tr><td><strong>Test 500</strong></td><td>Loads the "Server Error" page to confirm it looks correct</td></tr>
+        <tr><td><strong>Test Email</strong></td><td>Sends a test email to confirm the site's email delivery is working</td></tr>
+    </tbody>
+</table>
+
+<hr>
+
+<h3>Recent Activity Section</h3>
+
+<p>At the bottom of the dashboard is a feed showing the last 5 activity log entries. These are automatically recorded by the site — you do not need to do anything to maintain them.</p>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot: The Recent Activity section — showing 2–3 sample log entries with their timestamps and colored level badges (error = red, warning = yellow, info = blue)</em></div>
+
+<p>Each entry shows:</p>
+<ul>
+    <li><strong>Level badge</strong> — color-coded label indicating severity:
+        <ul>
+            <li>Blue <strong>info</strong> — routine activity (a user logged in, content was saved)</li>
+            <li>Yellow <strong>warning</strong> — something unexpected happened but the site recovered</li>
+            <li>Red <strong>error</strong> — something failed and may need attention</li>
+        </ul>
+    </li>
+    <li><strong>Message</strong> — a brief description of what happened</li>
+    <li><strong>Timestamp</strong> — when it occurred</li>
+</ul>
+
+<p>Click <strong>View all logs</strong> at the bottom of the section to see the full log history.</p>
+
+<div class="notification is-light">
+    <p>If no log entries appear, the logs table may be empty (normal on a fresh install) or an error occurred reading it. Either way, the rest of the dashboard works normally.</p>
+</div>
+
+<hr>
+
+<h2 id="quick-start">Quick-Start: Where Do I Go To…</h2>
+
+<table>
+    <thead>
+        <tr><th>I want to…</th><th>Go to</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>Change the homepage hero image or text</td><td>Pages → Homepage</td></tr>
+        <tr><td>Add or remove a photo from the gallery</td><td>Pages → Gallery</td></tr>
+        <tr><td>Update green fee prices</td><td>Pages → Rates</td></tr>
+        <tr><td>Add a new tournament to the calendar</td><td>Pages → Events → Add Event</td></tr>
+        <tr><td>Post tournament results</td><td>Pages → Events → (find the event) → Results</td></tr>
+        <tr><td>Cancel an event occurrence</td><td>Pages → Events → (find the event) → Cancel</td></tr>
+        <tr><td>Add a temporary announcement banner</td><td>Pages → Banners → Add Banner</td></tr>
+        <tr><td>Upload new meeting minutes</td><td>Pages → Board Minutes → Upload</td></tr>
+        <tr><td>Update a board member's title or email</td><td>Pages → Board Members</td></tr>
+        <tr><td>Change the site's primary color</td><td>Settings → Theme</td></tr>
+        <tr><td>Add a new link to the navigation bar</td><td>Settings → Menu</td></tr>
+        <tr><td>Create a new admin account</td><td>Settings → Users → Add User</td></tr>
+        <tr><td>Check if an email error was logged</td><td>Settings → Logs</td></tr>
+        <tr><td>Change the site name or contact phone number</td><td>Settings → Theme</td></tr>
+    </tbody>
+</table>
+
+<hr>
+
+<h2 id="tips--gotchas">Tips &amp; Gotchas</h2>
+
+<div class="notification is-success is-light">
+    <p><strong>Changes are instant</strong><br>
+    There is no draft/preview mode. The moment you click <strong>Save</strong>, the change is live on the public website. For big changes (like replacing the hero image), consider doing it during off-peak hours.</p>
+</div>
+
+<div class="notification is-success is-light">
+    <p><strong>Stuck? Check the logs first</strong><br>
+    If something doesn't seem to be saving or an email didn't send, go to <strong>Settings → Logs</strong> and look for a recent red <strong>error</strong> entry. The message there usually explains what went wrong.</p>
+</div>
+
+<div class="notification is-warning is-light">
+    <p><strong>Deleting is permanent</strong><br>
+    Deleting a gallery image, event, board member, or any other item cannot be undone. The site has no recycle bin or undo feature. When in doubt, check twice before clicking Delete.</p>
+</div>
+
+<div class="notification is-warning is-light">
+    <p><strong>You cannot delete your own account</strong><br>
+    The Users section will not let you delete the account you are currently logged in with. This prevents accidentally locking yourself out. To remove your own account, have another admin do it — or create a second admin first, log in as that user, then delete the original.</p>
+</div>
+
+<div class="notification is-light">
+    <p><strong>Self-registration is disabled</strong><br>
+    The public-facing "Register" page does not work — it redirects to the login page. New admin accounts must be created manually by an existing administrator using <strong>Settings → Users</strong>.</p>
+</div>
+
+<div class="notification is-light">
+    <p><strong>Session timeout</strong><br>
+    If you leave the admin panel open in your browser for an extended period without activity, your session may expire and you will be redirected to the login page. Any unsaved form work will be lost. Save frequently.</p>
+</div>
+
+<div class="notification is-info is-light">
+    <p><strong>One admin layout, one site</strong><br>
+    The admin panel uses the same visual theme as the public website (same colors, same fonts). This is intentional — changes you make in Theme settings affect both the public site and the admin panel simultaneously.</p>
+</div>

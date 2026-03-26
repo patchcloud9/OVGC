@@ -31,6 +31,9 @@ Deployed via GitHub → RackNerd/CPanel GitHub Version Control → `/home/okanog
 | `app/Services/WeatherService.php` | NWS API fetch, JSON cache, widget icon mapping |
 | `app/Views/partials/weather-widget.php` | Homepage weather widget (current + 3-day forecast) |
 | `public/cron-weather.php` | HTTP cron endpoint → calls `WeatherService::updateCache()` |
+| `app/Controllers/Admin/DocsController.php` | Admin docs viewer — `GET /admin/docs` (search/landing) + `GET /admin/docs/[slug]` (show) |
+| `app/Views/docs/*.html` | HTML doc source files (converted from `.md`; add new docs here as `.html`) |
+| `public/assets/css/docs.css` | Styles for the docs viewer (typography, callouts, sidebar, search results) |
 | `app/Controllers/CameraController.php` | Serves FTP camera image via `GET /camera/live` with corruption protection |
 | `public/uploads/camera1.jpg` | FTP-dropped source image (continuously overwritten by camera) |
 | `storage/cache/camera1_stable.jpg` | Last known-good frame promoted by `CameraController` |
@@ -134,7 +137,9 @@ Copy `config/config.example.php` → `config/config.php` and fill in real values
 
 ## Current Status
 
-Core, security, middleware, auth, admin UI, theming, content management, **Events system**, **Weather widget**, **Camera widget**, and **Template Variables** are all complete and stable.
+Core, security, middleware, auth, admin UI, theming, content management, **Events system**, **Weather widget**, **Camera widget**, **Template Variables**, and **Admin Documentation system** are all complete and stable.
+
+**Admin Documentation system:** Searchable HTML docs viewer at `GET /admin/docs` (admin-only). Sidebar lists all guides; search splits each doc by `<h2>` and returns section-level results with excerpts and anchor links. Doc files live in `app/Views/docs/*.html` (static HTML partials). Order and metadata controlled by the `DOCS` constant in `DocsController`. A prominent docs banner on the admin dashboard (`admin/index.php`) links directly to `/admin/docs`. CSS in `public/assets/css/docs.css`.
 
 **Weather widget:** NWS API (free, no key) → `storage/cache/weather-data.json` (30-min cron) → rendered server-side by `WeatherService` + `partials/weather-widget.php`. Cron endpoint: `GET /cron-weather.php?key=<WEATHER_KEY>`. Widget hidden gracefully when cache is absent.
 

@@ -1,0 +1,279 @@
+<h1>Page Banners</h1>
+
+<div class="notification is-info is-light">
+    <p><strong>Quick Reference</strong></p>
+    <p><strong>Audience:</strong> Site administrator<br>
+    <strong>Location:</strong> Admin Dashboard → Banners, or navigate directly to <code>/admin/banners</code><br>
+    <strong>Direct URL:</strong> <code>/admin/banners</code></p>
+</div>
+
+<p>Page banners are eye-catching announcement bars that appear at the top or bottom of any page on the website. Use them to highlight important news, seasonal reminders, course closures, or special events — without touching any other part of the page.</p>
+
+<hr>
+
+<h2 id="concepts">Concepts</h2>
+
+<h3>What is a Banner?</h3>
+
+<p>A <strong>banner</strong> is a coloured notification bar that stretches across the width of a page. It appears either just below the page header image (called <strong>Top</strong> position) or just above the footer (called <strong>Bottom</strong> position). Banners are great for short, attention-grabbing messages — think one or two sentences at most.</p>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot: The homepage with a blue "info" banner visible just below the hero/header image, showing how it looks to a site visitor</em></div>
+
+<h3>How Banners Work</h3>
+
+<ul>
+    <li>Each banner is tied to a specific <strong>page path</strong> — the part of the web address after the domain name. For example, the home page is <code>/</code>, the rates page is <code>/rates</code>, and the events page is <code>/events</code>.</li>
+    <li>Only the banners assigned to the page a visitor is currently viewing are shown. A banner on <code>/rates</code> will not appear on <code>/events</code>.</li>
+    <li>Banners are sorted by their <strong>Sort Order</strong> number, lowest first. If two banners are on the same page, the one with the lower sort order appears first (higher up).</li>
+    <li>The system checks three things before showing a banner to a visitor:
+        <ol>
+            <li>The <strong>Active</strong> checkbox must be checked.</li>
+            <li>If a <strong>Start Date</strong> was set, that date must have already passed.</li>
+            <li>If an <strong>End Date</strong> was set, that date must not have passed yet.</li>
+        </ol>
+    </li>
+</ul>
+
+<h3>Banner Colours</h3>
+
+<table>
+    <thead>
+        <tr><th>Colour Name</th><th>Appearance</th><th>Best Used For</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>Info</strong></td><td>Blue bar</td><td>General announcements, reminders</td></tr>
+        <tr><td><strong>Warning</strong></td><td>Yellow bar</td><td>Cautions, schedule changes, weather notices</td></tr>
+        <tr><td><strong>Danger</strong></td><td>Red bar</td><td>Urgent alerts, closures</td></tr>
+        <tr><td><strong>None</strong></td><td>Plain/transparent</td><td>Subtle messages that blend with the page</td></tr>
+    </tbody>
+</table>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot: The create/edit form with the Colour dropdown open, showing all four options</em></div>
+
+<h3>Scheduling</h3>
+
+<p>You can set a <strong>Start Date</strong> and/or <strong>End Date</strong> on a banner to control exactly when it appears:</p>
+<ul>
+    <li>Leave both blank → banner shows any time it is Active.</li>
+    <li>Set only a Start Date → banner becomes visible on that date and stays visible indefinitely (while Active).</li>
+    <li>Set only an End Date → banner shows immediately (while Active) and automatically disappears on that date.</li>
+    <li>Set both → banner appears only between those two dates.</li>
+</ul>
+<p>This means you can set up a seasonal banner weeks in advance and never have to remember to remove it.</p>
+
+<h3>Dismissable Banners</h3>
+
+<p>If the <strong>Dismissable</strong> option is turned on, a small <strong>×</strong> button appears on the banner. When a visitor clicks it, the banner disappears immediately and will not reappear for that visitor for 30 days, even if they navigate to other pages or come back later. This preference is stored in their browser — clearing browser cookies will reset it.</p>
+
+<div class="notification is-light">
+    <p><strong>Dismissal is per-visitor and per-browser</strong><br>
+    If someone dismisses a banner on their phone, it will still appear on their desktop (and vice versa) until they dismiss it there too. You cannot "reset" dismissals for all visitors at once.</p>
+</div>
+
+<hr>
+
+<h2 id="how-to-view-all-banners">How to View All Banners</h2>
+
+<ol>
+    <li>Log in to the admin panel.</li>
+    <li>Click <strong>Banners</strong> in the navigation menu, or go directly to <code>/admin/banners</code>.</li>
+    <li>You will see a table listing every banner in the system.</li>
+</ol>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot: The full /admin/banners list page showing the table with several banners, including columns for Page, Position, Text (truncated), Colour, Sort Order, Dismissable, Active, Start, and End, plus Edit and Delete buttons</em></div>
+
+<p>The table shows each banner's key details at a glance:</p>
+
+<table>
+    <thead>
+        <tr><th>Column</th><th>What It Means</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>Page</strong></td><td>The page path where this banner will appear</td></tr>
+        <tr><td><strong>Position</strong></td><td>Top (below the header image) or Bottom (above the footer)</td></tr>
+        <tr><td><strong>Text</strong></td><td>A preview of the banner message (long text is cut off)</td></tr>
+        <tr><td><strong>Colour</strong></td><td>The colour style applied to the banner</td></tr>
+        <tr><td><strong>Sort</strong></td><td>The order number — lower numbers appear first</td></tr>
+        <tr><td><strong>Dismiss</strong></td><td>Yes/No — whether visitors can close this banner</td></tr>
+        <tr><td><strong>Active</strong></td><td>Whether the banner is currently turned on</td></tr>
+        <tr><td><strong>Start / End</strong></td><td>Scheduled start and end dates, if any</td></tr>
+    </tbody>
+</table>
+
+<hr>
+
+<h2 id="how-to-create-a-banner">How to Create a Banner</h2>
+
+<ol>
+    <li>Go to <strong>Admin → Banners</strong> (<code>/admin/banners</code>).</li>
+    <li>Click the <strong>Create Banner</strong> button near the top of the page.</li>
+</ol>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot: The /admin/banners page with the "Create Banner" button highlighted</em></div>
+
+<ol start="3">
+    <li>Fill in the form fields (see <a href="#field-reference">Field Reference</a> for details on each one).</li>
+</ol>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot: The full Create Banner form with all fields visible and the Page field showing the autocomplete suggestions dropdown</em></div>
+
+<ol start="4">
+    <li>Type your message in the <strong>Text</strong> field. Keep it short — one or two sentences works best.</li>
+    <li>Choose a <strong>Colour</strong> that matches the urgency of your message (blue for general info, yellow for caution, red for urgent).</li>
+    <li>In the <strong>Page</strong> field, type the page path where you want the banner to appear. Examples:
+        <ul>
+            <li>Home page: <code>/</code></li>
+            <li>Rates page: <code>/rates</code></li>
+            <li>Events page: <code>/events</code></li>
+            <li>Contact page: <code>/contact</code></li>
+        </ul>
+    </li>
+    <li>Choose <strong>Top</strong> to place the banner below the page header image, or <strong>Bottom</strong> to place it just above the footer.</li>
+    <li><em>(Optional)</em> Set <strong>Start At</strong> and/or <strong>End At</strong> dates if you want the banner to appear only during a specific window.</li>
+    <li><em>(Optional)</em> Check <strong>Dismissable</strong> if you want visitors to be able to close the banner.</li>
+    <li>Leave <strong>Active</strong> checked to make the banner live immediately (or as soon as the Start Date arrives).</li>
+    <li>Click <strong>Create Banner</strong> to save.</li>
+</ol>
+
+<div class="notification is-success is-light">
+    <p><strong>Test before you go live</strong><br>
+    After creating a banner, open the page it's assigned to in a new browser tab (not the admin panel) to confirm it looks right and appears where you expect.</p>
+</div>
+
+<hr>
+
+<h2 id="how-to-edit-a-banner">How to Edit a Banner</h2>
+
+<ol>
+    <li>Go to <strong>Admin → Banners</strong> (<code>/admin/banners</code>).</li>
+    <li>Find the banner you want to change in the list.</li>
+    <li>Click the <strong>Edit</strong> button on that row.</li>
+</ol>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot: The banner list table with the Edit button on one row highlighted/circled</em></div>
+
+<ol start="4">
+    <li>The edit form opens, pre-filled with the current values.</li>
+</ol>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot: The Edit Banner form pre-filled with existing data, showing all fields</em></div>
+
+<ol start="5">
+    <li>Make your changes and click <strong>Update Banner</strong> to save.</li>
+</ol>
+
+<div class="notification is-light">
+    <p><strong>Changes are immediate</strong><br>
+    As soon as you save, the updated banner appears on the live site. There is no draft or preview mode — visitors will see the change right away.</p>
+</div>
+
+<hr>
+
+<h2 id="how-to-delete-a-banner">How to Delete a Banner</h2>
+
+<ol>
+    <li>Go to <strong>Admin → Banners</strong> (<code>/admin/banners</code>).</li>
+    <li>Find the banner in the list.</li>
+    <li>Click the <strong>Delete</strong> button on that row.</li>
+    <li>A confirmation dialog will appear asking you to confirm. Click <strong>OK</strong> (or confirm) to permanently delete it.</li>
+</ol>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot: The browser's confirmation dialog that appears after clicking Delete, asking "Are you sure you want to delete this banner?"</em></div>
+
+<div class="notification is-warning is-light">
+    <p><strong>Deletion is permanent</strong><br>
+    Deleted banners cannot be recovered. If you only want to hide a banner temporarily, uncheck <strong>Active</strong> instead of deleting it — that way you can re-enable it later without re-entering everything.</p>
+</div>
+
+<hr>
+
+<h2 id="how-to-temporarily-disable-a-banner">How to Temporarily Disable a Banner</h2>
+
+<p>You do not need to delete a banner to stop showing it. You can turn it off and on at any time:</p>
+
+<ol>
+    <li>Go to <strong>Admin → Banners</strong> (<code>/admin/banners</code>).</li>
+    <li>Click <strong>Edit</strong> on the banner you want to pause.</li>
+    <li>Uncheck the <strong>Active</strong> checkbox.</li>
+    <li>Click <strong>Update Banner</strong>.</li>
+</ol>
+
+<p>The banner will disappear from the site immediately. Check <strong>Active</strong> again whenever you want to bring it back.</p>
+
+<hr>
+
+<h2 id="field-reference">Field Reference</h2>
+
+<table>
+    <thead>
+        <tr><th>Field</th><th>Required?</th><th>What to Enter</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>Page</strong></td><td>Yes</td><td>The page path where this banner should appear. Always starts with <code>/</code>. Use <code>/</code> for the home page. Examples: <code>/rates</code>, <code>/events</code>, <code>/contact</code></td></tr>
+        <tr><td><strong>Position</strong></td><td>Yes</td><td><strong>Top</strong> — appears below the page header image. <strong>Bottom</strong> — appears above the footer.</td></tr>
+        <tr><td><strong>Colour</strong></td><td>Yes</td><td><strong>Info</strong> (blue), <strong>Warning</strong> (yellow), <strong>Danger</strong> (red), or <strong>None</strong> (plain).</td></tr>
+        <tr><td><strong>Text</strong></td><td>Yes</td><td>The message to display. Plain text; keep it to one or two sentences. Supports template variables (see tip below).</td></tr>
+        <tr><td><strong>Start At</strong></td><td>No</td><td>Date and time when the banner should start appearing. Leave blank to show immediately (when Active).</td></tr>
+        <tr><td><strong>End At</strong></td><td>No</td><td>Date and time when the banner should stop appearing. Leave blank to show indefinitely.</td></tr>
+        <tr><td><strong>Sort Order</strong></td><td>No</td><td>A number controlling display order when multiple banners share the same page and position. Lower number = displayed first. Defaults to <code>0</code>.</td></tr>
+        <tr><td><strong>Dismissable</strong></td><td>No</td><td>Check this to add an × close button. Visitors who click it won't see the banner again for 30 days.</td></tr>
+        <tr><td><strong>Active</strong></td><td>No</td><td>Uncheck to hide the banner without deleting it. Checked by default.</td></tr>
+    </tbody>
+</table>
+
+<div class="notification is-success is-light">
+    <p><strong>Dynamic text with template variables</strong><br>
+    You can include contact details from your site's Theme Settings directly in a banner message using these placeholders. They are replaced automatically with your actual club information when the banner is displayed.</p>
+    <table>
+        <thead><tr><th>Placeholder</th><th>Replaced With</th></tr></thead>
+        <tbody>
+            <tr><td><code>{{name}}</code></td><td>Club name</td></tr>
+            <tr><td><code>{{phone}}</code></td><td>Club phone number</td></tr>
+            <tr><td><code>{{email}}</code></td><td>Club email address</td></tr>
+            <tr><td><code>{{address1}}</code></td><td>Street address line 1</td></tr>
+            <tr><td><code>{{address2}}</code></td><td>Street address line 2</td></tr>
+            <tr><td><code>{{city}}</code></td><td>City</td></tr>
+        </tbody>
+    </table>
+    <p><strong>Example text:</strong> <code>Call us at {{phone}} to book your tee time.</code><br>
+    <strong>Displayed as:</strong> Call us at (509) 422-3666 to book your tee time.</p>
+</div>
+
+<hr>
+
+<h2 id="tips--gotchas">Tips &amp; Gotchas</h2>
+
+<div class="notification is-success is-light">
+    <p><strong>One banner per page is usually enough</strong><br>
+    Stacking multiple banners on the same page can make the site feel cluttered. If you have more than one message to share, consider whether they could be combined into one banner or placed on different pages.</p>
+</div>
+
+<div class="notification is-warning is-light">
+    <p><strong>The Page field must match exactly</strong><br>
+    The page path must exactly match what appears in the browser's address bar — including capitalisation. The path <code>/Rates</code> is different from <code>/rates</code>. Stick to lowercase. If your banner is not appearing, double-check the page path against the actual URL.</p>
+</div>
+
+<div class="notification is-warning is-light">
+    <p><strong>The home page path is a single slash</strong><br>
+    To put a banner on the home page, the Page field should be exactly <code>/</code> — just a forward slash, nothing else. Do not leave it blank.</p>
+</div>
+
+<div class="notification is-light">
+    <p><strong>Scheduling uses the server's clock, not yours</strong><br>
+    Start and End dates are compared against the web server's time (US Pacific). If you're in a different time zone, account for the difference when setting times.</p>
+</div>
+
+<div class="notification is-light">
+    <p><strong>Visitors don't see changes until they reload</strong><br>
+    If a visitor already has a page open when you update or remove a banner, they won't see the change until they refresh their browser. This is normal behaviour for any website.</p>
+</div>
+
+<div class="notification is-success is-light">
+    <p><strong>Use Sort Order to control stacking</strong><br>
+    If you regularly run multiple banners on the homepage — for example, a weather alert plus a seasonal promo — assign them sort order numbers like <code>10</code> and <code>20</code> so there's room to insert new ones between them without renumbering everything.</p>
+</div>
+
+<div class="notification is-success is-light">
+    <p><strong>Check the live page after every change</strong><br>
+    The admin panel does not show a preview of how a banner looks on the real page. After creating or editing a banner, open the target page in a regular browser tab to confirm the colour, position, and message all look right.</p>
+</div>

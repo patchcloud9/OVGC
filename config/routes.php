@@ -44,6 +44,10 @@ return [
         
         // Admin Panel
         '/admin'                => ['AdminController', 'index', ['auth', 'role:admin']],
+
+        // Admin Documentation (Admin Only)
+        '/admin/docs'                => ['Admin\DocsController', 'index', ['auth', 'role:admin']],
+        '/admin/docs/([a-z0-9-]+)'   => ['Admin\DocsController', 'show',  ['auth', 'role:admin']],
         
         // Theme Settings (Admin Only)
         '/admin/theme'          => ['ThemeController', 'index', ['auth', 'role:admin']],

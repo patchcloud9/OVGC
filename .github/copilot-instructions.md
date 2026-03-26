@@ -310,6 +310,33 @@ To apply to a new view, wrap rendered text fields with `tpl()`. No DB changes ne
 - `app/Views/auth/login.php`, `forgot-password.php`, `reset-password.php`, `register.php`
 - `database/initialize/021_create_password_resets.sql`
 
+### 12. Admin Documentation System
+
+**Purpose:** Read-only HTML documentation viewer for admin users. Replaces the `/docs/*.md` flat files with a searchable, browsable web UI.
+
+**Routes (admin-only):**
+- `GET /admin/docs` → `Admin\DocsController::index()` — landing page + section-level search (`?q=term`)
+- `GET /admin/docs/([a-z0-9-]+)` → `Admin\DocsController::show($slug)` — render a single doc
+
+**Controller:** `app/Controllers/Admin/DocsController.php`
+- `DOCS` constant (ordered array) controls sidebar order and display names — edit this to add/reorder docs
+- `searchDocs()` splits each HTML file on `<h2>` boundaries and returns matching sections with 240-char excerpts and `#anchor` links
+- `show()` reads the `.html` file directly and passes raw HTML to the view (files are developer-controlled, not user input)
+
+**Doc files:** `app/Views/docs/*.html` — static HTML partials (no `<html>/<body>` wrapper). Each `<h2>` must have an `id` attribute for search anchors. Callouts use Bulma `notification` classes. Screenshot placeholders use `<div class="screenshot-placeholder">`.
+
+**Views:**
+- `app/Views/admin/docs/index.php` — sidebar + search results / welcome landing
+- `app/Views/admin/docs/show.php` — sidebar + `.doc-content` wrapper around raw HTML
+
+**CSS:** `public/assets/css/docs.css` — typography, tables, code, callouts, sidebar, search results, screenshot placeholders. Loaded via cache-busted `<link>` directly in each view (no `$extraHead` slot).
+
+**Adding a new doc:**
+1. Create `app/Views/docs/your-slug.html` (HTML partial, `<h2 id="...">` headings required)
+2. Add entry to `DOCS` constant in `DocsController` at the desired position
+
+**Admin dashboard entry:** Prominent yellow `notification is-warning is-light` banner in `app/Views/admin/index.php` links directly to `/admin/docs`.
+
 ## Development Workflow
 
 ### Running the Application

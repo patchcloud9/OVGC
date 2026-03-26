@@ -1,0 +1,290 @@
+<h1>Menu Management</h1>
+
+<div class="notification is-info is-light">
+    <p><strong>Quick Reference</strong></p>
+    <p><strong>Audience:</strong> Site administrator<br>
+    <strong>Location:</strong> Admin panel → <strong>Menu</strong><br>
+    <strong>Direct URL:</strong> <code>/admin/menu</code></p>
+</div>
+
+<p>The navigation menu is fully database-driven. Every item you see in the top nav bar is a row in the database, managed entirely through the admin interface — no code changes needed.</p>
+
+<hr>
+
+<h2 id="concepts">Concepts</h2>
+
+<h3>Top-Level vs. Child Items</h3>
+
+<p>Items with no parent appear directly in the navbar. Items assigned a <strong>Parent Menu Item</strong> appear inside a dropdown under that parent.</p>
+
+<pre><code>Home              ← top-level
+About             ← top-level
+Golf              ← top-level (parent, URL = #)
+  ├── Rates       ← child of Golf
+  ├── Course Map  ← child of Golf
+  └── Pro Shop    ← child of Golf
+Contact           ← top-level</code></pre>
+
+<p>A parent item typically uses <code>#</code> as its URL so it acts as a label, not a link.</p>
+
+<h3>Display Order</h3>
+
+<p>Items are sorted by a numeric order value. Lower numbers appear first. Siblings (items sharing the same parent, or all top-level items) are ordered independently — reordering a child does not affect top-level ordering.</p>
+
+<hr>
+
+<h2 id="visibility-rules">Visibility Rules</h2>
+
+<p>Each item has one of three visibility settings:</p>
+
+<table>
+    <thead>
+        <tr><th>Setting</th><th>Who Sees It</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>Public</strong></td><td>Everyone — guests, logged-in members, admins</td></tr>
+        <tr><td><strong>Authenticated</strong></td><td>Logged-in users only (members + admins)</td></tr>
+        <tr><td><strong>Admin</strong></td><td>Admin users only</td></tr>
+    </tbody>
+</table>
+
+<div class="notification is-light">
+    <p>Visibility applies per-item. A child item can have a stricter visibility than its parent. For example: parent is Public, child is Authenticated — guests will see the parent dropdown label but not that child inside it.</p>
+</div>
+
+<p>The <strong>Active</strong> toggle is separate from visibility. An inactive item is hidden from everyone regardless of their role.</p>
+
+<hr>
+
+<h2 id="viewing-the-menu-list">Viewing the Menu List</h2>
+
+<p>Navigate to <strong>Admin → Menu</strong>. You'll see a table of all menu items in display order, with children indented under their parents.</p>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot: Full menu list table — show top-level items and indented children, the ↑↓ order arrows, pencil/trash action buttons, and colored Active/System tags</em></div>
+
+<p>Column guide:</p>
+
+<table>
+    <thead>
+        <tr><th>Column</th><th>Meaning</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>Order</strong></td><td>↑/↓ arrows to move item up or down</td></tr>
+        <tr><td><strong>Title</strong></td><td>Display name shown in the navbar</td></tr>
+        <tr><td><strong>URL</strong></td><td>Link destination</td></tr>
+        <tr><td><strong>Icon</strong></td><td>Font Awesome class (if set)</td></tr>
+        <tr><td><strong>Parent</strong></td><td>Parent item name, or — for top-level</td></tr>
+        <tr><td><strong>Visibility</strong></td><td>public / authenticated / admin</td></tr>
+        <tr><td><strong>Status</strong></td><td>Green = Active, Gray = Inactive</td></tr>
+        <tr><td><strong>Actions</strong></td><td>Edit (pencil) / Delete (red trash)</td></tr>
+    </tbody>
+</table>
+
+<p>Items tagged <strong>System</strong> are protected — they cannot be edited or deleted.</p>
+
+<hr>
+
+<h2 id="adding-a-menu-item">Adding a Menu Item</h2>
+
+<ol>
+    <li>Go to <strong>Admin → Menu</strong>.</li>
+    <li>Click <strong>Add Menu Item</strong> (top-right).</li>
+    <li>Fill in the form (see <a href="#field-reference">Field Reference</a> below).</li>
+    <li>Click <strong>Save Menu Item</strong>.</li>
+</ol>
+
+<p>The new item is added at the end of its group. Use the ↑/↓ arrows to move it into position afterward.</p>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot: The "Add Menu Item" form with example values filled in (e.g., Title: "Scorecard", URL: "/scorecard", Visibility: Public, Active checked)</em></div>
+
+<h3>Quick Example — Adding a Top-Level Link</h3>
+
+<table>
+    <thead><tr><th>Field</th><th>Value</th></tr></thead>
+    <tbody>
+        <tr><td>Title</td><td>Scorecard</td></tr>
+        <tr><td>URL</td><td><code>/scorecard</code></td></tr>
+        <tr><td>Parent</td><td><em>(leave blank)</em></td></tr>
+        <tr><td>Visibility</td><td>Public</td></tr>
+        <tr><td>Active</td><td>✓</td></tr>
+    </tbody>
+</table>
+
+<h3>Quick Example — Adding a Dropdown Child</h3>
+
+<table>
+    <thead><tr><th>Field</th><th>Value</th></tr></thead>
+    <tbody>
+        <tr><td>Title</td><td>Course Map</td></tr>
+        <tr><td>URL</td><td><code>/course-map</code></td></tr>
+        <tr><td>Parent</td><td>Golf <em>(select from the dropdown)</em></td></tr>
+        <tr><td>Visibility</td><td>Public</td></tr>
+        <tr><td>Active</td><td>✓</td></tr>
+    </tbody>
+</table>
+
+<hr>
+
+<h2 id="editing-a-menu-item">Editing a Menu Item</h2>
+
+<ol>
+    <li>In the menu list, click the <strong>pencil icon</strong> next to the item.</li>
+    <li>Change any fields you need.</li>
+    <li>Click <strong>Update Menu Item</strong>.</li>
+</ol>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot: Edit form for an existing item — all fields visible and populated with real data</em></div>
+
+<div class="notification is-success is-light">
+    <p>You can move a top-level item into a dropdown (or vice versa) just by changing the Parent field. The item keeps its URL and all other settings.</p>
+</div>
+
+<hr>
+
+<h2 id="creating-a-dropdown">Creating a Dropdown</h2>
+
+<p>Dropdowns need two things: a parent item (the label) and one or more child items (the links inside).</p>
+
+<h3>Step 1 — Create the Parent (Label)</h3>
+
+<table>
+    <thead><tr><th>Field</th><th>Value</th></tr></thead>
+    <tbody>
+        <tr><td>Title</td><td>Golf <em>(or whatever the group label should be)</em></td></tr>
+        <tr><td>URL</td><td><code>#</code></td></tr>
+        <tr><td>Parent</td><td><em>(leave blank)</em></td></tr>
+        <tr><td>Visibility</td><td>Public</td></tr>
+        <tr><td>Active</td><td>✓</td></tr>
+    </tbody>
+</table>
+
+<p>Using <code>#</code> as the URL makes the item a non-clickable label. The dropdown opens on hover (desktop) or tap (mobile).</p>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot: Live navbar with a dropdown open — show the parent label and the child links inside it</em></div>
+
+<h3>Step 2 — Add Children</h3>
+
+<p>Create each child item and set <strong>Parent Menu Item</strong> to the parent you just created. Children appear inside the dropdown in their own display order.</p>
+
+<div class="notification is-warning is-light">
+    <p>Only one level of nesting is supported. You cannot put a dropdown inside another dropdown.</p>
+</div>
+
+<hr>
+
+<h2 id="reordering-items">Reordering Items</h2>
+
+<p>Use the <strong>↑</strong> and <strong>↓</strong> arrow buttons in the Order column. Each click swaps the item with its neighbor.</p>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot: Close-up of the Order column showing ↑↓ buttons; ideally show a row with the green highlight that briefly appears after a move</em></div>
+
+<p>Rules:</p>
+<ul>
+    <li>Top-level items only swap with other top-level items.</li>
+    <li>Children only swap with their siblings (same parent).</li>
+    <li>After moving, the page reloads and scrolls back to the item, which flashes green briefly.</li>
+</ul>
+
+<div class="notification is-success is-light">
+    <p>To move an item many positions, click the arrow repeatedly — there is no drag-and-drop yet.</p>
+</div>
+
+<hr>
+
+<h2 id="hiding-vs-deleting-an-item">Hiding vs. Deleting an Item</h2>
+
+<h3>Hiding (recommended for temporary removal)</h3>
+
+<p>Edit the item and <strong>uncheck Active</strong>. The item disappears from the navbar but stays in the database and can be re-enabled at any time.</p>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot: Edit form with Active checkbox unchecked; then show the list view with that item showing an "Inactive" gray tag</em></div>
+
+<h3>Deleting (permanent)</h3>
+
+<p>Click the <strong>red trash icon</strong> and confirm the dialog.</p>
+
+<div class="notification is-warning is-light">
+    <p>Deleting a <strong>parent item removes all of its children too</strong>. Before deleting a dropdown parent, decide whether to reassign the children first or delete them along with it. This cannot be undone.</p>
+</div>
+
+<hr>
+
+<h2 id="system-items">System Items</h2>
+
+<p>Items marked <strong>System</strong> are built into the application and cannot be edited or deleted through the admin interface. They show a gray <strong>System</strong> badge in the list.</p>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot: A menu list row with the gray "System" badge visible; edit/delete buttons should be absent or visibly disabled</em></div>
+
+<p>If you need to change a system item, contact your developer.</p>
+
+<hr>
+
+<h2 id="icons-reference">Icons Reference</h2>
+
+<p>The <strong>Icon</strong> field accepts any <a href="https://fontawesome.com/icons?m=free" target="_blank" rel="noopener noreferrer">Font Awesome 6 Free</a> class string. The icon appears inline before the title text in the navbar.</p>
+
+<table>
+    <thead><tr><th>Icon</th><th>Class to Enter</th></tr></thead>
+    <tbody>
+        <tr><td>Home</td><td><code>fas fa-home</code></td></tr>
+        <tr><td>Calendar</td><td><code>fas fa-calendar-alt</code></td></tr>
+        <tr><td>Golf flag</td><td><code>fas fa-flag</code></td></tr>
+        <tr><td>Info</td><td><code>fas fa-info-circle</code></td></tr>
+        <tr><td>Phone</td><td><code>fas fa-phone</code></td></tr>
+        <tr><td>Email</td><td><code>fas fa-envelope</code></td></tr>
+        <tr><td>User</td><td><code>fas fa-user</code></td></tr>
+        <tr><td>Camera</td><td><code>fas fa-camera</code></td></tr>
+        <tr><td>Weather</td><td><code>fas fa-cloud-sun</code></td></tr>
+        <tr><td>Rates/Dollar</td><td><code>fas fa-dollar-sign</code></td></tr>
+        <tr><td>External link</td><td><code>fas fa-external-link-alt</code></td></tr>
+    </tbody>
+</table>
+
+<p>Leave the field blank if you don't want an icon.</p>
+
+<div class="notification is-success is-light">
+    <p>Browse the full free library at <a href="https://fontawesome.com/icons" target="_blank" rel="noopener noreferrer">fontawesome.com/icons</a>. Filter by <strong>Free</strong> to see what's available without a paid license.</p>
+</div>
+
+<hr>
+
+<h2 id="field-reference">Field Reference</h2>
+
+<table>
+    <thead>
+        <tr><th>Field</th><th>Required</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>Title</strong></td><td>Yes</td><td>Text shown in the navbar. 1–100 characters.</td></tr>
+        <tr><td><strong>URL</strong></td><td>Yes</td><td>Relative (<code>/about</code>) or full URL (<code>https://…</code>). Use <code>#</code> for dropdown parents.</td></tr>
+        <tr><td><strong>Icon</strong></td><td>No</td><td>Font Awesome class (e.g., <code>fas fa-home</code>). Leave blank for no icon.</td></tr>
+        <tr><td><strong>Parent Menu Item</strong></td><td>No</td><td>Select a top-level item to nest this inside its dropdown. Leave blank for top-level.</td></tr>
+        <tr><td><strong>Visibility</strong></td><td>Yes</td><td><code>Public</code>, <code>Authenticated</code>, or <code>Admin</code> — see <a href="#visibility-rules">Visibility Rules</a>.</td></tr>
+        <tr><td><strong>Active</strong></td><td>—</td><td>Checked = visible in navbar. Unchecked = hidden from everyone.</td></tr>
+        <tr><td><strong>Open in new tab</strong></td><td>—</td><td>Checked = link opens in a new browser tab. Recommended for external URLs.</td></tr>
+    </tbody>
+</table>
+
+<hr>
+
+<h2 id="tips--gotchas">Tips &amp; Gotchas</h2>
+
+<div class="notification is-warning is-light">
+    <p><strong>Dropdown parent must use <code>#</code> as the URL</strong><br>
+    If you give a dropdown parent a real page URL, tapping it on mobile navigates away instead of opening the dropdown.</p>
+</div>
+
+<div class="notification is-light">
+    <p><strong>Children don't inherit the parent's visibility</strong><br>
+    Each item has its own visibility setting. A child set to Public under an Admin-only parent won't be seen by guests (the parent is hidden), but the child's own visibility setting still applies independently.</p>
+</div>
+
+<div class="notification is-light">
+    <p><strong>Reorder arrows are sibling-scoped</strong><br>
+    The arrows won't move an item from one parent to another. To change a child's parent, edit the item and change the Parent field.</p>
+</div>
+
+<div class="notification is-warning is-light">
+    <p><strong>Deleting a parent deletes its children too</strong><br>
+    When in doubt, hide the item (uncheck Active) instead of deleting it.</p>
+</div>
