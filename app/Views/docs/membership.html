@@ -1,0 +1,281 @@
+<h1>Membership</h1>
+
+<p>Use this page when you need to update the <code>/membership</code> page (membership tiers, pricing, and introductory text) or manage the Board of Directors listing at <code>/board-members</code>. Both sections are fully editable from the admin panel — no code changes required.</p>
+
+<hr>
+
+<h2 id="how-memberships-are-organized">How Memberships Are Organized</h2>
+
+<p>The public membership page is built from three layers:</p>
+
+<table>
+    <thead>
+        <tr><th>Layer</th><th>What It Is</th><th>Example</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>Page Content</strong></td><td>Intro text, member benefits bullet list, and a closing paragraph at the bottom of the page</td><td>"Membership entitles you to…"</td></tr>
+        <tr><td><strong>Membership Groups</strong></td><td>Category headings that organize related tiers together</td><td>Standard, Lifetime, Under 30</td></tr>
+        <tr><td><strong>Membership Items</strong></td><td>Individual price lines within a group — each has a name and a price</td><td>Single $750, Couple $1,200</td></tr>
+    </tbody>
+</table>
+
+<p>Groups and items can be reordered and toggled active/inactive. Only active groups appear on the public page.</p>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot suggestion: public /membership page showing intro text, a group heading, price lines beneath it, and the benefits bullet list.</em></div>
+
+<hr>
+
+<h2 id="getting-to-the-membership-admin">Getting to the Membership Admin</h2>
+
+<ol>
+    <li>Log in and go to the admin dashboard.</li>
+    <li>Click <strong>Membership</strong> in the admin navigation, or go directly to:</li>
+</ol>
+
+<pre><code>https://www.okanoganvalleygolf.com/admin/membership</code></pre>
+
+<p>This page shows the full list of membership groups and the page content editor.</p>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot suggestion: /admin/membership showing the group list table and the page content form below it.</em></div>
+
+<hr>
+
+<h2 id="manage-membership-groups">Manage Membership Groups</h2>
+
+<h3 id="create-group">Create a Group</h3>
+
+<ol>
+    <li>Go to <code>/admin/membership</code>.</li>
+    <li>Click <strong>Add Membership Group</strong>.</li>
+    <li>Fill in the form:
+        <ul>
+            <li><strong>Slug</strong> — A short machine name with no spaces (e.g., <code>standard</code>, <code>under-30</code>). Used internally only.</li>
+            <li><strong>Title</strong> — The visible group heading on the public page (e.g., <code>Standard Memberships</code>).</li>
+            <li><strong>Subtitle</strong> — Optional second heading line shown below the title.</li>
+            <li><strong>Note</strong> — Optional description paragraph for the group.</li>
+            <li><strong>Sort Order</strong> — Controls the group's position on the page. Smaller numbers appear first.</li>
+            <li><strong>Active</strong> — Set to <strong>1</strong> to publish, <strong>0</strong> to hide without deleting.</li>
+        </ul>
+    </li>
+    <li>Click <strong>Create Group</strong>.</li>
+</ol>
+
+<div class="notification is-light">
+    <p>If a validation error occurs (e.g., slug already in use or title missing), the form will stay open with your input preserved so you can correct only what needs fixing.</p>
+</div>
+
+<h3 id="edit-group">Edit or Delete a Group</h3>
+
+<ol>
+    <li>From <code>/admin/membership</code>, click <strong>Edit</strong> next to the group.</li>
+    <li>Update any fields and click <strong>Save Changes</strong>.</li>
+    <li>To remove the group entirely, click <strong>Delete</strong> and confirm.</li>
+</ol>
+
+<div class="notification is-warning is-light">
+    <p><strong>Deleting a group also deletes all its membership items.</strong> There is no undo. If you want to temporarily hide the group, set Active = 0 instead.</p>
+</div>
+
+<hr>
+
+<h2 id="manage-membership-items">Manage Items within a Group</h2>
+
+<p>Each group contains one or more membership items — the individual price lines (e.g., Single, Couple). To manage a group's items, click <strong>Items</strong> next to the group on the <code>/admin/membership</code> page, or go to:</p>
+
+<pre><code>https://www.okanoganvalleygolf.com/admin/membership/{groupId}/items</code></pre>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot suggestion: the group items page showing a list of price lines with their name, price, notes, and Edit/Delete buttons.</em></div>
+
+<h3 id="add-item">Add an Item</h3>
+
+<ol>
+    <li>From the group items page, click <strong>Add Item</strong>.</li>
+    <li>Fill in:
+        <ul>
+            <li><strong>Name</strong> — The tier label (e.g., <code>Single</code>, <code>Couple</code>, <code>Junior</code>).</li>
+            <li><strong>Price</strong> — The price displayed (e.g., <code>$750</code>, <code>$1,200</code>). Enter exactly as you want it to appear.</li>
+            <li><strong>Sort Order</strong> — Controls the item's position within the group. Smaller numbers first.</li>
+            <li><strong>Notes</strong> — Optional fine-print text shown beneath the price line.</li>
+        </ul>
+    </li>
+    <li>Click <strong>Create Item</strong>.</li>
+</ol>
+
+<h3 id="edit-item">Edit or Delete an Item</h3>
+
+<ol>
+    <li>Click <strong>Edit</strong> next to the item.</li>
+    <li>Update the fields and click <strong>Save Changes</strong>.</li>
+    <li>To remove it, click <strong>Delete</strong> and confirm.</li>
+</ol>
+
+<hr>
+
+<h2 id="update-page-content">Update the Membership Page Text</h2>
+
+<p>The top of the admin membership page has a <strong>Page Content</strong> form for the text that frames the pricing tables. Changes here affect the public <code>/membership</code> page immediately after saving.</p>
+
+<table>
+    <thead>
+        <tr><th>Field</th><th>Where it appears</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>Top Text</strong></td><td>Introductory paragraph shown above all membership groups</td></tr>
+        <tr><td><strong>Bullets</strong></td><td>Member benefits list — one benefit per line; displayed as bullet points on the public page</td></tr>
+        <tr><td><strong>Bottom Text</strong></td><td>Closing paragraph shown below all groups (good for a call to action or contact prompt)</td></tr>
+    </tbody>
+</table>
+
+<ol>
+    <li>Edit the text fields as needed.</li>
+    <li>Click <strong>Save Page Content</strong>.</li>
+</ol>
+
+<div class="notification is-success is-light">
+    <p><strong>One bullet per line.</strong> Each line you type in the Bullets field becomes a separate bullet point on the public page. Press Enter to start a new bullet. Blank lines are ignored.</p>
+</div>
+
+<hr>
+
+<h2 id="board-members">Board of Directors</h2>
+
+<p>The board member listing at <code>/board-members</code> is managed separately from membership pricing. Go to:</p>
+
+<pre><code>https://www.okanoganvalleygolf.com/admin/board-members</code></pre>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot suggestion: /admin/board-members showing the list of board members with their photo thumbnails, name, title, and Edit/Delete buttons.</em></div>
+
+<h3 id="add-board-member">Add a Board Member</h3>
+
+<ol>
+    <li>Click <strong>Add Board Member</strong>.</li>
+    <li>Fill in:
+        <ul>
+            <li><strong>Name</strong> — The member's full name.</li>
+            <li><strong>Title</strong> — Their board role (e.g., <code>President</code>, <code>Treasurer</code>).</li>
+            <li><strong>Email</strong> — Optional contact email. If left blank, the club's main contact email is used as the default.</li>
+            <li><strong>Photo</strong> — Optional headshot (JPEG, PNG, GIF, or WebP; max 5 MB).</li>
+            <li><strong>Sort Order</strong> — Controls the display order. Smaller numbers appear first.</li>
+        </ul>
+    </li>
+    <li>Click <strong>Create Board Member</strong>.</li>
+</ol>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot suggestion: the Create Board Member form with all fields visible, including the photo upload area.</em></div>
+
+<h3 id="edit-board-member">Edit a Board Member</h3>
+
+<ol>
+    <li>Click <strong>Edit</strong> next to the board member.</li>
+    <li>Update any fields.
+        <ul>
+            <li>To <strong>replace the photo</strong>, upload a new file — the old one will be removed automatically.</li>
+            <li>To <strong>remove the photo</strong> without replacing it, use the <strong>Remove Photo</strong> button if shown.</li>
+        </ul>
+    </li>
+    <li>Click <strong>Save Changes</strong>.</li>
+</ol>
+
+<h3 id="delete-board-member">Delete a Board Member</h3>
+
+<ol>
+    <li>Click <strong>Delete</strong> next to the board member and confirm.</li>
+</ol>
+
+<p>The record and any uploaded photo are removed immediately.</p>
+
+<hr>
+
+<h2 id="tips">Tips &amp; Gotchas</h2>
+
+<div class="notification is-success is-light">
+    <p><strong>Use active/inactive to stage changes.</strong><br>
+    Set a group to Active = 0 to prepare a new pricing tier without it appearing publicly. Flip it to 1 when you're ready to publish.</p>
+</div>
+
+<div class="notification is-success is-light">
+    <p><strong>Sort order controls everything.</strong><br>
+    Both groups and items are ordered by their sort_order value (smallest first). If two items share the same sort order number, their relative order is not guaranteed — use unique numbers to keep control.</p>
+</div>
+
+<div class="notification is-warning is-light">
+    <p><strong>Deleting a group cascades to its items.</strong><br>
+    All membership items inside a deleted group are also deleted. There is no recovery. If you only want to hide the group, set Active = 0.</p>
+</div>
+
+<div class="notification is-warning is-light">
+    <p><strong>Price is free-form text.</strong><br>
+    Enter prices exactly as you want them displayed (e.g., <code>$750</code> or <code>$750.00/year</code>). There is no currency formatting applied automatically — be consistent across all items.</p>
+</div>
+
+<div class="notification is-light">
+    <p><strong>Board member photos are optional.</strong><br>
+    Members without a photo will display a placeholder or no image, depending on the theme. You can add a photo later by editing the record.</p>
+</div>
+
+<div class="notification is-success is-light">
+    <p><strong>Check the public page after changes.</strong><br>
+    After saving, open <code>/membership</code> and <code>/board-members</code> in a new tab to confirm everything looks correct before the next visitor sees it.</p>
+</div>
+
+<hr>
+
+<h2 id="field-reference">Field Reference</h2>
+
+<h3>Membership Group Fields</h3>
+
+<table>
+    <thead>
+        <tr><th>Field</th><th>Required</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>Slug</strong></td><td>Yes</td><td>Lowercase, no spaces (e.g., <code>under-30</code>). Must be unique across all groups. Used internally only.</td></tr>
+        <tr><td><strong>Title</strong></td><td>Yes</td><td>Visible group heading on <code>/membership</code>.</td></tr>
+        <tr><td><strong>Subtitle</strong></td><td>No</td><td>Optional secondary heading below the title.</td></tr>
+        <tr><td><strong>Note</strong></td><td>No</td><td>Optional description paragraph for the group.</td></tr>
+        <tr><td><strong>Sort Order</strong></td><td>No</td><td>Smaller numbers appear first. Defaults to 0.</td></tr>
+        <tr><td><strong>Active</strong></td><td>Yes</td><td>1 = visible on public page, 0 = hidden.</td></tr>
+    </tbody>
+</table>
+
+<h3>Membership Item Fields</h3>
+
+<table>
+    <thead>
+        <tr><th>Field</th><th>Required</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>Name</strong></td><td>Yes</td><td>Tier label shown on the public page (e.g., <code>Single</code>, <code>Couple</code>).</td></tr>
+        <tr><td><strong>Price</strong></td><td>Yes</td><td>Displayed exactly as entered. Use consistent formatting across all items.</td></tr>
+        <tr><td><strong>Sort Order</strong></td><td>No</td><td>Controls order within the group. Smaller numbers first.</td></tr>
+        <tr><td><strong>Notes</strong></td><td>No</td><td>Optional fine-print text displayed beneath the price line.</td></tr>
+    </tbody>
+</table>
+
+<h3>Page Content Fields</h3>
+
+<table>
+    <thead>
+        <tr><th>Field</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>Top Text</strong></td><td>Intro paragraph shown above all groups. Supports plain text and line breaks.</td></tr>
+        <tr><td><strong>Bullets</strong></td><td>Member benefits. One benefit per line; each becomes a bullet point on the public page.</td></tr>
+        <tr><td><strong>Bottom Text</strong></td><td>Closing paragraph shown below all groups. Good for a contact prompt or seasonal message.</td></tr>
+    </tbody>
+</table>
+
+<h3>Board Member Fields</h3>
+
+<table>
+    <thead>
+        <tr><th>Field</th><th>Required</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>Name</strong></td><td>Yes</td><td>Full name displayed on the public board page.</td></tr>
+        <tr><td><strong>Title</strong></td><td>Yes</td><td>Board role (e.g., <code>President</code>, <code>Secretary</code>).</td></tr>
+        <tr><td><strong>Email</strong></td><td>No</td><td>Contact email. Defaults to the club's main contact email if left blank.</td></tr>
+        <tr><td><strong>Photo</strong></td><td>No</td><td>Headshot image. JPEG, PNG, GIF, or WebP; max 5 MB.</td></tr>
+        <tr><td><strong>Sort Order</strong></td><td>No</td><td>Controls display order. Smaller numbers appear first.</td></tr>
+    </tbody>
+</table>

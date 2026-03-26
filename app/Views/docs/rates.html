@@ -5,9 +5,9 @@
 
 <hr>
 
-<h2 id="public-rates page">Public Rates Page (Visitor View)</h2>
+<h2 id="public-rates-page">Public Rates Page (Visitor View)</h2>
 
-<p>URL: <code>/rates</code></p>
+<pre><code>https://www.okanoganvalleygolf.com/rates</code></pre>
 
 <p>Visitors can see:</p>
 <ul>
@@ -24,7 +24,7 @@
 
 <h2 id="admin-rates-dashboard">Admin Rate Group Management</h2>
 
-<p>URL: <code>/admin/rates</code></p>
+<pre><code>https://www.okanoganvalleygolf.com/admin/rates</code></pre>
 
 <p>This page is for admin users only. You can:</p>
 <ul>
@@ -131,10 +131,72 @@
 
 <hr>
 
-<h2 id="tips">Tips and reminders</h2>
+<h2 id="tips">Tips &amp; Gotchas</h2>
 
-<ul>
-    <li>Use active/inactive to control visibility without deleting group settings.</li>
-    <li>Check public /rates after changes to confirm layout and order.</li>
-    <li>Work with the pro shop manager before changing published rates.</li>
-</ul>
+<div class="notification is-success is-light">
+    <p><strong>Use active/inactive instead of deleting.</strong><br>
+    Setting a group to Active = 0 hides it from the public page without losing any of its rate lines. Delete only when you are certain the group is no longer needed.</p>
+</div>
+
+<div class="notification is-success is-light">
+    <p><strong>Verify changes on the public page.</strong><br>
+    After saving, open <code>/rates</code> in a new tab to confirm the layout, order, and pricing look correct before the next visitor sees them.</p>
+</div>
+
+<div class="notification is-warning is-light">
+    <p><strong>Coordinate with the pro shop before updating prices.</strong><br>
+    Rate changes take effect immediately on the public site. Check with the pro shop manager before publishing new green fees or cart rental prices.</p>
+</div>
+
+<div class="notification is-warning is-light">
+    <p><strong>Deleting a group removes all its rates too.</strong><br>
+    There is no undo. If you only want to hide the group temporarily, set Active = 0 instead of clicking Delete.</p>
+</div>
+
+<hr>
+
+<h2 id="field-reference">Field Reference</h2>
+
+<h3>Rate Group Fields</h3>
+
+<table>
+    <thead>
+        <tr><th>Field</th><th>Required</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>Slug</strong></td><td>Yes</td><td>Machine name, e.g. <code>golf-fees</code>. Used internally; not shown to visitors.</td></tr>
+        <tr><td><strong>Title</strong></td><td>Yes</td><td>Visible group heading on <code>/rates</code>.</td></tr>
+        <tr><td><strong>Subtitle</strong></td><td>No</td><td>Optional secondary heading shown below the title.</td></tr>
+        <tr><td><strong>Note</strong></td><td>No</td><td>Optional description text for the group.</td></tr>
+        <tr><td><strong>Sort Order</strong></td><td>No</td><td>Smaller numbers appear first. Defaults to 0.</td></tr>
+        <tr><td><strong>Active</strong></td><td>Yes</td><td>Set to 1 to publish, 0 to hide from the public page.</td></tr>
+    </tbody>
+</table>
+
+<h3>Rate Line Fields</h3>
+
+<table>
+    <thead>
+        <tr><th>Field</th><th>Required</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>Description</strong></td><td>Yes</td><td>Label shown on the public rates table (e.g., <code>18 Holes - Weekday</code>).</td></tr>
+        <tr><td><strong>Price</strong></td><td>Yes</td><td>Displayed as entered; use consistent formatting (e.g., <code>$25.00</code>).</td></tr>
+        <tr><td><strong>Notes</strong></td><td>No</td><td>Optional fine-print text shown beneath the price.</td></tr>
+        <tr><td><strong>Sort Order</strong></td><td>No</td><td>Controls display order within the group. Smaller numbers appear first.</td></tr>
+    </tbody>
+</table>
+
+<h3>Page Content Fields</h3>
+
+<table>
+    <thead>
+        <tr><th>Field</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>Rules Text</strong></td><td>Appears as a bullet list on <code>/rates</code>. One rule per line.</td></tr>
+        <tr><td><strong>Above Rates</strong></td><td>Free-text block shown above all rate groups.</td></tr>
+        <tr><td><strong>Below Rates</strong></td><td>Free-text block shown below all rate groups.</td></tr>
+        <tr><td><strong>Scorecard</strong></td><td>JPG or PNG image; linked from the scorecard button on <code>/rates</code>.</td></tr>
+    </tbody>
+</table>
