@@ -1,0 +1,112 @@
+<h1>Board of Directors</h1>
+
+<p>Use this page when you need to add, update, or remove members from the Board of Directors listing at <code>/board-members</code>. Each entry can include a name, board title, contact email, and an optional headshot photo.</p>
+
+<hr>
+
+<h2 id="getting-to-the-board-admin">Getting to the Board Admin</h2>
+
+<ol>
+    <li>Log in and go to the admin dashboard.</li>
+    <li>Click <strong>Board Members</strong> in the admin navigation, or go directly to:</li>
+</ol>
+
+<pre><code>https://www.okanoganvalleygolf.com/admin/board-members</code></pre>
+
+<p>This page lists all current board members in display order.</p>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot suggestion: /admin/board-members showing the list of board members with photo thumbnails, name, title, and Edit/Delete buttons.</em></div>
+
+<hr>
+
+<h2 id="add-board-member">Add a Board Member</h2>
+
+<ol>
+    <li>Click <strong>Add Board Member</strong>.</li>
+    <li>Fill in the form:
+        <ul>
+            <li><strong>Name</strong> — The member's full name.</li>
+            <li><strong>Title</strong> — Their board role (e.g., <code>President</code>, <code>Treasurer</code>).</li>
+            <li><strong>Email</strong> — Optional contact email. If left blank, the club's main contact email is used as the default.</li>
+            <li><strong>Photo</strong> — Optional headshot (JPEG, PNG, GIF, or WebP; max 5 MB).</li>
+            <li><strong>Sort Order</strong> — Controls the display order on the public page. Smaller numbers appear first.</li>
+        </ul>
+    </li>
+    <li>Click <strong>Create Board Member</strong>.</li>
+</ol>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot suggestion: the Create Board Member form with all fields visible, including the photo upload area.</em></div>
+
+<hr>
+
+<h2 id="edit-board-member">Edit a Board Member</h2>
+
+<ol>
+    <li>From <code>/admin/board-members</code>, click <strong>Edit</strong> next to the member.</li>
+    <li>Update any fields:
+        <ul>
+            <li>To <strong>replace the photo</strong>, upload a new file — the old one is removed automatically.</li>
+            <li>To <strong>remove the photo</strong> without replacing it, click the <strong>Remove Photo</strong> button if shown.</li>
+        </ul>
+    </li>
+    <li>Click <strong>Save Changes</strong>.</li>
+</ol>
+
+<div class="notification is-light">
+    <p>The photo field on the edit screen is always empty. This is normal — uploading a new file replaces the existing one. Leave it blank if you do not want to change the photo.</p>
+</div>
+
+<hr>
+
+<h2 id="delete-board-member">Delete a Board Member</h2>
+
+<ol>
+    <li>Click <strong>Delete</strong> next to the board member and confirm.</li>
+</ol>
+
+<p>The record and any uploaded photo are removed immediately. There is no undo.</p>
+
+<div class="notification is-warning is-light">
+    <p>Deletion is permanent. If you want to temporarily hide a board member, consider removing them from the public page by checking whether a display toggle exists, or simply delete and re-add them when needed.</p>
+</div>
+
+<hr>
+
+<h2 id="tips">Tips &amp; Gotchas</h2>
+
+<div class="notification is-success is-light">
+    <p><strong>Use sort order to control the display sequence.</strong><br>
+    Board members are listed by sort_order (smallest first). Assign numbers like 10, 20, 30 so you can insert someone between two existing members later without renumbering everything.</p>
+</div>
+
+<div class="notification is-light">
+    <p><strong>Photos are optional.</strong><br>
+    Members without a photo will display a placeholder. You can add a photo later by editing the record — you do not need to have one ready when first creating the entry.</p>
+</div>
+
+<div class="notification is-light">
+    <p><strong>Email defaults to the club contact email.</strong><br>
+    If a board member's email is left blank, the club's main contact email (from Theme Settings) is used wherever their email appears. Fill it in if they have a preferred personal or board email address.</p>
+</div>
+
+<div class="notification is-success is-light">
+    <p><strong>Check the public page after changes.</strong><br>
+    After saving, open <code>/board-members</code> in a new tab to confirm the order and details look correct.</p>
+</div>
+
+<hr>
+
+<h2 id="field-reference">Field Reference</h2>
+
+<table>
+    <thead>
+        <tr><th>Field</th><th>Required</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>Name</strong></td><td>Yes</td><td>Full name displayed on the public board page.</td></tr>
+        <tr><td><strong>Title</strong></td><td>Yes</td><td>Board role (e.g., <code>President</code>, <code>Secretary</code>).</td></tr>
+        <tr><td><strong>Email</strong></td><td>No</td><td>Contact email. Defaults to the club's main contact email if left blank.</td></tr>
+        <tr><td><strong>Photo</strong></td><td>No</td><td>Headshot image. JPEG, PNG, GIF, or WebP; max 5 MB.</td></tr>
+        <tr><td><strong>Sort Order</strong></td><td>No</td><td>Controls display order on the public page. Smaller numbers appear first.</td></tr>
+    </tbody>
+</table>

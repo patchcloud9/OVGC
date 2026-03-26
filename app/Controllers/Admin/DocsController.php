@@ -18,7 +18,8 @@ class DocsController extends Controller
         'menu-management' => ['title' => 'Menu Management',  'icon' => 'fa-bars'],
         'user-management' => ['title' => 'User Management',  'icon' => 'fa-users-cog'],
         'rates'           => ['title' => 'Rates',      'icon' => 'fa-tags'],
-        'membership'      => ['title' => 'Membership', 'icon' => 'fa-id-card'],
+        'membership'      => ['title' => 'Membership',         'icon' => 'fa-id-card'],
+        'board-members'   => ['title' => 'Board of Directors', 'icon' => 'fa-users'],
     ];
 
     /** Landing page — shows search results or a welcome message. */

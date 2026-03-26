@@ -1,6 +1,6 @@
 <h1>Membership</h1>
 
-<p>Use this page when you need to update the <code>/membership</code> page (membership tiers, pricing, and introductory text) or manage the Board of Directors listing at <code>/board-members</code>. Both sections are fully editable from the admin panel — no code changes required.</p>
+<p>Use this page when you need to update the <code>/membership</code> page — membership tiers, pricing, and introductory text. Everything is editable from the admin panel with no code changes required.</p>
 
 <hr>
 
@@ -137,55 +137,6 @@
 
 <hr>
 
-<h2 id="board-members">Board of Directors</h2>
-
-<p>The board member listing at <code>/board-members</code> is managed separately from membership pricing. Go to:</p>
-
-<pre><code>https://www.okanoganvalleygolf.com/admin/board-members</code></pre>
-
-<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot suggestion: /admin/board-members showing the list of board members with their photo thumbnails, name, title, and Edit/Delete buttons.</em></div>
-
-<h3 id="add-board-member">Add a Board Member</h3>
-
-<ol>
-    <li>Click <strong>Add Board Member</strong>.</li>
-    <li>Fill in:
-        <ul>
-            <li><strong>Name</strong> — The member's full name.</li>
-            <li><strong>Title</strong> — Their board role (e.g., <code>President</code>, <code>Treasurer</code>).</li>
-            <li><strong>Email</strong> — Optional contact email. If left blank, the club's main contact email is used as the default.</li>
-            <li><strong>Photo</strong> — Optional headshot (JPEG, PNG, GIF, or WebP; max 5 MB).</li>
-            <li><strong>Sort Order</strong> — Controls the display order. Smaller numbers appear first.</li>
-        </ul>
-    </li>
-    <li>Click <strong>Create Board Member</strong>.</li>
-</ol>
-
-<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot suggestion: the Create Board Member form with all fields visible, including the photo upload area.</em></div>
-
-<h3 id="edit-board-member">Edit a Board Member</h3>
-
-<ol>
-    <li>Click <strong>Edit</strong> next to the board member.</li>
-    <li>Update any fields.
-        <ul>
-            <li>To <strong>replace the photo</strong>, upload a new file — the old one will be removed automatically.</li>
-            <li>To <strong>remove the photo</strong> without replacing it, use the <strong>Remove Photo</strong> button if shown.</li>
-        </ul>
-    </li>
-    <li>Click <strong>Save Changes</strong>.</li>
-</ol>
-
-<h3 id="delete-board-member">Delete a Board Member</h3>
-
-<ol>
-    <li>Click <strong>Delete</strong> next to the board member and confirm.</li>
-</ol>
-
-<p>The record and any uploaded photo are removed immediately.</p>
-
-<hr>
-
 <h2 id="tips">Tips &amp; Gotchas</h2>
 
 <div class="notification is-success is-light">
@@ -208,14 +159,9 @@
     Enter prices exactly as you want them displayed (e.g., <code>$750</code> or <code>$750.00/year</code>). There is no currency formatting applied automatically — be consistent across all items.</p>
 </div>
 
-<div class="notification is-light">
-    <p><strong>Board member photos are optional.</strong><br>
-    Members without a photo will display a placeholder or no image, depending on the theme. You can add a photo later by editing the record.</p>
-</div>
-
 <div class="notification is-success is-light">
     <p><strong>Check the public page after changes.</strong><br>
-    After saving, open <code>/membership</code> and <code>/board-members</code> in a new tab to confirm everything looks correct before the next visitor sees it.</p>
+    After saving, open <code>/membership</code> in a new tab to confirm the layout and pricing look correct before the next visitor sees it.</p>
 </div>
 
 <hr>
@@ -262,20 +208,5 @@
         <tr><td><strong>Top Text</strong></td><td>Intro paragraph shown above all groups. Supports plain text and line breaks.</td></tr>
         <tr><td><strong>Bullets</strong></td><td>Member benefits. One benefit per line; each becomes a bullet point on the public page.</td></tr>
         <tr><td><strong>Bottom Text</strong></td><td>Closing paragraph shown below all groups. Good for a contact prompt or seasonal message.</td></tr>
-    </tbody>
-</table>
-
-<h3>Board Member Fields</h3>
-
-<table>
-    <thead>
-        <tr><th>Field</th><th>Required</th><th>Notes</th></tr>
-    </thead>
-    <tbody>
-        <tr><td><strong>Name</strong></td><td>Yes</td><td>Full name displayed on the public board page.</td></tr>
-        <tr><td><strong>Title</strong></td><td>Yes</td><td>Board role (e.g., <code>President</code>, <code>Secretary</code>).</td></tr>
-        <tr><td><strong>Email</strong></td><td>No</td><td>Contact email. Defaults to the club's main contact email if left blank.</td></tr>
-        <tr><td><strong>Photo</strong></td><td>No</td><td>Headshot image. JPEG, PNG, GIF, or WebP; max 5 MB.</td></tr>
-        <tr><td><strong>Sort Order</strong></td><td>No</td><td>Controls display order. Smaller numbers appear first.</td></tr>
     </tbody>
 </table>
