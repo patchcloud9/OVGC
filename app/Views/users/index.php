@@ -103,10 +103,17 @@
                             </div>
                             
                             <div class="buttons are-small">
-                                <a href="/admin/users/<?= $user['id'] ?>/edit" class="button is-warning is-fullwidth">
-                                    <span class="icon"><i class="fas fa-edit"></i></span>
-                                    <span>Edit</span>
-                                </a>
+                                <?php if ($user['id'] === 6 && auth_user()['id'] !== 6): ?>
+                                    <button class="button is-warning is-fullwidth" disabled title="Only super-admin can edit this user">
+                                        <span class="icon"><i class="fas fa-edit"></i></span>
+                                        <span>Super-Admin Locked</span>
+                                    </button>
+                                <?php else: ?>
+                                    <a href="/admin/users/<?= $user['id'] ?>/edit" class="button is-warning is-fullwidth">
+                                        <span class="icon"><i class="fas fa-edit"></i></span>
+                                        <span>Edit</span>
+                                    </a>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>

@@ -24,6 +24,29 @@ class UserController extends Controller
             'users' => $users,
         ]);
     }
+
+    /**
+     * Prevent modifying the super-admin account from non-super-admin users.
+     *
+     * @param int $targetUserId
+     * @return bool true when the action is allowed, false when denied (and a redirect is already issued)
+     */
+    private function authorizeSuperAdminModification(int $targetUserId): bool
+    {
+        if ($targetUserId !== 6) {
+            return true;
+        }
+
+        $currentUserId = auth_user()['id'] ?? 0;
+
+        if ($currentUserId === 6) {
+            return true;
+        }
+
+        $this->flash('error', 'Only super-admin (user ID 6) is allowed to modify this account.');
+        $this->redirect('/admin/users');
+        return false;
+    }
     
     /**
      * Show edit form for a user
@@ -38,6 +61,10 @@ class UserController extends Controller
         if (!$user) {
             $this->flash('error', "User {$id} not found");
             $this->redirect('/admin/users');
+            return;
+        }
+
+        if (!$this->authorizeSuperAdminModification($userId)) {
             return;
         }
         
@@ -117,6 +144,10 @@ class UserController extends Controller
             ], 404);
             return;
         }
+
+        if (!$this->authorizeSuperAdminModification($userId)) {
+            return;
+        }
         
         // Build validation rules dynamically based on what's being updated
         $rules = [];
@@ -192,6 +223,10 @@ class UserController extends Controller
         if (!$user) {
             $this->flash('error', "User not found");
             $this->redirect('/admin/users');
+            return;
+        }
+
+        if (!$this->authorizeSuperAdminModification($userId)) {
             return;
         }
         
