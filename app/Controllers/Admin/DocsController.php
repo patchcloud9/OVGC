@@ -21,6 +21,7 @@ class DocsController extends Controller
         'membership'      => ['title' => 'Membership',         'icon' => 'fa-id-card'],
         'board-members'   => ['title' => 'Board of Directors', 'icon' => 'fa-users'],
         'contact'         => ['title' => 'Contact Page',       'icon' => 'fa-envelope'],
+        'board-minutes'   => ['title' => 'Board Minutes',      'icon' => 'fa-file-pdf'],
     ];
 
     /** Landing page — shows search results or a welcome message. */

@@ -1,0 +1,105 @@
+<h1>Board Minutes</h1>
+
+<p>Use this page to upload, update, and remove Board of Directors meeting minutes. Minutes are stored as PDF files and organized by meeting date. All management is done from the admin panel — there is no public listing page; PDFs are accessed directly via their file URL.</p>
+
+<hr>
+
+<h2 id="getting-to-the-board-minutes-admin">Getting to the Board Minutes Admin</h2>
+
+<ol>
+    <li>Log in and go to the admin dashboard.</li>
+    <li>Click <strong>Board Minutes</strong> in the admin navigation, or go directly to:</li>
+</ol>
+
+<pre><code>https://www.okanoganvalleygolf.com/admin/board-minutes</code></pre>
+
+<p>This page lists all uploaded minutes in reverse chronological order (most recent first), with each row showing the meeting date, the filename, and Edit/Delete buttons.</p>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot suggestion: /admin/board-minutes showing the minutes table with date, filename, and action buttons for at least two entries.</em></div>
+
+<hr>
+
+<h2 id="upload-minutes">Upload New Minutes</h2>
+
+<ol>
+    <li>From <code>/admin/board-minutes</code>, click <strong>Upload Minutes</strong>.</li>
+    <li>Fill in the form:
+        <ul>
+            <li><strong>Meeting Date</strong> — The date of the board meeting (required).</li>
+            <li><strong>PDF File</strong> — The minutes document (required). Must be a PDF; max 10 MB.</li>
+        </ul>
+    </li>
+    <li>Click <strong>Upload</strong>.</li>
+</ol>
+
+<p>The file is saved to the server and the entry appears in the minutes list sorted by date.</p>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot suggestion: the Upload Minutes form showing the Meeting Date field and PDF file selector.</em></div>
+
+<div class="notification is-light">
+    <p>The filename stored on the server is generated automatically to avoid conflicts — the original name of the file you select is not used. The meeting date is what identifies the entry in the list.</p>
+</div>
+
+<hr>
+
+<h2 id="edit-minutes">Edit an Entry</h2>
+
+<p>You can change the meeting date or replace the PDF for an existing entry.</p>
+
+<ol>
+    <li>Click <strong>Edit</strong> next to the entry.</li>
+    <li>Update the <strong>Meeting Date</strong> if needed.</li>
+    <li>To replace the PDF, select a new file under <strong>Replace PDF</strong>. Leave it blank to keep the existing file.</li>
+    <li>Click <strong>Update</strong>.</li>
+</ol>
+
+<div class="notification is-light">
+    <p>The current file is shown as a link on the edit screen so you can open it to confirm it is correct before deciding whether to replace it.</p>
+</div>
+
+<hr>
+
+<h2 id="delete-minutes">Delete an Entry</h2>
+
+<ol>
+    <li>Click <strong>Delete</strong> next to the entry and confirm.</li>
+</ol>
+
+<p>Both the database record and the PDF file on the server are removed immediately. There is no undo.</p>
+
+<div class="notification is-warning is-light">
+    <p><strong>Deletion is permanent.</strong> If the PDF is linked from elsewhere on the site (e.g., a menu item or page), that link will break. Download the file to your computer first if you may need it later.</p>
+</div>
+
+<hr>
+
+<h2 id="tips">Tips &amp; Gotchas</h2>
+
+<div class="notification is-success is-light">
+    <p><strong>Use the actual meeting date, not the upload date.</strong><br>
+    Minutes are sorted by meeting date. Using today's date instead of the date of the meeting will put the entry in the wrong position in the list.</p>
+</div>
+
+<div class="notification is-warning is-light">
+    <p><strong>PDFs only, 10 MB max.</strong><br>
+    The uploader rejects any file that is not a PDF or exceeds 10 MB. If your document is too large, try exporting it from Word or your PDF editor at a lower quality setting to reduce the file size.</p>
+</div>
+
+<div class="notification is-light">
+    <p><strong>Duplicate dates are allowed.</strong><br>
+    Nothing prevents uploading two entries with the same meeting date (e.g., a draft and a final version). Use the Edit screen to correct or remove duplicates.</p>
+</div>
+
+<hr>
+
+<h2 id="field-reference">Field Reference</h2>
+
+<table>
+    <thead>
+        <tr><th>Field</th><th>Required</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>Meeting Date</strong></td><td>Yes</td><td>Date of the board meeting. Used to sort and label the entry in the list.</td></tr>
+        <tr><td><strong>PDF File</strong></td><td>Yes (upload) / No (edit)</td><td>Must be a valid PDF; max 10 MB. On the edit screen, leave blank to keep the existing file.</td></tr>
+    </tbody>
+</table>
