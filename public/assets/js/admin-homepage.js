@@ -12,6 +12,12 @@ function clearBottomImage() {
     }
 }
 
+function clearCameraImage() {
+    if (confirm('Are you sure you want to remove the camera maintenance image?')) {
+        document.getElementById('clearCameraImageForm').submit();
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     // Update file input display names
     var fileInputs = document.querySelectorAll('.file-input');

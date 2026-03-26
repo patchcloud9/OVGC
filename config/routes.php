@@ -158,6 +158,7 @@ return [
         '/admin/homepage'       => ['HomepageController', 'update', ['auth', 'role:admin', 'csrf']],
         '/admin/homepage/clear-hero-image' => ['HomepageController', 'clearHeroImage', ['auth', 'role:admin', 'csrf']],
         '/admin/homepage/clear-bottom-image' => ['HomepageController', 'clearBottomImage', ['auth', 'role:admin', 'csrf']],
+        '/admin/homepage/clear-camera-image' => ['HomepageController', 'clearCameraImage', ['auth', 'role:admin', 'csrf']],
 
         // About Page Settings (Admin Only)
 

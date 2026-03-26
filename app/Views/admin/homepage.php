@@ -276,6 +276,65 @@ $layout = 'main';
             
 
             
+            <!-- Camera Widget -->
+            <div class="box mt-5">
+                <h2 class="title is-4">Camera Widget</h2>
+                <p class="subtitle is-6 has-text-grey">Control what is shown in the live camera section on the homepage</p>
+
+                <div class="field">
+                    <label class="label">Camera Display Mode</label>
+                    <div class="control">
+                        <label class="radio">
+                            <input type="radio" name="camera_mode" value="live" <?= ($settings['camera_mode'] ?? 'live') === 'live' ? 'checked' : '' ?>>
+                            Live Camera (auto-refreshing feed)
+                        </label>
+                        <label class="radio ml-4">
+                            <input type="radio" name="camera_mode" value="maintenance" <?= ($settings['camera_mode'] ?? 'live') === 'maintenance' ? 'checked' : '' ?>>
+                            Maintenance Mode (show static image)
+                        </label>
+                    </div>
+                    <p class="help">Switch to Maintenance Mode when the camera is offline or being serviced. The maintenance image will be shown to visitors instead of the live feed.</p>
+                </div>
+
+                <div class="field mt-4">
+                    <label class="label">Maintenance Image</label>
+                    <div class="control">
+                        <div class="file has-name is-fullwidth">
+                            <label class="file-label">
+                                <input class="file-input" type="file" name="camera_maintenance_image" accept="image/*">
+                                <span class="file-cta">
+                                    <span class="file-icon">
+                                        <i class="fas fa-upload"></i>
+                                    </span>
+                                    <span class="file-label">
+                                        Choose a file…
+                                    </span>
+                                </span>
+                                <span class="file-name">
+                                    <?= !empty($settings['camera_maintenance_image']) ? basename($settings['camera_maintenance_image']) : 'No file chosen' ?>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                    <p class="help">Image to display when Maintenance Mode is active. JPG, PNG, GIF, or WebP. Max 5MB. Upload this ahead of time so it is ready when needed.</p>
+                    <?php if (!empty($settings['camera_maintenance_image'])): ?>
+                        <div class="mt-3">
+                            <figure class="image" style="max-width: 400px;">
+                                <img src="<?= e($settings['camera_maintenance_image']) ?>" alt="Current camera maintenance image" style="border-radius: 8px;">
+                            </figure>
+                            <button type="button" class="button is-small is-danger mt-2" onclick="clearCameraImage()">
+                                <span class="icon">
+                                    <i class="fas fa-times"></i>
+                                </span>
+                                <span>Remove Image</span>
+                            </button>
+                        </div>
+                    <?php else: ?>
+                        <p class="help has-text-warning mt-2"><span class="icon"><i class="fas fa-exclamation-triangle"></i></span> No maintenance image uploaded yet. If Maintenance Mode is active without an image, the camera section will be hidden.</p>
+                    <?php endif; ?>
+                </div>
+            </div>
+
             <!-- Bottom Section -->
             <div class="box">
                 <h2 class="title is-4">Bottom Content Section</h2>
@@ -375,6 +434,10 @@ $layout = 'main';
 </form>
 
 <form id="clearBottomImageForm" method="POST" action="/admin/homepage/clear-bottom-image" style="display: none;">
+    <?= csrf_field() ?>
+</form>
+
+<form id="clearCameraImageForm" method="POST" action="/admin/homepage/clear-camera-image" style="display: none;">
     <?= csrf_field() ?>
 </form>
 

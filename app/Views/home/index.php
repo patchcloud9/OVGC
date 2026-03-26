@@ -106,12 +106,19 @@ if (!empty($settings['hero_background_image'])) {
         <div class="columns">
             <!-- Left column for camera -->
             <div class="column is-6">
-                <figure class="image">
-                    <img id="camera1" src="/camera/live" alt="Traffic Camera" style="border-radius:8px;">
-                </figure>
-                <p class="is-italic is-size-7 mt-2">(updates every 10&ndash;60 seconds)</p>
+                <?php if (($settings['camera_mode'] ?? 'live') === 'maintenance' && !empty($settings['camera_maintenance_image'])): ?>
+                    <figure class="image">
+                        <img src="<?= e($settings['camera_maintenance_image']) ?>" alt="Camera Unavailable" style="border-radius:8px;">
+                    </figure>
+                    <p class="is-italic is-size-7 mt-2">Camera temporarily unavailable</p>
+                <?php else: ?>
+                    <figure class="image">
+                        <img id="camera1" src="/camera/live" alt="Traffic Camera" style="border-radius:8px;">
+                    </figure>
+                    <p class="is-italic is-size-7 mt-2">(updates every 10&ndash;60 seconds)</p>
+                    <script src="/assets/js/camera-poll.js?v=<?= @filemtime(BASE_PATH . '/public/assets/js/camera-poll.js') ?>"></script>
+                <?php endif; ?>
             </div>
-            <script src="/assets/js/camera-poll.js?v=<?= @filemtime(BASE_PATH . '/public/assets/js/camera-poll.js') ?>"></script>
             <!-- Right column for upcoming events -->
             <div class="column is-6">
                 <?php if (!empty($upcomingEvents)): ?>

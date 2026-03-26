@@ -215,6 +215,14 @@ No middleware (public, read-only image endpoint). Output: `Content-Type: image/j
 - `.htaccess` in that directory enforces no-cache headers at the Apache level.
 - The `uploads/` directory should **not** execute PHP (add `php_flag engine off` or equivalent if needed).
 
+**Maintenance Mode:**
+Admins can switch the camera widget to Maintenance Mode via `/admin/homepage` (HomepageController). When active, `home/index.php` renders a static `<img>` from `$settings['camera_maintenance_image']` instead of the live feed — `#camera1` is absent from the DOM so `camera-poll.js` does not load or poll. Mode stored in `homepage_settings.camera_mode` (`live`|`maintenance`). Maintenance image stored in `homepage_settings.camera_maintenance_image` (path under `/uploads/homepage/`). Image can be uploaded ahead of time while camera is still live. If mode is `maintenance` but no image path is set, the camera section is hidden entirely.
+
+**New routes:**
+```php
+'POST /admin/homepage/clear-camera-image' => ['HomepageController', 'clearCameraImage', ['auth', 'role:admin', 'csrf']]
+```
+
 ### 9. JavaScript Assets
 
 All page-specific JavaScript lives in external files — **no inline `<script>` blocks** in any view.

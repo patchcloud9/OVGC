@@ -95,7 +95,7 @@ Do this without being asked. If the change is minor (bug fix, copy tweak), skip 
 - Seeds in `database/seed/NNN_seed_name.sql` (3-digit prefix)
 - Model `$timestamps = true` auto-manages `created_at`/`updated_at`
 - Tables: lowercase plural (`menu_items`), InnoDB, utf8mb4_unicode_ci
-- Next migration number: **019**
+- Next migration number: **023**
 
 ## Views
 
@@ -138,7 +138,7 @@ Core, security, middleware, auth, admin UI, theming, content management, **Event
 
 **Weather widget:** NWS API (free, no key) → `storage/cache/weather-data.json` (30-min cron) → rendered server-side by `WeatherService` + `partials/weather-widget.php`. Cron endpoint: `GET /cron-weather.php?key=<WEATHER_KEY>`. Widget hidden gracefully when cache is absent.
 
-**Camera widget:** FTP camera drops `public/uploads/camera1.jpg`. `GET /camera/live` → `CameraController::live()` validates the JPEG with `getimagesize()`, promotes good frames to `storage/cache/camera1_stable.jpg`, and falls back to the stable copy during mid-write corruption. `public/assets/js/camera-poll.js` polls `/camera/live?t=<timestamp>` every 17 s using a hidden `Image()` loader and only swaps the visible `<img id="camera1">` when `naturalWidth > 0`.
+**Camera widget:** FTP camera drops `public/uploads/camera1.jpg`. `GET /camera/live` → `CameraController::live()` validates the JPEG with `getimagesize()`, promotes good frames to `storage/cache/camera1_stable.jpg`, and falls back to the stable copy during mid-write corruption. `public/assets/js/camera-poll.js` polls `/camera/live?t=<timestamp>` every 17 s using a hidden `Image()` loader and only swaps the visible `<img id="camera1">` when `naturalWidth > 0`. Admin can switch to **Maintenance Mode** via `/admin/homepage` — shows a static uploaded image instead; live polling JS is suppressed when `#camera1` is absent from the DOM.
 
 **Password reset:** `GET/POST /password/forgot` → `PasswordResetController`. Raw token emailed; only `password_hash()` of token stored in `password_resets` table (expires 1 hour). Expired tokens purged opportunistically on each new request. Self-registration is disabled — accounts are created manually by an admin.
 

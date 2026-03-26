@@ -12,9 +12,10 @@ The homepage is the first thing visitors see when they come to the website. As a
 4. [Editing the Hero Banner](#editing-the-hero-banner)
 5. [Editing the Feature Cards](#editing-the-feature-cards)
 6. [Editing the Bottom Content Section](#editing-the-bottom-content-section)
-7. [Saving Your Changes](#saving-your-changes)
-8. [Field Reference](#field-reference)
-9. [Tips & Gotchas](#tips--gotchas)
+7. [Camera Widget — Live vs. Maintenance Mode](#camera-widget--live-vs-maintenance-mode)
+8. [Saving Your Changes](#saving-your-changes)
+9. [Field Reference](#field-reference)
+10. [Tips & Gotchas](#tips--gotchas)
 
 ---
 
@@ -194,6 +195,54 @@ To remove the photo, click the red **Remove Image** button below the current ima
 
 ---
 
+## Camera Widget — Live vs. Maintenance Mode
+
+The camera section on the homepage normally shows the live auto-refreshing feed from the course camera. When the camera is offline, being serviced, or physically moved, you can switch it to **Maintenance Mode** so visitors see a clean static image instead of a broken or blank feed.
+
+<!-- SCREENSHOT: The "Camera Widget" box in Homepage Settings, showing the two radio buttons and the image upload/preview area -->
+
+### Switch Between Modes
+
+In the **Camera Widget** box, choose one of the two radio buttons:
+
+| Option | What visitors see |
+|--------|-------------------|
+| **Live Camera** | The auto-refreshing live feed (default) |
+| **Maintenance Mode** | A static maintenance image you upload |
+
+Select the mode and click **Save Settings** at the bottom of the form.
+
+### Upload the Maintenance Image
+
+The maintenance image upload and preview are always visible regardless of which mode is selected. This lets you prepare the image ahead of time before you need it.
+
+1. Click **Choose File** under **Maintenance Image**.
+2. Select a photo (JPEG, PNG, GIF, or WebP; max 5 MB).
+3. Click **Save Settings**.
+
+A preview of the uploaded image will appear below the upload field. You can update it at any time by uploading a new file — the old one will be replaced.
+
+> [!tip] Prepare it ahead of time
+> Upload a maintenance image while the camera is still working. When you need to take the camera offline, you only have to flip the toggle and save — no scrambling to find an image at the last minute.
+
+### Remove the Maintenance Image
+
+Click the red **Remove Image** button below the preview. This deletes the file immediately.
+
+> [!warning] What happens if Maintenance Mode is on but no image is uploaded?
+> The camera section will be hidden entirely on the public homepage. Visitors will not see any camera widget. Upload a maintenance image before switching modes to avoid an empty gap on the page.
+
+### Switch Back to Live
+
+When the camera is back online:
+
+1. Select **Live Camera** in the Camera Widget box.
+2. Click **Save Settings**.
+
+The auto-refreshing feed resumes immediately — no other changes needed.
+
+---
+
 ## Saving Your Changes
 
 When you are done editing any part of the form:
@@ -239,6 +288,13 @@ When you are done editing any part of the form:
 | Title | **Yes** | 255 characters | Section heading |
 | Text | No | Unlimited | Supports template variables and line breaks |
 | Image | No | 5 MB max | JPEG, PNG, GIF, or WebP |
+
+### Camera Widget
+
+| Field | Required | Notes |
+|-------|----------|-------|
+| Camera Display Mode | **Yes** | `live` (default) or `maintenance` |
+| Maintenance Image | No | 5 MB max; JPEG, PNG, GIF, or WebP. Shown when mode is Maintenance. Hidden section if mode is Maintenance and no image is set. |
 
 ---
 
