@@ -127,12 +127,20 @@ return [
         // Results (Public)
         '/results'                             => ['ResultsController', 'index'],
 
+        // Flyers (Public)
+        '/flyers'                              => ['FlyerController', 'index'],
+
         // Events (Public)
         '/events'                              => ['EventController', 'index'],
         '/events/feed'                         => ['EventController', 'feed'],
         '/events/calendar.ics'                 => ['EventController', 'ical'],
         '/events/(\d+)'                        => ['EventController', 'show'],
         '/events/(\d+)/(\d{4}-\d{2}-\d{2})'   => ['EventController', 'showOccurrence'],
+
+        // Flyers (Admin Only)
+        '/admin/flyers'             => ['Admin\FlyerController', 'index',  ['auth', 'role:admin']],
+        '/admin/flyers/create'      => ['Admin\FlyerController', 'create', ['auth', 'role:admin']],
+        '/admin/flyers/(\d+)/edit'  => ['Admin\FlyerController', 'edit',   ['auth', 'role:admin']],
 
         // Events (Admin Only)
         '/admin/events'                                   => ['Admin\EventController', 'index',       ['auth', 'role:admin']],
@@ -200,6 +208,11 @@ return [
         // Menu Management (Admin Only)
         '/admin/menu'           => ['MenuController', 'store', ['auth', 'role:admin', 'csrf']],
         '/admin/menu/reorder'   => ['MenuController', 'reorder', ['auth', 'role:admin', 'csrf']],
+
+        // Flyers (Admin Only)
+        '/admin/flyers/create'      => ['Admin\FlyerController', 'store',   ['auth', 'role:admin', 'csrf']],
+        '/admin/flyers/(\d+)/edit'  => ['Admin\FlyerController', 'update',  ['auth', 'role:admin', 'csrf']],
+        '/admin/flyers/(\d+)/delete' => ['Admin\FlyerController', 'destroy', ['auth', 'role:admin', 'csrf']],
 
         // Events (Admin Only)
         '/admin/events/create'                             => ['Admin\EventController', 'store',        ['auth', 'role:admin', 'csrf']],

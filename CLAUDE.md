@@ -34,6 +34,12 @@ Deployed via GitHub → RackNerd/CPanel GitHub Version Control → `/home/okanog
 | `app/Controllers/Admin/DocsController.php` | Admin docs viewer — `GET /admin/docs` (search/landing) + `GET /admin/docs/[slug]` (show) |
 | `app/Views/docs/*.html` | HTML doc source files (converted from `.md`; add new docs here as `.html`) |
 | `public/assets/css/docs.css` | Styles for the docs viewer (typography, callouts, sidebar, search results) |
+| `app/Controllers/FlyerController.php` | Public flyer gallery — `GET /flyers` |
+| `app/Controllers/Admin/FlyerController.php` | Admin CRUD for flyers (upload, edit, delete) |
+| `app/Models/Flyer.php` | Flyer model — `getActive()` filters expired; `allForAdmin()` includes expired with flag |
+| `app/Views/flyers/index.php` | Public mini-gallery (image cards + PDF cards) |
+| `app/Views/admin/flyers/` | Admin list, create, edit views |
+| `database/initialize/023_create_flyers_table.sql` | Flyers table migration |
 | `app/Controllers/CameraController.php` | Serves FTP camera image via `GET /camera/live` with corruption protection |
 | `public/uploads/camera1.jpg` | FTP-dropped source image (continuously overwritten by camera) |
 | `storage/cache/camera1_stable.jpg` | Last known-good frame promoted by `CameraController` |
@@ -98,7 +104,7 @@ Do this without being asked. If the change is minor (bug fix, copy tweak), skip 
 - Seeds in `database/seed/NNN_seed_name.sql` (3-digit prefix)
 - Model `$timestamps = true` auto-manages `created_at`/`updated_at`
 - Tables: lowercase plural (`menu_items`), InnoDB, utf8mb4_unicode_ci
-- Next migration number: **023**
+- Next migration number: **024**
 
 ## Views
 
@@ -138,7 +144,9 @@ Copy `config/config.example.php` → `config/config.php` and fill in real values
 
 ## Current Status
 
-Core, security, middleware, auth, admin UI, theming, content management, **Events system**, **Weather widget**, **Camera widget**, **Template Variables**, and **Admin Documentation system** are all complete and stable.
+Core, security, middleware, auth, admin UI, theming, content management, **Events system**, **Flyers system**, **Weather widget**, **Camera widget**, **Template Variables**, and **Admin Documentation system** are all complete and stable.
+
+**Flyers system:** Public mini-gallery at `GET /flyers` — shows active (non-expired) flyers as image/PDF cards. Admin CRUD at `GET/POST /admin/flyers`, `GET/POST /admin/flyers/create`, `GET/POST /admin/flyers/{id}/edit`, `POST /admin/flyers/{id}/delete`. Files stored in `public/uploads/flyers/`. Each flyer has a title, optional description, file (image or PDF), and an expiry date that defaults to 90 days from upload. Expired flyers are hidden from the public page but remain visible in admin with an "Expired" badge. The expiry date can be extended at any time via the edit form. Add to the Events dropdown via Menu Management.
 
 **Admin Documentation system:** Searchable HTML docs viewer at `GET /admin/docs` (admin-only). Sidebar lists all guides; search splits each doc by `<h2>` and returns section-level results with excerpts and anchor links. Doc files live in `app/Views/docs/*.html` (static HTML partials). Order and metadata controlled by the `DOCS` constant in `DocsController`. A prominent docs banner on the admin dashboard (`admin/index.php`) links directly to `/admin/docs`. CSS in `public/assets/css/docs.css`. Current docs: dashboard, homepage, theme, banners, menu-management, user-management, rates, membership, board-members, contact, board-minutes, **events** (creating events, categories, recurring logic, blackout dates), **events-managing** (editing, cancelling, restoring, deleting), **event-results** (posting/formatting/removing results).
 

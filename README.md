@@ -26,8 +26,10 @@ php-framework/
 │       ├── partials/       # Reusable snippets (messages, nav, upcoming-events)
 │       ├── auth/           # Login, register pages
 │       ├── admin/          # Admin panel
-│       │   └── events/     # Admin event management views
+│       │   ├── events/     # Admin event management views
+│       │   └── flyers/     # Admin flyer management views
 │       ├── events/         # Public calendar and detail views
+│       ├── flyers/         # Public event flyers gallery
 │       ├── users/          # User management
 │       ├── logs/           # Application logs
 │       └── errors/         # Error pages (404, 500)

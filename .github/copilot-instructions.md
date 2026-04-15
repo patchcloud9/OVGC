@@ -223,7 +223,44 @@ Admins can switch the camera widget to Maintenance Mode via `/admin/homepage` (H
 'POST /admin/homepage/clear-camera-image' => ['HomepageController', 'clearCameraImage', ['auth', 'role:admin', 'csrf']]
 ```
 
-### 9. JavaScript Assets
+### 9. Flyers
+
+Public mini-gallery of event flyers at `GET /flyers`. Admin CRUD at `/admin/flyers`.
+
+**Key files:**
+- `app/Controllers/FlyerController.php` — public controller, no auth
+- `app/Controllers/Admin/FlyerController.php` — admin CRUD; namespace `App\Controllers\Admin`
+- `app/Models/Flyer.php` — table `flyers`; `getActive()` filters `expires_at >= CURDATE()`; `allForAdmin()` adds `is_expired` flag
+- `app/Views/flyers/index.php` — public view: image cards + PDF cards with expiry badge
+- `app/Views/admin/flyers/` — index, create, edit views
+- `database/initialize/023_create_flyers_table.sql` — table migration
+- Uploads stored in `public/uploads/flyers/`
+
+**Table columns:** `id`, `title`, `description`, `filename`, `file_path`, `mime_type`, `expires_at` (DATE), `display_order`, `uploaded_by`, `created_at`, `updated_at`
+
+**Expiry logic:** Default = upload date + 90 days. Expired flyers are hidden from public view; admin list shows them with an "Expired" badge. Expiry date is editable at any time. No auto-delete — admin must explicitly delete.
+
+**File types:** images (JPEG, PNG, GIF, WebP) render as card thumbnails; PDFs show a file icon with a "View PDF" link. Max 10 MB. MIME validated with `finfo`.
+
+**Routes:**
+```php
+// Public
+'GET /flyers' => ['FlyerController', 'index'],
+
+// Admin GET
+'GET /admin/flyers'            => ['Admin\FlyerController', 'index',  ['auth', 'role:admin']],
+'GET /admin/flyers/create'     => ['Admin\FlyerController', 'create', ['auth', 'role:admin']],
+'GET /admin/flyers/{id}/edit'  => ['Admin\FlyerController', 'edit',   ['auth', 'role:admin']],
+
+// Admin POST
+'POST /admin/flyers/create'      => ['Admin\FlyerController', 'store',   ['auth', 'role:admin', 'csrf']],
+'POST /admin/flyers/{id}/edit'   => ['Admin\FlyerController', 'update',  ['auth', 'role:admin', 'csrf']],
+'POST /admin/flyers/{id}/delete' => ['Admin\FlyerController', 'destroy', ['auth', 'role:admin', 'csrf']],
+```
+
+**Navigation:** Add the `/flyers` link to the Events dropdown via Menu Management (`/admin/menu`).
+
+### 10. JavaScript Assets
 
 All page-specific JavaScript lives in external files — **no inline `<script>` blocks** in any view.
 
