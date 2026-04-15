@@ -1,0 +1,110 @@
+<h1>Grill Menu</h1>
+
+<p>The Grill Menu feature lets you upload the clubhouse food menu as a PDF. When you upload a PDF, a preview image is automatically generated and displayed on the public <strong>/menu</strong> page. Visitors can view the menu inline and download the PDF with one click. Swapping the menu when prices or items change takes about 30 seconds.</p>
+
+<hr>
+
+<h2 id="getting-there">Getting to the Grill Menu Admin</h2>
+
+<ol>
+    <li>Log in and go to the admin dashboard.</li>
+    <li>Click <strong>Grill Menu</strong> in the Pages section, or go directly to:</li>
+</ol>
+
+<pre><code>https://www.okanoganvalleygolf.com/admin/grill-menu</code></pre>
+
+<p>The page shows the current status of the PDF and the auto-generated preview image, along with the upload form.</p>
+
+<hr>
+
+<h2 id="upload">Uploading or Replacing the Menu</h2>
+
+<ol>
+    <li>Go to <code>/admin/grill-menu</code>.</li>
+    <li>Click <strong>Choose File</strong> and select the menu PDF from your computer.</li>
+    <li>Click <strong>Upload PDF</strong>.</li>
+</ol>
+
+<p>After the upload completes, the server automatically converts the first page of the PDF into a preview image. You will see one of two messages:</p>
+
+<div class="notification is-success is-light">
+    <p><strong>"Menu PDF uploaded and preview image generated successfully."</strong><br>
+    Everything worked. The public menu page is now showing the new menu as an image with a Download PDF button.</p>
+</div>
+
+<div class="notification is-warning is-light">
+    <p><strong>"PDF uploaded, but automatic image conversion failed."</strong><br>
+    The PDF was saved and the Download button works, but the inline image preview could not be generated. Visitors will see <strong>View Menu</strong> and <strong>Download</strong> buttons instead of the image. This is rare and typically means the image conversion software is temporarily unavailable on the server.</p>
+</div>
+
+<p>The admin page shows a thumbnail of the current preview image so you can confirm it looks right before leaving.</p>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot suggestion: /admin/grill-menu showing the Current Status section with a green "Uploaded" PDF tag, a green "Generated" image tag, and the thumbnail preview below.</em></div>
+
+<hr>
+
+<h2 id="remove">Removing the Menu</h2>
+
+<p>If you need to take the menu offline temporarily:</p>
+
+<ol>
+    <li>Scroll to the <strong>Remove Menu</strong> section at the bottom of the page.</li>
+    <li>Click <strong>Remove Menu</strong> and confirm.</li>
+</ol>
+
+<p>Both the PDF and the preview image are deleted immediately. The public <strong>/menu</strong> page will show a "check back soon" message until a new PDF is uploaded.</p>
+
+<div class="notification is-warning is-light">
+    <p><strong>Removal is immediate.</strong> Keep a copy of your menu PDF on your computer before removing it, in case you need to re-upload it later.</p>
+</div>
+
+<hr>
+
+<h2 id="public-page">The Public Menu Page</h2>
+
+<p>The public menu page is at <code>/menu</code>. Depending on what has been uploaded, it shows one of three things:</p>
+
+<ul>
+    <li><strong>Preview image + Download PDF button</strong> — when both the PDF and the auto-generated image are present. This is the normal state after a successful upload.</li>
+    <li><strong>View Menu + Download buttons</strong> — when a PDF was uploaded but image conversion was not available. Both buttons open/download the PDF directly.</li>
+    <li><strong>"Check back soon" message</strong> — when nothing has been uploaded yet, or the menu was removed.</li>
+</ul>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot suggestion: the public /menu page showing the menu image with the Download PDF button in the top-right corner.</em></div>
+
+<hr>
+
+<h2 id="navigation">Adding the Menu to the Navigation</h2>
+
+<p>The <strong>/menu</strong> link is not added to the navigation automatically. To make it visible in the site nav:</p>
+
+<ol>
+    <li>Go to <strong>Menu Management</strong> in the admin dashboard.</li>
+    <li>Add a new top-level item with the title <strong>Menu</strong> (or <strong>Grill Menu</strong>) and URL <code>/menu</code>.</li>
+    <li>Set the display order to place it where you want it in the navbar.</li>
+    <li>Save.</li>
+</ol>
+
+<hr>
+
+<h2 id="tips">Tips</h2>
+
+<div class="notification is-success is-light">
+    <p><strong>Keep the original PDF on your computer.</strong><br>
+    The admin page does not let you download the current PDF (the public page does). Keep your source file saved locally so you can re-upload it or make edits easily.</p>
+</div>
+
+<div class="notification is-light">
+    <p><strong>Max file size is 10 MB.</strong><br>
+    Standard single-page menu PDFs are usually well under 1 MB. If your PDF is large, try exporting it from your design software at a lower resolution or using a free online PDF compressor.</p>
+</div>
+
+<div class="notification is-light">
+    <p><strong>Only the first page is shown as the preview image.</strong><br>
+    If your menu is multiple pages, only page 1 will appear inline. All pages are included in the downloaded PDF. If you have a two-sided menu, consider combining both sides into a single-page landscape layout before uploading.</p>
+</div>
+
+<div class="notification is-success is-light">
+    <p><strong>Uploading a new PDF replaces the old one instantly.</strong><br>
+    There is no draft or preview step — the new menu goes live as soon as the upload completes. If you need to update prices mid-season, just upload the new PDF and the page updates immediately.</p>
+</div>
