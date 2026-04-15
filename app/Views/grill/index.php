@@ -1,7 +1,7 @@
 <?php
 /**
  * Public Grill Menu Page
- * Variables: $title (string), $exists (bool)
+ * Variables: $title (string), $imagePath (?string), $pdfExists (bool)
  */
 ?>
 
@@ -15,36 +15,47 @@
     </div>
 </section>
 
-<section class="section" style="padding-top:1rem;">
+<section class="section">
     <div class="container">
-        <?php if (!$exists): ?>
+
+        <?php if (!$imagePath && !$pdfExists): ?>
             <div class="notification is-info is-light">
                 <i class="fas fa-info-circle"></i> The menu is not currently available. Please check back soon.
             </div>
-        <?php else: ?>
 
+        <?php elseif ($imagePath): ?>
+            <?php if ($pdfExists): ?>
             <div class="has-text-right mb-3">
                 <a href="/assets/menu/menu.pdf" download="OVGC-Menu.pdf" class="button is-primary is-small">
                     <span class="icon"><i class="fas fa-download"></i></span>
-                    <span>Download</span>
+                    <span>Download PDF</span>
                 </a>
             </div>
+            <?php endif; ?>
+            <figure class="image" style="max-width:900px; margin:0 auto;">
+                <img src="<?= e($imagePath) ?>?v=<?= @filemtime(BASE_PATH . '/public' . $imagePath) ?>"
+                     alt="Grill Menu"
+                     style="width:100%; height:auto; border:1px solid #dbdbdb; border-radius:4px;">
+            </figure>
 
-            <iframe
-                src="/assets/menu/menu.pdf"
-                style="width:100%; height:82vh; min-height:600px; border:1px solid #dbdbdb; border-radius:4px;"
-                title="Grill Menu">
-                <div class="notification is-warning is-light mt-4">
-                    <p><strong>PDF preview not available in your browser.</strong></p>
-                    <p class="mt-2">
-                        <a href="/assets/menu/menu.pdf" download="OVGC-Menu.pdf" class="button is-primary">
-                            <span class="icon"><i class="fas fa-download"></i></span>
-                            <span>Download Menu PDF</span>
-                        </a>
-                    </p>
+        <?php else: ?>
+            <div class="has-text-centered" style="padding: 3rem 1rem;">
+                <p style="font-size: 5rem; color: #b5bfc9; line-height:1;">
+                    <i class="fas fa-file-pdf"></i>
+                </p>
+                <p class="title is-4 mt-4">Okanogan Valley Golf Club Grill Menu</p>
+                <div class="buttons is-centered mt-5">
+                    <a href="/assets/menu/menu.pdf" target="_blank" rel="noopener" class="button is-primary is-medium">
+                        <span class="icon"><i class="fas fa-eye"></i></span>
+                        <span>View Menu</span>
+                    </a>
+                    <a href="/assets/menu/menu.pdf" download="OVGC-Menu.pdf" class="button is-light is-medium">
+                        <span class="icon"><i class="fas fa-download"></i></span>
+                        <span>Download</span>
+                    </a>
                 </div>
-            </iframe>
-
+            </div>
         <?php endif; ?>
+
     </div>
 </section>

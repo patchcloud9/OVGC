@@ -1,7 +1,8 @@
 <?php
 /**
  * Admin Grill Menu PDF Management
- * Variables: $title (string), $exists (bool), $fileSize (?int), $modified (?int)
+ * Variables: $title, $pdfExists, $pdfSize, $pdfModified,
+ *            $imageExists, $imagePath, $imageModified
  */
 ?>
 
@@ -9,101 +10,134 @@
     <div class="hero-body">
         <div class="container">
             <h1 class="title">
-                <i class="fas fa-utensils"></i> Grill Menu PDF
+                <i class="fas fa-utensils"></i> Grill Menu
             </h1>
-            <p class="subtitle">Upload and manage the public grill menu</p>
+            <p class="subtitle">Manage the public menu page</p>
         </div>
     </div>
 </section>
 
 <section class="section">
-    <div class="container" style="max-width:640px;">
+    <div class="container" style="max-width:700px;">
         <?php require BASE_PATH . '/app/Views/partials/messages.php'; ?>
 
+        <!-- Display Image -->
         <div class="box">
-            <h2 class="title is-5">Current Menu</h2>
+            <h2 class="title is-5">Display Image <span class="tag is-info is-light ml-2">Shown on menu page</span></h2>
 
-            <?php if ($exists): ?>
-                <div class="notification is-success is-light mb-4">
+            <?php if ($imageExists): ?>
+                <div class="notification is-success is-light mb-3">
                     <span class="icon"><i class="fas fa-check-circle"></i></span>
-                    <strong>A menu PDF is currently live.</strong>
+                    <strong>Image is live.</strong>
+                    <span class="has-text-grey ml-2">Last updated: <?= e(date('F j, Y g:i a', $imageModified)) ?></span>
                 </div>
-                <table class="table is-fullwidth is-narrow mb-4">
-                    <tbody>
-                        <tr>
-                            <th style="width:40%">File size</th>
-                            <td><?= e(number_format($fileSize / 1024, 1)) ?> KB</td>
-                        </tr>
-                        <tr>
-                            <th>Last updated</th>
-                            <td><?= e(date('F j, Y g:i a', $modified)) ?></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <figure class="image mb-4" style="max-width:400px;">
+                    <img src="<?= e($imagePath) ?>?v=<?= $imageModified ?>" alt="Current menu image"
+                         style="border:1px solid #dbdbdb; border-radius:4px;">
+                </figure>
                 <div class="buttons">
-                    <a href="/assets/menu/menu.pdf" target="_blank" class="button is-info is-light">
-                        <span class="icon"><i class="fas fa-eye"></i></span>
-                        <span>Preview PDF</span>
-                    </a>
-                    <a href="/menu" target="_blank" class="button is-light">
+                    <a href="/menu" target="_blank" class="button is-info is-light is-small">
                         <span class="icon"><i class="fas fa-external-link-alt"></i></span>
                         <span>View Public Page</span>
                     </a>
                 </div>
             <?php else: ?>
-                <div class="notification is-warning is-light mb-4">
+                <div class="notification is-warning is-light mb-3">
                     <span class="icon"><i class="fas fa-exclamation-triangle"></i></span>
-                    <strong>No menu PDF uploaded yet.</strong> The public menu page will show a "check back soon" message until a PDF is uploaded.
+                    No display image uploaded yet.
                 </div>
+            <?php endif; ?>
+
+            <form method="POST" action="/admin/grill-menu/image" enctype="multipart/form-data" class="mt-4">
+                <?= csrf_field() ?>
+                <div class="field">
+                    <label class="label" for="menu_image"><?= $imageExists ? 'Replace image' : 'Upload image' ?></label>
+                    <div class="control">
+                        <input class="input" type="file" id="menu_image" name="menu_image"
+                               accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp"
+                               required style="padding:0.4rem;">
+                    </div>
+                    <p class="help">JPEG, PNG, or WebP. Max 10 MB. Tip: export your PDF as a high-resolution image using Preview (Mac), Adobe Reader, or any online PDF-to-image converter.</p>
+                </div>
+                <div class="control mt-3">
+                    <button type="submit" class="button is-primary">
+                        <span class="icon"><i class="fas fa-upload"></i></span>
+                        <span><?= $imageExists ? 'Replace Image' : 'Upload Image' ?></span>
+                    </button>
+                </div>
+            </form>
+
+            <?php if ($imageExists): ?>
+            <form method="POST" action="/admin/grill-menu/delete-image" class="mt-4">
+                <?= csrf_field() ?>
+                <button type="submit" class="button is-danger is-light is-small"
+                    onclick="return confirm('Remove the display image?')">
+                    <span class="icon"><i class="fas fa-trash"></i></span>
+                    <span>Remove Image</span>
+                </button>
+            </form>
             <?php endif; ?>
         </div>
 
-        <!-- Upload Form -->
+        <!-- PDF Download -->
         <div class="box">
-            <h2 class="title is-5"><?= $exists ? 'Replace Menu PDF' : 'Upload Menu PDF' ?></h2>
-            <form method="POST" action="/admin/grill-menu" enctype="multipart/form-data">
+            <h2 class="title is-5">Download PDF <span class="tag is-light ml-2">Optional — shown as download button</span></h2>
+
+            <?php if ($pdfExists): ?>
+                <div class="notification is-success is-light mb-3">
+                    <span class="icon"><i class="fas fa-check-circle"></i></span>
+                    <strong>PDF is live.</strong>
+                    <span class="has-text-grey ml-2"><?= e(number_format($pdfSize / 1024, 1)) ?> KB &mdash; Last updated: <?= e(date('F j, Y g:i a', $pdfModified)) ?></span>
+                </div>
+                <div class="buttons">
+                    <a href="/assets/menu/menu.pdf" target="_blank" class="button is-info is-light is-small">
+                        <span class="icon"><i class="fas fa-eye"></i></span>
+                        <span>Preview PDF</span>
+                    </a>
+                </div>
+            <?php else: ?>
+                <div class="notification is-light mb-3">
+                    <span class="icon"><i class="fas fa-info-circle"></i></span>
+                    No PDF uploaded. Upload one to show a Download button alongside the image.
+                </div>
+            <?php endif; ?>
+
+            <form method="POST" action="/admin/grill-menu" enctype="multipart/form-data" class="mt-4">
                 <?= csrf_field() ?>
                 <div class="field">
-                    <label class="label" for="menu_pdf">Select PDF file</label>
+                    <label class="label" for="menu_pdf"><?= $pdfExists ? 'Replace PDF' : 'Upload PDF' ?></label>
                     <div class="control">
-                        <input
-                            class="input"
-                            type="file"
-                            id="menu_pdf"
-                            name="menu_pdf"
-                            accept="application/pdf,.pdf"
-                            required
-                            style="padding:0.4rem;">
+                        <input class="input" type="file" id="menu_pdf" name="menu_pdf"
+                               accept="application/pdf,.pdf" required style="padding:0.4rem;">
                     </div>
-                    <p class="help">PDF only. Maximum 10 MB. Replaces the existing menu immediately on upload.</p>
+                    <p class="help">PDF only. Max 10 MB.</p>
                 </div>
-                <div class="field mt-4">
-                    <div class="control">
-                        <button type="submit" class="button is-primary">
-                            <span class="icon"><i class="fas fa-upload"></i></span>
-                            <span><?= $exists ? 'Replace PDF' : 'Upload PDF' ?></span>
-                        </button>
-                        <a href="/admin" class="button is-light ml-2">Cancel</a>
-                    </div>
+                <div class="control mt-3">
+                    <button type="submit" class="button is-primary">
+                        <span class="icon"><i class="fas fa-upload"></i></span>
+                        <span><?= $pdfExists ? 'Replace PDF' : 'Upload PDF' ?></span>
+                    </button>
                 </div>
             </form>
-        </div>
 
-        <?php if ($exists): ?>
-        <!-- Delete -->
-        <div class="box">
-            <h2 class="title is-5 has-text-danger">Remove Menu</h2>
-            <p class="mb-4 has-text-grey">Removing the PDF will hide the menu from the public page until a new one is uploaded.</p>
-            <form method="POST" action="/admin/grill-menu/delete">
+            <?php if ($pdfExists): ?>
+            <form method="POST" action="/admin/grill-menu/delete-pdf" class="mt-4">
                 <?= csrf_field() ?>
-                <button type="submit" class="button is-danger"
-                    onclick="return confirm('Remove the menu PDF? The public page will show a \'check back soon\' message.')">
+                <button type="submit" class="button is-danger is-light is-small"
+                    onclick="return confirm('Remove the download PDF?')">
                     <span class="icon"><i class="fas fa-trash"></i></span>
                     <span>Remove PDF</span>
                 </button>
             </form>
+            <?php endif; ?>
         </div>
-        <?php endif; ?>
+
+        <div class="mt-2">
+            <a href="/admin" class="button is-light">
+                <span class="icon"><i class="fas fa-arrow-left"></i></span>
+                <span>Back to Dashboard</span>
+            </a>
+        </div>
 
     </div>
 </section>
