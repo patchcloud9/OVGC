@@ -68,6 +68,10 @@
                     <span class="icon"><i class="fas fa-calendar-alt"></i></span>
                     <span>Events</span>
                 </a>
+                <a href="/admin/flyers" class="button is-primary">
+                    <span class="icon"><i class="fas fa-images"></i></span>
+                    <span>Flyers</span>
+                </a>
                 <a href="/admin/board-members" class="button is-primary">
                     <span class="icon"><i class="fas fa-users"></i></span>
                     <span>Board Members</span>

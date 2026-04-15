@@ -232,8 +232,20 @@ class FlyerController extends Controller
      */
     private function handleUpload(): ?array
     {
-        if (!isset($_FILES['flyer']) || $_FILES['flyer']['error'] !== UPLOAD_ERR_OK) {
-            $this->flash('danger', 'A file is required.');
+        $phpError = $_FILES['flyer']['error'] ?? UPLOAD_ERR_NO_FILE;
+
+        if (!isset($_FILES['flyer']) || $phpError !== UPLOAD_ERR_OK) {
+            $messages = [
+                UPLOAD_ERR_NO_FILE    => 'No file was selected. Please choose a file.',
+                UPLOAD_ERR_INI_SIZE   => 'The file exceeds the server upload size limit. Contact your host to raise upload_max_filesize.',
+                UPLOAD_ERR_FORM_SIZE  => 'The file exceeds the form size limit.',
+                UPLOAD_ERR_PARTIAL    => 'The file was only partially uploaded. Please try again.',
+                UPLOAD_ERR_NO_TMP_DIR => 'Server error: no temporary upload directory is configured.',
+                UPLOAD_ERR_CANT_WRITE => 'Server error: failed to write file to disk.',
+                UPLOAD_ERR_EXTENSION  => 'A PHP extension blocked the upload.',
+            ];
+            $msg = $messages[$phpError] ?? "Upload failed (PHP error code: {$phpError}).";
+            $this->flash('danger', $msg);
             return null;
         }
 
