@@ -270,6 +270,47 @@ $rruleMonthlyByday = ($rruleFreq === 'MONTHLY') ? $rruleByday : '';
                             value="<?= e(implode(',', $skipDates)) ?>">
                     </div><!-- /.box blackout -->
 
+                    <!-- Linked Flyer -->
+                    <div class="box">
+                        <h2 class="title is-5 mb-3"><i class="fas fa-images"></i> Linked Flyer</h2>
+                        <p class="help mb-3">Optionally attach a flyer to this event. It will appear on the event detail page.</p>
+
+                        <?php
+                        $selectedFlyerId = $isEdit ? ($event['flyer_id'] ?? null) : null;
+                        ?>
+
+                        <div class="field">
+                            <div class="control">
+                                <div class="select is-fullwidth">
+                                    <select name="flyer_id" id="flyer-select">
+                                        <option value="">— No flyer —</option>
+                                        <?php foreach ($flyers as $f):
+                                            $expired = (bool)($f['is_expired'] ?? false);
+                                            $sel = ((int)$f['id'] === (int)$selectedFlyerId);
+                                        ?>
+                                        <option value="<?= (int)$f['id'] ?>"
+                                            <?= $sel ? 'selected' : '' ?>
+                                            data-path="<?= e($f['file_path']) ?>"
+                                            data-mime="<?= e($f['mime_type']) ?>">
+                                            <?= e($f['title']) ?><?= $expired ? ' (expired)' : '' ?>
+                                        </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Live thumbnail preview -->
+                        <div id="flyer-preview" class="mt-3" style="display:none;">
+                            <img id="flyer-preview-img" src="" alt=""
+                                 style="max-width:100%;max-height:220px;object-fit:contain;border:1px solid #ddd;border-radius:4px;">
+                            <p id="flyer-preview-pdf" class="has-text-danger" style="display:none;">
+                                <span class="icon"><i class="fas fa-file-pdf fa-2x"></i></span>
+                                <span>PDF flyer attached</span>
+                            </p>
+                        </div>
+                    </div><!-- /.box flyer -->
+
                 </div><!-- /.column is-8 -->
             </div><!-- /.columns -->
 

@@ -16,6 +16,7 @@ class Event extends Model
         'rrule',
         'status',
         'cancelled_from',
+        'flyer_id',
     ];
 
     protected bool $timestamps = true;

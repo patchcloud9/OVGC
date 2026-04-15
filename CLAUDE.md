@@ -104,7 +104,7 @@ Do this without being asked. If the change is minor (bug fix, copy tweak), skip 
 - Seeds in `database/seed/NNN_seed_name.sql` (3-digit prefix)
 - Model `$timestamps = true` auto-manages `created_at`/`updated_at`
 - Tables: lowercase plural (`menu_items`), InnoDB, utf8mb4_unicode_ci
-- Next migration number: **024**
+- Next migration number: **025**
 
 ## Views
 

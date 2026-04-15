@@ -149,7 +149,40 @@ if ($isRecurring && !empty($event['rrule'])) {
                     </a>
                 </div>
 
-            </div><!-- /.column -->
+            </div><!-- /.column is-8 -->
+
+            <?php if (!empty($linkedFlyer)): ?>
+            <div class="column is-4">
+                <div class="box" style="position:sticky;top:1.5rem;">
+                    <p class="heading mb-2"><i class="fas fa-images"></i> Event Flyer</p>
+                    <?php if (strpos($linkedFlyer['mime_type'], 'image/') === 0): ?>
+                        <figure class="image" style="border:1px solid #ddd;border-radius:4px;overflow:hidden;">
+                            <img src="<?= e($linkedFlyer['file_path']) ?>"
+                                 alt="<?= e($linkedFlyer['title']) ?>"
+                                 style="object-fit:contain;width:100%;">
+                        </figure>
+                        <a href="<?= e($linkedFlyer['file_path']) ?>" target="_blank"
+                           class="button is-light is-small is-fullwidth mt-2">
+                            <span class="icon"><i class="fas fa-expand"></i></span>
+                            <span>Full Size</span>
+                        </a>
+                    <?php else: ?>
+                        <div class="has-text-centered py-4">
+                            <span class="icon has-text-danger" style="font-size:3.5rem;">
+                                <i class="fas fa-file-pdf"></i>
+                            </span>
+                            <p class="mt-2"><?= e($linkedFlyer['title']) ?></p>
+                        </div>
+                        <a href="<?= e($linkedFlyer['file_path']) ?>" target="_blank"
+                           class="button is-danger is-light is-fullwidth mt-2">
+                            <span class="icon"><i class="fas fa-external-link-alt"></i></span>
+                            <span>View Flyer PDF</span>
+                        </a>
+                    <?php endif; ?>
+                </div>
+            </div>
+            <?php endif; ?>
+
         </div><!-- /.columns -->
     </div>
 </section>

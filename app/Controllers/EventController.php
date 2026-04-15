@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\Flyer;
 use App\Services\EventService;
 
 /**
@@ -83,7 +84,8 @@ class EventController extends Controller
         }
 
         $this->view('events/detail', array_merge($detail, [
-            'title' => e($detail['event']['title']),
+            'title'       => e($detail['event']['title']),
+            'linkedFlyer' => $this->fetchLinkedFlyer($detail['event']),
         ]));
     }
 
@@ -105,7 +107,8 @@ class EventController extends Controller
         }
 
         $this->view('events/detail', array_merge($detail, [
-            'title' => e($detail['event']['title']),
+            'title'       => e($detail['event']['title']),
+            'linkedFlyer' => $this->fetchLinkedFlyer($detail['event']),
         ]));
     }
 
@@ -205,5 +208,24 @@ class EventController extends Controller
         }
         $dt = \DateTime::createFromFormat('Y-m-d', $date);
         return $dt && $dt->format('Y-m-d') === $date;
+    }
+
+    /**
+     * Return the linked flyer row if set and not expired, otherwise null.
+     */
+    private function fetchLinkedFlyer(array $event): ?array
+    {
+        if (empty($event['flyer_id'])) {
+            return null;
+        }
+        $flyer = Flyer::find((int) $event['flyer_id']);
+        if (!$flyer) {
+            return null;
+        }
+        // Hide expired flyers from the public detail page
+        if ($flyer['expires_at'] < date('Y-m-d')) {
+            return null;
+        }
+        return $flyer;
     }
 }

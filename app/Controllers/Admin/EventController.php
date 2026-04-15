@@ -4,6 +4,7 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\Controller;
 use App\Models\Event;
+use App\Models\Flyer;
 use App\Services\EventService;
 
 /**
@@ -62,6 +63,7 @@ class EventController extends Controller
             'event'      => null,
             'categories' => EventService::CATEGORIES,
             'skipDates'  => [],
+            'flyers'     => Flyer::allForAdmin(),
         ]);
     }
 
@@ -120,6 +122,7 @@ class EventController extends Controller
             'event'      => $event,
             'categories' => EventService::CATEGORIES,
             'skipDates'  => $skipDates,
+            'flyers'     => Flyer::allForAdmin(),
         ]);
     }
 
@@ -371,6 +374,8 @@ class EventController extends Controller
             $rrule  = $this->buildRrule($freq, $byday, $until);
         }
 
+        $flyerId = !empty($post['flyer_id']) ? (int) $post['flyer_id'] : null;
+
         return [
             'title'          => trim($post['title']       ?? ''),
             'category'       => trim($post['category']    ?? 'other'),
@@ -381,6 +386,7 @@ class EventController extends Controller
             'rrule'          => $rrule,
             'status'         => 'active',
             'cancelled_from' => null,
+            'flyer_id'       => $flyerId,
         ];
     }
 

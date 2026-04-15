@@ -139,4 +139,36 @@ document.addEventListener('DOMContentLoaded', function () {
             skipPicker.value = '';
         });
     }
+
+    // ── Flyer preview ─────────────────────────────────────────────────────────
+    var flyerSelect     = document.getElementById('flyer-select');
+    var flyerPreview    = document.getElementById('flyer-preview');
+    var flyerPreviewImg = document.getElementById('flyer-preview-img');
+    var flyerPreviewPdf = document.getElementById('flyer-preview-pdf');
+
+    function applyFlyerPreview() {
+        if (!flyerSelect || !flyerPreview) return;
+        var opt = flyerSelect.options[flyerSelect.selectedIndex];
+        var path = opt ? opt.getAttribute('data-path') : '';
+        var mime = opt ? opt.getAttribute('data-mime') : '';
+
+        if (!path) {
+            flyerPreview.style.display = 'none';
+            return;
+        }
+        flyerPreview.style.display = '';
+        if (mime && mime.indexOf('image/') === 0) {
+            flyerPreviewImg.src = path;
+            flyerPreviewImg.style.display = '';
+            flyerPreviewPdf.style.display = 'none';
+        } else {
+            flyerPreviewImg.style.display = 'none';
+            flyerPreviewPdf.style.display = '';
+        }
+    }
+
+    if (flyerSelect) {
+        flyerSelect.addEventListener('change', applyFlyerPreview);
+        applyFlyerPreview();
+    }
 });
