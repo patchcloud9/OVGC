@@ -80,6 +80,10 @@
                     <span class="icon"><i class="fas fa-file-pdf"></i></span>
                     <span>Board Minutes</span>
                 </a>
+                <a href="/admin/grill-menu" class="button is-primary">
+                    <span class="icon"><i class="fas fa-utensils"></i></span>
+                    <span>Grill Menu</span>
+                </a>
             </div>
         </div>
 

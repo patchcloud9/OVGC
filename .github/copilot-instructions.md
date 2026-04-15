@@ -223,7 +223,37 @@ Admins can switch the camera widget to Maintenance Mode via `/admin/homepage` (H
 'POST /admin/homepage/clear-camera-image' => ['HomepageController', 'clearCameraImage', ['auth', 'role:admin', 'csrf']]
 ```
 
-### 9. Flyers
+### 9. Grill Menu
+
+Single-page food menu at `GET /menu`. No database — the PDF is stored directly on the filesystem.
+
+**Key files:**
+- `app/Controllers/GrillController.php` — public controller; checks if `public/assets/menu/menu.pdf` exists, passes `$exists` bool to view
+- `app/Controllers/Admin/GrillMenuController.php` — admin upload/replace/delete; namespace `App\Controllers\Admin`
+- `app/Views/grill/index.php` — embeds PDF via `<object>` (80 vh); fallback download button; graceful "check back soon" when no PDF
+- `app/Views/admin/grill-menu/index.php` — shows current file info (size, last modified), upload form, optional delete
+- `public/assets/menu/menu.pdf` — the live PDF; directory created on first upload
+
+**Why `public/assets/` not `public/uploads/`:** `public/uploads/.htaccess` sets `Cache-Control: no-store` for the camera feed. A PDF should be cacheable, so it lives in `assets/`.
+
+**Controller naming:** `MenuController` is taken by nav management. Public controller = `GrillController`; admin controller = `Admin\GrillMenuController`.
+
+**Upload validation:** MIME type checked with `finfo(FILEINFO_MIME_TYPE)` against the actual file bytes (not browser-supplied type). Max 10 MB. Directory created with `mkdir(0755, true)` if absent.
+
+**Routes:**
+```php
+// Public
+'GET /menu' => ['GrillController', 'index'],
+
+// Admin
+'GET  /admin/grill-menu'        => ['Admin\GrillMenuController', 'index',   ['auth', 'role:admin']],
+'POST /admin/grill-menu'        => ['Admin\GrillMenuController', 'upload',  ['auth', 'role:admin', 'csrf']],
+'POST /admin/grill-menu/delete' => ['Admin\GrillMenuController', 'destroy', ['auth', 'role:admin', 'csrf']],
+```
+
+**Navigation:** Add `/menu` as a top-level item via Menu Management (`/admin/menu`). Dashboard button added to the Pages section in `admin/index.php`.
+
+### 10. Flyers
 
 Public mini-gallery of event flyers at `GET /flyers`. Admin CRUD at `/admin/flyers`.
 

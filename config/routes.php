@@ -127,6 +127,9 @@ return [
         // Results (Public)
         '/results'                             => ['ResultsController', 'index'],
 
+        // Grill Menu (Public)
+        '/menu'                                => ['GrillController', 'index'],
+
         // Flyers (Public)
         '/flyers'                              => ['FlyerController', 'index'],
 
@@ -136,6 +139,9 @@ return [
         '/events/calendar.ics'                 => ['EventController', 'ical'],
         '/events/(\d+)'                        => ['EventController', 'show'],
         '/events/(\d+)/(\d{4}-\d{2}-\d{2})'   => ['EventController', 'showOccurrence'],
+
+        // Grill Menu (Admin Only)
+        '/admin/grill-menu'         => ['Admin\GrillMenuController', 'index',   ['auth', 'role:admin']],
 
         // Flyers (Admin Only)
         '/admin/flyers'             => ['Admin\FlyerController', 'index',  ['auth', 'role:admin']],
@@ -208,6 +214,10 @@ return [
         // Menu Management (Admin Only)
         '/admin/menu'           => ['MenuController', 'store', ['auth', 'role:admin', 'csrf']],
         '/admin/menu/reorder'   => ['MenuController', 'reorder', ['auth', 'role:admin', 'csrf']],
+
+        // Grill Menu (Admin Only)
+        '/admin/grill-menu'         => ['Admin\GrillMenuController', 'upload',  ['auth', 'role:admin', 'csrf']],
+        '/admin/grill-menu/delete'  => ['Admin\GrillMenuController', 'destroy', ['auth', 'role:admin', 'csrf']],
 
         // Flyers (Admin Only)
         '/admin/flyers/create'      => ['Admin\FlyerController', 'store',   ['auth', 'role:admin', 'csrf']],

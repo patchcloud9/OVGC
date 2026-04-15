@@ -34,6 +34,11 @@ Deployed via GitHub → RackNerd/CPanel GitHub Version Control → `/home/okanog
 | `app/Controllers/Admin/DocsController.php` | Admin docs viewer — `GET /admin/docs` (search/landing) + `GET /admin/docs/[slug]` (show) |
 | `app/Views/docs/*.html` | HTML doc source files (converted from `.md`; add new docs here as `.html`) |
 | `public/assets/css/docs.css` | Styles for the docs viewer (typography, callouts, sidebar, search results) |
+| `app/Controllers/GrillController.php` | Public grill menu — `GET /menu` (embeds PDF + download link) |
+| `app/Controllers/Admin/GrillMenuController.php` | Admin menu PDF upload/delete — `GET/POST /admin/grill-menu`, `POST /admin/grill-menu/delete` |
+| `app/Views/grill/index.php` | Public menu page — `<object>` PDF embed with fallback download |
+| `app/Views/admin/grill-menu/index.php` | Admin upload form — shows current file info, replace/remove controls |
+| `public/assets/menu/menu.pdf` | The live menu PDF (web-accessible; created on first upload) |
 | `app/Controllers/FlyerController.php` | Public flyer gallery — `GET /flyers` |
 | `app/Controllers/Admin/FlyerController.php` | Admin CRUD for flyers (upload, edit, delete) |
 | `app/Models/Flyer.php` | Flyer model — `getActive()` filters expired; `allForAdmin()` includes expired with flag |
@@ -144,7 +149,9 @@ Copy `config/config.example.php` → `config/config.php` and fill in real values
 
 ## Current Status
 
-Core, security, middleware, auth, admin UI, theming, content management, **Events system**, **Flyers system**, **Weather widget**, **Camera widget**, **Template Variables**, and **Admin Documentation system** are all complete and stable.
+Core, security, middleware, auth, admin UI, theming, content management, **Events system**, **Flyers system**, **Grill Menu**, **Weather widget**, **Camera widget**, **Template Variables**, and **Admin Documentation system** are all complete and stable.
+
+**Grill Menu:** Public menu page at `GET /menu` — embeds `public/assets/menu/menu.pdf` via `<object>` tag with a fallback download button. If no PDF is uploaded, shows a "check back soon" message. Admin upload/replace/delete at `GET /admin/grill-menu` (no DB — filesystem only). PDF stored at `public/assets/menu/menu.pdf` (not in `uploads/` to avoid the no-cache `.htaccess`). `MenuController` is already taken by nav management — this feature uses `GrillController` (public) and `Admin\GrillMenuController` (admin). Add `/menu` to the navbar via Menu Management.
 
 **Flyers system:** Public mini-gallery at `GET /flyers` — shows active (non-expired) flyers as image/PDF cards. Admin CRUD at `GET/POST /admin/flyers`, `GET/POST /admin/flyers/create`, `GET/POST /admin/flyers/{id}/edit`, `POST /admin/flyers/{id}/delete`. Files stored in `public/uploads/flyers/`. Each flyer has a title, optional description, file (image or PDF), and an expiry date that defaults to 90 days from upload. Expired flyers are hidden from the public page but remain visible in admin with an "Expired" badge. The expiry date can be extended at any time via the edit form. Add to the Events dropdown via Menu Management.
 
