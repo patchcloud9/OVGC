@@ -56,15 +56,6 @@
                             <?php if (!empty($flyer['description'])): ?>
                                 <p class="is-size-6 has-text-grey-dark mb-2"><?= nl2br(e($flyer['description'])) ?></p>
                             <?php endif; ?>
-                            <?php if ($soon): ?>
-                                <span class="tag is-warning is-light">
-                                    <i class="fas fa-clock mr-1"></i> Expires in <?= $daysLeft ?> day<?= $daysLeft !== 1 ? 's' : '' ?>
-                                </span>
-                            <?php else: ?>
-                                <span class="tag is-light has-text-grey">
-                                    Through <?= e($expiry->format('M j, Y')) ?>
-                                </span>
-                            <?php endif; ?>
                         </div>
 
                         <?php if (!$isImage): ?>
