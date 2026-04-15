@@ -1,0 +1,166 @@
+<h1>Event Flyers</h1>
+
+<p>The Flyers feature lets you upload and display promotional flyers for upcoming events. Active flyers appear on the public <strong>/flyers</strong> page as a mini-gallery. You can also link a flyer directly to a specific event so it shows up on that event's detail page. Flyers expire automatically — each one has an expiry date (default 90 days from upload) after which it disappears from the public page.</p>
+
+<hr>
+
+<h2 id="getting-to-flyers">Getting to the Flyers Admin</h2>
+
+<ol>
+    <li>Log in and go to the admin dashboard.</li>
+    <li>Click <strong>Flyers</strong> in the Pages section, or go directly to:</li>
+</ol>
+
+<pre><code>https://www.okanoganvalleygolf.com/admin/flyers</code></pre>
+
+<p>The list shows all flyers — active and expired. Each row shows a thumbnail preview, title, expiry date, status badge, and Edit / View / Delete buttons.</p>
+
+<div class="notification is-light">
+    <p><strong>Status badges:</strong><br>
+    <span style="background:#48c774;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.85em;">Active</span> — Visible on the public flyers page.<br>
+    <span style="background:#ffdd57;color:#363636;padding:2px 8px;border-radius:4px;font-size:0.85em;">Expiring Soon</span> — Expires within 7 days.<br>
+    <span style="background:#f14668;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.85em;">Expired</span> — Past the expiry date; hidden from the public page but still in the list here.</p>
+</div>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot suggestion: /admin/flyers showing the table with a mix of active and expired flyers, including thumbnail previews and status badges.</em></div>
+
+<hr>
+
+<h2 id="add-flyer">Add a Flyer</h2>
+
+<ol>
+    <li>From <code>/admin/flyers</code>, click <strong>Add Flyer</strong>.</li>
+    <li>Fill in the form:
+        <ul>
+            <li><strong>Title</strong> (required) — A short name for the flyer, e.g. "Summer Tournament".</li>
+            <li><strong>Description</strong> (optional) — Shown below the title on the public page. Keep it brief.</li>
+            <li><strong>Flyer File</strong> (required) — An image or PDF. Accepted formats: JPG, PNG, GIF, WebP, PDF. Max 10 MB.</li>
+            <li><strong>Expires On</strong> (required) — The date the flyer stops appearing publicly. Defaults to 90 days from today. You can extend it at any time by editing the flyer.</li>
+        </ul>
+    </li>
+    <li>Click <strong>Upload Flyer</strong>.</li>
+</ol>
+
+<div class="notification is-light">
+    <p>Image flyers (JPG, PNG, etc.) are shown inline as cards on the public page. PDF flyers display a document icon with a "View PDF" link instead.</p>
+</div>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot suggestion: the Add Flyer form showing the Title, Description, file picker, and Expires On date fields.</em></div>
+
+<hr>
+
+<h2 id="edit-flyer">Edit a Flyer</h2>
+
+<p>You can update the title, description, or expiry date without touching the file. You can also swap the file entirely.</p>
+
+<ol>
+    <li>Click the <strong>Edit</strong> (pencil) button next to the flyer.</li>
+    <li>The current file is shown at the top as a preview — confirm you have the right flyer.</li>
+    <li>Update whichever fields you need:
+        <ul>
+            <li>Change <strong>Title</strong> or <strong>Description</strong> as needed.</li>
+            <li>To extend an expired flyer, update <strong>Expires On</strong> to a future date — it will become active again immediately.</li>
+            <li>To replace the file, choose a new one under <strong>Replace File</strong>. Leave it blank to keep the existing file.</li>
+        </ul>
+    </li>
+    <li>Click <strong>Save Changes</strong>.</li>
+</ol>
+
+<div class="notification is-success is-light">
+    <p><strong>Extending expiry is the preferred way to keep a flyer visible.</strong><br>
+    Rather than deleting and re-uploading, just edit the expiry date. The flyer's link to any events it is attached to is preserved.</p>
+</div>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot suggestion: the Edit Flyer form showing the current image preview, the title/description fields, and the Expires On date input.</em></div>
+
+<hr>
+
+<h2 id="delete-flyer">Delete a Flyer</h2>
+
+<ol>
+    <li>Click the <strong>Delete</strong> (trash) button next to the flyer and confirm.</li>
+</ol>
+
+<p>The database record and the file on the server are both removed immediately. If the flyer was linked to any events, those events will no longer show a flyer on their detail page. There is no undo.</p>
+
+<div class="notification is-warning is-light">
+    <p><strong>Deletion is permanent.</strong> If you might need the flyer later, consider extending its expiry date and leaving it in the list instead of deleting it.</p>
+</div>
+
+<hr>
+
+<h2 id="link-to-event">Linking a Flyer to an Event</h2>
+
+<p>You can attach a flyer to a specific event so it appears in a sidebar on that event's public detail page.</p>
+
+<ol>
+    <li>Go to <strong>Events</strong> in the admin panel (<code>/admin/events</code>).</li>
+    <li>Click <strong>Edit</strong> on the event you want to link.</li>
+    <li>Scroll down to the <strong>Linked Flyer</strong> section at the bottom of the form.</li>
+    <li>Select a flyer from the dropdown. A preview appears immediately so you can confirm it is the right one.</li>
+    <li>Click <strong>Save Changes</strong>.</li>
+</ol>
+
+<p>To remove the link, select <strong>— No flyer —</strong> from the dropdown and save.</p>
+
+<div class="notification is-light">
+    <p>The flyer sidebar only appears on the public event detail page when the linked flyer is active (not expired). If the flyer expires, the sidebar disappears automatically — no action required. The link is preserved in the database, so extending the flyer's expiry date will make it visible again.</p>
+</div>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot suggestion: the event edit form showing the Linked Flyer box with a flyer selected and the image preview visible.</em></div>
+
+<hr>
+
+<h2 id="public-page">The Public Flyers Page</h2>
+
+<p>Active flyers are shown at <code>/flyers</code> as a card grid. Each card displays:</p>
+
+<ul>
+    <li>The flyer image (or a PDF icon for PDF files).</li>
+    <li>The title and optional description.</li>
+    <li>A <strong>Full Size</strong> link (images) or <strong>View PDF</strong> link (PDFs) to open the file directly.</li>
+</ul>
+
+<p>To add a link to this page in the site navigation, go to <strong>Menu Management</strong> and add a child item under the Events dropdown with URL <code>/flyers</code>.</p>
+
+<div class="screenshot-placeholder"><i class="fas fa-camera"></i> <em>Screenshot suggestion: the public /flyers page showing two or three flyer cards with titles and images.</em></div>
+
+<hr>
+
+<h2 id="tips">Tips &amp; Gotchas</h2>
+
+<div class="notification is-success is-light">
+    <p><strong>Set the expiry date to match the event date.</strong><br>
+    A flyer for a July 4th tournament should expire on or just after July 4th. The 90-day default is a starting point — adjust it to fit the specific event.</p>
+</div>
+
+<div class="notification is-warning is-light">
+    <p><strong>Max file size is 10 MB.</strong><br>
+    If an upload fails, the error message will describe the reason. Large images can be compressed in an image editor before uploading. PDFs can be reduced using "Save as optimised PDF" options in most PDF tools.</p>
+</div>
+
+<div class="notification is-light">
+    <p><strong>Expired flyers stay in the admin list.</strong><br>
+    They are not deleted automatically. You can revive one by editing its expiry date, or clean up old ones manually with the Delete button.</p>
+</div>
+
+<div class="notification is-light">
+    <p><strong>The event-flyer link survives expiry.</strong><br>
+    If a linked flyer expires, the event detail page simply stops showing the sidebar. Extend the expiry date and the sidebar comes back — you do not need to re-link.</p>
+</div>
+
+<hr>
+
+<h2 id="field-reference">Field Reference</h2>
+
+<table>
+    <thead>
+        <tr><th>Field</th><th>Required</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><strong>Title</strong></td><td>Yes</td><td>Displayed on the public flyers page and in admin. Min 2 characters, max 255.</td></tr>
+        <tr><td><strong>Description</strong></td><td>No</td><td>Short text shown below the title on the public page. Max 1000 characters.</td></tr>
+        <tr><td><strong>Flyer File</strong></td><td>Yes (upload) / No (edit)</td><td>JPG, PNG, GIF, WebP, or PDF. Max 10 MB. On the edit screen, leave blank to keep the existing file.</td></tr>
+        <tr><td><strong>Expires On</strong></td><td>Yes</td><td>Date the flyer is hidden from the public page. Defaults to 90 days from today. Editable at any time.</td></tr>
+    </tbody>
+</table>

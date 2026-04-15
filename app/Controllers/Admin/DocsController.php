@@ -23,6 +23,7 @@ class DocsController extends Controller
         'board-members'   => ['title' => 'Board of Directors', 'icon' => 'fa-users'],
         'contact'         => ['title' => 'Contact Page',       'icon' => 'fa-envelope'],
         'board-minutes'   => ['title' => 'Board Minutes',      'icon' => 'fa-file-pdf'],
+        'flyers'          => ['title' => 'Event Flyers',        'icon' => 'fa-images'],
         'events'          => ['title' => 'Events',              'icon' => 'fa-calendar-alt'],
         'events-managing' => ['title' => 'Managing Events',     'icon' => 'fa-calendar-check'],
         'event-results'   => ['title' => 'Event Results',       'icon' => 'fa-trophy'],
