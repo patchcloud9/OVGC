@@ -24,19 +24,19 @@
             </div>
 
         <?php elseif ($imageExists): ?>
-            <?php if ($pdfExists): ?>
-            <div class="has-text-right mb-3">
-                <a href="/assets/menu/menu.pdf" download="OVGC-Menu.pdf" class="button is-primary is-small">
+            <div style="max-width:900px; margin:0 auto; position:relative; display:inline-block; width:100%;">
+                <img src="/assets/menu/menu-display.jpg?v=<?= @filemtime(BASE_PATH . '/public/assets/menu/menu-display.jpg') ?>"
+                     alt="Grill Menu"
+                     style="width:100%; height:auto; border:1px solid #dbdbdb; border-radius:4px; display:block;">
+                <?php if ($pdfExists): ?>
+                <a href="/assets/menu/menu.pdf" download="OVGC-Menu.pdf"
+                   class="button is-primary is-small"
+                   style="position:absolute; top:0.75rem; right:0.75rem;">
                     <span class="icon"><i class="fas fa-download"></i></span>
                     <span>Download PDF</span>
                 </a>
+                <?php endif; ?>
             </div>
-            <?php endif; ?>
-            <figure class="image" style="max-width:900px; margin:0 auto;">
-                <img src="/assets/menu/menu-display.jpg?v=<?= @filemtime(BASE_PATH . '/public/assets/menu/menu-display.jpg') ?>"
-                     alt="Grill Menu"
-                     style="width:100%; height:auto; border:1px solid #dbdbdb; border-radius:4px;">
-            </figure>
 
         <?php else: ?>
             <div class="has-text-centered" style="padding: 3rem 1rem;">
