@@ -45,8 +45,7 @@ class GrillMenuController extends Controller
 
         $file = $_FILES['menu_pdf'];
 
-        $finfo = new \finfo(FILEINFO_MIME_TYPE);
-        if ($finfo->file($file['tmp_name']) !== 'application/pdf') {
+        if (!$this->isPdf($file['tmp_name'])) {
             $this->flash('error', 'Only PDF files are accepted.');
             $this->redirect('/admin/grill-menu');
             return;
@@ -104,6 +103,18 @@ class GrillMenuController extends Controller
     }
 
     // -------------------------------------------------------------------------
+
+    /** Validate a PDF by checking its magic bytes (%PDF header) — no extensions needed. */
+    private function isPdf(string $path): bool
+    {
+        $handle = fopen($path, 'rb');
+        if (!$handle) {
+            return false;
+        }
+        $magic = fread($handle, 4);
+        fclose($handle);
+        return $magic === '%PDF';
+    }
 
     private function ensureDir(): void
     {
