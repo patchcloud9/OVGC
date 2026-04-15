@@ -216,10 +216,8 @@ return [
         '/admin/menu/reorder'   => ['MenuController', 'reorder', ['auth', 'role:admin', 'csrf']],
 
         // Grill Menu (Admin Only)
-        '/admin/grill-menu'              => ['Admin\GrillMenuController', 'uploadPdf',    ['auth', 'role:admin', 'csrf']],
-        '/admin/grill-menu/image'        => ['Admin\GrillMenuController', 'uploadImage',  ['auth', 'role:admin', 'csrf']],
-        '/admin/grill-menu/delete-pdf'   => ['Admin\GrillMenuController', 'destroyPdf',   ['auth', 'role:admin', 'csrf']],
-        '/admin/grill-menu/delete-image' => ['Admin\GrillMenuController', 'destroyImage', ['auth', 'role:admin', 'csrf']],
+        '/admin/grill-menu'            => ['Admin\GrillMenuController', 'uploadPdf',  ['auth', 'role:admin', 'csrf']],
+        '/admin/grill-menu/delete-pdf' => ['Admin\GrillMenuController', 'destroyPdf', ['auth', 'role:admin', 'csrf']],
 
         // Flyers (Admin Only)
         '/admin/flyers/create'      => ['Admin\FlyerController', 'store',   ['auth', 'role:admin', 'csrf']],

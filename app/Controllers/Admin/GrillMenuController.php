@@ -7,38 +7,31 @@ use App\Controllers\Controller;
 /**
  * Admin Grill Menu Controller
  *
- * GET  /admin/grill-menu         — show current files + upload forms
- * POST /admin/grill-menu/pdf     — upload/replace the download PDF
- * POST /admin/grill-menu/image   — upload/replace the display image
- * POST /admin/grill-menu/delete-pdf   — remove the PDF
- * POST /admin/grill-menu/delete-image — remove the display image
+ * GET  /admin/grill-menu              — show current files + upload form
+ * POST /admin/grill-menu              — upload PDF (auto-converts to display image via Imagick)
+ * POST /admin/grill-menu/delete-pdf   — remove PDF and generated image
  */
 class GrillMenuController extends Controller
 {
     private const PDF_PATH   = '/public/assets/menu/menu.pdf';
-    private const IMAGE_PATH = '/public/assets/menu/menu-display';  // ext added on upload
+    private const IMAGE_PATH = '/public/assets/menu/menu-display.jpg';
     private const ASSET_DIR  = '/public/assets/menu/';
     private const MAX_SIZE   = 10 * 1024 * 1024; // 10 MB
-
-    private const ALLOWED_IMAGE_TYPES = [
-        'image/jpeg' => 'jpg',
-        'image/png'  => 'png',
-        'image/webp' => 'webp',
-    ];
+    private const IMAGE_DPI  = 150; // Resolution for PDF→image conversion
 
     public function index(): void
     {
         $pdfPath   = BASE_PATH . self::PDF_PATH;
-        $imagePath = $this->findImagePath();
+        $imagePath = BASE_PATH . self::IMAGE_PATH;
 
         $this->view('admin/grill-menu/index', [
             'title'         => 'Grill Menu',
             'pdfExists'     => file_exists($pdfPath),
             'pdfSize'       => file_exists($pdfPath) ? filesize($pdfPath) : null,
             'pdfModified'   => file_exists($pdfPath) ? filemtime($pdfPath) : null,
-            'imageExists'   => $imagePath !== null,
-            'imagePath'     => $imagePath ? str_replace(BASE_PATH . '/public', '', $imagePath) : null,
-            'imageModified' => $imagePath ? filemtime($imagePath) : null,
+            'imageExists'   => file_exists($imagePath),
+            'imageModified' => file_exists($imagePath) ? filemtime($imagePath) : null,
+            'imagickAvailable' => class_exists('Imagick'),
         ]);
     }
 
@@ -54,7 +47,7 @@ class GrillMenuController extends Controller
 
         $finfo = new \finfo(FILEINFO_MIME_TYPE);
         if ($finfo->file($file['tmp_name']) !== 'application/pdf') {
-            $this->flash('error', 'Only PDF files are accepted here.');
+            $this->flash('error', 'Only PDF files are accepted.');
             $this->redirect('/admin/grill-menu');
             return;
         }
@@ -67,85 +60,46 @@ class GrillMenuController extends Controller
 
         $this->ensureDir();
 
-        if (!move_uploaded_file($file['tmp_name'], BASE_PATH . self::PDF_PATH)) {
-            $this->flash('error', 'Failed to save file. Check server permissions.');
+        $pdfDest = BASE_PATH . self::PDF_PATH;
+        if (!move_uploaded_file($file['tmp_name'], $pdfDest)) {
+            $this->flash('error', 'Failed to save PDF. Check server permissions.');
             $this->redirect('/admin/grill-menu');
             return;
         }
 
-        $this->flash('success', 'Menu PDF updated.');
-        $this->redirect('/admin/grill-menu');
-    }
+        // Attempt auto-conversion to display image
+        $converted = $this->convertToImage($pdfDest);
 
-    public function uploadImage(): void
-    {
-        if (empty($_FILES['menu_image']) || $_FILES['menu_image']['error'] !== UPLOAD_ERR_OK) {
-            $this->flash('error', 'Upload failed (code ' . ($_FILES['menu_image']['error'] ?? -1) . '). Please try again.');
-            $this->redirect('/admin/grill-menu');
-            return;
+        if ($converted) {
+            $this->flash('success', 'Menu PDF uploaded and preview image generated successfully.');
+        } else {
+            $this->flash('warning', 'PDF uploaded, but automatic image conversion failed (Imagick may not be available on this server). Visitors will see open/download buttons instead of an inline preview.');
         }
 
-        $file = $_FILES['menu_image'];
-
-        $finfo    = new \finfo(FILEINFO_MIME_TYPE);
-        $mimeType = $finfo->file($file['tmp_name']);
-
-        if (!isset(self::ALLOWED_IMAGE_TYPES[$mimeType])) {
-            $this->flash('error', 'Only JPEG, PNG, or WebP images are accepted.');
-            $this->redirect('/admin/grill-menu');
-            return;
-        }
-
-        if ($file['size'] > self::MAX_SIZE) {
-            $this->flash('error', 'File exceeds the 10 MB size limit.');
-            $this->redirect('/admin/grill-menu');
-            return;
-        }
-
-        $this->ensureDir();
-
-        // Remove any existing display image (may have different extension)
-        $existing = $this->findImagePath();
-        if ($existing) {
-            unlink($existing);
-        }
-
-        $ext  = self::ALLOWED_IMAGE_TYPES[$mimeType];
-        $dest = BASE_PATH . self::IMAGE_PATH . '.' . $ext;
-
-        if (!move_uploaded_file($file['tmp_name'], $dest)) {
-            $this->flash('error', 'Failed to save image. Check server permissions.');
-            $this->redirect('/admin/grill-menu');
-            return;
-        }
-
-        $this->flash('success', 'Display image updated.');
         $this->redirect('/admin/grill-menu');
     }
 
     public function destroyPdf(): void
     {
-        $path = BASE_PATH . self::PDF_PATH;
-        if (!file_exists($path)) {
-            $this->flash('error', 'No PDF found.');
-        } elseif (!unlink($path)) {
-            $this->flash('error', 'Could not delete PDF. Check server permissions.');
-        } else {
-            $this->flash('success', 'Menu PDF removed.');
-        }
-        $this->redirect('/admin/grill-menu');
-    }
+        $deleted = false;
 
-    public function destroyImage(): void
-    {
-        $path = $this->findImagePath();
-        if (!$path) {
-            $this->flash('error', 'No display image found.');
-        } elseif (!unlink($path)) {
-            $this->flash('error', 'Could not delete image. Check server permissions.');
-        } else {
-            $this->flash('success', 'Display image removed.');
+        $pdfPath = BASE_PATH . self::PDF_PATH;
+        if (file_exists($pdfPath)) {
+            unlink($pdfPath);
+            $deleted = true;
         }
+
+        $imagePath = BASE_PATH . self::IMAGE_PATH;
+        if (file_exists($imagePath)) {
+            unlink($imagePath);
+        }
+
+        if ($deleted) {
+            $this->flash('success', 'Menu PDF and preview image removed.');
+        } else {
+            $this->flash('error', 'No menu PDF found.');
+        }
+
         $this->redirect('/admin/grill-menu');
     }
 
@@ -159,15 +113,32 @@ class GrillMenuController extends Controller
         }
     }
 
-    /** Returns the full filesystem path of the display image, or null if none exists. */
-    private function findImagePath(): ?string
+    /**
+     * Convert the first page of the PDF to a JPEG using Imagick.
+     * Returns true on success, false if Imagick is unavailable or conversion fails.
+     */
+    private function convertToImage(string $pdfPath): bool
     {
-        foreach (self::ALLOWED_IMAGE_TYPES as $ext) {
-            $path = BASE_PATH . self::IMAGE_PATH . '.' . $ext;
-            if (file_exists($path)) {
-                return $path;
-            }
+        if (!class_exists('Imagick')) {
+            return false;
         }
-        return null;
+
+        try {
+            $imagick = new \Imagick();
+            $imagick->setResolution(self::IMAGE_DPI, self::IMAGE_DPI);
+            $imagick->readImage($pdfPath . '[0]'); // first page only
+            $imagick->setImageFormat('jpeg');
+            $imagick->setImageCompressionQuality(90);
+            $imagick->setImageColorspace(\Imagick::COLORSPACE_SRGB);
+            // Flatten to white background (PDFs may have transparent background)
+            $imagick->setImageBackgroundColor('white');
+            $imagick = $imagick->flattenImages();
+            $imagick->writeImage(BASE_PATH . self::IMAGE_PATH);
+            $imagick->destroy();
+            return true;
+        } catch (\Exception $e) {
+            error_log('GrillMenu Imagick conversion failed: ' . $e->getMessage());
+            return false;
+        }
     }
 }

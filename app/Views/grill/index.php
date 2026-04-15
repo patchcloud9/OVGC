@@ -1,7 +1,7 @@
 <?php
 /**
  * Public Grill Menu Page
- * Variables: $title (string), $imagePath (?string), $pdfExists (bool)
+ * Variables: $title (string), $imageExists (bool), $pdfExists (bool)
  */
 ?>
 
@@ -18,12 +18,12 @@
 <section class="section">
     <div class="container">
 
-        <?php if (!$imagePath && !$pdfExists): ?>
+        <?php if (!$imageExists && !$pdfExists): ?>
             <div class="notification is-info is-light">
                 <i class="fas fa-info-circle"></i> The menu is not currently available. Please check back soon.
             </div>
 
-        <?php elseif ($imagePath): ?>
+        <?php elseif ($imageExists): ?>
             <?php if ($pdfExists): ?>
             <div class="has-text-right mb-3">
                 <a href="/assets/menu/menu.pdf" download="OVGC-Menu.pdf" class="button is-primary is-small">
@@ -33,7 +33,7 @@
             </div>
             <?php endif; ?>
             <figure class="image" style="max-width:900px; margin:0 auto;">
-                <img src="<?= e($imagePath) ?>?v=<?= @filemtime(BASE_PATH . '/public' . $imagePath) ?>"
+                <img src="/assets/menu/menu-display.jpg?v=<?= @filemtime(BASE_PATH . '/public/assets/menu/menu-display.jpg') ?>"
                      alt="Grill Menu"
                      style="width:100%; height:auto; border:1px solid #dbdbdb; border-radius:4px;">
             </figure>
