@@ -171,14 +171,20 @@ class ThemeController extends Controller
         // Create upload directory if it doesn't exist
         $uploadDir = BASE_PATH . '/public/uploads/theme/';
         if (!is_dir($uploadDir) && !@mkdir($uploadDir, 0755, true)) {
-            error_log("Failed to create upload directory: {$uploadDir}");
+            (new \App\Services\LogService())->add('error', 'Theme upload: failed to create upload directory', [
+                'dir' => $uploadDir,
+                'ip'  => $_SERVER['REMOTE_ADDR'] ?? 'unknown',
+            ]);
             $this->flash('error', 'Upload directory not writable. Please check server permissions.');
             return null;
         }
 
         // Verify directory is writable
         if (!is_writable($uploadDir)) {
-            error_log("Upload directory not writable: {$uploadDir}");
+            (new \App\Services\LogService())->add('error', 'Theme upload: upload directory not writable', [
+                'dir' => $uploadDir,
+                'ip'  => $_SERVER['REMOTE_ADDR'] ?? 'unknown',
+            ]);
             $this->flash('error', 'Upload directory not writable. Please check server permissions.');
             return null;
         }
@@ -191,7 +197,11 @@ class ThemeController extends Controller
 
         // Move uploaded file
         if (!@move_uploaded_file($file['tmp_name'], $targetPath)) {
-            error_log("Failed to move uploaded file to: {$targetPath}");
+            (new \App\Services\LogService())->add('error', 'Theme upload: failed to move uploaded file', [
+                'target' => $targetPath,
+                'type'   => $type,
+                'ip'     => $_SERVER['REMOTE_ADDR'] ?? 'unknown',
+            ]);
             $this->flash('error', 'Failed to upload ' . $type . '. Please check server permissions.');
             return null;
         }

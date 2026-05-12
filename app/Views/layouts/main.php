@@ -330,15 +330,7 @@ function rgba_from_hex(string $hex, float $alpha = 1.0): string
                     <h3 class="title is-5 has-text-light">Quick Links</h3>
                     <ul>
                         <?php
-                        try {
-                            $menuLevel = \App\Models\MenuItem::getUserVisibilityLevel();
-                            $menuStructure = \App\Models\MenuItem::getMenuStructure($menuLevel);
-                        } catch (\Exception $e) {
-                            $menuStructure = [];
-                            if (defined('APP_DEBUG') && APP_DEBUG) {
-                                error_log('Footer menu load failed: ' . $e->getMessage());
-                            }
-                        }
+                        // $menuStructure is already loaded by Controller::view() — reuse it here.
 
                         // Footer shows only top-level items (no children).
                         // Parent items with dropdowns should have a real URL set in the

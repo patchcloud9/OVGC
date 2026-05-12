@@ -32,11 +32,12 @@ class Router
      * @var array
      */
     protected array $middlewareAliases = [
-        'csrf' => \App\Middleware\CsrfMiddleware::class,
-        'auth' => \App\Middleware\AuthMiddleware::class,
-        'guest' => \App\Middleware\GuestMiddleware::class,
-        'role' => \App\Middleware\RoleMiddleware::class,
-        'log-request' => \App\Middleware\LogRequestMiddleware::class,
+        'csrf'         => \App\Middleware\CsrfMiddleware::class,
+        'auth'         => \App\Middleware\AuthMiddleware::class,
+        'guest'        => \App\Middleware\GuestMiddleware::class,
+        'role'         => \App\Middleware\RoleMiddleware::class,
+        'log-request'  => \App\Middleware\LogRequestMiddleware::class,
+        'rate-limit'   => \App\Middleware\RateLimitMiddleware::class,
     ];
     
     /**
@@ -49,7 +50,7 @@ class Router
     
     /**
      * Dispatch the request to the appropriate controller
-     * 
+     *
      * @param string $method HTTP method (GET, POST, etc.)
      * @param string $uri    The request URI path
      */
@@ -59,27 +60,33 @@ class Router
         if ($method === 'POST' && isset($_POST['_method'])) {
             $method = strtoupper($_POST['_method']);
         }
-        
+
         // Normalize the URI
         // - Remove trailing slash (so /about and /about/ both work)
         // - But keep '/' for the home page
         $uri = $this->normalizeUri($uri);
-        
+
         // Log for debugging (you can see this in your browser's network tab or server logs)
         if (APP_DEBUG) {
             error_log("Router: {$method} {$uri}");
         }
-        
+
+        // HEAD: HTTP spec says HEAD = GET without body — fall through to GET routes
+        if ($method === 'HEAD') {
+            $this->handleHead($uri);
+            return;
+        }
+
         // Check if we have any routes for this HTTP method
         if (!isset($this->routes[$method])) {
             throw new \Core\Exceptions\NotFoundHttpException("No routes defined for {$method} method");
         }
-        
+
         // Loop through each route pattern for this HTTP method
         foreach ($this->routes[$method] as $pattern => $handler) {
             // Try to match the URI against this pattern
             $params = $this->matchRoute($pattern, $uri);
-            
+
             // If we got a match (returns array, even if empty)
             if ($params !== false) {
                 $this->lastMethod  = $method;
@@ -89,9 +96,36 @@ class Router
                 return;
             }
         }
-        
+
         // No route matched - throw 404
         throw new \Core\Exceptions\NotFoundHttpException("No route matches {$method} {$uri}");
+    }
+
+    /**
+     * Handle HEAD requests by executing the matching GET handler with body suppressed.
+     * Headers (Content-Type, status code, etc.) are sent; body is discarded via ob_start/ob_end_clean.
+     */
+    protected function handleHead(string $uri): void
+    {
+        if (!isset($this->routes['GET'])) {
+            http_response_code(404);
+            return;
+        }
+
+        foreach ($this->routes['GET'] as $pattern => $handler) {
+            $params = $this->matchRoute($pattern, $uri);
+            if ($params !== false) {
+                $this->lastMethod  = 'HEAD';
+                $this->lastUri     = $uri;
+                $this->lastPattern = $pattern;
+                ob_start();
+                $this->callController($handler, $params);
+                ob_end_clean();
+                return;
+            }
+        }
+
+        http_response_code(404);
     }
     
     /**
@@ -217,8 +251,13 @@ class Router
             $middlewareClass = $this->resolveMiddleware($middlewareName);
             
             if (!$middlewareClass) {
-                if (APP_DEBUG) {
-                    error_log("Router: Unknown middleware '{$middlewareName}'");
+                try {
+                    (new \App\Services\LogService())->add('warning', "Router: Unknown middleware '{$middlewareName}'", [
+                        'uri'    => $_SERVER['REQUEST_URI'] ?? null,
+                        'method' => $_SERVER['REQUEST_METHOD'] ?? null,
+                    ]);
+                } catch (\Throwable $e) {
+                    error_log("Router: Unknown middleware '{$middlewareName}' (LogService unavailable: {$e->getMessage()})");
                 }
                 continue;
             }

@@ -22,9 +22,10 @@ class RoleMiddleware extends Middleware
     public function handle(array $params = []): bool
     {
         if (empty($params)) {
-            if (APP_DEBUG) {
-                error_log("RoleMiddleware: No role specified");
-            }
+            (new LogService())->add('warning', 'RoleMiddleware: no role specified in route definition', [
+                'uri'    => $_SERVER['REQUEST_URI'] ?? null,
+                'method' => $_SERVER['REQUEST_METHOD'] ?? null,
+            ]);
             return true;
         }
         

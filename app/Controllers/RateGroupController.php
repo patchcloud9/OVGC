@@ -224,11 +224,6 @@ class RateGroupController extends Controller
         } else {
             $data['below_format'] = '';
         }
-        // debug log the incoming data
-        if (APP_DEBUG) {
-            error_log('Rates updateContent data: ' . json_encode($data));
-        }
-
         // process file upload if provided
         if (isset($_FILES['scorecard_file']) && $_FILES['scorecard_file']['error'] === UPLOAD_ERR_OK) {
             $tmp = $_FILES['scorecard_file']['tmp_name'];

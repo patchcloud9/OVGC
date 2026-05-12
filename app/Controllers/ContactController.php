@@ -104,7 +104,10 @@ class ContactController extends Controller
         $response = @file_get_contents('https://www.google.com/recaptcha/api/siteverify', false, $context);
 
         if ($response === false) {
-            error_log('reCAPTCHA: API unreachable — failing open');
+            (new \App\Services\LogService())->add('warning', 'reCAPTCHA API unreachable — failing open', [
+                'uri' => $_SERVER['REQUEST_URI'] ?? null,
+                'ip'  => $_SERVER['REMOTE_ADDR'] ?? 'unknown',
+            ]);
             return true;
         }
 

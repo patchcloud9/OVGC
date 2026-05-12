@@ -148,7 +148,9 @@ class GrillMenuController extends Controller
             $imagick->destroy();
             return true;
         } catch (\Exception $e) {
-            error_log('GrillMenu Imagick conversion failed: ' . $e->getMessage());
+            (new \App\Services\LogService())->add('warning', 'Grill menu PDF→image conversion failed', [
+                'message' => $e->getMessage(),
+            ]);
             return false;
         }
     }

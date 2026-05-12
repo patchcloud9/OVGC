@@ -22,8 +22,8 @@ class GuestMiddleware extends Middleware
     {
         // If user is authenticated, redirect them away
         if (isset($_SESSION['user_id'])) {
-            // Check if there's an intended destination, otherwise go to dashboard
-            $destination = $_SESSION['intended_url'] ?? '/dashboard';
+            // Check if there's an intended destination, otherwise go to admin home
+            $destination = $_SESSION['intended_url'] ?? '/admin';
             unset($_SESSION['intended_url']);
             
             $this->redirect($destination);

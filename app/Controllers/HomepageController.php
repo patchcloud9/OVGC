@@ -38,12 +38,6 @@ class HomepageController extends Controller
      */
     public function update(): void
     {
-        // Debug: Log that we're in the update method (only in debug mode)
-        if (is_debug()) {
-            error_log("HomepageController::update() called");
-            error_log("POST data: " . print_r($_POST, true));
-        }
-        
         // Validate input
         $validator = new Validator($_POST, [
             'hero_title' => 'max:100',
@@ -63,17 +57,10 @@ class HomepageController extends Controller
         
         if ($validator->fails()) {
             $errors = $validator->errors();
-            if (is_debug()) {
-                error_log("Validation failed: " . print_r($errors, true));
-            }
             $firstError = reset($errors)[0];
             $this->flash('error', $firstError);
             $this->redirect('/admin/homepage');
             return;
-        }
-        
-        if (is_debug()) {
-            error_log("Validation passed");
         }
         
         // Prepare update data
@@ -151,15 +138,7 @@ class HomepageController extends Controller
         }
 
         // Update settings
-        if (is_debug()) {
-            error_log("Attempting to update settings...");
-            error_log("Update data: " . print_r($updateData, true));
-        }
-
         $result = HomepageSetting::updateSettings($updateData);
-        if (is_debug()) {
-            error_log("Update result: " . ($result ? 'true' : 'false'));
-        }
         
         if ($result) {
             if (!empty($uploadErrors)) {

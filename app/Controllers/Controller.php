@@ -66,14 +66,31 @@ class Controller
                 require $viewFile;
                 $content = ob_get_clean();
             }
-            
-            // Now render the layout, which will use $content
+
+            // Load menu structure once here so nav.php and the footer partial
+            // both receive it without duplicating the DB call or the error handling.
+            $menuStructure = [];
+            try {
+                $menuLevel     = \App\Models\MenuItem::getUserVisibilityLevel();
+                $menuStructure = \App\Models\MenuItem::getMenuStructure($menuLevel);
+            } catch (\Throwable $menuErr) {
+                try {
+                    (new \App\Services\LogService())->add('warning', 'Menu load failed', [
+                        'message' => $menuErr->getMessage(),
+                        'uri'     => $_SERVER['REQUEST_URI'] ?? null,
+                    ]);
+                } catch (\Throwable) {
+                    error_log('Menu load failed: ' . $menuErr->getMessage());
+                }
+            }
+
+            // Now render the layout, which will use $content and $menuStructure
             $layoutFile = BASE_PATH . '/app/Views/layouts/' . $layout . '.php';
-            
+
             if (!file_exists($layoutFile)) {
                 throw new \Exception("Layout not found: {$layout}");
             }
-            
+
             require $layoutFile;
         } else {
             // No layout - just render the view directly

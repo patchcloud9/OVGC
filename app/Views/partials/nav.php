@@ -1,20 +1,5 @@
 <?php
-// Load menu structure from database
-use App\Models\MenuItem;
-
-try {
-    $userVisibilityLevel = MenuItem::getUserVisibilityLevel();
-    $menuStructure = MenuItem::getMenuStructure($userVisibilityLevel);
-} catch (\Exception $e) {
-    // Fallback to empty array if database fails
-    $menuStructure = [];
-    if (defined('APP_DEBUG') && APP_DEBUG) {
-        error_log('Menu load failed: ' . $e->getMessage());
-    }
-}
-?>
-
-<?php
+// $menuStructure is loaded by Controller::view() before the layout renders.
 // compute current path and whether we’re on the homepage before rendering nav
 $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $currentPath = rtrim($currentPath, '/');

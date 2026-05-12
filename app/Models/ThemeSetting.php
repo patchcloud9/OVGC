@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Services\LogService;
+
 /**
  * ThemeSetting Model
  * 
@@ -104,7 +106,9 @@ class ThemeSetting extends Model
             
             return true;
         } catch (\Exception $e) {
-            error_log("Failed to create initial theme: " . $e->getMessage());
+            (new LogService())->add('error', 'Failed to create initial theme settings', [
+                'message' => $e->getMessage(),
+            ]);
             return false;
         }
     }

@@ -2,6 +2,7 @@
 
 namespace App\Middleware;
 
+use App\Services\LogService;
 use Core\Middleware;
 use Core\RateLimiter;
 
@@ -27,7 +28,10 @@ class RateLimitMiddleware extends Middleware
     public function handle(array $params = []): bool
     {
         if (count($params) < 3) {
-            error_log("RateLimitMiddleware: Invalid parameters. Expected [key, max, decay]");
+            (new LogService())->add('warning', 'RateLimitMiddleware: invalid parameters — expected [key, max, decay]', [
+                'uri'    => $_SERVER['REQUEST_URI'] ?? null,
+                'method' => $_SERVER['REQUEST_METHOD'] ?? null,
+            ]);
             return true;
         }
         
