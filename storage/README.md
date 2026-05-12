@@ -7,7 +7,9 @@ This directory contains runtime data and logs that are not committed to version 
 ```
 storage/
 ├── logs/
-│   ├── app.json           # Application logs (file backup)
+│   ├── app.jsonl          # Application logs — JSON Lines format (one entry per line)
+│   ├── app.jsonl.1        # Rotated archive (created automatically when app.jsonl exceeds 50 MB)
+│   ├── php_errors.log     # PHP-level errors routed here via ini_set('error_log') in index.php
 │   ├── cron-error.log     # Weather cron errors and diagnostics
 │   └── .gitkeep           # Preserves directory structure
 └── cache/
@@ -21,8 +23,8 @@ The application uses a **dual persistence strategy** for logs:
 
 ### How It Works
 
-1. **Primary**: Database (`logs` table) - Fast, queryable, production-ready
-2. **Backup**: File (`storage/logs/app.json`) - Always available, survives database issues
+1. **Primary**: Database (`logs` table) — Fast, queryable, production-ready
+2. **Backup**: File (`storage/logs/app.jsonl`) — Always available, survives database issues
 
 ### Normal Operation
 
@@ -34,7 +36,7 @@ The application uses a **dual persistence strategy** for logs:
 
 - File logging continues to work (guaranteed)
 - UI shows yellow warning: "📁 File Backup (Database Unavailable)"
-- All logs captured in `app.json` with sequential IDs
+- All logs captured in `app.jsonl`
 - When database recovers, use **"Sync to Database"** button to reconcile
 
 ### Sync Process
@@ -46,29 +48,32 @@ The application uses a **dual persistence strategy** for logs:
 
 ## File Format
 
-The `app.json` file contains an array of log entries:
+`app.jsonl` is a **JSON Lines** file — one compact JSON object per line, no array wrapper.
+This format allows O(1) appends without reading or re-encoding existing entries.
 
-```json
-[
-  {
-    "id": 1,
-    "level": "info",
-    "message": "Application started",
-    "context": {},
-    "timestamp": "2026-02-03 10:30:45"
-  }
-]
 ```
+{"id":17471234560000,"level":"info","message":"...","context":{},"timestamp":"2026-05-12 10:30:45"}
+{"id":17471234570001,"level":"warning","message":"...","context":{"ip":"1.2.3.4"},"timestamp":"2026-05-12 10:30:46"}
+```
+
+To read with pretty-print: `cat storage/logs/app.jsonl | jq .`
+
+### Log Rotation
+
+When `app.jsonl` exceeds 50 MB it is automatically archived to `app.jsonl.1`
+(overwriting any previous archive) and a fresh file is started. This keeps
+roughly 50 MB current + 50 MB archive on disk at any time.
 
 ## Maintenance
 
 ### View Logs
 - Web UI: `/logs`
-- File: `cat storage/logs/app.json | jq .`
+- File (pretty): `cat storage/logs/app.jsonl | jq .`
+- File (tail recent): `tail -20 storage/logs/app.jsonl | jq .`
 
 ### Clear All Logs
 - Web UI: Click "Clear Logs" button (clears both sources)
-- Manual: `echo '[]' > storage/logs/app.json` and `TRUNCATE TABLE logs;`
+- Manual: `truncate -s 0 storage/logs/app.jsonl` and `TRUNCATE TABLE logs;`
 
 ### Sync File to Database
 - Web UI: Click "Sync to Database" button when shown
@@ -84,10 +89,10 @@ The `app.json` file contains an array of log entries:
 
 ## Best Practices
 
-1. **Don't commit** `app.json` or `weather-data.json` - both are in `.gitignore`
-2. **Monitor file size** - if `app.json` grows large, database may be down
-3. **Sync regularly** - keeps database as primary source
-4. **Back up file** - before clearing, especially if database was down
+1. **Don't commit** `app.jsonl` or `weather-data.json` — both are covered by `.gitignore`
+2. **Monitor file size** — rotation fires automatically at 50 MB, but check if `.1` is piling up
+3. **Sync regularly** — keeps database as primary source
+4. **Back up file** — before clearing, especially if database was down
 
 ## Troubleshooting
 
@@ -99,10 +104,10 @@ The `app.json` file contains an array of log entries:
 ### Logs not appearing
 - Check both database and file
 - Verify LogService is being used (not direct error_log)
-- Check PHP error logs for write failures
+- Check `storage/logs/php_errors.log` for PHP-level write failures
 
 ### File permission errors
 ```bash
 chmod 755 storage/logs/
-chmod 644 storage/logs/app.json
+chmod 644 storage/logs/app.jsonl
 ```

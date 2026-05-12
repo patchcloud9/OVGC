@@ -6,190 +6,138 @@ use App\Models\Log;
 
 /**
  * Log Service - Dual Persistence Strategy
- * 
- * Implements a resilient logging system that writes to both database and file storage.
- * 
- * Features:
- * - Dual persistence: Logs written to both database and JSON file
- * - Graceful degradation: Falls back to file if database unavailable
- * - Auto-sync: Detects and syncs file-only logs to database when it recovers
- * - Thread-safe: Uses file locking for concurrent writes
- * 
+ *
+ * Writes to both database and a JSON Lines file (one JSON object per line).
+ *
  * Architecture:
- * - Write path: File (always succeeds) → Database (best effort)
- * - Read path: Database (fast, queryable) → File (fallback)
- * - Sync path: Manual trigger to reconcile file logs to database
- * 
- * @package App\Services
+ * - Write path: File (O(1) append, always succeeds) → Database (best effort)
+ * - Read path:  Database (fast, queryable) → File (fallback, streaming)
+ * - Sync path:  Manual trigger to reconcile file logs to database
+ *
+ * File format: app.jsonl — one compact JSON object per line, no array wrapper.
+ * Append-only writes eliminate the read-decode-encode-rewrite cycle that
+ * caused OOM on high-volume 404 traffic with the previous app.json format.
+ *
+ * Rotation: file is archived to app.jsonl.1 when it exceeds 50 MB.
  */
 class LogService
 {
     private string $logFile;
-    
+
     public function __construct()
     {
-        // Store logs in the storage folder as backup
-        $this->logFile = BASE_PATH . '/storage/logs/app.json';
-        
-        // Ensure directory exists
+        $this->logFile = BASE_PATH . '/storage/logs/app.jsonl';
+
         $dir = dirname($this->logFile);
         if (!is_dir($dir)) {
             mkdir($dir, 0755, true);
         }
     }
-    
+
+    // -------------------------------------------------------------------------
+    // Public API
+    // -------------------------------------------------------------------------
+
     /**
-     * Get all logs from database with file fallback
-     * 
-     * Primary source is database (fast, queryable). Falls back to file if unavailable.
-     * Also checks if file contains unsynced logs and reports sync status.
-     * 
-     * @return array [
-     *   'logs' => array,              // Log entries
-     *   'source' => string,           // 'database' or 'file'
-     *   'database_available' => bool, // Database connection status
-     *   'needs_sync' => bool,         // File has logs not in DB
-     *   'file_log_count' => int       // Total file logs
-     * ]
+     * Get all logs from database with file fallback.
+     *
+     * @return array{
+     *   logs: array,
+     *   source: string,
+     *   database_available: bool,
+     *   needs_sync: bool,
+     *   file_log_count: int
+     * }
      */
     public function all(): array
     {
         $databaseAvailable = $this->isDatabaseAvailable();
-        
+
         if ($databaseAvailable) {
             try {
-                // Get database logs
-                $logs = Log::all();
-                
-                // Check if there are file logs that need syncing
+                $logs     = Log::all();
                 $fileLogs = $this->getFromFile();
                 $needsSync = $this->hasUnsyncedLogs($logs, $fileLogs);
-                
+
                 return [
-                    'logs' => $logs,
-                    'source' => 'database',
+                    'logs'               => $logs,
+                    'source'             => 'database',
                     'database_available' => true,
-                    'needs_sync' => $needsSync,
-                    'file_log_count' => count($fileLogs)
+                    'needs_sync'         => $needsSync,
+                    'file_log_count'     => count($fileLogs),
                 ];
             } catch (\Exception $e) {
-                // Database failed, use file
                 return [
-                    'logs' => $this->getFromFile(),
-                    'source' => 'file',
+                    'logs'               => $this->getFromFile(),
+                    'source'             => 'file',
                     'database_available' => false,
-                    'needs_sync' => false
+                    'needs_sync'         => false,
+                    'file_log_count'     => 0,
                 ];
             }
-        } else {
-            // Database unavailable, use file
-            return [
-                'logs' => $this->getFromFile(),
-                'source' => 'file',
-                'database_available' => false,
-                'needs_sync' => false
-            ];
         }
+
+        return [
+            'logs'               => $this->getFromFile(),
+            'source'             => 'file',
+            'database_available' => false,
+            'needs_sync'         => false,
+            'file_log_count'     => 0,
+        ];
     }
-    
+
     /**
-     * Check if there are file logs that aren't in the database
-     * 
-     * Compares file logs against database logs by message and level.
-     * Used to determine if sync button should be shown.
-     * 
-     * @param array $dbLogs   Logs from database
-     * @param array $fileLogs Logs from file
-     * @return bool True if file contains logs not in database
-     */
-    private function hasUnsyncedLogs(array $dbLogs, array $fileLogs): bool
-    {
-        if (empty($fileLogs)) {
-            return false;
-        }
-        
-        // Check if any file log doesn't exist in database
-        foreach ($fileLogs as $fileLog) {
-            $found = false;
-            foreach ($dbLogs as $dbLog) {
-                if ($dbLog['message'] === $fileLog['message'] && 
-                    $dbLog['level'] === $fileLog['level']) {
-                    $found = true;
-                    break;
-                }
-            }
-            if (!$found) {
-                return true; // Found a log in file that's not in database
-            }
-        }
-        
-        return false;
-    }
-    
-    /**
-     * Get a single log by ID
+     * Get a single log entry by ID (database first, file fallback).
      */
     public function find(int $id): ?array
     {
         try {
-            // Try database first
             return Log::find($id);
         } catch (\Exception $e) {
-            // Fallback to file
             return $this->findInFile($id);
         }
     }
-    
+
     /**
-     * Add a new log entry to both database and file
-     * 
-     * File logging always succeeds; database logging is best-effort.
-     * If database is unavailable, the log is captured in file and can be synced later.
-     * 
-     * @param string $level   Log level: 'info', 'warning', 'error', 'debug'
-     * @param string $message Log message (should be descriptive)
-     * @param array  $context Additional context data (e.g., user ID, IP, stack trace)
-     * @return void
+     * Append a log entry to both file and database.
+     *
+     * File write is guaranteed; database write is best-effort.
+     *
+     * @param string $level   'info' | 'warning' | 'error' | 'debug'
+     * @param string $message Descriptive log message
+     * @param array  $context Scalar/shallow-array context values only
      */
     public function add(string $level, string $message, array $context = []): void
     {
-        // Sanitize context to avoid persisting secrets
         $sanitizedContext = \sanitize_for_log($context);
 
-        // Always log to file first (guaranteed to work)
         $this->logToFile($level, $message, $sanitizedContext);
-        
-        // Try to log to database (but don't fail if it doesn't work)
+
         try {
             Log::log($level, $message, $sanitizedContext);
         } catch (\Exception $e) {
-            // Database logging failed, but file logging succeeded
-            // Also record the logging failure to the file so it can be reconciled
             error_log("Failed to log to database: " . $e->getMessage());
             $this->logToFile('error', 'Failed to log to database', ['error' => substr($e->getMessage(), 0, 512)]);
         }
     }
-    
+
     /**
-     * Clear all logs (both database and file)
+     * Clear all logs (file truncated, database table truncated).
      */
     public function clear(): void
     {
-        // Clear file
-        file_put_contents($this->logFile, '[]');
-        
-        // Try to clear database
+        @file_put_contents($this->logFile, '');
+
         try {
             $db = \Core\Database::getInstance();
             $db->execute("TRUNCATE TABLE logs");
         } catch (\Exception $e) {
-            // Database clear failed, but file was cleared
             error_log("Failed to clear database logs: " . $e->getMessage());
         }
     }
-    
+
     /**
-     * Check if database is available
+     * Check if the database is reachable.
      */
     public function isDatabaseAvailable(): bool
     {
@@ -201,174 +149,207 @@ class LogService
             return false;
         }
     }
-    
+
     /**
-     * Synchronize file logs to database
-     * 
-     * Reconciles file-based logs to the database after database recovery.
-     * Compares logs by message+level to avoid duplicates.
-     * 
-     * Use Cases:
-     * - Database was temporarily unavailable
-     * - Manual file-only logs were created for testing
-     * - Post-recovery data consistency check
-     * 
-     * @return array Result with keys: success (bool), synced (int), skipped (int), errors (array)
+     * Synchronise file logs to the database after database recovery.
+     *
+     * Reads all file entries and inserts any not already present in the DB
+     * (compared by message + level to avoid duplicates).
+     *
+     * @return array{success: bool, synced: int, skipped: int, errors: array}
      */
     public function syncToDatabase(): array
     {
-        $result = [
-            'success' => false,
-            'synced' => 0,
-            'skipped' => 0,
-            'errors' => []
-        ];
-        
-        // Check if database is available
+        $result = ['success' => false, 'synced' => 0, 'skipped' => 0, 'errors' => []];
+
         if (!$this->isDatabaseAvailable()) {
             $result['errors'][] = 'Database is not available';
             return $result;
         }
-        
-        // Get logs from file
-        $fileLogs = $this->getFromFile();
-        
+
+        // Pass limit=0 to read all entries, not just the recent window
+        $fileLogs = $this->getFromFile(0);
+
         if (empty($fileLogs)) {
             $result['success'] = true;
             return $result;
         }
-        
-        // Get existing log messages from database to avoid duplicates
+
         try {
             $existingLogs = Log::all();
-            $existingMessages = array_column($existingLogs, 'message');
-            
+
             foreach ($fileLogs as $log) {
-                // Skip if this log already exists in database (by message and level)
                 $exists = false;
                 foreach ($existingLogs as $existing) {
-                    if ($existing['message'] === $log['message'] && 
-                        $existing['level'] === $log['level']) {
+                    if ($existing['message'] === $log['message'] &&
+                        $existing['level']   === $log['level']) {
                         $exists = true;
                         break;
                     }
                 }
-                
+
                 if ($exists) {
                     $result['skipped']++;
                     continue;
                 }
-                
-                // Add to database
+
                 try {
-                    Log::log(
-                        $log['level'],
-                        $log['message'],
-                        $log['context'] ?? []
-                    );
+                    Log::log($log['level'], $log['message'], $log['context'] ?? []);
                     $result['synced']++;
                 } catch (\Exception $e) {
                     $result['errors'][] = "Failed to sync log #{$log['id']}: " . $e->getMessage();
                 }
             }
-            
+
             $result['success'] = true;
-            
         } catch (\Exception $e) {
             $result['errors'][] = 'Failed to sync: ' . $e->getMessage();
         }
-        
+
         return $result;
     }
-    
+
+    // -------------------------------------------------------------------------
+    // Private helpers
+    // -------------------------------------------------------------------------
 
     /**
-     * Get logs from file storage
-     * 
-     * @return array Array of log entries
+     * Read entries from the JSON Lines file.
+     *
+     * Streams line-by-line so large files do not require loading the entire
+     * content into memory. Returns entries most-recent-first.
+     *
+     * @param int $limit Maximum entries to return (0 = all).
      */
-    private function getFromFile(): array
+    private function getFromFile(int $limit = 100): array
     {
         if (!file_exists($this->logFile)) {
             return [];
         }
-        
-        $contents = @file_get_contents($this->logFile);
-        
-        if ($contents === false) {
-            error_log("Failed to read log file: {$this->logFile}");
+
+        $entries = [];
+        try {
+            $file = new \SplFileObject($this->logFile, 'r');
+            while (!$file->eof()) {
+                $line = trim($file->fgets());
+                if ($line === '') {
+                    continue;
+                }
+                $decoded = json_decode($line, true);
+                if ($decoded !== null) {
+                    $entries[] = $decoded;
+                }
+            }
+            unset($file); // release file handle
+        } catch (\Throwable $e) {
+            error_log("Failed to read log file {$this->logFile}: " . $e->getMessage());
             return [];
         }
-        
-        $logs = json_decode($contents, true);
-        
-        if ($logs === null && $contents !== '[]') {
-            error_log("Failed to parse log file JSON: {$this->logFile}");
-            return [];
-        }
-        
-        return $logs ?? [];
+
+        $entries = array_reverse($entries); // most-recent-first
+
+        return ($limit > 0) ? array_slice($entries, 0, $limit) : $entries;
     }
-    
+
     /**
-     * Find a log in file
+     * Find a single entry in the file by its ID (streams; does not load all entries).
      */
     private function findInFile(int $id): ?array
     {
-        $logs = $this->getFromFile();
-        
-        foreach ($logs as $log) {
-            if ($log['id'] === $id) {
-                return $log;
-            }
+        if (!file_exists($this->logFile)) {
+            return null;
         }
-        
+
+        try {
+            $file = new \SplFileObject($this->logFile, 'r');
+            while (!$file->eof()) {
+                $line = trim($file->fgets());
+                if ($line === '') {
+                    continue;
+                }
+                $decoded = json_decode($line, true);
+                if ($decoded !== null && isset($decoded['id']) && $decoded['id'] === $id) {
+                    return $decoded;
+                }
+            }
+            unset($file);
+        } catch (\Throwable $e) {
+            error_log("Failed to search log file {$this->logFile}: " . $e->getMessage());
+        }
+
         return null;
     }
-    
+
     /**
-     * Write log entry to file storage
-     * 
-     * Uses atomic write with temporary file to prevent corruption.
-     * Generates sequential IDs for file-based log entries.
-     * 
-     * @param string $level   Log level (info, warning, error, debug)
-     * @param string $message Log message
-     * @param array  $context Additional context data
-     * @return void
+     * Archive the current log file if it exceeds 50 MB.
+     *
+     * Keeps one archive: app.jsonl.1 (overwritten each rotation).
+     */
+    private function rotateIfNeeded(): void
+    {
+        if (!file_exists($this->logFile)) {
+            return;
+        }
+        if (filesize($this->logFile) < 50 * 1024 * 1024) {
+            return;
+        }
+
+        $archive = $this->logFile . '.1';
+        if (file_exists($archive)) {
+            @unlink($archive);
+        }
+        @rename($this->logFile, $archive);
+    }
+
+    /**
+     * Append one JSON Lines entry to the log file.
+     *
+     * O(1) write — no read, no re-encode of existing entries.
+     * Uses FILE_APPEND | LOCK_EX for safe concurrent access.
+     * Rotates the file first if it has grown beyond 50 MB.
      */
     private function logToFile(string $level, string $message, array $context = []): void
     {
-        $logs = $this->getFromFile();
-        
-        // Generate sequential ID
-        $maxId = 0;
-        foreach ($logs as $log) {
-            if (isset($log['id']) && $log['id'] > $maxId) {
-                $maxId = $log['id'];
-            }
-        }
-        
-        $logs[] = [
-            'id'        => $maxId + 1,
+        $this->rotateIfNeeded();
+
+        $entry = [
+            'id'        => intval(microtime(true) * 10000),
             'level'     => $level,
             'message'   => $message,
             'context'   => $context,
             'timestamp' => date('Y-m-d H:i:s'),
         ];
-        
-        // Atomic write: write to temp file then rename
-        $tempFile = $this->logFile . '.tmp';
-        $json = json_encode($logs, JSON_PRETTY_PRINT);
-        
-        if (@file_put_contents($tempFile, $json, LOCK_EX) === false) {
-            error_log("Failed to write log file: {$tempFile}");
-            return;
+
+        $line = json_encode($entry) . "\n";
+
+        if (@file_put_contents($this->logFile, $line, FILE_APPEND | LOCK_EX) === false) {
+            error_log("Failed to write log file: {$this->logFile}");
         }
-        
-        if (!@rename($tempFile, $this->logFile)) {
-            error_log("Failed to rename log file: {$tempFile} to {$this->logFile}");
-            @unlink($tempFile);
+    }
+
+    /**
+     * Check whether any file entry is absent from the database (by message + level).
+     */
+    private function hasUnsyncedLogs(array $dbLogs, array $fileLogs): bool
+    {
+        if (empty($fileLogs)) {
+            return false;
         }
+
+        foreach ($fileLogs as $fileLog) {
+            $found = false;
+            foreach ($dbLogs as $dbLog) {
+                if ($dbLog['message'] === $fileLog['message'] &&
+                    $dbLog['level']   === $fileLog['level']) {
+                    $found = true;
+                    break;
+                }
+            }
+            if (!$found) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
