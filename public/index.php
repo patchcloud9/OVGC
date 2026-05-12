@@ -60,13 +60,13 @@ set_exception_handler(function ($exception) {
         $logService = new \App\Services\LogService();
         $logService->add($level, 'Uncaught Exception: ' . $exception->getMessage(), [
             'exception_class' => get_class($exception),
-            'message'         => $exception->getMessage(),
+            'message'         => substr($exception->getMessage(), 0, 512),
             'file'            => $exception->getFile(),
             'line'            => $exception->getLine(),
-            'uri'             => $_SERVER['REQUEST_URI'] ?? null,
+            'uri'             => isset($_SERVER['REQUEST_URI'])  ? substr($_SERVER['REQUEST_URI'],  0, 512) : null,
             'method'          => $_SERVER['REQUEST_METHOD'] ?? null,
             'ip'              => $_SERVER['REMOTE_ADDR'] ?? 'unknown',
-            'trace'           => $exception->getTraceAsString(),
+            'trace'           => substr($exception->getTraceAsString(), 0, 8192),
         ]);
     } catch (\Throwable $e) {
         // LogService unavailable — fall back to php_errors.log
