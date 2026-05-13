@@ -392,7 +392,7 @@ class Validator
                 );
             }
             
-            return ($result['count'] ?? 0) === 0;
+            return (int)($result['count'] ?? 0) === 0;
         } catch (\Exception $e) {
             // If database check fails, allow (don't block user)
             error_log("Unique validation failed: " . $e->getMessage());
