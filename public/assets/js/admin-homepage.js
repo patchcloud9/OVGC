@@ -18,12 +18,6 @@ function clearCameraImage() {
     }
 }
 
-function clearCamera2Image() {
-    if (confirm('Are you sure you want to remove the camera 2 image?')) {
-        document.getElementById('clearCamera2ImageForm').submit();
-    }
-}
-
 document.addEventListener('DOMContentLoaded', function() {
     // Update file input display names
     var fileInputs = document.querySelectorAll('.file-input');

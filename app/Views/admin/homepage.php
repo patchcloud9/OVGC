@@ -338,7 +338,7 @@ $layout = 'main';
             <!-- Camera 2 Widget -->
             <div class="box mt-5">
                 <h2 class="title is-4">Camera 2 Widget</h2>
-                <p class="subtitle is-6 has-text-grey">Control what is shown in the second camera/image column on the homepage, next to the main camera</p>
+                <p class="subtitle is-6 has-text-grey">Control what is shown in the second column on the homepage, next to the main camera</p>
 
                 <div class="field">
                     <label class="label">Camera 2 Display Mode</label>
@@ -349,48 +349,10 @@ $layout = 'main';
                         </label>
                         <label class="radio ml-4">
                             <input type="radio" name="camera2_mode" value="maintenance" <?= ($settings['camera2_mode'] ?? 'maintenance') === 'maintenance' ? 'checked' : '' ?>>
-                            Static Image
+                            Off (show Upcoming Events here instead)
                         </label>
                     </div>
-                    <p class="help">Use Static Image if there is no second camera feed set up. Switch to Live Camera once a second camera is streaming.</p>
-                </div>
-
-                <div class="field mt-4">
-                    <label class="label">Static Image</label>
-                    <div class="control">
-                        <div class="file has-name is-fullwidth">
-                            <label class="file-label">
-                                <input class="file-input" type="file" name="camera2_maintenance_image" accept="image/*">
-                                <span class="file-cta">
-                                    <span class="file-icon">
-                                        <i class="fas fa-upload"></i>
-                                    </span>
-                                    <span class="file-label">
-                                        Choose a file…
-                                    </span>
-                                </span>
-                                <span class="file-name">
-                                    <?= !empty($settings['camera2_maintenance_image']) ? basename($settings['camera2_maintenance_image']) : 'No file chosen' ?>
-                                </span>
-                            </label>
-                        </div>
-                    </div>
-                    <p class="help">Image to display in the second column. JPG, PNG, GIF, or WebP. Max 5MB.</p>
-                    <?php if (!empty($settings['camera2_maintenance_image'])): ?>
-                        <div class="mt-3">
-                            <figure class="image" style="max-width: 400px;">
-                                <img src="<?= e($settings['camera2_maintenance_image']) ?>" alt="Current camera 2 image" style="border-radius: 8px;">
-                            </figure>
-                            <button type="button" class="button is-small is-danger mt-2" onclick="clearCamera2Image()">
-                                <span class="icon">
-                                    <i class="fas fa-times"></i>
-                                </span>
-                                <span>Remove Image</span>
-                            </button>
-                        </div>
-                    <?php else: ?>
-                        <p class="help has-text-warning mt-2"><span class="icon"><i class="fas fa-exclamation-triangle"></i></span> No image uploaded yet. If Static Image mode is active without an image, this column will be hidden.</p>
-                    <?php endif; ?>
+                    <p class="help">When off, the Upcoming Events widget fills this column. Switch to Live Camera once a second camera is streaming — Upcoming Events will then move to a full-width row below both cameras.</p>
                 </div>
             </div>
 
@@ -497,10 +459,6 @@ $layout = 'main';
 </form>
 
 <form id="clearCameraImageForm" method="POST" action="/admin/homepage/clear-camera-image" style="display: none;">
-    <?= csrf_field() ?>
-</form>
-
-<form id="clearCamera2ImageForm" method="POST" action="/admin/homepage/clear-camera2-image" style="display: none;">
     <?= csrf_field() ?>
 </form>
 

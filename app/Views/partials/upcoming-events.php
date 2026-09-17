@@ -2,10 +2,12 @@
 /**
  * Upcoming Events Widget — homepage partial
  * Expects $upcomingEvents from the calling scope (array from EventService::getUpcomingEvents())
+ * Optional $spreadEvents (bool): true lays items out in a wrapping row (full-width placement),
+ * false/omitted stacks them in a single column (narrow-column placement).
  */
 ?>
 <?php if (!empty($upcomingEvents)): ?>
-<section class="upcoming-events">
+<section class="upcoming-events<?= !empty($spreadEvents) ? ' upcoming-events--spread' : '' ?>">
     <h2 class="upcoming-events-heading">Upcoming Events</h2>
     <div class="upcoming-events-items">
         <?php foreach ($upcomingEvents as $ev): ?>

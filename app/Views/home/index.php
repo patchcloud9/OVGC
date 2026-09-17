@@ -118,26 +118,25 @@ if (!empty($settings['hero_background_image'])) {
                     <p class="is-italic is-size-7 mt-2">(updates every 10&ndash;60 seconds)</p>
                 <?php endif; ?>
             </div>
-            <!-- Right column: Camera 2 -->
+            <!-- Right column: Camera 2 (live) or Upcoming Events (camera 2 off) -->
             <div class="column is-6">
-                <?php if (($settings['camera2_mode'] ?? 'maintenance') === 'maintenance' && !empty($settings['camera2_maintenance_image'])): ?>
-                    <figure class="image">
-                        <img src="<?= e($settings['camera2_maintenance_image']) ?>" alt="Camera 2" style="border-radius:8px;">
-                    </figure>
-                <?php elseif (($settings['camera2_mode'] ?? 'maintenance') === 'live'): ?>
+                <?php if (($settings['camera2_mode'] ?? 'maintenance') === 'live'): ?>
                     <figure class="image">
                         <img id="camera2" class="js-camera-feed" data-endpoint="/camera/live2" src="/camera/live2" alt="Camera 2" style="border-radius:8px;">
                     </figure>
                     <p class="is-italic is-size-7 mt-2">(updates every 10&ndash;60 seconds)</p>
+                <?php else: ?>
+                    <?php $spreadEvents = false; require BASE_PATH . '/app/Views/partials/upcoming-events.php'; ?>
                 <?php endif; ?>
             </div>
         </div>
 
-        <!-- Upcoming Events row (full width, spreads across the page) -->
-        <?php if (!empty($upcomingEvents)): ?>
+        <!-- Upcoming Events row: only appears here (full width, below both cameras)
+             when camera 2 is live and has displaced the events widget from the right column -->
+        <?php if (($settings['camera2_mode'] ?? 'maintenance') === 'live'): ?>
         <div class="columns mt-2">
             <div class="column is-12">
-                <?php require BASE_PATH . '/app/Views/partials/upcoming-events.php'; ?>
+                <?php $spreadEvents = true; require BASE_PATH . '/app/Views/partials/upcoming-events.php'; ?>
             </div>
         </div>
         <?php endif; ?>

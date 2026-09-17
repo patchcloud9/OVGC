@@ -75,16 +75,22 @@
     text-align: center;
 }
 
+/* Default: stacked single column (narrow-column placement, e.g. beside a camera) */
 .upcoming-events-items {
     display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+/* Spread modifier: wrapping row (full-width placement, e.g. below both cameras) */
+.upcoming-events--spread .upcoming-events-items {
+    flex-direction: row;
     flex-wrap: wrap;
     gap: 0.75rem 1rem;
 }
 
 .ev-upcoming-item {
     display: block;
-    flex: 1 1 220px;
-    max-width: 280px;
     padding: 0.65rem 0.9rem;
     border-radius: 6px;
     border-left: 4px solid #ccc;
@@ -92,6 +98,11 @@
     text-decoration: none;
     color: inherit;
     transition: background 0.15s, opacity 0.15s;
+}
+
+.upcoming-events--spread .ev-upcoming-item {
+    flex: 1 1 220px;
+    max-width: 280px;
 }
 
 .ev-upcoming-item:hover {
@@ -141,8 +152,8 @@
 
 /* --- Mobile adjustments ------------------------------------------------- */
 @media screen and (max-width: 600px) {
-    .upcoming-events-items { gap: 0.5rem; }
-    .ev-upcoming-item { flex-basis: 100%; max-width: 100%; }
+    .upcoming-events--spread .upcoming-events-items { gap: 0.5rem; }
+    .upcoming-events--spread .ev-upcoming-item { flex-basis: 100%; max-width: 100%; }
 }
 
 /* --- FullCalendar toolbar — mobile layout --------------------------------
