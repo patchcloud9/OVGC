@@ -81,6 +81,7 @@ return [
         
         // Camera proxy (serves FTP image only when file is stable)
         '/camera/live'          => ['CameraController', 'live'],
+        '/camera/live2'         => ['CameraController', 'live2'],
 
         // Gallery (Public)
         '/gallery'              => ['GalleryController', 'index'],
@@ -177,6 +178,7 @@ return [
         '/admin/homepage/clear-hero-image' => ['HomepageController', 'clearHeroImage', ['auth', 'role:admin', 'csrf']],
         '/admin/homepage/clear-bottom-image' => ['HomepageController', 'clearBottomImage', ['auth', 'role:admin', 'csrf']],
         '/admin/homepage/clear-camera-image' => ['HomepageController', 'clearCameraImage', ['auth', 'role:admin', 'csrf']],
+        '/admin/homepage/clear-camera2-image' => ['HomepageController', 'clearCamera2Image', ['auth', 'role:admin', 'csrf']],
 
         // About Page Settings (Admin Only)
 

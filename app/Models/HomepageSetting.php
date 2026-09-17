@@ -39,6 +39,8 @@ class HomepageSetting extends Model
         'bottom_section_image',
         'camera_mode',
         'camera_maintenance_image',
+        'camera2_mode',
+        'camera2_maintenance_image',
     ];
     
     protected bool $timestamps = true;

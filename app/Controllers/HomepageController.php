@@ -86,6 +86,7 @@ class HomepageController extends Controller
             'bottom_section_title' => $this->input('bottom_section_title'),
             'bottom_section_text' => $this->input('bottom_section_text'),
             'camera_mode' => in_array($this->input('camera_mode'), ['live', 'maintenance']) ? $this->input('camera_mode') : 'live',
+            'camera2_mode' => in_array($this->input('camera2_mode'), ['live', 'maintenance']) ? $this->input('camera2_mode') : 'maintenance',
         ];
         
         // Get existing settings to preserve image paths if not uploading new ones
@@ -135,6 +136,18 @@ class HomepageController extends Controller
             }
         } elseif (!empty($existingSettings['camera_maintenance_image'])) {
             $updateData['camera_maintenance_image'] = $existingSettings['camera_maintenance_image'];
+        }
+
+        // Handle camera 2 maintenance image upload
+        if (isset($_FILES['camera2_maintenance_image']) && $_FILES['camera2_maintenance_image']['error'] !== UPLOAD_ERR_NO_FILE) {
+            $imagePath = $this->handleFileUpload($_FILES['camera2_maintenance_image'], 'camera 2 maintenance');
+            if ($imagePath) {
+                $updateData['camera2_maintenance_image'] = $imagePath;
+            } else {
+                $uploadErrors[] = 'camera 2 maintenance';
+            }
+        } elseif (!empty($existingSettings['camera2_maintenance_image'])) {
+            $updateData['camera2_maintenance_image'] = $existingSettings['camera2_maintenance_image'];
         }
 
         // Update settings
@@ -225,6 +238,30 @@ class HomepageController extends Controller
             $this->flash('success', 'Camera maintenance image cleared successfully!');
         } else {
             $this->flash('info', 'No camera maintenance image to clear');
+        }
+
+        $this->redirect('/admin/homepage');
+    }
+
+    /**
+     * Clear camera 2 maintenance image
+     * Route: POST /admin/homepage/clear-camera2-image
+     * Middleware: auth, role:admin, csrf
+     */
+    public function clearCamera2Image(): void
+    {
+        $settings = HomepageSetting::getSettings();
+
+        if ($settings && !empty($settings['camera2_maintenance_image'])) {
+            $filePath = BASE_PATH . '/public' . $settings['camera2_maintenance_image'];
+            if (file_exists($filePath)) {
+                @unlink($filePath);
+            }
+
+            HomepageSetting::update($settings['id'], ['camera2_maintenance_image' => '']);
+            $this->flash('success', 'Camera 2 maintenance image cleared successfully!');
+        } else {
+            $this->flash('info', 'No camera 2 maintenance image to clear');
         }
 
         $this->redirect('/admin/homepage');

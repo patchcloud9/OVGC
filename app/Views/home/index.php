@@ -100,11 +100,11 @@ if (!empty($settings['hero_background_image'])) {
 </section>
 <?php endif; ?>
 
-<!-- Camera + Upcoming Events Section -->
+<!-- Cameras + Upcoming Events Section -->
 <section class="section" style="padding-top: 0.5rem;">
     <div class="container">
         <div class="columns">
-            <!-- Left column for camera -->
+            <!-- Left column: Camera 1 -->
             <div class="column is-6">
                 <?php if (($settings['camera_mode'] ?? 'live') === 'maintenance' && !empty($settings['camera_maintenance_image'])): ?>
                     <figure class="image">
@@ -113,19 +113,36 @@ if (!empty($settings['hero_background_image'])) {
                     <p class="is-italic is-size-7 mt-2">Camera temporarily unavailable</p>
                 <?php else: ?>
                     <figure class="image">
-                        <img id="camera1" src="/camera/live" alt="Traffic Camera" style="border-radius:8px;">
+                        <img id="camera1" class="js-camera-feed" data-endpoint="/camera/live" src="/camera/live" alt="Traffic Camera" style="border-radius:8px;">
                     </figure>
                     <p class="is-italic is-size-7 mt-2">(updates every 10&ndash;60 seconds)</p>
-                    <script src="/assets/js/camera-poll.js?v=<?= @filemtime(BASE_PATH . '/public/assets/js/camera-poll.js') ?>"></script>
                 <?php endif; ?>
             </div>
-            <!-- Right column for upcoming events -->
+            <!-- Right column: Camera 2 -->
             <div class="column is-6">
-                <?php if (!empty($upcomingEvents)): ?>
-                    <?php require BASE_PATH . '/app/Views/partials/upcoming-events.php'; ?>
+                <?php if (($settings['camera2_mode'] ?? 'maintenance') === 'maintenance' && !empty($settings['camera2_maintenance_image'])): ?>
+                    <figure class="image">
+                        <img src="<?= e($settings['camera2_maintenance_image']) ?>" alt="Camera 2" style="border-radius:8px;">
+                    </figure>
+                <?php elseif (($settings['camera2_mode'] ?? 'maintenance') === 'live'): ?>
+                    <figure class="image">
+                        <img id="camera2" class="js-camera-feed" data-endpoint="/camera/live2" src="/camera/live2" alt="Camera 2" style="border-radius:8px;">
+                    </figure>
+                    <p class="is-italic is-size-7 mt-2">(updates every 10&ndash;60 seconds)</p>
                 <?php endif; ?>
             </div>
         </div>
+
+        <!-- Upcoming Events row (full width, spreads across the page) -->
+        <?php if (!empty($upcomingEvents)): ?>
+        <div class="columns mt-2">
+            <div class="column is-12">
+                <?php require BASE_PATH . '/app/Views/partials/upcoming-events.php'; ?>
+            </div>
+        </div>
+        <?php endif; ?>
+
+        <script src="/assets/js/camera-poll.js?v=<?= @filemtime(BASE_PATH . '/public/assets/js/camera-poll.js') ?>"></script>
     </div>
 </section>
 

@@ -17,13 +17,32 @@ class CameraController extends Controller
     private const SOURCE        = '/public/uploads/camera1.jpg';
     private const SOURCE_TMP    = '/public/uploads/camera1.jpg.tmp';
     private const STABLE        = '/storage/cache/camera1_stable.jpg';
+
+    private const SOURCE2        = '/public/uploads/camera2.jpg';
+    private const SOURCE2_TMP    = '/public/uploads/camera2.jpg.tmp';
+    private const STABLE2        = '/storage/cache/camera2_stable.jpg';
+
     private const MAX_STABLE_AGE = 300; // force-refresh stable after this many seconds
 
     public function live(): void
     {
-        $source    = BASE_PATH . self::SOURCE;
-        $sourceTmp = BASE_PATH . self::SOURCE_TMP;
-        $stable    = BASE_PATH . self::STABLE;
+        $this->serve(self::SOURCE, self::SOURCE_TMP, self::STABLE);
+    }
+
+    /**
+     * Second camera slot (right-hand homepage column).
+     * Route: GET /camera/live2
+     */
+    public function live2(): void
+    {
+        $this->serve(self::SOURCE2, self::SOURCE2_TMP, self::STABLE2);
+    }
+
+    private function serve(string $sourcePath, string $sourceTmpPath, string $stablePath): void
+    {
+        $source    = BASE_PATH . $sourcePath;
+        $sourceTmp = BASE_PATH . $sourceTmpPath;
+        $stable    = BASE_PATH . $stablePath;
 
         if (!file_exists($source) && !file_exists($sourceTmp)) {
             http_response_code(404);

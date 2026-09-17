@@ -23,7 +23,7 @@ class HomeController extends Controller
 
         $upcomingEvents = [];
         try {
-            $upcomingEvents = (new EventService())->getUpcomingEvents(5);
+            $upcomingEvents = (new EventService())->getUpcomingEvents(10);
         } catch (\Exception $e) {
             // Events table may not exist yet in all environments — fail silently
         }
